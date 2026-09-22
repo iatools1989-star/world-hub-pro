@@ -1,19 +1,19 @@
 @echo off
 chcp 65001 >nul
-title World Hub Pro - Atualizar
-color 0B
+title World Hub Pro - AdSense
+color 0A
 echo ====================================================
-echo   WORLD-HUB-PRO - Atualizar
+echo   AdSense ca-pub-3588158822524146
+echo   iatools.online - Inject Script + ads.txt
 echo ====================================================
-git status --short
-set /p MSG= Mensagem [Enter=atualizacao]: 
-if "%MSG%"=="" set MSG=atualizacao world-hub
-set /p GH_TOKEN= Cole seu token ghp_... : 
 git add .
-git commit -m "%MSG%"
+git commit -m "feat: adsense ca-pub-3588158822524146 + ads.txt"
+set /p GH_TOKEN= Cole seu token ghp_... : 
 git remote set-url origin https://iatools1989-star:%GH_TOKEN%@github.com/iatools1989-star/world-hub-pro.git
 git push
 git remote set-url origin https://github.com/iatools1989-star/world-hub-pro.git
 set GH_TOKEN=
-set MSG=
+echo.
+echo Pronto! Aguarde Vercel verde e clique em
+echo AdSense -> "Ja coloquei o codigo" -> Solicitar analise
 pause
