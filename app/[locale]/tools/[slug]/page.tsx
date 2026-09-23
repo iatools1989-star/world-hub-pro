@@ -23,6 +23,11 @@ import AgeCalculator from '@/components/tools/AgeCalculator';
 import MergePdf from '@/components/tools/MergePdf';
 import CompressPdf from '@/components/tools/CompressPdf';
 
+// Lote 5
+import RemoveBg from '@/components/tools/RemoveBg';
+import TextToSpeech from '@/components/tools/TextToSpeech';
+import ResumeBuilder from '@/components/tools/ResumeBuilder';
+
 import GenericToolRunner from '@/components/tools/GenericToolRunner';
 import { TOOLS } from '@/lib/data';
 
@@ -78,6 +83,14 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
         return <MergePdf />;
       case 'compress-pdf':
         return <CompressPdf />;
+
+      // Lote 5 (Completo: 15/15)
+      case 'remove-bg':
+        return <RemoveBg />;
+      case 'text-to-speech':
+        return <TextToSpeech />;
+      case 'resume-builder':
+        return <ResumeBuilder />;
 
       default:
         return <GenericToolRunner name={tool.name} />;
