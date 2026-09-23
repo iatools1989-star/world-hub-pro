@@ -5,6 +5,9 @@ import AdSenseBanner from '@/components/AdSenseBanner';
 import QRGenerator from '@/components/tools/QRGenerator';
 import PasswordGenerator from '@/components/tools/PasswordGenerator';
 import WordCounter from '@/components/tools/WordCounter';
+import UnitConverter from '@/components/tools/UnitConverter';
+import ColorPicker from '@/components/tools/ColorPicker';
+import URLShortener from '@/components/tools/URLShortener';
 import GenericToolRunner from '@/components/tools/GenericToolRunner';
 import { TOOLS } from '@/lib/data';
 
@@ -29,12 +32,22 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
 
   const renderToolComponent = () => {
     switch (tool.slug) {
+      // Lote 1
       case 'qr-generator':
         return <QRGenerator />;
       case 'password-generator':
         return <PasswordGenerator />;
       case 'word-counter':
         return <WordCounter />;
+      
+      // Lote 2
+      case 'unit-converter':
+        return <UnitConverter />;
+      case 'color-picker':
+        return <ColorPicker />;
+      case 'url-shortener':
+        return <URLShortener />;
+
       default:
         return <GenericToolRunner name={tool.name} />;
     }
