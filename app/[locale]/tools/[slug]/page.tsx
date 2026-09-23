@@ -18,6 +18,11 @@ import ImageCompressor from '@/components/tools/ImageCompressor';
 import JpgToPdf from '@/components/tools/JpgToPdf';
 import PdfToJpg from '@/components/tools/PdfToJpg';
 
+// Lote 4
+import AgeCalculator from '@/components/tools/AgeCalculator';
+import MergePdf from '@/components/tools/MergePdf';
+import CompressPdf from '@/components/tools/CompressPdf';
+
 import GenericToolRunner from '@/components/tools/GenericToolRunner';
 import { TOOLS } from '@/lib/data';
 
@@ -65,6 +70,14 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
         return <JpgToPdf />;
       case 'pdf-to-jpg':
         return <PdfToJpg />;
+
+      // Lote 4
+      case 'age-calculator':
+        return <AgeCalculator />;
+      case 'merge-pdf':
+        return <MergePdf />;
+      case 'compress-pdf':
+        return <CompressPdf />;
 
       default:
         return <GenericToolRunner name={tool.name} />;
