@@ -22,7 +22,6 @@ export default async function LocaleHome({ params }: { params: Promise<{ locale:
           <nav className="flex gap-2 text-sm font-bold">
             <a href={`/${locale}#tools`} className="px-3 py-2 rounded-full bg-zinc-900 text-white">Tools</a>
             <a href={`/${locale}#directory`} className="px-3 py-2 rounded-full border border-zinc-200">Directory</a>
-            <Link href={`/${locale}/admin`} className="px-3 py-2 rounded-full bg-yellow-400">Admin</Link>
           </nav>
         </div>
       </header>
