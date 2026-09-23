@@ -2,12 +2,22 @@ import { notFound } from 'next/navigation';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import AdSenseBanner from '@/components/AdSenseBanner';
+
+// Lote 1
 import QRGenerator from '@/components/tools/QRGenerator';
 import PasswordGenerator from '@/components/tools/PasswordGenerator';
 import WordCounter from '@/components/tools/WordCounter';
+
+// Lote 2
 import UnitConverter from '@/components/tools/UnitConverter';
 import ColorPicker from '@/components/tools/ColorPicker';
 import URLShortener from '@/components/tools/URLShortener';
+
+// Lote 3
+import ImageCompressor from '@/components/tools/ImageCompressor';
+import JpgToPdf from '@/components/tools/JpgToPdf';
+import PdfToJpg from '@/components/tools/PdfToJpg';
+
 import GenericToolRunner from '@/components/tools/GenericToolRunner';
 import { TOOLS } from '@/lib/data';
 
@@ -47,6 +57,14 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
         return <ColorPicker />;
       case 'url-shortener':
         return <URLShortener />;
+
+      // Lote 3
+      case 'image-compressor':
+        return <ImageCompressor />;
+      case 'jpg-to-pdf':
+        return <JpgToPdf />;
+      case 'pdf-to-jpg':
+        return <PdfToJpg />;
 
       default:
         return <GenericToolRunner name={tool.name} />;
