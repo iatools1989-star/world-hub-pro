@@ -4,13 +4,6 @@ import Footer from '@/components/Footer';
 import AdSenseBanner from '@/components/AdSenseBanner';
 import { TOOLS, DIRECTORY_ITEMS } from '@/lib/data';
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
-  return {
-    title: 'World Tools Hub - Free Browser Utilities & Curated AI Directory',
-    description: '15+ fast, client-side online tools that process directly in your browser without uploading files. Plus a curated directory of the best AI tools.',
-  };
-}
-
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const resolvedParams = await params;
   const currentLocale = resolvedParams.locale || 'en';
@@ -40,7 +33,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               href="#tools"
               className="px-6 py-3.5 rounded-full bg-yellow-400 text-zinc-950 font-bold hover:bg-yellow-300 transition shadow-lg shadow-yellow-400/20"
             >
-              Explore Free Tools ({TOOLS.length}) ↓
+              Explore Free Tools ↓
             </a>
             <a
               href="#directory"
@@ -62,7 +55,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
           <div>
             <h2 className="text-3xl font-black text-zinc-900 tracking-tight flex items-center gap-2">
-              <span>🔧</span> Free Browser Tools
+              <span>🔧</span> Free Tools
               <span className="text-sm font-semibold bg-zinc-200 text-zinc-700 px-2.5 py-0.5 rounded-full">
                 {TOOLS.length} Ready
               </span>
@@ -140,7 +133,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                         {item.badge}
                       </span>
                     )}
-                    <span className="text-[11px] font-bold bg-zinc-900 text-white px-2.5 py-0.5 rounded-md">
+                    <span className="text-[11px] font-bold bg-zinc-900 text-white px-2 py-0.5 rounded-md">
                       {item.pricing}
                     </span>
                   </div>

@@ -30,18 +30,15 @@ import ResumeBuilder from '@/components/tools/ResumeBuilder';
 
 import GenericToolRunner from '@/components/tools/GenericToolRunner';
 import { TOOLS } from '@/lib/data';
-import { TOOL_GUIDES } from '@/lib/toolContent';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { slug } = await params;
   const tool = TOOLS.find((t) => t.slug === slug);
   if (!tool) return {};
 
-  const guide = TOOL_GUIDES[slug];
-
   return {
-    title: `${tool.name} - Free Online Browser Tool | World Tools Hub`,
-    description: guide ? guide.summary : `${tool.desc} Fast, private and free forever without uploading files.`,
+    title: `${tool.name} - Free Online Browser Tool`,
+    description: `${tool.desc} Fast, private and free forever without uploading files.`,
   };
 }
 
@@ -53,40 +50,48 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
     notFound();
   }
 
-  const guide = TOOL_GUIDES[slug];
-
   const renderToolComponent = () => {
     switch (tool.slug) {
+      // Lote 1
       case 'qr-generator':
         return <QRGenerator />;
       case 'password-generator':
         return <PasswordGenerator />;
       case 'word-counter':
         return <WordCounter />;
+      
+      // Lote 2
       case 'unit-converter':
         return <UnitConverter />;
       case 'color-picker':
         return <ColorPicker />;
       case 'url-shortener':
         return <URLShortener />;
+
+      // Lote 3
       case 'image-compressor':
         return <ImageCompressor />;
       case 'jpg-to-pdf':
         return <JpgToPdf />;
       case 'pdf-to-jpg':
         return <PdfToJpg />;
+
+      // Lote 4
       case 'age-calculator':
         return <AgeCalculator />;
       case 'merge-pdf':
         return <MergePdf />;
       case 'compress-pdf':
         return <CompressPdf />;
+
+      // Lote 5 (Completo: 15/15)
       case 'remove-bg':
         return <RemoveBg />;
       case 'text-to-speech':
         return <TextToSpeech />;
       case 'resume-builder':
         return <ResumeBuilder />;
+
       default:
         return <GenericToolRunner name={tool.name} />;
     }
@@ -128,92 +133,28 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
             </div>
           </div>
 
-          {/* Interactive Tool Runner */}
           <div className="mt-6 bg-zinc-50 border border-zinc-200 rounded-2xl p-4 sm:p-6">
             {renderToolComponent()}
           </div>
 
-          {/* AdSense In-Tool Banner */}
+          {/* AdSense In-Tool */}
           <AdSenseBanner />
 
-          {/* Rich Editorial Content: Solves Thin Content for AdSense */}
-          {guide && (
-            <div className="mt-8 space-y-8 pt-6 border-t border-zinc-100">
-              {/* Comprehensive Overview */}
-              <section className="bg-zinc-50/70 border border-zinc-200 rounded-2xl p-6">
-                <h2 className="text-lg font-black text-zinc-900 mb-2">
-                  About {guide.title}
-                </h2>
-                <p className="text-sm text-zinc-600 leading-relaxed">
-                  {guide.summary}
-                </p>
-              </section>
-
-              {/* Step by Step Guide */}
-              <section>
-                <h2 className="text-lg font-black text-zinc-900 mb-4 flex items-center gap-2">
-                  <span>📖</span> How to Use {tool.name}
-                </h2>
-                <div className="grid sm:grid-cols-3 gap-4">
-                  {guide.steps.map((s) => (
-                    <div key={s.step} className="bg-white border border-zinc-200 rounded-2xl p-4 shadow-xs">
-                      <div className="w-7 h-7 rounded-full bg-zinc-900 text-yellow-400 font-bold flex items-center justify-center text-xs mb-2">
-                        {s.step}
-                      </div>
-                      <h3 className="font-bold text-sm text-zinc-900">{s.title}</h3>
-                      <p className="text-xs text-zinc-600 mt-1 leading-normal">{s.desc}</p>
-                    </div>
-                  ))}
-                </div>
-              </section>
-
-              {/* Key Features & Architecture */}
-              <section>
-                <h2 className="text-lg font-black text-zinc-900 mb-4 flex items-center gap-2">
-                  <span>⚡</span> Technical Features & Privacy Architecture
-                </h2>
-                <div className="grid sm:grid-cols-3 gap-4">
-                  {guide.features.map((f, idx) => (
-                    <div key={idx} className="bg-zinc-50 border border-zinc-200 rounded-2xl p-4">
-                      <h3 className="font-bold text-sm text-zinc-900">{f.title}</h3>
-                      <p className="text-xs text-zinc-600 mt-1 leading-normal">{f.desc}</p>
-                    </div>
-                  ))}
-                </div>
-              </section>
-
-              {/* Structured FAQ Section */}
-              <section>
-                <h2 className="text-lg font-black text-zinc-900 mb-4 flex items-center gap-2">
-                  <span>❓</span> Frequently Asked Questions (FAQ)
-                </h2>
-                <div className="space-y-3">
-                  {guide.faqs.map((faq, idx) => (
-                    <div key={idx} className="bg-white border border-zinc-200 rounded-2xl p-4">
-                      <h3 className="font-bold text-sm text-zinc-900 mb-1">{faq.q}</h3>
-                      <p className="text-xs text-zinc-600 leading-relaxed">{faq.a}</p>
-                    </div>
-                  ))}
-                </div>
-              </section>
-            </div>
-          )}
-
-          {/* Bottom Pro Recommendation & Info Box */}
           <div className="mt-8 grid md:grid-cols-2 gap-4 text-sm">
             <div className="bg-zinc-50 border border-zinc-200 rounded-2xl p-5">
-              <h3 className="font-bold text-zinc-900 mb-2">100% Client-Side Privacy Guarantee</h3>
-              <p className="text-xs text-zinc-600 leading-relaxed">
-                All computational algorithms execute exclusively within your local browser memory via HTML5, Canvas, and WebAssembly APIs. 
-                Your files and inputs are never transmitted, cached, or logged on remote servers.
-              </p>
+              <h3 className="font-bold text-zinc-900 mb-2">How it works</h3>
+              <ol className="list-decimal pl-4 text-zinc-600 space-y-1.5 text-xs">
+                <li>Load your inputs or files directly into the module.</li>
+                <li>Everything is processed in browser memory via native Web APIs.</li>
+                <li>Download or copy your results with zero server storage.</li>
+              </ol>
             </div>
 
             <div className="bg-yellow-50 border border-yellow-200 rounded-2xl p-5 flex flex-col justify-between">
               <div>
-                <h3 className="font-bold text-zinc-900 mb-1">Need Enterprise Batch Processing?</h3>
+                <h3 className="font-bold text-zinc-900 mb-1">Need Batch or Advanced Features?</h3>
                 <p className="text-xs text-zinc-600">
-                  Upgrade to cloud-grade automated workflows with our verified industry software partners.
+                  Upgrade to cloud-grade processing with verified industry-leading partner software.
                 </p>
               </div>
               <a
