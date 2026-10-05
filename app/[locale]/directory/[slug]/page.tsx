@@ -3,6 +3,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import AdSenseBanner from '@/components/AdSenseBanner';
 import { DIRECTORY_ITEMS } from '@/lib/data';
+import { DIRECTORY_DETAILS } from '@/lib/directoryContent';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { slug } = await params;
@@ -10,8 +11,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   if (!item) return {};
 
   return {
-    title: `${item.name} Review, Pricing & Alternatives`,
-    description: `${item.desc} In-depth review, pros, cons, and official discount link.`,
+    title: `${item.name} Review, Pricing & Alternatives | World Tools Hub`,
+    description: `${item.desc} In-depth benchmark review, key features, pros, cons, and official discount link.`,
   };
 }
 
@@ -22,6 +23,8 @@ export default async function DirectoryPage({ params }: { params: Promise<{ loca
   if (!item) {
     notFound();
   }
+
+  const detail = DIRECTORY_DETAILS[slug];
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -59,7 +62,7 @@ export default async function DirectoryPage({ params }: { params: Promise<{ loca
               <div>
                 <h2 className="font-black text-xl mb-1">Get Started with {item.name}</h2>
                 <p className="text-zinc-400 text-xs">
-                  Access direct discounts, trial periods, and onboarding offers through our verified referral link.
+                  Access direct discounts, trial periods, and onboarding offers through our verified partner link.
                 </p>
               </div>
               <a
@@ -91,13 +94,74 @@ export default async function DirectoryPage({ params }: { params: Promise<{ loca
           {/* AdSense In-Review */}
           <AdSenseBanner />
 
-          <div className="mt-8 space-y-4 text-sm text-zinc-700 leading-relaxed border-t border-zinc-100 pt-6">
-            <h3 className="text-lg font-black text-zinc-900">Overview & Key Capabilities</h3>
-            <p>
-              {item.name} is engineered to streamline daily productivity and automated content generation workflows.
-              It eliminates friction by combining high computational efficiency with intuitive interfaces, making it ideal for both professionals and creators.
-            </p>
-          </div>
+          {/* Rich Editorial Review Section */}
+          {detail && (
+            <div className="mt-8 space-y-8 pt-6 border-t border-zinc-100">
+              {/* Verdict & Best For */}
+              <div className="p-6 bg-zinc-50 border border-zinc-200 rounded-2xl">
+                <span className="text-xs uppercase tracking-wider font-bold text-yellow-600 bg-yellow-100/70 px-2.5 py-0.5 rounded-md">
+                  Editorial Verdict
+                </span>
+                <p className="text-sm text-zinc-800 font-medium mt-2 leading-relaxed">
+                  {detail.verdict}
+                </p>
+                <div className="mt-4 pt-3 border-t border-zinc-200 text-xs text-zinc-600">
+                  <strong className="text-zinc-900">Best Suited For:</strong> {detail.bestFor}
+                </div>
+              </div>
+
+              {/* Pros & Cons Grid */}
+              <div>
+                <h3 className="text-lg font-black text-zinc-900 mb-4 flex items-center gap-2">
+                  <span>⚖️</span> Pros & Cons Analysis
+                </h3>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div className="p-5 bg-emerald-50/50 border border-emerald-200 rounded-2xl">
+                    <h4 className="font-black text-emerald-900 text-sm mb-3 flex items-center gap-1.5">
+                      <span>✓</span> Advantages & Strengths
+                    </h4>
+                    <ul className="space-y-2 text-xs text-emerald-950 leading-relaxed">
+                      {detail.pros.map((pro, idx) => (
+                        <li key={idx} className="flex gap-2 items-start">
+                          <span className="font-bold text-emerald-600">•</span>
+                          <span>{pro}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="p-5 bg-rose-50/50 border border-rose-200 rounded-2xl">
+                    <h4 className="font-black text-rose-900 text-sm mb-3 flex items-center gap-1.5">
+                      <span>✗</span> Potential Drawbacks
+                    </h4>
+                    <ul className="space-y-2 text-xs text-rose-950 leading-relaxed">
+                      {detail.cons.map((con, idx) => (
+                        <li key={idx} className="flex gap-2 items-start">
+                          <span className="font-bold text-rose-600">•</span>
+                          <span>{con}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* Core Features */}
+              <div>
+                <h3 className="text-lg font-black text-zinc-900 mb-4 flex items-center gap-2">
+                  <span>🚀</span> Key Architectural Capabilities
+                </h3>
+                <div className="grid sm:grid-cols-3 gap-4">
+                  {detail.keyFeatures.map((feat, idx) => (
+                    <div key={idx} className="p-4 bg-zinc-50 border border-zinc-200 rounded-2xl">
+                      <h4 className="font-bold text-sm text-zinc-900 mb-1">{feat.title}</h4>
+                      <p className="text-xs text-zinc-600 leading-normal">{feat.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </main>
 
