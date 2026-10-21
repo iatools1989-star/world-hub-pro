@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Calculadora da meta — US$ 1.000/mês | World Tools Hub</title>
+<style>
+  :root{
+    --bg:#09090b; --panel:#131316; --panel2:#18181b; --line:#27272a;
+    --text:#fafafa; --muted:#a1a1aa; --yellow:#facc15; --green:#34d399; --red:#fb7185;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--bg);color:var(--text);
+    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5;padding:28px 18px 64px;
+  }
+  .wrap{max-width:1040px;margin:0 auto}
+  .eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--yellow);font-weight:800}
+  h1{font-size:clamp(24px,4vw,36px);letter-spacing:-.02em;line-height:1.1;margin:8px 0 6px}
+  .sub{color:var(--muted);font-size:14px;max-width:70ch}
+  .grid{display:grid;gap:16px;margin-top:24px}
+  @media(min-width:860px){.grid{grid-template-columns:1.05fr .95fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px}
+  .card h2{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:14px}
+  .field{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:9px 0;border-bottom:1px dashed #232326}
+  .field:last-child{border-bottom:0}
+  .field label{font-size:13px;color:#e4e4e7}
+  .field .hint{display:block;font-size:11px;color:#71717a;margin-top:2px}
+  input[type=number]{
+    width:104px;background:var(--panel2);border:1px solid var(--line);border-radius:9px;
+    color:var(--text);padding:7px 9px;font-size:13px;font-variant-numeric:tabular-nums;text-align:right;
+  }
+  input[type=number]:focus{outline:2px solid var(--yellow);outline-offset:1px;border-color:var(--yellow)}
+  input[type=range]{width:100%;accent-color:var(--yellow);margin-top:2px}
+  .total{font-size:44px;font-weight:900;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+  .total small{font-size:15px;font-weight:600;color:var(--muted)}
+  .bar{height:12px;border-radius:999px;background:#1f1f23;overflow:hidden;margin:14px 0 8px}
+  .bar > div{height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#facc15,#f59e0b);transition:width .25s ease}
+  .bar.met > div{background:linear-gradient(90deg,#34d399,#10b981)}
+  .row{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
+  .pill{display:inline-block;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:800;background:#27272a}
+  .pill.ok{background:rgba(52,211,153,.14);color:var(--green);border:1px solid rgba(52,211,153,.35)}
+  .pill.bad{background:rgba(251,113,133,.12);color:var(--red);border:1px solid rgba(251,113,133,.3)}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
+  th,td{text-align:left;padding:9px 6px;border-bottom:1px solid var(--line)}
+  th{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:700}
+  td:last-child,th:last-child{text-align:right;font-variant-numeric:tabular-nums}
+  .kpi{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
+  .kpi div{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:11px 12px}
+  .kpi span{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:#71717a;font-weight:700}
+  .kpi strong{font-size:19px;font-variant-numeric:tabular-nums}
+  .note{font-size:11.5px;color:#71717a;margin-top:14px;border-left:2px solid #3f3f46;padding-left:10px}
+  .actions{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+  button{background:#27272a;color:#e4e4e7;border:1px solid #3f3f46;border-radius:10px;padding:8px 13px;font-size:12px;font-weight:700;cursor:pointer}
+  button:hover{background:#3f3f46}
+  button.primary{background:var(--yellow);color:#09090b;border-color:var(--yellow)}
+  footer{margin-top:30px;color:#52525b;font-size:11px;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">World Tools Hub · modelo de receita</div>
+  <h1>Quanto falta para US$ 1.000/mês?</h1>
+  <p class="sub">Ajuste as premissas com números reais do seu GA4, Search Console e painéis de afiliado. O cálculo usa sessões mensais, pageviews por sessão, RPM de anúncios, CTR e conversão de afiliado, assinantes ativos e patrocínios.</p>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Premissas</h2>
+
+      <div class="field">
+        <label for="sessions">Sessões / mês
+          <span class="hint" id="sessionsHint">tráfego total do site</span>
+        </label>
+        <input id="sessions" type="number" min="0" step="500" value="25000" />
+      </div>
+
+      <div class="field">
+        <label for="pvs">Pageviews por sessão
+          <span class="hint">1,3–1,6 é típico em sites de ferramentas</span>
+        </label>
+        <input id="pvs" type="number" min="1" max="5" step="0.1" value="1.4" />
+      </div>
+
+      <div class="field">
+        <label for="rpm">RPM de anúncios (US$)
+          <span class="hint">AdSense 3–6 · Mediavine/Ezoic 8–20</span>
+        </label>
+        <input id="rpm" type="number" min="0" step="0.5" value="4.5" />
+      </div>
+
+      <div class="field">
+        <label for="ctr">CTR para afiliado (%)
+          <span class="hint">cliques em /go por sessão</span>
+        </label>
+        <input id="ctr" type="number" min="0" max="40" step="0.5" value="5" />
+      </div>
+
+      <div class="field">
+        <label for="conv">Conversão do afiliado (%)
+          <span class="hint">clique → venda aprovada</span>
+        </label>
+        <input id="conv" type="number" min="0" max="20" step="0.1" value="2" />
+      </div>
+
+      <div class="field">
+        <label for="comm">Comissão média (US$)
+          <span class="hint">mistura de SaaS, PDF e imagem</span>
+        </label>
+        <input id="comm" type="number" min="0" step="1" value="10" />
+      </div>
+
+      <div class="field">
+        <label for="subs">Assinantes Pro ativos
+          <span class="hint">US$ 9/mês</span>
+        </label>
+        <input id="subs" type="number" min="0" step="1" value="15" />
+      </div>
+
+      <div class="field">
+        <label for="net">Receita líquida por assinante (US$)
+          <span class="hint">depois de taxas do checkout</span>
+        </label>
+        <input id="net" type="number" min="0" step="0.5" value="8" />
+      </div>
+
+      <div class="field">
+        <label for="spons">Patrocínio do diretório (US$)
+          <span class="hint">ex.: 3 × US$ 39</span>
+        </label>
+        <input id="spons" type="number" min="0" step="1" value="39" />
+      </div>
+
+      <div class="field">
+        <label for="costs">Custos fixos (US$)
+          <span class="hint">Vercel Pro, domínio, e-mail</span>
+        </label>
+        <input id="costs" type="number" min="0" step="1" value="45" />
+      </div>
+
+      <div class="actions">
+        <button class="primary" id="btnBaseline">Cenário realista</button>
+        <button id="btnAggressive">Cenário agressivo</button>
+        <button id="btnReset">Zerar tráfego</button>
+      </div>
+    </div>
+
+    <div>
+      <div class="card">
+        <h2>Receita mensal estimada</h2>
+        <div class="total" id="total">US$ 0</div>
+        <div class="bar" id="bar"><div id="barFill"></div></div>
+        <div class="row"><span id="pct">0% da meta</span><span id="gap">faltam US$ 1.000</span></div>
+
+        <div class="kpi">
+          <div><span>Receita / 1.000 sessões</span><strong id="rps">US$ 0</strong></div>
+          <div><span>Lucro após custos</span><strong id="profit">US$ 0</strong></div>
+          <div><span>Sessões p/ US$ 1.000</span><strong id="need">—</strong></div>
+          <div><span>Break-even (assinantes)</span><strong id="be">—</strong></div>
+        </div>
+
+        <table>
+          <thead><tr><th>Pilar</th><th>US$</th></tr></thead>
+          <tbody>
+            <tr><td>Anúncios</td><td id="rAds">0</td></tr>
+            <tr><td>Afiliados</td><td id="rAff">0</td></tr>
+            <tr><td>Assinaturas Pro</td><td id="rPro">0</td></tr>
+            <tr><td>Patrocínios</td><td id="rSpon">0</td></tr>
+            <tr><td><strong>Total</strong></td><td id="rTotal"><strong>0</strong></td></tr>
+          </tbody>
+        </table>
+        <p class="note" id="diag">Ajuste os campos para ver o diagnóstico.</p>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <h2>Metas de referência</h2>
+        <table>
+          <thead><tr><th>Marco</th><th>Sessões/mês</th></tr></thead>
+          <tbody>
+            <tr><td>Ezoic / Mediavine Journey</td><td>10.000</td></tr>
+            <tr><td>Mediavine (RPM alto)</td><td>50.000</td></tr>
+            <tr><td>Raptive</td><td>100.000</td></tr>
+          </tbody>
+        </table>
+        <p class="note">Regra de decisão: só compre tráfego pago quando a receita por 1.000 sessões passar de US$ 15. Só adicione um novo idioma quando o anterior tiver 10 páginas com tráfego orgânico real.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>Modelo educacional · premissas editáveis · não é projeção garantida. Atualize os campos com dados reais a cada 30 dias.</footer>
+</div>
+
+<script>
+  const ids = ['sessions','pvs','rpm','ctr','conv','comm','subs','net','spons','costs'];
+  const el = Object.fromEntries(ids.map(id => [id, document.getElementById(id)]));
+  const out = {
+    total: document.getElementById('total'),
+    bar: document.getElementById('bar'),
+    barFill: document.getElementById('barFill'),
+    pct: document.getElementById('pct'),
+    gap: document.getElementById('gap'),
+    rps: document.getElementById('rps'),
+    profit: document.getElementById('profit'),
+    need: document.getElementById('need'),
+    be: document.getElementById('be'),
+    rAds: document.getElementById('rAds'),
+    rAff: document.getElementById('rAff'),
+    rPro: document.getElementById('rPro'),
+    rSpon: document.getElementById('rSpon'),
+    rTotal: document.getElementById('rTotal'),
+    diag: document.getElementById('diag'),
+  };
+  const GOAL = 1000;
+  const money = n => 'US$ ' + (n >= 1000
+    ? n.toLocaleString('pt-BR', { maximumFractionDigits: 0 })
+    : n.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+  const num = id => Math.max(0, parseFloat(el[id].value) || 0);
+
+  function compute() {
+    const s = num('sessions');
+    const pv = s * num('pvs');
+    const ads = pv * num('rpm') / 1000;
+    const clicks = s * num('ctr') / 100;
+    const sales = clicks * num('conv') / 100;
+    const aff = sales * num('comm');
+    const pro = num('subs') * num('net');
+    const spon = num('spons');
+    const total = ads + aff + pro + spon;
+    const costs = num('costs');
+    const profit = total - costs;
+    const rps = s > 0 ? total / s * 1000 : 0;
+
+    // sessões necessárias mantendo os pilares variáveis por sessão
+    const perSession = (num('pvs') * num('rpm') / 1000) + (num('ctr') / 100 * num('conv') / 100 * num('comm'));
+    const fixed = pro + spon;
+    const neededSessions = perSession > 0 ? Math.max(0, (GOAL - fixed) / perSession) : (fixed >= GOAL ? 0 : Infinity);
+
+    out.total.innerHTML = money(total) + ' <small>/mês</small>';
+    const pct = Math.min(100, total / GOAL * 100);
+    out.barFill.style.width = pct + '%';
+    out.bar.classList.toggle('met', total >= GOAL);
+    out.pct.innerHTML = '<span class="pill ' + (total >= GOAL ? 'ok' : 'bad') + '">' + pct.toFixed(1) + '% da meta</span>';
+    out.gap.textContent = total >= GOAL
+      ? 'meta atingida (+' + money(total - GOAL) + ')'
+      : 'faltam ' + money(GOAL - total);
+    out.rps.textContent = money(rps);
+    out.profit.textContent = money(profit);
+    out.need.textContent = isFinite(neededSessions)
+      ? Math.ceil(neededSessions).toLocaleString('pt-BR')
+      : '—';
+    const beSubs = num('net') > 0 ? Math.ceil(Math.max(0, costs - (ads + aff + spon)) / num('net')) : 0;
+    out.be.textContent = beSubs + ' assinantes';
+
+    out.rAds.textContent = money(ads);
+    out.rAff.textContent = money(aff);
+    out.rPro.textContent = money(pro);
+    out.rSpon.textContent = money(spon);
+    out.rTotal.innerHTML = '<strong>' + money(total) + '</strong>';
+
+    let diag;
+    if (s === 0) {
+      diag = 'Sem tráfego não há receita. Comece pelo SEO técnico e por 3 páginas de alta intenção (ex.: “comprimir imagem para 500kb”).';
+    } else if (rps < 6) {
+      diag = 'RPS muito baixo: você tem visitas, mas quase nenhuma monetização ligada. Prioridade: colocar os CTAs de afiliado e o paywall em funcionamento antes de buscar mais tráfego.';
+    } else if (rps < 12) {
+      diag = 'Monetização básica funcionando (típico de AdSense + afiliados sem otimização). Próximo ganho vem de RPM melhor (Mediavine/Ezoic a partir de 10 mil sessões) e de páginas de comparação.';
+    } else if (rps < 18) {
+      diag = 'Bom caminho. O gargalo agora é volume: mantenha o RPS e cresça sessões com conteúdo programático e comunidades de vendedores.';
+    } else {
+      diag = 'RPS saudável. Escale com previsibilidade: 2 páginas novas por semana, e-mail semanal e 1 patrocinador novo por mês.';
+    }
+    if (total >= GOAL) diag = 'Meta de US$ 1.000 batida com estas premissas. Valide na prática: 30 dias com dados reais antes de aumentar custos. ' + diag;
+    out.diag.textContent = diag;
+  }
+
+  ids.forEach(id => el[id].addEventListener('input', compute));
+
+  document.getElementById('btnBaseline').addEventListener('click', () => {
+    const v = { sessions: 25000, pvs: 1.4, rpm: 4.5, ctr: 5, conv: 2, comm: 10, subs: 15, net: 8, spons: 39, costs: 45 };
+    Object.entries(v).forEach(([k, val]) => el[k].value = val);
+    compute();
+  });
+  document.getElementById('btnAggressive').addEventListener('click', () => {
+    const v = { sessions: 45000, pvs: 1.5, rpm: 8, ctr: 6, conv: 2.5, comm: 18, subs: 35, net: 8, spons: 117, costs: 60 };
+    Object.entries(v).forEach(([k, val]) => el[k].value = val);
+    compute();
+  });
+  document.getElementById('btnReset').addEventListener('click', () => {
+    el.sessions.value = 0; el.subs.value = 0; el.spons.value = 0;
+    compute();
+  });
+
+  compute();
+</script>
+</body>
+</html>
