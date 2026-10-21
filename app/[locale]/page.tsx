@@ -1,3 +1,4 @@
+import { t } from '@/lib/translations';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -26,33 +27,23 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
             100% Free • No Sign-up • Privacy First
           </div>
-
           <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-white max-w-4xl leading-[1.1]">
             Fast Browser Tools & Curated <span className="text-yellow-400">AI Directory</span>
           </h1>
-
           <p className="mt-5 text-lg text-zinc-400 max-w-2xl leading-relaxed">
             Perform daily PDF, text, and media tasks right inside your web browser. No uploads to foreign servers, zero data storage, entirely private.
           </p>
-
           <div className="mt-8 flex flex-wrap gap-4 justify-center md:justify-start">
-            <a
-              href="#tools"
-              className="px-6 py-3.5 rounded-full bg-yellow-400 text-zinc-950 font-bold hover:bg-yellow-300 transition shadow-lg shadow-yellow-400/20"
-            >
+            <a href="#tools" className="px-6 py-3.5 rounded-full bg-yellow-400 text-zinc-950 font-bold hover:bg-yellow-300 transition shadow-lg shadow-yellow-400/20">
               Explore Free Tools ({TOOLS.length}) ↓
             </a>
-            <a
-              href="#directory"
-              className="px-6 py-3.5 rounded-full bg-zinc-800 border border-zinc-700 text-white font-bold hover:bg-zinc-700 transition"
-            >
+            <a href="#directory" className="px-6 py-3.5 rounded-full bg-zinc-800 border border-zinc-700 text-white font-bold hover:bg-zinc-700 transition">
               Discover AI Directory →
             </a>
           </div>
         </div>
       </section>
 
-      {/* Banner AdSense Top */}
       <div className="max-w-[1280px] mx-auto px-4 w-full">
         <AdSenseBanner />
       </div>
@@ -70,7 +61,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             <p className="text-zinc-600 mt-1">Runs entirely client-side. Your files never leave your device.</p>
           </div>
         </div>
-
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {TOOLS.map((tool) => (
             <Link
@@ -88,13 +78,12 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                   </span>
                 </div>
                 <h3 className="font-bold text-lg text-zinc-900 group-hover:text-yellow-600 transition">
-                  {tool.name}
+                  {t(tool.name, currentLocale)}
                 </h3>
                 <p className="text-sm text-zinc-600 mt-1 line-clamp-2">
-                  {tool.desc}
+                  {t(tool.desc, currentLocale)}
                 </p>
               </div>
-
               <div className="mt-4 pt-3 border-t border-zinc-100 flex items-center justify-between text-xs">
                 <span className="font-bold text-zinc-900 group-hover:underline">Use Tool →</span>
                 {tool.featured && (
@@ -121,7 +110,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             <p className="text-zinc-600 mt-1">We analyze and review top-tier AI software so you save time and budget.</p>
           </div>
         </div>
-
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {DIRECTORY_ITEMS.map((item) => (
             <Link
@@ -146,13 +134,12 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                   </div>
                 </div>
                 <h3 className="font-bold text-lg text-zinc-900 group-hover:text-yellow-600 transition">
-                  {item.name}
+                  {t(item.name, currentLocale)}
                 </h3>
                 <p className="text-sm text-zinc-600 mt-1 line-clamp-2">
-                  {item.desc}
+                  {t(item.desc, currentLocale)}
                 </p>
               </div>
-
               <div className="mt-4 pt-3 border-t border-zinc-100 flex items-center justify-between text-xs">
                 <span className="font-bold text-zinc-900 group-hover:underline">Read Review →</span>
                 <span className="text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
@@ -164,7 +151,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         </div>
       </section>
 
-      {/* Banner AdSense Bottom */}
       <div className="max-w-[1280px] mx-auto px-4 w-full">
         <AdSenseBanner />
       </div>
