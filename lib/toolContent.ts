@@ -280,4 +280,23 @@ export const TOOL_GUIDES: Record<string, ToolGuide> = {
       { q: 'Is this resume builder free?', a: '100% free with unlimited exports and zero watermarks.' },
     ],
   },
+    'bulk-studio': {
+    title: 'Private Bulk Image Studio - 100% Offline',
+    summary: 'Drag 100 product photos and get a ZIP in 10 seconds without uploading to any server. Perfect for Shopify, Etsy and Amazon sellers.',
+    steps: [
+      { step: 1, title: 'Drag Your Images', desc: 'Drop up to 100 JPG, PNG or WebP files at once.' },
+      { step: 2, title: 'Process Offline', desc: 'Everything runs in your browser. No upload, no tracking.' },
+      { step: 3, title: 'Download ZIP', desc: 'Get all processed images in one ZIP file ready for your store.' },
+    ],
+    features: [
+      { title: '100% Offline & Private', desc: 'Your photos never leave your device. No server upload.' },
+      { title: 'Bulk ZIP Download', desc: 'Process 100 images in one click and download as ZIP.' },
+      { title: 'Free 10/day', desc: 'Free forever for 10 images/day. Pro $9/mo for unlimited.' },
+    ],
+    faqs: [
+      { q: 'Do my photos get uploaded?', a: 'No. Everything runs in your browser memory via Canvas API.' },
+      { q: 'What is the free limit?', a: '10 images per day free. Upgrade to Pro for 500/day.' },
+      { q: 'Can I use it for Shopify?', a: 'Yes. It resizes to 2000x2000 and renames for SEO automatically.' },
+    ],
+  },
 };
