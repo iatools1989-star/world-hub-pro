@@ -37,6 +37,19 @@ npx wrangler deploy --env staging
 
 Não adicionar domínios nem alterar DNS antes de validar staging. `wrangler.jsonc` não tem rotas/domínios de produção configurados. O workflow GitHub Actions é manual e publica somente staging; credenciais ficam em Secrets do environment.
 
+### Publicação pelo painel Cloudflare Workers Builds
+
+Na configuração de produção do Worker `world-hub-pro`, usar:
+
+| Campo | Valor |
+| --- | --- |
+| Production branch | `arena/1a86653d-world-hub-pro` |
+| Build command | `npm run build:cloudflare` |
+| Deploy command | `npx wrangler deploy --env=""` |
+| Root directory | `/` |
+
+Salvar a configuração antes de enviar um novo commit. Uma publicação antiga de `main` continuará identificada como `main` no histórico; a nova build precisa apontar para a branch acima. Confirmar a execução nos logs antes de considerar o site atualizado. O deploy de produção substitui a versão ativa e pode afetar domínios já associados ao Worker.
+
 **Guia completo:** [Migração Cloudflare: DNS, TLS, cache, segurança, checklist e rollback](docs/migracao-cloudflare.md).
 
 **Auditoria de produto:** [Auditoria e plano de receita](docs/auditoria-e-plano-1000usd.md).
