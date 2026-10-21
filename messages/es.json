@@ -1,0 +1,7 @@
+{
+  "Header": { "Tools": "Herramientas", "Directory": "Directorio", "GoPro": "Hazte Pro $9 →" },
+  "Tools": {
+    "qr-generator": { "name": "Generador de Códigos QR", "desc": "Crea códigos QR para URLs, WiFi, PIX y textos al instante." },
+    "bulk-studio": { "name": "Estudio Masivo", "desc": "Procesa 100 imágenes a la vez, 100% offline, descarga ZIP." }
+  }
+}

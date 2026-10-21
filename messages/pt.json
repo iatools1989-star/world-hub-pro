@@ -1,0 +1,9 @@
+{
+  "Header": { "Tools": "Ferramentas", "Directory": "Diretório", "GoPro": "Virar Pro $9 →" },
+  "Hero": { "title": "Ferramentas Rápidas & Diretório de IA Selecionado", "subtitle": "Realize tarefas diárias diretamente no seu navegador.", "ctaTools": "Explorar Ferramentas Grátis ({count}) ↓" },
+  "Tools": {
+    "qr-generator": { "name": "Gerador de QR Code", "desc": "Crie QR codes para URLs, WiFi, PIX e textos instantaneamente." },
+    "bulk-studio": { "name": "Estúdio em Lote", "desc": "Processe 100 imagens de uma vez, 100% offline, download em ZIP." },
+    "password-generator": { "name": "Gerador de Senhas", "desc": "Gere senhas seguras com alta entropia e criptografia." }
+  }
+}
