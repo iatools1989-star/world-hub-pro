@@ -1,3 +1,4 @@
+import BulkStudio from "@/components/tools/BulkStudio";
 import { notFound } from 'next/navigation';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -82,7 +83,8 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
       case 'compress-pdf':
         return <CompressPdf />;
       case 'remove-bg':
-        return <RemoveBg />;
+        case 'bulk-studio':
+        return <BulkStudio />;
       case 'text-to-speech':
         return <TextToSpeech />;
       case 'resume-builder':
@@ -90,6 +92,7 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
       default:
         return <GenericToolRunner name={tool.name} />;
     }
+    
   };
 
   return (
