@@ -37,9 +37,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { slug } = await params;
   const tool = TOOLS.find((t) => t.slug === slug);
   if (!tool) return {};
-
   const guide = TOOL_GUIDES[slug];
-
   return {
     title: `${tool.name} - Free Online Browser Tool | World Tools Hub`,
     description: guide ? guide.summary : `${tool.desc} Fast, private and free forever without uploading files.`,
