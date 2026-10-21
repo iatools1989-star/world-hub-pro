@@ -33,6 +33,12 @@ import GenericToolRunner from '@/components/tools/GenericToolRunner';
 import { TOOLS } from '@/lib/data';
 import { TOOL_GUIDES } from '@/lib/toolContent';
 
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return TOOLS.map(({ slug }) => ({ slug }));
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { slug } = await params;
   const tool = TOOLS.find((t) => t.slug === slug);

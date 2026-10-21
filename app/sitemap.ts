@@ -1,6 +1,8 @@
 import { MetadataRoute } from 'next';
 import { LOCALES, TOOLS, DIRECTORY_ITEMS } from '@/lib/data';
 
+export const dynamic = 'force-static';
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.iatools.online';
   const entries: MetadataRoute.Sitemap = [];

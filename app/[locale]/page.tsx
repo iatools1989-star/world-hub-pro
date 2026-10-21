@@ -11,8 +11,8 @@ export async function generateMetadata() {
   };
 }
 
-export default async function HomePage() {
-  const currentLocale = 'en';
+export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale: currentLocale } = await params;
   return (
     <div className="flex flex-col min-h-screen bg-[#fcfcfd] dark:bg-zinc-950">
       <Header currentLocale={currentLocale} />
@@ -31,7 +31,7 @@ export default async function HomePage() {
               Drag 100 product photos and get a ZIP in 10 seconds without uploading to any server. Perfect for Shopify, Etsy and Amazon sellers.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <Link href="/en/tools/bulk-studio" className="px-7 py-3.5 rounded-full bg-yellow-400 text-zinc-950 font-black hover:bg-yellow-300 transition shadow-xl shadow-yellow-400/20 flex items-center gap-2">
+              <Link href={`/${currentLocale}/tools/bulk-studio`} className="px-7 py-3.5 rounded-full bg-yellow-400 text-zinc-950 font-black hover:bg-yellow-300 transition shadow-xl shadow-yellow-400/20 flex items-center gap-2">
                 🚀 Try Free Now →
               </Link>
               <div className="flex items-center gap-2 text-sm text-zinc-400">
@@ -98,13 +98,13 @@ export default async function HomePage() {
             </h2>
             <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Runs entirely client-side. Your files never leave your device.</p>
           </div>
-          <Link href="/en/tools/bulk-studio" className="text-sm font-bold text-yellow-600 hover:underline">See Bulk Studio featured →</Link>
+          <Link href={`/${currentLocale}/tools/bulk-studio`} className="text-sm font-bold text-yellow-600 hover:underline">See Bulk Studio featured →</Link>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {TOOLS.map((tool) => {
             const isBulk = tool.slug === 'bulk-studio';
             return (
-              <Link key={tool.slug} href={`/en/tools/${tool.slug}`} className={`rounded-2xl p-5 border hover:shadow-xl transition flex flex-col justify-between group ${isBulk ? 'bg-gradient-to-br from-yellow-400 to-amber-500 border-yellow-500 shadow-lg scale-[1.02]' : 'bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 hover:border-zinc-900 dark:hover:border-zinc-600'}`}>
+              <Link key={tool.slug} href={`/${currentLocale}/tools/${tool.slug}`} className={`rounded-2xl p-5 border hover:shadow-xl transition flex flex-col justify-between group ${isBulk ? 'bg-gradient-to-br from-yellow-400 to-amber-500 border-yellow-500 shadow-lg scale-[1.02]' : 'bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 hover:border-zinc-900 dark:hover:border-zinc-600'}`}>
                 <div>
                   <div className="flex items-center justify-between mb-3">
                     <span className={`text-2xl p-2 rounded-xl border ${isBulk ? 'bg-white/20 border-white/30' : 'bg-zinc-50 dark:bg-zinc-800 border-zinc-100 dark:border-zinc-700'} group-hover:scale-110 transition-transform`}>{tool.icon}</span>
@@ -134,7 +134,7 @@ export default async function HomePage() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {DIRECTORY_ITEMS.map((item) => (
-            <Link key={item.slug} href={`/en/directory/${item.slug}`} className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-5 hover:shadow-xl hover:border-zinc-900 dark:hover:border-zinc-600 transition flex flex-col justify-between group">
+            <Link key={item.slug} href={`/${currentLocale}/directory/${item.slug}`} className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-5 hover:shadow-xl hover:border-zinc-900 dark:hover:border-zinc-600 transition flex flex-col justify-between group">
               <div>
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-2xl p-2 bg-zinc-50 dark:bg-zinc-800 rounded-xl border border-zinc-100 dark:border-zinc-700 group-hover:scale-110 transition-transform">{item.icon}</span>

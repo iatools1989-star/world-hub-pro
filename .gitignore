@@ -5,3 +5,10 @@ node_modules
 .env*.local
 .config
 .npm
+
+# Cloudflare / local build artifacts
+.wrangler/
+out/
+*.tsbuildinfo
+.dev.vars*
+.audit-report.json

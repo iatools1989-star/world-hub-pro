@@ -5,6 +5,12 @@ import AdSenseBanner from '@/components/AdSenseBanner';
 import { DIRECTORY_ITEMS } from '@/lib/data';
 import { DIRECTORY_DETAILS } from '@/lib/directoryContent';
 
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return DIRECTORY_ITEMS.map(({ slug }) => ({ slug }));
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { slug } = await params;
   const item = DIRECTORY_ITEMS.find((d) => d.slug === slug);
