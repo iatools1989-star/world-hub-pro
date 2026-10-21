@@ -1,0 +1,8 @@
+{
+  "Header": { "Tools": "Tools", "Directory": "Directory", "GoPro": "Go Pro $9 →" },
+  "Hero": { "title": "Fast Browser Tools & Curated AI Directory", "subtitle": "Perform daily PDF, text, and media tasks right inside your web browser.", "ctaTools": "Explore Free Tools ({count}) ↓" },
+  "Tools": {
+    "qr-generator": { "name": "QR Code Generator", "desc": "Create QR codes for URLs, WiFi, PIX and texts instantly." },
+    "bulk-studio": { "name": "Bulk Studio", "desc": "Process 100 images at once, 100% offline, ZIP download." }
+  }
+}
