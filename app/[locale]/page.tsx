@@ -63,8 +63,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           <div>
             <h2 className="text-3xl font-black text-zinc-900 tracking-tight flex items-center gap-2">
               <span>🔧</span> {t("Free Browser Tools", currentLocale)}
-              <span className="text-sm font-semibold bg-zinc-200 text-zinc-700 px-2.5 py-0.5 rounded-full">
-                {TOOLS.length} Ready
+              <span className="text-sm font-semibold bg-zinc-200 text-zinc-700 px-2.5 py-0.5 rounded-full ml-1">
+                {TOOLS.length} {t("Ready", currentLocale)}
               </span>
             </h2>
             <p className="text-zinc-600 mt-1">{t("Runs entirely client-side. Your files never leave your device.", currentLocale)}</p>
