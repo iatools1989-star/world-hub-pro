@@ -9,15 +9,9 @@ export const LOCALES = [
   { code: 'en', flag: '🇺🇸', name: 'English' },
   { code: 'es', flag: '🇪🇸', name: 'Español' },
   { code: 'pt', flag: '🇧🇷', name: 'Português' },
-  { code: 'fr', flag: '🇫🇷', name: 'Français' },
   { code: 'de', flag: '🇩🇪', name: 'Deutsch' },
-  { code: 'it', flag: '🇮🇹', name: 'Italiano' },
+  { code: 'fr', flag: '🇫🇷', name: 'Français' },
   { code: 'ja', flag: '🇯🇵', name: '日本語' },
-  { code: 'ko', flag: '🇰🇷', name: '한국어' },
-  { code: 'zh', flag: '🇨🇳', name: '中文' },
-  { code: 'ar', flag: '🇸🇦', name: 'العربية' },
-  { code: 'hi', flag: '🇮🇳', name: 'हिन्दी' },
-  { code: 'ru', flag: '🇷🇺', name: 'Русский' },
 ];
 
 export interface ToolItem {
