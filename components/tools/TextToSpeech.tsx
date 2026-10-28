@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState, useEffect } from 'react';
 
@@ -95,7 +95,7 @@ export default function TextToSpeech() {
       <div className="bg-white p-6 sm:p-8 rounded-3xl border border-zinc-200 shadow-sm space-y-4">
         <div>
           <label className="block text-xs font-bold text-zinc-500 uppercase tracking-wider mb-2">
-            Texto para Leitura por Voz Neural:
+            Texto para Reading por Voz Neural:
           </label>
           <textarea
             rows={6}
@@ -127,7 +127,7 @@ export default function TextToSpeech() {
 
           <div>
             <div className="flex justify-between items-center text-xs font-bold text-zinc-600 mb-1.5">
-              <span>Velocidade</span>
+              <span>Speed</span>
               <span className="font-mono text-zinc-900">{rate}x</span>
             </div>
             <input
@@ -192,3 +192,4 @@ export default function TextToSpeech() {
     </div>
   );
 }
+

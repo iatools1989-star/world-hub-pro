@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 
@@ -46,12 +46,12 @@ export default function WordCounter() {
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
         <div className="bg-white border border-zinc-200 p-3.5 rounded-2xl text-center shadow-sm">
           <div className="text-3xl font-black text-zinc-900">{words}</div>
-          <div className="text-[11px] text-zinc-500 font-bold uppercase tracking-wider mt-0.5">Palavras</div>
+          <div className="text-[11px] text-zinc-500 font-bold uppercase tracking-wider mt-0.5">Words</div>
         </div>
 
         <div className="bg-white border border-zinc-200 p-3.5 rounded-2xl text-center shadow-sm">
           <div className="text-3xl font-black text-zinc-900">{chars}</div>
-          <div className="text-[11px] text-zinc-500 font-bold uppercase tracking-wider mt-0.5">Caracteres</div>
+          <div className="text-[11px] text-zinc-500 font-bold uppercase tracking-wider mt-0.5">Characters</div>
         </div>
 
         <div className="bg-white border border-zinc-200 p-3.5 rounded-2xl text-center shadow-sm">
@@ -61,7 +61,7 @@ export default function WordCounter() {
 
         <div className="bg-white border border-zinc-200 p-3.5 rounded-2xl text-center shadow-sm">
           <div className="text-3xl font-black text-zinc-900">{sentences}</div>
-          <div className="text-[11px] text-zinc-500 font-bold uppercase tracking-wider mt-0.5">Frases</div>
+          <div className="text-[11px] text-zinc-500 font-bold uppercase tracking-wider mt-0.5">Sentences</div>
         </div>
 
         <div className="bg-white border border-zinc-200 p-3.5 rounded-2xl text-center shadow-sm">
@@ -71,7 +71,7 @@ export default function WordCounter() {
 
         <div className="bg-white border border-zinc-200 p-3.5 rounded-2xl text-center shadow-sm">
           <div className="text-2xl font-black text-zinc-900">~{readingTime}m</div>
-          <div className="text-[11px] text-zinc-500 font-bold uppercase tracking-wider mt-0.5">Leitura (~{speakingTime}m fala)</div>
+          <div className="text-[11px] text-zinc-500 font-bold uppercase tracking-wider mt-0.5">Reading (~{speakingTime}m fala)</div>
         </div>
       </div>
 
@@ -109,14 +109,14 @@ export default function WordCounter() {
               copied ? 'bg-emerald-600 text-white' : 'bg-zinc-900 text-white hover:bg-zinc-800'
             }`}
           >
-            {copied ? '✓ Copiado!' : '📋 Copiar'}
+            {copied ? '✓ Copiado!' : '📋 Copy'}
           </button>
           <button
             onClick={handleClear}
             disabled={!text}
             className="px-3 py-1.5 bg-red-50 text-red-600 hover:bg-red-100 rounded-lg font-bold transition disabled:opacity-40"
           >
-            🗑️ Limpar
+            🗑️ Clear
           </button>
         </div>
       </div>
@@ -132,3 +132,4 @@ export default function WordCounter() {
     </div>
   );
 }
+

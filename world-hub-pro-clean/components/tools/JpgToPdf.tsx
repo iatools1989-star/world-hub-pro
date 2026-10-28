@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState } from 'react';
 
@@ -156,7 +156,7 @@ export default function JpgToPdf() {
               Clique para selecionar ou solte várias imagens aqui
             </span>
             <span className="text-xs text-zinc-500 mt-1 block">
-              Junte fotos JPG, PNG e WebP em um único documento PDF em ordem personalizada.
+              Join JPG photos, PNG e WebP em um único documento PDF em ordem personalizada.
             </span>
           </div>
         </label>
@@ -265,3 +265,4 @@ export default function JpgToPdf() {
     </div>
   );
 }
+

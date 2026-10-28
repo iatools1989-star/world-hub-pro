@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 
@@ -121,7 +121,7 @@ export default function URLShortener() {
                   : 'bg-zinc-900 text-white hover:bg-zinc-800'
               }`}
             >
-              {copied ? '✓ Copiado para a Área de Transferência!' : '📋 Copiar Link Limpo'}
+              {copied ? '✓ Copiado para a Área de Transferência!' : '📋 Copy Link Limpo'}
             </button>
             <a
               href={cleanedUrl}
@@ -142,3 +142,4 @@ export default function URLShortener() {
     </div>
   );
 }
+

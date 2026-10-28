@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 
@@ -130,7 +130,7 @@ export default function ColorPicker() {
           </div>
         </div>
 
-        {/* Tabela de Códigos para Copiar */}
+        {/* Tabela de Códigos para Copy */}
         <div className="space-y-2.5">
           {colorFormats.map((fmt) => (
             <div
@@ -153,7 +153,7 @@ export default function ColorPicker() {
                     : 'bg-zinc-200 hover:bg-zinc-300 text-zinc-800'
                 }`}
               >
-                {copiedFormat === fmt.label ? '✓ Copiado' : 'Copiar'}
+                {copiedFormat === fmt.label ? '✓ Copiado' : 'Copy'}
               </button>
             </div>
           ))}
@@ -179,3 +179,4 @@ export default function ColorPicker() {
     </div>
   );
 }
+

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState } from 'react';
 
@@ -156,7 +156,7 @@ export default function MergePdf() {
                 onClick={() => setPdfFiles([])}
                 className="text-xs font-bold text-red-600 hover:underline"
               >
-                Limpar Todos
+                Clear Todos
               </button>
             </div>
 
@@ -244,3 +244,4 @@ export default function MergePdf() {
     </div>
   );
 }
+

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect, useRef } from 'react';
 import QRCode from 'qrcode';
@@ -122,8 +122,8 @@ export default function QRGenerator() {
           >
             {tab === 'url' && '🔗 Link / URL'}
             {tab === 'wifi' && '📶 Wi-Fi'}
-            {tab === 'pix' && '💸 Chave PIX'}
-            {tab === 'text' && '📝 Texto Puro'}
+            {tab === 'pix' && '💸 PIX Key'}
+            {tab === 'text' && '📝 Plain Text'}
           </button>
         ))}
       </div>
@@ -133,7 +133,7 @@ export default function QRGenerator() {
         {activeTab === 'url' && (
           <div>
             <label className="block text-xs font-bold text-zinc-700 uppercase tracking-wider mb-1">
-              Website ou Link de Destino
+              Website or Destination Link
             </label>
             <input
               type="url"
@@ -191,7 +191,7 @@ export default function QRGenerator() {
         {activeTab === 'pix' && (
           <div>
             <label className="block text-xs font-bold text-zinc-700 uppercase tracking-wider mb-1">
-              Chave PIX ou Código Copia e Cola
+              PIX Key ou Código Copia e Cola
             </label>
             <input
               type="text"
@@ -234,7 +234,7 @@ export default function QRGenerator() {
           </div>
 
           <div>
-            <span className="font-bold text-zinc-600 block mb-1">Cor do QR</span>
+            <span className="font-bold text-zinc-600 block mb-1">QR Color</span>
             <div className="flex items-center gap-2">
               <input
                 type="color"
@@ -247,7 +247,7 @@ export default function QRGenerator() {
           </div>
 
           <div>
-            <span className="font-bold text-zinc-600 block mb-1">Cor de Fundo</span>
+            <span className="font-bold text-zinc-600 block mb-1">Background Color</span>
             <div className="flex items-center gap-2">
               <input
                 type="color"
@@ -266,9 +266,9 @@ export default function QRGenerator() {
               onChange={(e) => setErrorLevel(e.target.value as any)}
               className="w-full px-2 py-1.5 rounded-lg border border-zinc-300 bg-white text-xs"
             >
-              <option value="L">Baixa (7%)</option>
+              <option value="L">Low (7%)</option>
               <option value="M">Média (15%)</option>
-              <option value="Q">Alta (25%)</option>
+              <option value="Q">High (25%)</option>
               <option value="H">Máxima (30%)</option>
             </select>
           </div>
@@ -282,7 +282,7 @@ export default function QRGenerator() {
         </div>
 
         <div className="text-xs text-zinc-500 font-medium text-center">
-          ✓ 100% renderizado no seu navegador (sem dados enviados para a rede).
+          ✓ 100% rendered in your browser (sem dados enviados para a rede).
         </div>
 
         <div className="flex flex-wrap gap-3 justify-center">
@@ -290,16 +290,17 @@ export default function QRGenerator() {
             onClick={downloadPNG}
             className="px-6 py-3 bg-zinc-900 text-white font-bold rounded-full hover:bg-zinc-800 transition text-sm flex items-center gap-2 shadow"
           >
-            <span>⬇</span> Baixar Imagem PNG
+            <span>⬇</span> Download PNG Image
           </button>
           <button
             onClick={downloadSVG}
             className="px-6 py-3 bg-yellow-400 text-zinc-950 font-bold rounded-full hover:bg-yellow-300 transition text-sm flex items-center gap-2 shadow"
           >
-            <span>⚡</span> Baixar Vetor SVG (Infinito)
+            <span>⚡</span> Download SVG Vector (Infinito)
           </button>
         </div>
       </div>
     </div>
   );
 }
+

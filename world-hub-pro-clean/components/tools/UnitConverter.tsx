@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 
@@ -12,21 +12,21 @@ interface UnitDef {
 
 const CATEGORIES: Record<CategoryKey, { name: string; icon: string; units: Record<string, UnitDef> }> = {
   length: {
-    name: 'Comprimento',
+    name: 'Length',
     icon: '📏',
     units: {
-      m: { label: 'Metros (m)', rate: 1 },
+      m: { label: 'Meters (m)', rate: 1 },
       km: { label: 'Quilômetros (km)', rate: 1000 },
       cm: { label: 'Centímetros (cm)', rate: 0.01 },
       mm: { label: 'Milímetros (mm)', rate: 0.001 },
-      mi: { label: 'Milhas (mi)', rate: 1609.344 },
-      yd: { label: 'Jardas (yd)', rate: 0.9144 },
+      mi: { label: 'Miles (mi)', rate: 1609.344 },
+      yd: { label: 'Yards (yd)', rate: 0.9144 },
       ft: { label: 'Pés (ft)', rate: 0.3048 },
-      in: { label: 'Polegadas (in)', rate: 0.0254 },
+      in: { label: 'Inches (in)', rate: 0.0254 },
     },
   },
   weight: {
-    name: 'Peso / Massa',
+    name: 'Weight / Mass',
     icon: '⚖️',
     units: {
       kg: { label: 'Quilogramas (kg)', rate: 1 },
@@ -38,7 +38,7 @@ const CATEGORIES: Record<CategoryKey, { name: string; icon: string; units: Recor
     },
   },
   temperature: {
-    name: 'Temperatura',
+    name: 'Temperature',
     icon: '🌡️',
     units: {
       c: { label: 'Celsius (°C)', rate: 1, offset: 0 },
@@ -69,7 +69,7 @@ const CATEGORIES: Record<CategoryKey, { name: string; icon: string; units: Recor
     },
   },
   speed: {
-    name: 'Velocidade',
+    name: 'Speed',
     icon: '🚀',
     units: {
       kmh: { label: 'Quilômetros por Hora (km/h)', rate: 1 },
@@ -97,7 +97,7 @@ export default function UnitConverter() {
     setToUnit(keys[1] || keys[0]);
   };
 
-  // Conversão de Temperatura Especial
+  // Conversão de Temperature Especial
   const convertTemperature = (val: number, from: string, to: string): number => {
     if (from === to) return val;
     let celsius = val;
@@ -158,7 +158,7 @@ export default function UnitConverter() {
         <div className="grid md:grid-cols-[1fr_auto_1fr] gap-4 items-center">
           {/* Origem */}
           <div className="space-y-2">
-            <label className="block text-xs font-bold text-zinc-500 uppercase tracking-wider">De:</label>
+            <label className="block text-xs font-bold text-zinc-500 uppercase tracking-wider">From:</label>
             <input
               type="number"
               value={fromValue}
@@ -190,7 +190,7 @@ export default function UnitConverter() {
 
           {/* Destino */}
           <div className="space-y-2">
-            <label className="block text-xs font-bold text-zinc-500 uppercase tracking-wider">Para (Resultado):</label>
+            <label className="block text-xs font-bold text-zinc-500 uppercase tracking-wider">To (Result):</label>
             <div className="w-full px-4 py-3 rounded-2xl bg-zinc-50 border-2 border-zinc-200 font-black text-xl text-zinc-900 select-all overflow-x-auto">
               {calculateResult()}
             </div>
@@ -233,3 +233,4 @@ export default function UnitConverter() {
     </div>
   );
 }
+

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 
@@ -110,7 +110,7 @@ export default function PasswordGenerator() {
                 : 'bg-zinc-900 text-white hover:bg-zinc-800'
             }`}
           >
-            {copied ? '✓ Copiado!' : '📋 Copiar'}
+            {copied ? '✓ Copiado!' : '📋 Copy'}
           </button>
         </div>
       </div>
@@ -137,7 +137,7 @@ export default function PasswordGenerator() {
       <div className="space-y-4 bg-white p-6 rounded-2xl border border-zinc-200 shadow-sm">
         <div className="space-y-2">
           <div className="flex items-center justify-between text-sm">
-            <span className="font-bold text-zinc-800">Comprimento da Senha</span>
+            <span className="font-bold text-zinc-800">Password Length</span>
             <span className="font-mono text-base font-black px-3 py-1 bg-zinc-100 rounded-lg border border-zinc-200">
               {length} caracteres
             </span>
@@ -207,7 +207,7 @@ export default function PasswordGenerator() {
               className="w-4 h-4 accent-zinc-900 rounded"
             />
             <span className="font-semibold text-zinc-700">
-              Evitar caracteres semelhantes (ex: 1, l, I, 0, O, o)
+              Avoid similar characters (ex: 1, l, I, 0, O, o)
             </span>
           </label>
         </div>
@@ -217,8 +217,9 @@ export default function PasswordGenerator() {
         onClick={generate}
         className="w-full py-4 bg-yellow-400 text-zinc-950 font-black rounded-2xl hover:bg-yellow-300 transition text-sm shadow-md flex items-center justify-center gap-2"
       >
-        <span>⚡</span> Gerar Nova Senha Criptografada
+        <span>⚡</span> Generate New Encrypted Password
       </button>
     </div>
   );
 }
+
