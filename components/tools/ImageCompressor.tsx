@@ -108,10 +108,10 @@ export default function ImageCompressor() {
           <span className="text-4xl block">🖼️</span>
           <div>
             <span className="font-black text-zinc-900 block text-base">
-              {file ? file.name : 'Selecione ou arraste sua imagem JPG, PNG ou WebP'}
+              {file ? file.name : 'Select or drag your JPG, PNG or WebP image'}
             </span>
             <span className="text-xs text-zinc-500 mt-1 block">
-              100% Client-Side: sua foto é processada no seu navegador sem ir para a nuvem.
+              100% Client-Side: your photo is processed in your browser without going to the cloud.
             </span>
           </div>
           {file && (

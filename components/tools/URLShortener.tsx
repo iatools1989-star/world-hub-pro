@@ -69,7 +69,7 @@ export default function URLShortener() {
       <div className="bg-white p-6 sm:p-8 rounded-3xl border border-zinc-200 shadow-sm space-y-4">
         <div>
           <label htmlFor="url-input-standalone" className="block text-xs font-bold text-zinc-500 uppercase tracking-wider mb-2">
-            Insira o link com parâmetros de rastreamento (anúncios, redes sociais, UTMs):
+            Enter the link with tracking parameters (anúncios, redes sociais, UTMs):
           </label>
           <input
             id="url-input-standalone"
@@ -86,7 +86,7 @@ export default function URLShortener() {
           type="button"
           className="w-full py-4 bg-yellow-400 text-zinc-950 font-black rounded-2xl hover:bg-yellow-300 transition text-sm shadow-md flex items-center justify-center gap-2"
         >
-          <span>✨</span> Higienizar e Remover Parâmetros de Rastreamento
+          <span>✨</span> Clean and Remove Tracking Parameters
         </button>
       </div>
 

@@ -72,7 +72,7 @@ export default function AgeCalculator() {
         <div className="grid sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-xs font-bold text-zinc-500 uppercase tracking-wider mb-2">
-              Data de Nascimento:
+              Date of Birth:
             </label>
             <input
               type="date"
@@ -84,7 +84,7 @@ export default function AgeCalculator() {
 
           <div>
             <label className="block text-xs font-bold text-zinc-500 uppercase tracking-wider mb-2">
-              Calcular Idade na Data de (Hoje por padrão):
+              Calculate Age on Date (Today by default):
             </label>
             <input
               type="date"
@@ -101,13 +101,13 @@ export default function AgeCalculator() {
           {/* Cartão de Destaque da Idade */}
           <div className="bg-zinc-900 text-white p-6 sm:p-8 rounded-3xl shadow-sm text-center space-y-2">
             <span className="text-xs uppercase tracking-widest text-yellow-400 font-bold">
-              Idade Exata Calculada
+              Exact Age Calculated
             </span>
             <div className="text-3xl sm:text-5xl font-black text-white">
               {stats.years} <span className="text-xl sm:text-2xl font-normal text-zinc-400">anos</span>, {stats.months} <span className="text-xl sm:text-2xl font-normal text-zinc-400">meses e</span> {stats.days} <span className="text-xl sm:text-2xl font-normal text-zinc-400">dias</span>
             </div>
             <p className="text-xs text-zinc-400">
-              Você nasceu em um(a) <b>{stats.bornDayOfWeek}</b>. Faltam <b>{stats.daysUntilNextBirthday} dias</b> para o seu próximo aniversário!
+              You were born on a <b>{stats.bornDayOfWeek}</b>. Faltam <b>{stats.daysUntilNextBirthday} dias</b> for your next birthday!
             </p>
           </div>
 

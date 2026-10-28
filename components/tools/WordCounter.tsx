@@ -56,7 +56,7 @@ export default function WordCounter() {
 
         <div className="bg-white border border-zinc-200 p-3.5 rounded-2xl text-center shadow-sm">
           <div className="text-3xl font-black text-zinc-900">{charsNoSpaces}</div>
-          <div className="text-[11px] text-zinc-500 font-bold uppercase tracking-wider mt-0.5">Sem Espaços</div>
+          <div className="text-[11px] text-zinc-500 font-bold uppercase tracking-wider mt-0.5">No Spaces</div>
         </div>
 
         <div className="bg-white border border-zinc-200 p-3.5 rounded-2xl text-center shadow-sm">
@@ -66,7 +66,7 @@ export default function WordCounter() {
 
         <div className="bg-white border border-zinc-200 p-3.5 rounded-2xl text-center shadow-sm">
           <div className="text-3xl font-black text-zinc-900">{paragraphs}</div>
-          <div className="text-[11px] text-zinc-500 font-bold uppercase tracking-wider mt-0.5">Parágrafos</div>
+          <div className="text-[11px] text-zinc-500 font-bold uppercase tracking-wider mt-0.5">Paragraphs</div>
         </div>
 
         <div className="bg-white border border-zinc-200 p-3.5 rounded-2xl text-center shadow-sm">

@@ -34,7 +34,7 @@ export default function PasswordGenerator() {
     if (entropy < 80) {
       return { label: 'Forte', color: 'bg-emerald-500', percent: 75, crackTime: 'Vários anos' };
     }
-    return { label: 'Impenetrável', color: 'bg-green-600', percent: 100, crackTime: 'Milhões de séculos' };
+    return { label: 'Impenetrable', color: 'bg-green-600', percent: 100, crackTime: 'Millions of centuries' };
   };
 
   const strength = calculateStrength();
@@ -119,7 +119,7 @@ export default function PasswordGenerator() {
       <div className="bg-white p-4 rounded-2xl border border-zinc-200 shadow-sm space-y-2">
         <div className="flex justify-between items-center text-xs">
           <span className="font-bold text-zinc-600">
-            Segurança da Senha: <b className="text-zinc-900 uppercase">{strength.label}</b>
+            Password Strength: <b className="text-zinc-900 uppercase">{strength.label}</b>
           </span>
           <span className="text-zinc-500 font-medium">
             Tempo estimado para quebrar: <b className="text-zinc-800">{strength.crackTime}</b>
@@ -166,7 +166,7 @@ export default function PasswordGenerator() {
               onChange={(e) => setIncludeUpper(e.target.checked)}
               className="w-4 h-4 accent-zinc-900 rounded"
             />
-            <span className="font-semibold text-zinc-700">Maiúsculas (A-Z)</span>
+            <span className="font-semibold text-zinc-700">Uppercase (A-Z)</span>
           </label>
 
           <label className="flex items-center gap-2.5 p-2.5 rounded-xl border border-zinc-100 hover:bg-zinc-50 cursor-pointer">
@@ -176,7 +176,7 @@ export default function PasswordGenerator() {
               onChange={(e) => setIncludeLower(e.target.checked)}
               className="w-4 h-4 accent-zinc-900 rounded"
             />
-            <span className="font-semibold text-zinc-700">Minúsculas (a-z)</span>
+            <span className="font-semibold text-zinc-700">Lowercase (a-z)</span>
           </label>
 
           <label className="flex items-center gap-2.5 p-2.5 rounded-xl border border-zinc-100 hover:bg-zinc-50 cursor-pointer">
@@ -186,7 +186,7 @@ export default function PasswordGenerator() {
               onChange={(e) => setIncludeNumbers(e.target.checked)}
               className="w-4 h-4 accent-zinc-900 rounded"
             />
-            <span className="font-semibold text-zinc-700">Números (0-9)</span>
+            <span className="font-semibold text-zinc-700">Numbers (0-9)</span>
           </label>
 
           <label className="flex items-center gap-2.5 p-2.5 rounded-xl border border-zinc-100 hover:bg-zinc-50 cursor-pointer">
@@ -196,7 +196,7 @@ export default function PasswordGenerator() {
               onChange={(e) => setIncludeSymbols(e.target.checked)}
               className="w-4 h-4 accent-zinc-900 rounded"
             />
-            <span className="font-semibold text-zinc-700">Símbolos (!@#$)</span>
+            <span className="font-semibold text-zinc-700">Symbols (!@#$)</span>
           </label>
 
           <label className="sm:col-span-2 flex items-center gap-2.5 p-2.5 rounded-xl border border-zinc-100 hover:bg-zinc-50 cursor-pointer">

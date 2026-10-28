@@ -260,7 +260,7 @@ export default function QRGenerator() {
           </div>
 
           <div>
-            <span className="font-bold text-zinc-600 block mb-1">Correção de Erro</span>
+            <span className="font-bold text-zinc-600 block mb-1">Error Correction</span>
             <select
               value={errorLevel}
               onChange={(e) => setErrorLevel(e.target.value as any)}

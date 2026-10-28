@@ -153,7 +153,7 @@ export default function JpgToPdf() {
           <span className="text-4xl block">📚</span>
           <div>
             <span className="font-black text-zinc-900 block text-base">
-              Clique para selecionar ou solte várias imagens aqui
+              Click to select or drop multiple images here
             </span>
             <span className="text-xs text-zinc-500 mt-1 block">
               Join JPG photos, PNG e WebP em um único documento PDF em ordem personalizada.

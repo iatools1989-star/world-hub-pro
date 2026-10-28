@@ -136,7 +136,7 @@ export default function MergePdf() {
           <span className="text-4xl block">📚</span>
           <div>
             <span className="font-black text-zinc-900 block text-base">
-              Selecione ou arraste múltiplos arquivos PDF para juntar
+              Select or drag multiple PDF files to merge
             </span>
             <span className="text-xs text-zinc-500 mt-1 block">
               100% Client-Side: todo o processo roda na memória local sem envio para servidores.
