@@ -177,16 +177,10 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
                 <span className="bg-zinc-900 text-white px-2.5 py-1 rounded-full font-bold">
                   Free to use
                 </span>
-                {tool.featured && (
-                  <a
-                    href={`/go/${tool.slug}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-yellow-400 text-zinc-950 font-bold px-2.5 py-1 rounded-full hover:bg-yellow-300 transition"
-                  >
-                    Pro: {tool.featured} ↗
-                  </a>
-                )}
+                {/* O selo "Pro: X" saiu daqui de proposito: era um segundo caminho
+                    comercial para o mesmo parceiro, sem #ad e sem rel=sponsored,
+                    competindo com o CTA editorial do fim da pagina. */}
+
               </div>
             </div>
           </div>
@@ -323,9 +317,15 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
               <div className="bg-yellow-50 border border-yellow-200 rounded-2xl p-5 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-[10px] font-black uppercase tracking-wider bg-zinc-900 text-yellow-400 px-2 py-0.5 rounded">
-                      #ad
-                    </span>
+                    {ed.cta.monetized ? (
+                      <span className="text-[10px] font-black uppercase tracking-wider bg-zinc-900 text-yellow-400 px-2 py-0.5 rounded">
+                        #ad
+                      </span>
+                    ) : (
+                      <span className="text-[10px] font-black uppercase tracking-wider bg-zinc-200 text-zinc-700 px-2 py-0.5 rounded">
+                        Official site
+                      </span>
+                    )}
                     {ed.cta.partner && (
                       <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-500">
                         {ed.cta.partner}
@@ -337,17 +337,31 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
                 </div>
                 <a
                   href={ed.cta.href}
-                  rel="sponsored noopener noreferrer"
+                  {...(ed.cta.monetized
+                    ? { rel: 'sponsored noopener noreferrer' }
+                    : { rel: 'noopener noreferrer' })}
                   className="mt-3 inline-block text-center py-2 px-4 bg-zinc-900 text-white rounded-full font-bold text-xs hover:bg-zinc-800 transition"
                 >
                   {ed.cta.label} →
                 </a>
                 <p className="text-[10px] text-zinc-500 mt-2 leading-snug">
-                  Affiliate link. We may earn a commission at no extra cost to you.{' '}
-                  <a href={`/${locale}/affiliate-disclosure`} className="underline">
-                    Full disclosure
-                  </a>
-                  .
+                  {ed.cta.monetized ? (
+                    <>
+                      Affiliate link. We may earn a commission at no extra cost to you.{' '}
+                      <a href={`/${locale}/affiliate-disclosure`} className="underline">
+                        Full disclosure
+                      </a>
+                      .
+                    </>
+                  ) : (
+                    <>
+                      Direct link to the official site. We earn nothing from this click.{' '}
+                      <a href={`/${locale}/affiliate-disclosure`} className="underline">
+                        Why we say this
+                      </a>
+                      .
+                    </>
+                  )}
                 </p>
               </div>
             ) : (

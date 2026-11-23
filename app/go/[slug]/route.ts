@@ -28,6 +28,7 @@ const ALLOWED_HOSTS = new Set([
   'canva.com',
   'otter.ai',
   'adobe.com',
+  'www.adobe.com',
   'smallpdf.com',
   'remove.bg',
   'www.remove.bg',
