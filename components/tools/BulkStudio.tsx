@@ -10,12 +10,6 @@ export default function BulkStudio() {
 
   const handleFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selected = Array.from(e.target.files || []) as File[];
-    const today = new Date().toDateString();
-    const used = parseInt(localStorage.getItem(today) || "0");
-    if (used + selected.length > 10) {
-      alert(`Free: 10/day. Você já usou ${used}. Pro $9/mês = 500/dia (em breve)`);
-      return;
-    }
     setFiles(selected);
   };
 

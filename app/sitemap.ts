@@ -24,6 +24,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       });
     }
 
+    // Páginas de confiança
+    for (const path of ['about', 'contact', 'privacy', 'terms', 'affiliate-disclosure']) {
+      entries.push({
+        url: `${baseUrl}/${loc.code}/${path}`,
+        lastModified: new Date(),
+        changeFrequency: 'monthly',
+        priority: 0.4,
+      });
+    }
+
     // Diretório
     for (const item of DIRECTORY_ITEMS) {
       entries.push({

@@ -22,7 +22,7 @@ export default async function HomePage() {
         <div className="relative max-w-[1280px] mx-auto grid lg:grid-cols-[1.1fr_0.9fr] gap-8 items-center">
           <div>
             <div className="inline-flex items-center gap-2 bg-yellow-400 text-zinc-950 px-3 py-1 rounded-full text-xs font-black">
-              🔥 BESTSELLER • 2,341 sellers use it
+              Free forever · No account needed
             </div>
             <h1 className="mt-4 text-4xl sm:text-5xl font-black tracking-tight leading-[1.05]">
               Private Bulk Image Studio <span className="text-yellow-400">100% Offline</span>
@@ -35,19 +35,14 @@ export default async function HomePage() {
                 🚀 Try Free Now →
               </Link>
               <div className="flex items-center gap-2 text-sm text-zinc-400">
-                <span className="flex -space-x-2">
-                  <span className="w-7 h-7 rounded-full bg-zinc-700 border-2 border-zinc-950 flex items-center justify-center text-[10px]">★</span>
-                  <span className="w-7 h-7 rounded-full bg-zinc-600 border-2 border-zinc-950"></span>
-                  <span className="w-7 h-7 rounded-full bg-zinc-500 border-2 border-zinc-950"></span>
-                </span>
-                4.9/5 (847 reviews)
+                Runs entirely in your browser — nothing is uploaded
               </div>
             </div>
             <div className="mt-6 flex flex-wrap gap-4 text-xs font-bold text-zinc-500">
               <span className="flex items-center gap-1.5"><span className="w-2 h-2 bg-emerald-500 rounded-full"></span> 100% Offline</span>
               <span className="flex items-center gap-1.5"><span className="w-2 h-2 bg-emerald-500 rounded-full"></span> No Upload</span>
               <span className="flex items-center gap-1.5"><span className="w-2 h-2 bg-emerald-500 rounded-full"></span> ZIP in 10s</span>
-              <span className="px-2 py-1 bg-white/10 rounded-full border border-white/10">Free 10/day • Pro $9/mo</span>
+              <span className="px-2 py-1 bg-white/10 rounded-full border border-white/10">Unlimited · Free</span>
             </div>
           </div>
           <div className="relative">
