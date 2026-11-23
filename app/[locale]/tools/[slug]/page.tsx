@@ -32,6 +32,7 @@ import ResumeBuilder from '@/components/tools/ResumeBuilder';
 import GenericToolRunner from '@/components/tools/GenericToolRunner';
 import { TOOLS } from '@/lib/data';
 import { TOOL_GUIDES } from '@/lib/toolContent';
+import { TOOL_EDITORIAL } from '@/lib/toolEditorial';
 import JsonLd from '@/components/JsonLd';
 import { canonical, breadcrumbs, publisher } from '@/lib/seo';
 
@@ -40,15 +41,29 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const tool = TOOLS.find((t) => t.slug === slug);
   if (!tool) return {};
   const guide = TOOL_GUIDES[slug];
+  const ed = TOOL_EDITORIAL[slug];
+
+  // Preferimos o titulo/descricao editoriais: foram escritos com limite de
+  // tamanho e com a palavra-chave no inicio. O nome puro da ferramenta nao
+  // diz a um buscador o que a pagina resolve.
+  const title = ed ? ed.metaTitle : `${tool.name} - Free Online Browser Tool`;
+  const description = ed
+    ? ed.metaDescription
+    : guide
+      ? guide.summary
+      : `${tool.desc} Fast, private, and free to use without uploading files.`;
+
   return {
-    title: `${tool.name} - Free Online Browser Tool`,
-    description: guide ? guide.summary : `${tool.desc} Fast, private and free forever without uploading files.`,
+    title,
+    description,
+    keywords: ed ? [ed.keyword] : undefined,
     alternates: { canonical: canonical(`/${locale}/tools/${slug}`) },
     openGraph: {
-      title: `${tool.name} - Free Online Browser Tool`,
-      description: guide ? guide.summary : tool.desc,
+      title,
+      description,
       url: canonical(`/${locale}/tools/${slug}`),
       type: 'website',
+      ...(ed ? { modifiedTime: ed.updated } : {}),
     },
   };
 }
@@ -62,6 +77,7 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
   }
 
   const guide = TOOL_GUIDES[slug];
+  const ed = TOOL_EDITORIAL[slug];
 
   const renderToolComponent = () => {
     switch (tool.slug) {
@@ -90,7 +106,8 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
       case 'compress-pdf':
         return <CompressPdf />;
       case 'remove-bg':
-        case 'bulk-studio':
+        return <RemoveBg />;
+      case 'bulk-studio':
         return <BulkStudio />;
       case 'text-to-speech':
         return <TextToSpeech />;
@@ -158,7 +175,7 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
                   ✓ 100% Client-Side
                 </span>
                 <span className="bg-zinc-900 text-white px-2.5 py-1 rounded-full font-bold">
-                  Free Forever
+                  Free to use
                 </span>
                 {tool.featured && (
                   <a
@@ -194,6 +211,53 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
                   {guide.summary}
                 </p>
               </section>
+
+            {/* ---- Conteudo editorial (AdSense) ---- */}
+
+            {/* Introducao: o que a ferramenta faz e por que importa */}
+            <section>
+              <h2 className="text-lg font-black text-zinc-900 mb-3 flex items-center gap-2">
+                <span>🧭</span> What {tool.name} does
+              </h2>
+              {ed ? (
+                <div className="space-y-3 text-sm text-zinc-700 leading-relaxed max-w-prose">
+                  {ed.intro.map((p, i) => (
+                    <p key={i}>{p}</p>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-sm text-zinc-700 leading-relaxed max-w-prose">{tool.desc}</p>
+              )}
+            </section>
+
+            {/* Beneficios concretos */}
+            {ed && (
+              <section>
+                <h2 className="text-lg font-black text-zinc-900 mb-3 flex items-center gap-2">
+                  <span>✅</span> Why use this one
+                </h2>
+                <div className="grid sm:grid-cols-3 gap-3">
+                  {ed.benefits.map((b) => (
+                    <div key={b.title} className="bg-zinc-50 border border-zinc-200 rounded-2xl p-4">
+                      <h3 className="font-bold text-sm text-zinc-900">{b.title}</h3>
+                      <p className="text-xs text-zinc-600 mt-1 leading-relaxed">{b.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* Limitacao honesta — o que ganha confianca com o leitor e com o revisor */}
+            {ed && (
+              <section>
+                <h2 className="text-lg font-black text-zinc-900 mb-3 flex items-center gap-2">
+                  <span>⚠️</span> When this tool is the wrong choice
+                </h2>
+                <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4">
+                  <p className="text-sm text-zinc-700 leading-relaxed">{ed.notIdealFor}</p>
+                </div>
+              </section>
+            )}
 
               {/* Step by Step Guide */}
               <section>
@@ -255,22 +319,51 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
               </p>
             </div>
 
-            <div className="bg-yellow-50 border border-yellow-200 rounded-2xl p-5 flex flex-col justify-between">
-              <div>
-                <h3 className="font-bold text-zinc-900 mb-1">Need Enterprise Batch Processing?</h3>
-                <p className="text-xs text-zinc-600">
-                  Upgrade to cloud-grade automated workflows with our verified industry software partners.
+            {ed ? (
+              <div className="bg-yellow-50 border border-yellow-200 rounded-2xl p-5 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-[10px] font-black uppercase tracking-wider bg-zinc-900 text-yellow-400 px-2 py-0.5 rounded">
+                      #ad
+                    </span>
+                    {ed.cta.partner && (
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-500">
+                        {ed.cta.partner}
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="font-bold text-zinc-900 mb-1">When this tool is not enough</h3>
+                  <p className="text-xs text-zinc-600 leading-relaxed">{ed.cta.body}</p>
+                </div>
+                <a
+                  href={ed.cta.href}
+                  rel="sponsored noopener noreferrer"
+                  className="mt-3 inline-block text-center py-2 px-4 bg-zinc-900 text-white rounded-full font-bold text-xs hover:bg-zinc-800 transition"
+                >
+                  {ed.cta.label} →
+                </a>
+                <p className="text-[10px] text-zinc-500 mt-2 leading-snug">
+                  Affiliate link. We may earn a commission at no extra cost to you.{' '}
+                  <a href={`/${locale}/affiliate-disclosure`} className="underline">
+                    Full disclosure
+                  </a>
+                  .
                 </p>
               </div>
-              <a
-                href={`/go/${tool.slug}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-3 inline-block text-center py-2 px-4 bg-zinc-900 text-white rounded-full font-bold text-xs hover:bg-zinc-800 transition"
-              >
-                View Recommended Pro Tools →
-              </a>
-            </div>
+            ) : (
+              <div className="bg-zinc-50 border border-zinc-200 rounded-2xl p-5">
+                <h3 className="font-bold text-zinc-900 mb-1">Other free tools</h3>
+                <p className="text-xs text-zinc-600 mb-3">
+                  Sixteen browser utilities, all free, all processed locally.
+                </p>
+                <a
+                  href={`/${locale}/tools`}
+                  className="inline-block text-center py-2 px-4 bg-zinc-900 text-white rounded-full font-bold text-xs hover:bg-zinc-800 transition"
+                >
+                  Browse all tools →
+                </a>
+              </div>
+            )}
           </div>
         </div>
       </main>

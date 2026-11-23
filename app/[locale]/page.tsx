@@ -51,7 +51,7 @@ export default async function HomePage() {
         <div className="relative max-w-[1280px] mx-auto grid lg:grid-cols-[1.1fr_0.9fr] gap-8 items-center">
           <div>
             <div className="inline-flex items-center gap-2 bg-yellow-400 text-zinc-950 px-3 py-1 rounded-full text-xs font-black">
-              Free forever · No account needed
+              Free to use · No account needed
             </div>
             <h1 className="mt-4 text-4xl sm:text-5xl font-black tracking-tight leading-[1.05]">
               Private Bulk Image Studio <span className="text-yellow-400">100% Offline</span>

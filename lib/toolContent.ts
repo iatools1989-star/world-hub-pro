@@ -16,7 +16,7 @@ export const TOOL_GUIDES: Record<string, ToolGuide> = {
       { step: 3, title: 'Instant Vector Export', desc: 'Download the rendered code in high-resolution PNG or copy the data directly into your design suite.' },
     ],
     features: [
-      { title: 'Privacy Guaranteed', desc: 'No dynamic redirect bridges or third-party tracking URLs injected. Clean static QR codes.' },
+      { title: 'No Tracking Redirect', desc: 'No dynamic redirect bridges or third-party tracking URLs injected. Clean static QR codes.' },
       { title: 'Full Print Compatibility', desc: 'Rendered at crisp high-DPI resolution suitable for business cards, billboards, and flyers.' },
       { title: 'Offline-First Engine', desc: 'Generates using pure client-side mathematical matrices directly in browser RAM.' },
     ],
@@ -201,7 +201,7 @@ export const TOOL_GUIDES: Record<string, ToolGuide> = {
     features: [
       { title: 'Four-Corner Sampling', desc: 'Automatically detects background dominant chroma from image borders.' },
       { title: 'Color Tolerance Controls', desc: 'Fine-tune threshold sensitivity to avoid clipping foreground elements.' },
-      { title: 'No Subscription Fees', desc: 'Free forever without account credits or paywalls.' },
+      { title: 'No Subscription Fees', desc: 'No account credits, no paywall and no daily limit.' },
     ],
     faqs: [
       { q: 'Which images produce the best results?', a: 'Images with high contrast between subject and background (such as studio product photos and logos) yield the sharpest cutouts.' },
