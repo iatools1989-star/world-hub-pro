@@ -4,6 +4,8 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import AdSenseBanner from '@/components/AdSenseBanner';
 import { TOOLS, ADSENSE_CONFIG } from '@/lib/data';
+import JsonLd from '@/components/JsonLd';
+import { canonical, breadcrumbs } from '@/lib/seo';
 
 const BASE = 'https://iatools.online';
 
@@ -26,6 +28,32 @@ export default async function ToolsIndexPage({ params }: { params: Promise<{ loc
   return (
     <div className="flex flex-col min-h-screen bg-[#fcfcfd] dark:bg-zinc-950">
       <Header currentLocale={locale} />
+
+      <JsonLd
+        data={[
+          {
+            '@context': 'https://schema.org',
+            '@type': 'CollectionPage',
+            name: 'All 16 free browser tools',
+            url: canonical(`/${locale}/tools`),
+            inLanguage: 'en',
+            mainEntity: {
+              '@type': 'ItemList',
+              numberOfItems: TOOLS.length,
+              itemListElement: TOOLS.map((tool: { name: string; slug: string }, i: number) => ({
+                '@type': 'ListItem',
+                position: i + 1,
+                name: tool.name,
+                url: canonical(`/${locale}/tools/${tool.slug}`),
+              })),
+            },
+          },
+          breadcrumbs([
+            { name: 'Home', path: `/${locale}` },
+            { name: 'Tools', path: `/${locale}/tools` },
+          ]),
+        ]}
+      />
 
       <main className="flex-1 max-w-[1100px] mx-auto w-full px-4 sm:px-6 py-10">
         <nav className="text-xs text-zinc-500 mb-4">

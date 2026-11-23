@@ -32,15 +32,24 @@ import ResumeBuilder from '@/components/tools/ResumeBuilder';
 import GenericToolRunner from '@/components/tools/GenericToolRunner';
 import { TOOLS } from '@/lib/data';
 import { TOOL_GUIDES } from '@/lib/toolContent';
+import JsonLd from '@/components/JsonLd';
+import { canonical, breadcrumbs, publisher } from '@/lib/seo';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const tool = TOOLS.find((t) => t.slug === slug);
   if (!tool) return {};
   const guide = TOOL_GUIDES[slug];
   return {
-    title: `${tool.name} - Free Online Browser Tool | World Tools Hub`,
+    title: `${tool.name} - Free Online Browser Tool`,
     description: guide ? guide.summary : `${tool.desc} Fast, private and free forever without uploading files.`,
+    alternates: { canonical: canonical(`/${locale}/tools/${slug}`) },
+    openGraph: {
+      title: `${tool.name} - Free Online Browser Tool`,
+      description: guide ? guide.summary : tool.desc,
+      url: canonical(`/${locale}/tools/${slug}`),
+      type: 'website',
+    },
   };
 }
 
@@ -96,6 +105,42 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
   return (
     <div className="flex flex-col min-h-screen">
       <Header currentLocale={locale} />
+
+      <JsonLd
+        data={[
+          {
+            '@context': 'https://schema.org',
+            '@type': 'SoftwareApplication',
+            name: tool.name,
+            description: guide ? guide.summary : tool.desc,
+            url: canonical(`/${locale}/tools/${tool.slug}`),
+            applicationCategory: 'UtilitiesApplication',
+            operatingSystem: 'Any browser',
+            browserRequirements: 'Requires JavaScript',
+            // Preco real: o produto e gratuito. Isto e fato, nao marketing.
+            offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+            isAccessibleForFree: true,
+            publisher: publisher(),
+            ...(guide ? { featureList: guide.features.map((f) => f.title) } : {}),
+          },
+          ...(guide
+            ? [{
+                '@context': 'https://schema.org',
+                '@type': 'FAQPage',
+                mainEntity: guide.faqs.map((f) => ({
+                  '@type': 'Question',
+                  name: f.q,
+                  acceptedAnswer: { '@type': 'Answer', text: f.a },
+                })),
+              }]
+            : []),
+          breadcrumbs([
+            { name: 'Home', path: `/${locale}` },
+            { name: 'Tools', path: `/${locale}/tools` },
+            { name: tool.name, path: `/${locale}/tools/${tool.slug}` },
+          ]),
+        ]}
+      />
 
       <main className="max-w-[960px] mx-auto px-4 sm:px-6 py-8 w-full">
         <a href={`/${locale}#tools`} className="text-xs font-bold text-zinc-500 hover:text-zinc-900 transition">

@@ -1,8 +1,11 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { canonical } from '@/lib/seo';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
   return {
+    alternates: { canonical: canonical(`/${locale}/terms`) },
     title: 'Terms of Service & Usage Agreement',
     description: 'Read the terms of service, conditions of use, intellectual property, and disclaimers for World Tools Hub web utilities.',
   };

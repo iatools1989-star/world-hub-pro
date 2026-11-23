@@ -1,8 +1,11 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { canonical } from '@/lib/seo';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
   return {
+    alternates: { canonical: canonical(`/${locale}/contact`) },
     title: 'Contact Support & Editorial Team',
     description: 'Get in touch with the World Tools Hub development, advertising partnership, and technical support teams.',
   };

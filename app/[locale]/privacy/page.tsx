@@ -1,8 +1,11 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { canonical } from '@/lib/seo';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
   return {
+    alternates: { canonical: canonical(`/${locale}/privacy`) },
     title: 'Privacy Policy & Data Protection',
     description: 'Learn how World Tools Hub safeguards your personal data, enforces zero-server file processing, and manages cookies in compliance with GDPR, LGPD, and Google AdSense guidelines.',
   };

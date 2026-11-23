@@ -3,16 +3,27 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import AdSenseBanner from '@/components/AdSenseBanner';
 import { DIRECTORY_ITEMS } from '@/lib/data';
+import JsonLd from '@/components/JsonLd';
+import { canonical, breadcrumbs, publisher } from '@/lib/seo';
 import { DIRECTORY_DETAILS } from '@/lib/directoryContent';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const item = DIRECTORY_ITEMS.find((d) => d.slug === slug);
   if (!item) return {};
 
   return {
-    title: `${item.name} Review, Pricing & Alternatives | World Tools Hub`,
-    description: `${item.desc} In-depth benchmark review, key features, pros, cons, and official discount link.`,
+    // Sem "Review": nao publicamos nota nem teste proprio, e anunciar
+    // "review" sem review e exatamente o tipo de sinal que o AdSense penaliza.
+    title: `${item.name} - Pricing, Category & Official Link`,
+    description: `${item.desc} Pricing model: ${item.pricing}. Direct link to the official site, with our affiliate disclosure stated up front.`,
+    alternates: { canonical: canonical(`/${locale}/directory/${slug}`) },
+    openGraph: {
+      title: `${item.name} - Pricing & Details`,
+      description: item.desc,
+      url: canonical(`/${locale}/directory/${slug}`),
+      type: 'website',
+    },
   };
 }
 
@@ -29,6 +40,29 @@ export default async function DirectoryPage({ params }: { params: Promise<{ loca
   return (
     <div className="flex flex-col min-h-screen">
       <Header currentLocale={locale} />
+
+      <JsonLd
+        data={[
+          {
+            '@context': 'https://schema.org',
+            '@type': 'SoftwareApplication',
+            name: item.name,
+            description: item.desc,
+            applicationCategory: item.category,
+            operatingSystem: 'Web',
+            publisher: publisher(),
+            // Preco NAO e inventado: usamos o modelo cadastrado, sem valor falso.
+            ...(item.pricing === 'Free'
+              ? { offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }, isAccessibleForFree: true }
+              : {}),
+          },
+          breadcrumbs([
+            { name: 'Home', path: `/${locale}` },
+            { name: 'Directory', path: `/${locale}/directory` },
+            { name: item.name, path: `/${locale}/directory/${item.slug}` },
+          ]),
+        ]}
+      />
 
       <main className="max-w-[960px] mx-auto px-4 sm:px-6 py-8 w-full">
         <a href={`/${locale}#directory`} className="text-xs font-bold text-zinc-500 hover:text-zinc-900 transition">

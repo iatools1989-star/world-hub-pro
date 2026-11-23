@@ -1,12 +1,17 @@
 import type { Metadata } from 'next';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { canonical } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Affiliate Disclosure | World Tools Hub',
-  description:
-    'How World Tools Hub earns money, which links are affiliate links, and what that means for you. FTC, ASA and Amazon Associates compliant disclosure.',
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  return {
+    title: 'Affiliate Disclosure',
+    description:
+      'How World Tools Hub earns money, which links are affiliate links, and what that means for you. FTC, ASA and Amazon Associates compliant disclosure.',
+    alternates: { canonical: canonical(`/${locale}/affiliate-disclosure`) },
+  };
+}
 
 export default async function AffiliateDisclosurePage({
   params,
