@@ -1,1 +1,42 @@
+name: Deploy para Cloudflare Workers
+
+# Publica automaticamente a cada push na main.
+# Tambem pode ser disparado na mao em Actions > este workflow > Run workflow.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-cloudflare
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Build e deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Baixar o codigo
+        uses: actions/checkout@v4
+
+      - name: Instalar Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Instalar dependencias
+        run: npm ci --no-audit --no-fund
+
+      # OpenNext ainda nao suporta Turbopack, que e o padrao no Next 16.
+      - name: Build (OpenNext)
+        run: npx opennextjs-cloudflare build
+
+      - name: Publicar na Cloudflare
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy
 
