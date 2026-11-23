@@ -27,6 +27,10 @@
    - Nao tem historico: o historico e o git.
    ===================================================================== */
 
+// Quando o painel roda dentro de /admin (iframe), o login ja aconteceu no
+// servidor e o cabecalho com "Conectar GitHub" nao deve aparecer.
+const EMBED = new URLSearchParams(location.search).has('embed');
+
 const REPO = 'iatools1989-star/world-hub-pro';
 const BRANCH = 'main';
 const FILE = 'lib/contentOverrides.ts';
@@ -770,6 +774,13 @@ $('#btnToken').onclick = pedirToken;
 $('#btnPublish').onclick = publicar;
 
 (async function boot() {
+  if (EMBED) {
+    // o cartao de token some: a autenticacao agora e por cookie HttpOnly
+    const b = document.getElementById('btnToken');
+    if (b) b.style.display = 'none';
+    const p = document.getElementById('statusPill');
+    if (p) { p.textContent = 'autenticado'; p.className = 'pill ok'; }
+  }
   atualizarStatus();
   try {
     await carregarDados();

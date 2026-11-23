@@ -20,7 +20,7 @@ export const SITE_NAME = 'World Tools Hub';
  * Ele resolve o campo vazio, mas nao cria autoria verificavel. Quando houver um
  * nome real + perfil publico, troque as duas constantes abaixo.
  */
-export const AUTHOR_NAME: string | null = 'Admin';
+export const AUTHOR_NAME: string | null = 'Silva';
 
 export function canonical(path: string): string {
   const p = path.startsWith('/') ? path : `/${path}`;

@@ -18,10 +18,15 @@ export function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  // Painel de administracao: fica fora do prefixo de idioma de proposito.
-  // Sem esta linha, /painel virava 301 para /en/painel e o painel sumia.
-  if (pathname === '/painel' || pathname.startsWith('/painel/')) {
-    return NextResponse.next();
+  // Painel de administracao.
+  // /en/admin passa por aqui normalmente (esta sob /en).
+  // O editor solto em /painel nao deve ser uma porta de entrada: quem chega
+  // nele sem sessao veria a interface sem autenticacao. Redireciona para o
+  // login. Os arquivos do editor (index.html, app.js, bases.js) continuam
+  // servidos porque o iframe de /en/admin os carrega depois do login.
+  if (pathname === '/painel' || pathname === '/painel/') {
+    req.nextUrl.pathname = `/${DEFAULT_LOCALE}/admin`;
+    return NextResponse.redirect(req.nextUrl, 307);
   }
   if (pathname.includes('.') || ['/robots.txt', '/sitemap.xml', '/ads.txt'].includes(pathname)) {
     return NextResponse.next();
