@@ -32,7 +32,7 @@ export default function AdSenseBanner({
       style={{ minHeight: '120px' }}
     >
       <div className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-1">
-        Publicidade
+        Advertisement
       </div>
       <ins
         className="adsbygoogle"

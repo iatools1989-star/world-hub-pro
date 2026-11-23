@@ -28,7 +28,11 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               About World Tools Hub
             </h1>
             <p className="text-sm text-zinc-600 mt-2">
-              Empowering global productivity with private, zero-upload web utilities and transparent AI benchmarking.
+              Sixteen free browser tools that never see your files, and a short directory of the paid ones we
+              would actually pay for.
+            </p>
+            <p className="text-xs text-zinc-500 mt-2">
+              Last updated: November 10, 2026
             </p>
           </div>
 
@@ -36,7 +40,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             <section>
               <h2 className="text-xl font-black text-zinc-900 mb-2">1. Who We Are</h2>
               <p>
-                <strong>World Tools Hub</strong> (<a href="https://www.iatools.online" className="text-yellow-600 font-bold hover:underline">iatools.online</a>) is an open utility initiative created by engineers and digital creators who were tired of bloated, ad-ridden converter websites that demand file uploads and harvest user telemetry.
+                <strong>World Tools Hub</strong> (<a href="https://iatools.online" className="text-yellow-600 font-bold hover:underline">iatools.online</a>) is an open utility initiative created by engineers and digital creators who were tired of bloated, ad-ridden converter websites that demand file uploads and harvest user telemetry.
               </p>
               <p className="mt-2">
                 We believe that modern web browsers possess more than enough compute power to process PDFs, manipulate images, analyze text, and execute cryptographic calculations locally without transmitting confidential documents across public internet servers.
@@ -62,8 +66,8 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                 </div>
                 <div className="p-4 bg-zinc-50 rounded-2xl border border-zinc-200">
                   <div className="text-2xl mb-1">🌍</div>
-                  <div className="font-bold text-zinc-900 text-sm">Universal Access</div>
-                  <div className="text-xs text-zinc-600 mt-1">Available in 12 global languages, free for everyone forever.</div>
+                  <div className="font-bold text-zinc-900 text-sm">One Language, Done Properly</div>
+                  <div className="text-xs text-zinc-600 mt-1">Everything here is written in English. We chose one language done properly over twelve machine-translated ones.</div>
                 </div>
               </div>
             </section>

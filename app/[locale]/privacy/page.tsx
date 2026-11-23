@@ -7,7 +7,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     alternates: { canonical: canonical(`/${locale}/privacy`) },
     title: 'Privacy Policy & Data Protection',
-    description: 'Learn how World Tools Hub safeguards your personal data, enforces zero-server file processing, and manages cookies in compliance with GDPR, LGPD, and Google AdSense guidelines.',
+    description: 'What World Tools Hub stores and what it does not: local file processing, the cookies Google AdSense sets, and the rights you can exercise by email.',
   };
 }
 
@@ -28,7 +28,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
               Privacy Policy
             </h1>
             <p className="text-xs text-zinc-500 mt-2">
-              Last updated: October 5, 2026 • Effective Date: January 1, 2025
+              Last updated: November 10, 2026 · Applies to the English edition at iatools.online
             </p>
           </div>
 
@@ -36,7 +36,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
             <section>
               <h2 className="text-xl font-black text-zinc-900 mb-2">1. Introduction & Core Mission</h2>
               <p>
-                Welcome to <strong>World Tools Hub</strong> (accessible at <a href="https://www.iatools.online" className="text-yellow-600 font-bold hover:underline">https://www.iatools.online</a>). 
+                Welcome to <strong>World Tools Hub</strong> (available at <a href="https://iatools.online" className="text-yellow-600 font-bold hover:underline">https://iatools.online</a>). 
                 We are committed to operating our browser utilities under strict <strong>Privacy-by-Design</strong> principles. 
                 Our architectural premise is straightforward: everyday utility tools (such as PDF manipulators, image converters, 
                 and text processors) should execute <strong>locally in the user's browser sandbox</strong> without uploading confidential documents 
@@ -45,7 +45,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
             </section>
 
             <section>
-              <h2 className="text-xl font-black text-zinc-900 mb-2">2. Zero-Knowledge Local File Processing</h2>
+              <h2 className="text-xl font-black text-zinc-900 mb-2">2. Local File Processing</h2>
               <p>
                 When you use tools on World Tools Hub—including but not limited to <em>PDF to JPG, Merge PDF, Compress PDF, Remove Background, 
                 Image Compressor, Password Generator, and Text to Speech</em>:
@@ -53,7 +53,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
               <ul className="list-disc pl-5 space-y-1.5 mt-2">
                 <li><strong>No File Uploads:</strong> Files loaded into our tools are processed in your web browser memory using HTML5 APIs, WebAssembly, and client-side JavaScript.</li>
                 <li><strong>No Remote Storage:</strong> Your documents, images, credentials, or generated files are never transmitted to our backend, nor are they cached or stored on any server.</li>
-                <li><strong>Immediate Volatility:</strong> As soon as you refresh or close your browser tab, all active working data held in client-side RAM is permanently cleared.</li>
+                <li><strong>Nothing survives the tab:</strong> Close or refresh the tab and the page can no longer reach your file. We do not write it to disk, to a cookie or to local storage. (As with any web page, the operating system may swap memory while the tab is open — we cannot control that, and it is one more reason to close the tab when you are done.)</li>
               </ul>
             </section>
 
@@ -115,6 +115,13 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
                 <li><strong>Right to Rectification or Erasure:</strong> Any browser-level cache or local storage settings (such as theme or preferred language) can be wiped directly via your browser clearing history tool.</li>
                 <li><strong>Consent Revocation:</strong> You can block advertising cookies at any time using your browser's cookie controls or ad blockers.</li>
               </ul>
+              <p className="mt-3">
+                To exercise any of these rights, or to ask what — if anything — we hold about you, write to{' '}
+                <a href="mailto:contact@iatools.online" className="text-yellow-600 font-bold hover:underline">contact@iatools.online</a>{' '}
+                with the subject line <em>Data request</em>. Email is our only support channel. We answer from a real
+                inbox, not an autoresponder, so allow a few working days. If you are not satisfied with the answer, you
+                may complain to your local data protection authority — in Brazil, the ANPD.
+              </p>
             </section>
 
             <section>
@@ -131,7 +138,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
               </p>
               <div className="mt-3 p-4 bg-zinc-50 rounded-xl border border-zinc-200">
                 <div className="font-bold text-zinc-900">World Tools Hub Data Protection Inquiries</div>
-                <div className="text-xs text-zinc-600 mt-1">Website: https://www.iatools.online</div>
+                <div className="text-xs text-zinc-600 mt-1">Website: iatools.online</div>
                 <div className="text-xs text-zinc-600">Email:{' '}
                   <a href="mailto:contact@iatools.online" className="text-yellow-600 font-bold hover:underline">
                     contact@iatools.online
