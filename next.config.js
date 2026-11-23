@@ -8,6 +8,13 @@ const nextConfig = {
         destination: '/en',
         permanent: false,
       },
+      // www -> apex: um endereco canonico so (evita conteudo duplicado)
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.iatools.online' }],
+        destination: 'https://iatools.online/:path*',
+        permanent: true,
+      },
     ];
   },
 };
