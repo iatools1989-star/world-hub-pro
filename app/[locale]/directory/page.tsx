@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: 'AI Tools Directory — 10 Services Compared by Pricing',
     description:
-      'A short, honest list of commercial AI services: writing, video, image, voice and productivity. Each entry states the real pricing model. Some links are affiliate links, marked as such.',
+      'Ten commercial AI services for writing, video, image, voice and productivity, each with its November 2026 prices, the case for not buying it, and what to use instead.',
     alternates: { canonical: url },
   };
 }
@@ -90,8 +90,9 @@ export default async function DirectoryIndexPage({ params }: { params: Promise<{
 
         <div className="mt-4 bg-yellow-50 dark:bg-yellow-950/30 border border-yellow-200 dark:border-yellow-900/60 rounded-2xl p-4">
           <p className="text-xs text-zinc-700 dark:text-zinc-300 leading-relaxed">
-            <strong>Affiliate disclosure:</strong> links to these services may earn us a commission at no
-            extra cost to you. It never changes what appears here or the order of this list.{' '}
+            <strong>Affiliate disclosure:</strong> no affiliate ID is attached to any link on this page today,
+            so we earn nothing from your clicks. If that changes, the link and this notice change with it —
+            and it will never affect what appears here or the order of this list.{' '}
             <Link href={`/${locale}/affiliate-disclosure`} className="font-bold underline">
               Read the full disclosure
             </Link>
@@ -102,6 +103,53 @@ export default async function DirectoryIndexPage({ params }: { params: Promise<{
         <div className="my-8">
           <AdSenseBanner slotId={ADSENSE_CONFIG.slotDirectory} />
         </div>
+
+        {/* Como esta lista e feita — conteudo real, nao recheio */}
+        <section className="mb-10 grid md:grid-cols-[1.4fr_1fr] gap-6">
+          <div className="space-y-3 text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed">
+            <h2 className="text-xl font-black text-zinc-900 dark:text-white">
+              How we decide what gets listed
+            </h2>
+            <p>
+              There are thousands of AI tools and this page lists ten. That is not a sampling problem — it is
+              the point. A directory that lists everything tells you nothing, and most of them are paid for.
+            </p>
+            <p>
+              Three questions decide inclusion. First, does the product do something that a free alternative or
+              a general assistant does not? Second, is the pricing model stated plainly enough for a buyer to
+              predict the monthly bill? Third, can we name a situation where it is the wrong purchase — because
+              if we cannot, we do not understand it well enough to recommend it. That third question is why
+              every entry below has a &ldquo;do not buy it if&rdquo; section.
+            </p>
+            <p>
+              We do not test these products hands-on. We read what the vendors publish, compare it against what
+              independent trackers found, and say where the two disagree. Every page carries the date the prices
+              were checked, because SaaS prices move faster than published reviews do. If a page is out of date,
+              the date on it tells you so — that is more useful than pretending otherwise.
+            </p>
+            <p>
+              What we will not do: invent a rating out of ten, quote a &ldquo;verified user&rdquo; count we cannot
+              check, promise a discount that does not exist, or sell a placement. The site is funded by display
+              advertising, which has no opinion about which tool you pick.
+            </p>
+          </div>
+          <aside className="bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-5 self-start">
+            <h3 className="font-bold text-sm text-zinc-900 dark:text-white mb-2">Before you subscribe to anything</h3>
+            <ul className="space-y-2 text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed list-disc pl-4">
+              <li>Check whether the free tier covers your actual monthly volume, not the demo volume.</li>
+              <li>Prefer annual billing only after a month on monthly billing — the discount is real, the commitment is too.</li>
+              <li>Look at the per-seat price, not the plan price, if more than one person will use it.</li>
+              <li>Export your content before cancelling anything. Workspace history rarely survives a downgrade.</li>
+              <li>Ask whether the free tool on this site already does it. Several times, the honest answer is yes.</li>
+            </ul>
+            <Link
+              href={`/${locale}/tools`}
+              className="mt-4 inline-block text-xs font-bold text-zinc-900 dark:text-white underline"
+            >
+              See the 16 free tools →
+            </Link>
+          </aside>
+        </section>
 
         {categorias.map((cat) => {
           const itens = DIRECTORY_ITEMS.filter((i) => i.category === cat);
