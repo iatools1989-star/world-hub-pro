@@ -22,7 +22,7 @@ export default function Footer({ currentLocale }: { currentLocale: string }) {
           </div>
         </div>
         <div className="mt-8 pt-6 border-t border-zinc-900 flex flex-col sm:flex-row justify-between gap-4 text-xs text-zinc-500">
-          <span>© 2026 World Tools Hub · Free browser tools · This site contains affiliate links (#ad)</span>
+          <span>© 2026 World Tools Hub · Free browser tools · Some outbound links may be affiliate links (#ad) — never a paid ranking</span>
           <span className="flex items-center gap-2">
             <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" /> All systems operational
           </span>

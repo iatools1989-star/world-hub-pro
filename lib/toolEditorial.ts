@@ -22,6 +22,12 @@ export interface ToolAffiliateCta {
   href: string;
   /** Nome do servico, exibido ao lado do #ad. Ausente quando o CTA e interno. */
   partner?: string;
+  /**
+   * true SOMENTE quando o link carrega um ID de afiliado real e gera comissao.
+   * Enquanto for false/ausente, o CTA nao recebe #ad nem rel=sponsored:
+   * anunciar comissao que nao existe e divulgacao enganosa.
+   */
+  monetized?: boolean;
 }
 
 export interface ToolEditorial {
@@ -186,9 +192,10 @@ export const TOOL_EDITORIAL: Record<string, ToolEditorial> = {
       'A converted PDF loses its text layer: the result is an image, so the words inside it can no longer be selected, searched or read by a screen reader. If the text needs to stay usable, convert to text instead of an image.',
     cta: {
       partner: 'Adobe Acrobat',
-      body: 'If you need OCR — recovering the text layer from a scanned PDF — that is beyond what a browser converter can do reliably. Adobe Acrobat handles it, and we earn a commission if you subscribe through our link.',
+      body: 'If you need OCR — recovering the text layer from a scanned PDF — that is beyond what a browser converter can do reliably. Adobe Acrobat handles it. We link to the official page and earn nothing from the click.',
       label: 'Compare Acrobat options',
       href: '/go/adobe',
+      monetized: false, // TODO: true no dia em que o link tiver ID
     },
     updated: '2026-11-23',
   },
@@ -214,6 +221,7 @@ export const TOOL_EDITORIAL: Record<string, ToolEditorial> = {
       body: 'For a PDF that needs to be small, searchable and editable after assembly, Acrobat does the part this tool deliberately does not. Affiliate link — disclosed here, before the click.',
       label: 'See Acrobat pricing',
       href: '/go/adobe',
+      monetized: false, // TODO: true no dia em que o link tiver ID
     },
     updated: '2026-11-23',
   },
@@ -236,9 +244,10 @@ export const TOOL_EDITORIAL: Record<string, ToolEditorial> = {
       'If the PDF must stay print-ready — a press file with CMYK images and embedded fonts — compression will degrade it in ways that matter. Keep the original for print and compress only the copy you send by email.',
     cta: {
       partner: 'Smallpdf',
-      body: 'If you compress PDFs in volume or need it inside a workflow with a phone app, a dedicated service may be worth it. Smallpdf is the one we list for that, and we earn a commission on subscriptions.',
+      body: 'If you compress PDFs in volume or need it inside a workflow with a phone app, a dedicated service may be worth it. Smallpdf is the one we list for that. We link to its official page and earn nothing from the click.',
       label: 'See Smallpdf plans',
       href: '/go/smallpdf',
+      monetized: false, // TODO: true no dia em que o link tiver ID
     },
     updated: '2026-11-23',
   },
@@ -264,6 +273,7 @@ export const TOOL_EDITORIAL: Record<string, ToolEditorial> = {
       body: 'For merging on a phone, or merging inside a document workflow with OCR and signing, a dedicated service covers ground this tool does not. Commission disclosed before the click.',
       label: 'See Smallpdf plans',
       href: '/go/smallpdf',
+      monetized: false, // TODO: true no dia em que o link tiver ID
     },
     updated: '2026-11-23',
   },
@@ -289,6 +299,7 @@ export const TOOL_EDITORIAL: Record<string, ToolEditorial> = {
       body: 'If you need clean edges on hair or glass, or you process hundreds of product images, a dedicated service will do better on those specific cases. We earn a commission if you buy credits through our link.',
       label: 'Compare remove.bg credits',
       href: '/go/removebg',
+      monetized: false, // TODO: true no dia em que o link tiver ID
     },
     updated: '2026-11-23',
   },
