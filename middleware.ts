@@ -17,6 +17,12 @@ export function middleware(req: NextRequest) {
   if (pathname.startsWith('/_next') || pathname.startsWith('/api') || pathname.startsWith('/go')) {
     return NextResponse.next();
   }
+
+  // Painel de administracao: fica fora do prefixo de idioma de proposito.
+  // Sem esta linha, /painel virava 301 para /en/painel e o painel sumia.
+  if (pathname === '/painel' || pathname.startsWith('/painel/')) {
+    return NextResponse.next();
+  }
   if (pathname.includes('.') || ['/robots.txt', '/sitemap.xml', '/ads.txt'].includes(pathname)) {
     return NextResponse.next();
   }

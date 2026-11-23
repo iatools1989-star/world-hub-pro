@@ -33,6 +33,7 @@ import GenericToolRunner from '@/components/tools/GenericToolRunner';
 import { TOOLS } from '@/lib/data';
 import { TOOL_GUIDES } from '@/lib/toolContent';
 import { TOOL_EDITORIAL } from '@/lib/toolEditorial';
+import { TOOL_OVERRIDES, mergeOverride } from '@/lib/contentOverrides';
 import JsonLd from '@/components/JsonLd';
 import { canonical, breadcrumbs, publisher } from '@/lib/seo';
 
@@ -41,7 +42,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const tool = TOOLS.find((t) => t.slug === slug);
   if (!tool) return {};
   const guide = TOOL_GUIDES[slug];
-  const ed = TOOL_EDITORIAL[slug];
+  const ed = mergeOverride(TOOL_EDITORIAL[slug], TOOL_OVERRIDES[slug]);
 
   // Preferimos o titulo/descricao editoriais: foram escritos com limite de
   // tamanho e com a palavra-chave no inicio. O nome puro da ferramenta nao
@@ -77,7 +78,7 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
   }
 
   const guide = TOOL_GUIDES[slug];
-  const ed = TOOL_EDITORIAL[slug];
+  const ed = mergeOverride(TOOL_EDITORIAL[slug], TOOL_OVERRIDES[slug]);
 
   const renderToolComponent = () => {
     switch (tool.slug) {

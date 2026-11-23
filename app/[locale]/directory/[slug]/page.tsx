@@ -6,13 +6,14 @@ import { DIRECTORY_ITEMS } from '@/lib/data';
 import JsonLd from '@/components/JsonLd';
 import { canonical, breadcrumbs, publisher } from '@/lib/seo';
 import { DIRECTORY_DETAILS } from '@/lib/directoryContent';
+import { DIRECTORY_OVERRIDES, mergeOverride } from '@/lib/contentOverrides';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { locale, slug } = await params;
   const item = DIRECTORY_ITEMS.find((d) => d.slug === slug);
   if (!item) return {};
 
-  const detail = DIRECTORY_DETAILS[slug];
+  const detail = mergeOverride(DIRECTORY_DETAILS[slug], DIRECTORY_OVERRIDES[slug]);
 
   // Sem "Review": nao publicamos nota nem teste proprio, e anunciar
   // "review" sem review e exatamente o tipo de sinal que o AdSense penaliza.
@@ -43,7 +44,9 @@ export default async function DirectoryPage({ params }: { params: Promise<{ loca
     notFound();
   }
 
-  const detail = DIRECTORY_DETAILS[slug];
+  // O painel escreve em DIRECTORY_OVERRIDES; o conteudo escrito a mao continua
+  // sendo a base. Sem override, nada muda.
+  const detail = mergeOverride(DIRECTORY_DETAILS[slug], DIRECTORY_OVERRIDES[slug]);
 
   return (
     <div className="flex flex-col min-h-screen">
