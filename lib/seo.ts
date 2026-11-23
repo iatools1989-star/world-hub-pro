@@ -15,8 +15,12 @@ export const SITE_NAME = 'World Tools Hub';
  * de baixo valor. Enquanto estiver vazio, o JSON-LD cai para a organizacao.
  *
  * Preencha com o nome real e o JSON-LD passa a emitir um Person.
+ *
+ * ATENCAO (registrado de proposito): 'Admin' e um apelido, nao uma identidade.
+ * Ele resolve o campo vazio, mas nao cria autoria verificavel. Quando houver um
+ * nome real + perfil publico, troque as duas constantes abaixo.
  */
-export const AUTHOR_NAME: string | null = null;
+export const AUTHOR_NAME: string | null = 'Admin';
 
 export function canonical(path: string): string {
   const p = path.startsWith('/') ? path : `/${path}`;
@@ -49,8 +53,23 @@ export function publisher() {
   };
 }
 
+/**
+ * Entidade de autoria para o JSON-LD.
+ *
+ * Um Person com nome e nada mais e quase inutil para o Google: o que faz
+ * autoria "identificavel" e poder ligar a pessoa a um perfil real. Enquanto
+ * AUTHOR_NAME for um apelido, emitimos a Organization — que e verdadeira —
+ * em vez de fabricar um perfil. Quando houver um nome real e um perfil
+ * publico, AUTHOR_PROFILE_URL preenche o buraco e o Person passa a valer.
+ */
+export const AUTHOR_PROFILE_URL: string | null = null;
+
 export function authorEntity() {
-  return AUTHOR_NAME
-    ? { '@type': 'Person', name: AUTHOR_NAME }
-    : publisher();
+  if (!AUTHOR_NAME) return publisher();
+  return {
+    '@type': 'Person',
+    name: AUTHOR_NAME,
+    ...(AUTHOR_PROFILE_URL ? { url: AUTHOR_PROFILE_URL, sameAs: [AUTHOR_PROFILE_URL] } : {}),
+    worksFor: publisher(),
+  };
 }

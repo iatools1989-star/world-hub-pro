@@ -1,3 +1,7 @@
 User-agent: *
 Allow: /
 Sitemap: https://iatools.online/sitemap.xml
+
+# Painel de administracao: nao e conteudo, nao deve ser indexado
+Disallow: /painel
+Disallow: /painel/

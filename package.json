@@ -9,7 +9,9 @@
     "lint": "next lint",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
-    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
+    "painel:build": "node admin/build.mjs",
+    "painel": "node admin/build.mjs && npx next start -p 3200"
   },
   "dependencies": {
     "@types/qrcode": "^1.5.6",
