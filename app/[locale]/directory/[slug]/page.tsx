@@ -12,17 +12,25 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const item = DIRECTORY_ITEMS.find((d) => d.slug === slug);
   if (!item) return {};
 
+  const detail = DIRECTORY_DETAILS[slug];
+
+  // Sem "Review": nao publicamos nota nem teste proprio, e anunciar
+  // "review" sem review e exatamente o tipo de sinal que o AdSense penaliza.
+  const title = detail ? detail.metaTitle : `${item.name} - Pricing, Category & Official Link`;
+  const description = detail
+    ? detail.metaDescription
+    : `${item.desc} Pricing model: ${item.pricing}. Direct link to the official site, with our disclosure stated up front.`;
+
   return {
-    // Sem "Review": nao publicamos nota nem teste proprio, e anunciar
-    // "review" sem review e exatamente o tipo de sinal que o AdSense penaliza.
-    title: `${item.name} - Pricing, Category & Official Link`,
-    description: `${item.desc} Pricing model: ${item.pricing}. Direct link to the official site, with our affiliate disclosure stated up front.`,
+    title,
+    description,
     alternates: { canonical: canonical(`/${locale}/directory/${slug}`) },
     openGraph: {
-      title: `${item.name} - Pricing & Details`,
-      description: item.desc,
+      title,
+      description,
       url: canonical(`/${locale}/directory/${slug}`),
       type: 'website',
+      ...(detail ? { modifiedTime: detail.updated } : {}),
     },
   };
 }
@@ -61,6 +69,19 @@ export default async function DirectoryPage({ params }: { params: Promise<{ loca
             { name: 'Directory', path: `/${locale}/directory` },
             { name: item.name, path: `/${locale}/directory/${item.slug}` },
           ]),
+          ...(detail
+            ? [
+                {
+                  '@context': 'https://schema.org',
+                  '@type': 'FAQPage',
+                  mainEntity: detail.faqs.map((f) => ({
+                    '@type': 'Question',
+                    name: f.q,
+                    acceptedAnswer: { '@type': 'Answer', text: f.a },
+                  })),
+                },
+              ]
+            : []),
         ]}
       />
 
@@ -79,9 +100,14 @@ export default async function DirectoryPage({ params }: { params: Promise<{ loca
                 <span className="bg-zinc-900 text-white px-2.5 py-1 rounded-full font-bold">
                   {item.pricing}
                 </span>
-                <span className="bg-emerald-50 border border-emerald-200 text-emerald-700 px-2.5 py-1 rounded-full font-bold">
-                  Verified Partner ({item.commission})
+                <span className="bg-zinc-100 border border-zinc-200 text-zinc-700 px-2.5 py-1 rounded-full font-bold">
+                  {item.category}
                 </span>
+                {detail && (
+                  <span className="bg-zinc-100 border border-zinc-200 text-zinc-500 px-2.5 py-1 rounded-full">
+                    Prices checked {detail.updated}
+                  </span>
+                )}
                 {item.badge && (
                   <span className="bg-yellow-400 text-zinc-950 px-2.5 py-1 rounded-full font-black">
                     {item.badge}
@@ -94,14 +120,14 @@ export default async function DirectoryPage({ params }: { params: Promise<{ loca
           <div className="mt-6 grid md:grid-cols-[1.5fr_1fr] gap-4">
             <div className="bg-zinc-950 text-white rounded-2xl p-6 flex flex-col justify-between">
               <div>
-                <h2 className="font-black text-xl mb-1">Get Started with {item.name}</h2>
+                <h2 className="font-black text-xl mb-1">Visit {item.name}</h2>
                 <p className="text-zinc-400 text-xs">
-                  Access direct discounts, trial periods, and onboarding offers through our verified partner link.
+                  Straight to the official site. No affiliate ID is attached to this link, so we earn nothing
+                  from your click — the recommendation above is the only thing we are offering.
                 </p>
               </div>
               <a
                 href={`/go/${item.slug}`}
-                target="_blank"
                 rel="noopener noreferrer"
                 className="mt-5 inline-block text-center bg-yellow-400 text-zinc-950 font-black py-3 px-6 rounded-full hover:bg-yellow-300 transition text-sm shadow-md"
               >
@@ -109,18 +135,18 @@ export default async function DirectoryPage({ params }: { params: Promise<{ loca
               </a>
             </div>
 
-            <div className="bg-zinc-50 border border-zinc-200 rounded-2xl p-6 flex flex-col justify-between">
-              <div>
-                <h3 className="font-bold text-zinc-900 mb-1">Promote Your AI Tool</h3>
-                <p className="text-zinc-600 text-xs">
-                  Featured placement across all 12 global language editions of World Tools Hub for $29/mo.
-                </p>
-              </div>
+            <div className="bg-zinc-50 border border-zinc-200 rounded-2xl p-6">
+              <h3 className="font-bold text-zinc-900 mb-1">How this page is funded</h3>
+              <p className="text-zinc-600 text-xs leading-relaxed">
+                Display advertising and nothing else. We do not sell rankings or placements, and we do not
+                accept payment to make a listing look better — which is why these pages disagree with the
+                marketing copy on the vendors’ own sites.
+              </p>
               <a
-                href="mailto:contact@iatools.online?subject=Sponsor%20Spot%20Inquiry"
-                className="mt-4 block text-center bg-zinc-900 text-white py-2.5 px-4 rounded-full font-bold text-xs hover:bg-zinc-800 transition"
+                href={`/${locale}/affiliate-disclosure`}
+                className="mt-3 inline-block text-xs font-bold text-zinc-900 underline"
               >
-                Book Sponsor Spot ($29/mo) →
+                Read the full disclosure
               </a>
             </div>
           </div>
@@ -128,72 +154,166 @@ export default async function DirectoryPage({ params }: { params: Promise<{ loca
           {/* AdSense In-Review */}
           <AdSenseBanner />
 
-          {/* Rich Editorial Review Section */}
+          {/* ---- Conteudo editorial ---- */}
           {detail && (
             <div className="mt-8 space-y-8 pt-6 border-t border-zinc-100">
-              {/* Verdict & Best For */}
-              <div className="p-6 bg-zinc-50 border border-zinc-200 rounded-2xl">
-                <span className="text-xs uppercase tracking-wider font-bold text-yellow-600 bg-yellow-100/70 px-2.5 py-0.5 rounded-md">
-                  Editorial Verdict
-                </span>
-                <p className="text-sm text-zinc-800 font-medium mt-2 leading-relaxed">
-                  {detail.verdict}
-                </p>
-                <div className="mt-4 pt-3 border-t border-zinc-200 text-xs text-zinc-600">
-                  <strong className="text-zinc-900">Best Suited For:</strong> {detail.bestFor}
+              {/* Introducao */}
+              <section>
+                <h2 className="text-lg font-black text-zinc-900 mb-3">
+                  What {item.name} is, in plain terms
+                </h2>
+                <div className="space-y-3 text-sm text-zinc-700 leading-relaxed max-w-prose">
+                  {detail.intro.map((p, i) => (
+                    <p key={i}>{p}</p>
+                  ))}
                 </div>
-              </div>
+              </section>
 
-              {/* Pros & Cons Grid */}
-              <div>
-                <h3 className="text-lg font-black text-zinc-900 mb-4 flex items-center gap-2">
-                  <span>⚖️</span> Pros & Cons Analysis
-                </h3>
+              {/* O que faz */}
+              <section>
+                <h2 className="text-lg font-black text-zinc-900 mb-3">What you actually get</h2>
+                <div className="space-y-3 text-sm text-zinc-700 leading-relaxed max-w-prose">
+                  {detail.whatItDoes.map((p, i) => (
+                    <p key={i}>{p}</p>
+                  ))}
+                </div>
+              </section>
+
+              {/* Tabela de precos */}
+              <section>
+                <h2 className="text-lg font-black text-zinc-900 mb-1">{detail.pricingHeading}</h2>
+                <p className="text-xs text-zinc-500 mb-3">
+                  Published prices, checked {detail.updated}. SaaS pricing moves — confirm on the vendor’s page
+                  before you commit.
+                </p>
+                <div className="overflow-x-auto -mx-1 px-1">
+                  <table className="w-full text-xs sm:text-sm border-collapse min-w-[520px]">
+                    <thead>
+                      <tr className="text-left text-zinc-500 uppercase tracking-wide text-[10px]">
+                        <th className="py-2 pr-3 font-bold border-b border-zinc-200">Plan</th>
+                        <th className="py-2 pr-3 font-bold border-b border-zinc-200">Price</th>
+                        <th className="py-2 font-bold border-b border-zinc-200">What is included</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {detail.pricingRows.map((row) => (
+                        <tr key={row.plan} className="align-top">
+                          <td className="py-2.5 pr-3 font-bold text-zinc-900 border-b border-zinc-100 whitespace-nowrap">
+                            {row.plan}
+                          </td>
+                          <td className="py-2.5 pr-3 text-zinc-900 border-b border-zinc-100 whitespace-nowrap">
+                            {row.price}
+                          </td>
+                          <td className="py-2.5 text-zinc-600 border-b border-zinc-100 leading-relaxed">
+                            {row.includes}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <div className="mt-4 space-y-2 text-sm text-zinc-700 leading-relaxed max-w-prose">
+                  {detail.pricingNotes.map((p, i) => (
+                    <p key={i}>{p}</p>
+                  ))}
+                </div>
+              </section>
+
+              {/* Pros e contras */}
+              <section>
+                <h2 className="text-lg font-black text-zinc-900 mb-3">What it is good at, and what it is not</h2>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="p-5 bg-emerald-50/50 border border-emerald-200 rounded-2xl">
-                    <h4 className="font-black text-emerald-900 text-sm mb-3 flex items-center gap-1.5">
-                      <span>✓</span> Advantages & Strengths
-                    </h4>
+                    <h3 className="font-black text-emerald-900 text-sm mb-3">Worth paying for</h3>
                     <ul className="space-y-2 text-xs text-emerald-950 leading-relaxed">
                       {detail.pros.map((pro, idx) => (
                         <li key={idx} className="flex gap-2 items-start">
-                          <span className="font-bold text-emerald-600">•</span>
+                          <span className="font-bold text-emerald-600">+</span>
                           <span>{pro}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
-
                   <div className="p-5 bg-rose-50/50 border border-rose-200 rounded-2xl">
-                    <h4 className="font-black text-rose-900 text-sm mb-3 flex items-center gap-1.5">
-                      <span>✗</span> Potential Drawbacks
-                    </h4>
+                    <h3 className="font-black text-rose-900 text-sm mb-3">Reasons not to buy</h3>
                     <ul className="space-y-2 text-xs text-rose-950 leading-relaxed">
                       {detail.cons.map((con, idx) => (
                         <li key={idx} className="flex gap-2 items-start">
-                          <span className="font-bold text-rose-600">•</span>
+                          <span className="font-bold text-rose-600">−</span>
                           <span>{con}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
                 </div>
-              </div>
+              </section>
 
-              {/* Core Features */}
-              <div>
-                <h3 className="text-lg font-black text-zinc-900 mb-4 flex items-center gap-2">
-                  <span>🚀</span> Key Architectural Capabilities
-                </h3>
-                <div className="grid sm:grid-cols-3 gap-4">
-                  {detail.keyFeatures.map((feat, idx) => (
-                    <div key={idx} className="p-4 bg-zinc-50 border border-zinc-200 rounded-2xl">
-                      <h4 className="font-bold text-sm text-zinc-900 mb-1">{feat.title}</h4>
-                      <p className="text-xs text-zinc-600 leading-normal">{feat.desc}</p>
-                    </div>
+              {/* Quem deve e quem nao deve comprar */}
+              <section>
+                <h2 className="text-lg font-black text-zinc-900 mb-3">Who should buy it, and who should not</h2>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div className="p-5 bg-zinc-50 border border-zinc-200 rounded-2xl">
+                    <h3 className="text-xs font-black uppercase tracking-wider text-zinc-500 mb-2">Buy it if</h3>
+                    <p className="text-sm text-zinc-800 leading-relaxed">{detail.bestFor}</p>
+                  </div>
+                  <div className="p-5 bg-amber-50 border border-amber-200 rounded-2xl">
+                    <h3 className="text-xs font-black uppercase tracking-wider text-amber-700 mb-2">
+                      Do not buy it if
+                    </h3>
+                    <p className="text-sm text-zinc-800 leading-relaxed">{detail.notFor}</p>
+                  </div>
+                </div>
+              </section>
+
+              {/* Alternativas */}
+              <section>
+                <h2 className="text-lg font-black text-zinc-900 mb-3">What to look at instead</h2>
+                <ul className="space-y-3">
+                  {detail.alternatives.map((alt) => (
+                    <li key={alt.href} className="p-4 bg-white border border-zinc-200 rounded-2xl">
+                      <a href={alt.href} className="font-bold text-sm text-zinc-900 underline">
+                        {alt.name}
+                      </a>
+                      <p className="text-xs text-zinc-600 mt-1 leading-relaxed">{alt.why}</p>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+
+              {/* Veredito */}
+              <section>
+                <h2 className="text-lg font-black text-zinc-900 mb-3">The honest conclusion</h2>
+                <div className="p-5 bg-zinc-950 text-zinc-100 rounded-2xl">
+                  <div className="space-y-3 text-sm leading-relaxed">
+                    {detail.verdict.map((p, i) => (
+                      <p key={i}>{p}</p>
+                    ))}
+                  </div>
+                </div>
+              </section>
+
+              {/* FAQ */}
+              <section>
+                <h2 className="text-lg font-black text-zinc-900 mb-3">Questions people actually ask</h2>
+                <div className="space-y-2">
+                  {detail.faqs.map((f, i) => (
+                    <details key={i} className="bg-zinc-50 border border-zinc-200 rounded-2xl p-4 group">
+                      <summary className="font-bold text-sm text-zinc-900 cursor-pointer list-none flex justify-between gap-3">
+                        <span>{f.q}</span>
+                        <span className="text-zinc-400 group-open:rotate-45 transition-transform">+</span>
+                      </summary>
+                      <p className="text-sm text-zinc-600 mt-2 leading-relaxed">{f.a}</p>
+                    </details>
                   ))}
                 </div>
-              </div>
+              </section>
+
+              <p className="text-xs text-zinc-500 leading-relaxed">
+                Prices and limits on this page were checked against public sources on {detail.updated}. We do
+                not test these products hands-on, so nothing here is a lab result — it is a careful reading of
+                what the vendors publish, plus where the published numbers tend to mislead.{' '}
+                <a href={`/${locale}/affiliate-disclosure`} className="underline">How we work</a>.
+              </p>
             </div>
           )}
         </div>
