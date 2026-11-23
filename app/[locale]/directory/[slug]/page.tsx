@@ -4,7 +4,7 @@ import Footer from '@/components/Footer';
 import AdSenseBanner from '@/components/AdSenseBanner';
 import { DIRECTORY_ITEMS } from '@/lib/data';
 import JsonLd from '@/components/JsonLd';
-import { canonical, breadcrumbs, publisher } from '@/lib/seo';
+import { canonical, breadcrumbs, publisher, authorEntity } from '@/lib/seo';
 import { DIRECTORY_DETAILS } from '@/lib/directoryContent';
 import { DIRECTORY_OVERRIDES, mergeOverride } from '@/lib/contentOverrides';
 
@@ -62,6 +62,9 @@ export default async function DirectoryPage({ params }: { params: Promise<{ loca
             applicationCategory: item.category,
             operatingSystem: 'Web',
             publisher: publisher(),
+            // Autoria identificavel: o AdSense usa este sinal ao avaliar
+            // conteudo de baixo valor. Sem nome real, cai em Organization.
+            author: authorEntity(),
             // Preco NAO e inventado: usamos o modelo cadastrado, sem valor falso.
             ...(item.pricing === 'Free'
               ? { offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }, isAccessibleForFree: true }

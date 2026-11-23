@@ -35,7 +35,7 @@ import { TOOL_GUIDES } from '@/lib/toolContent';
 import { TOOL_EDITORIAL } from '@/lib/toolEditorial';
 import { TOOL_OVERRIDES, mergeOverride } from '@/lib/contentOverrides';
 import JsonLd from '@/components/JsonLd';
-import { canonical, breadcrumbs, publisher } from '@/lib/seo';
+import { canonical, breadcrumbs, publisher, authorEntity } from '@/lib/seo';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { locale, slug } = await params;
@@ -139,6 +139,9 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
             offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
             isAccessibleForFree: true,
             publisher: publisher(),
+            // Autoria identificavel: o AdSense usa este sinal ao avaliar
+            // conteudo de baixo valor. Sem nome real, cai em Organization.
+            author: authorEntity(),
             ...(guide ? { featureList: guide.features.map((f) => f.title) } : {}),
           },
           ...(guide

@@ -654,6 +654,31 @@ export function mergeOverride<T extends object>(
   return cabecalho;
 }
 
+/**
+ * Regenera public/painel/bases.js com o conteudo JA mesclado.
+ *
+ * Por que: o painel le os dados de bases.js, que e gerado no build. Se ele
+ * commitasse so o override, o painel continuaria mostrando o texto antigo na
+ * proxima abertura — e o editor editaria por cima de um texto que ja mudou.
+ * Regenerar aqui mantem o painel e o site contando a mesma historia, sem
+ * depender de nenhum passo extra no CI.
+ */
+function gerarBases() {
+  const mesclar = (baseMap, ovMap) => {
+    const out = {};
+    for (const slug of new Set([...Object.keys(baseMap || {}), ...Object.keys(ovMap || {})])) {
+      out[slug] = { ...(baseMap?.[slug] || {}), ...(ovMap?.[slug] || {}) };
+    }
+    return out;
+  };
+  const dir = mesclar(window.__DIR_BASE, S.overrides.dir);
+  const tool = mesclar(window.__TOOL_BASE, S.overrides.tool);
+  return `/* GERADO por admin/build.mjs — nao edite a mao. */
+window.__DIR_BASE = ${JSON.stringify(dir, null, 1)};
+window.__TOOL_BASE = ${JSON.stringify(tool, null, 1)};
+`;
+}
+
 window.__preview = () => {
   const conteudo = gerarArquivo();
   const n = Object.keys(S.overrides.dir).length + Object.keys(S.overrides.tool).length;
@@ -678,13 +703,33 @@ window.__reset = (kind, slug) => {
 
 async function publicar() {
   if (!S.token) { pedirToken(); return; }
+  // TRAVA DE SEGURANCA: se bases.js nao carregou, gerarBases() produziria um
+  // arquivo quase vazio e publicar apagaria o conteudo de todas as paginas.
+  // Preferimos recusar a publicar.
+  const nDirBase = Object.keys(window.__DIR_BASE || {}).length;
+  const nToolBase = Object.keys(window.__TOOL_BASE || {}).length;
+  if (nDirBase < 10 || nToolBase < 16) {
+    alert(
+      'Não vou publicar: os dados base do painel não carregaram\n' +
+      `(encontrei ${nDirBase} reviews e ${nToolBase} ferramentas; esperava 10 e 16).\n\n` +
+      'Publicar agora apagaria o conteúdo das páginas. Recarregue a página e verifique ' +
+      'se /painel/bases.js está respondendo.'
+    );
+    return;
+  }
+
   const conteudo = gerarArquivo();
+  const bases = gerarBases();
   const n = Object.keys(S.overrides.dir).length + Object.keys(S.overrides.tool).length;
   const msg = `conteudo(painel): ${n} pagina(s) editada(s) via /painel`;
   try {
     $('#statusPill').textContent = 'publicando…';
     $('#statusPill').className = 'pill';
     await writeFileToRepo(FILE, conteudo, msg);
+    // Mantem o painel e o site com o mesmo texto na proxima abertura.
+    await writeFileToRepo('public/painel/bases.js', bases, `${msg} — dados do painel`);
+    window.__DIR_BASE = JSON.parse(bases.match(/__DIR_BASE = ([\s\S]*?);\nwindow/)[1]);
+    window.__TOOL_BASE = JSON.parse(bases.match(/__TOOL_BASE = ([\s\S]*);\n$/)[1]);
     S.dirty = false;
     marcarDirty();
     $('#statusPill').textContent = 'publicado';
