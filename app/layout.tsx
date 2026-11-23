@@ -28,6 +28,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Verificacao de propriedade do Impact.com (rede da Canva e outros).
+            O Impact exige o atributo `value`, nao `content` — e nao aceita a tag
+            injetada por JavaScript, tem que estar no HTML inicial. Por isso ela
+            vai no <head> do layout raiz, que e renderizado no servidor. */}
+        <meta
+          name="impact-site-verification"
+          // O Impact exige o atributo `value`, mas os tipos do React so conhecem
+          // `content` em <meta>. O spread mantem o atributo correto no HTML sem
+          // cair para `content` — que o verificador do Impact NAO aceita.
+          {...({ value: '72bda8c9-0933-4a3f-bc45-c3497910c8e4' } as Record<string, string>)}
+        />
         <Script
           async
           src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CONFIG.client}`}
