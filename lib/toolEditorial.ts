@@ -47,6 +47,12 @@ export interface ToolEditorial {
   cta: ToolAffiliateCta;
   /** Data editorial, visivel na pagina. */
   updated: string;
+  /**
+   * Duas leituras do diretorio que fazem sentido para quem chegou por esta
+   * ferramenta. Sem isso, cada pagina de ferramenta era um beco sem saida:
+   * linkava so para /en/tools e para as paginas legais.
+   */
+  related: { name: string; href: string; why: string }[];
 }
 
 export const TOOL_EDITORIAL: Record<string, ToolEditorial> = {
@@ -74,6 +80,10 @@ export const TOOL_EDITORIAL: Record<string, ToolEditorial> = {
       href: '/en/directory/canva-magic',
     },
     updated: '2026-11-23',
+    related: [
+      { name: 'Canva Magic Studio', href: '/en/directory/canva-magic', why: 'If the QR code has to sit on a designed poster or menu, the design tool is where the two come together.' },
+      { name: 'Otter.ai', href: '/en/directory/otter-ai', why: 'For the other half of the same job: turning recorded meetings into text instead of links into codes.' },
+    ],
   },
 
   'password-generator': {
@@ -98,6 +108,10 @@ export const TOOL_EDITORIAL: Record<string, ToolEditorial> = {
       href: '/en/tools',
     },
     updated: '2026-11-23',
+    related: [
+      { name: 'GitHub Copilot', href: '/en/directory/github-copilot', why: 'Developers generating credentials all day may also want help writing the code that uses them.' },
+      { name: 'Notion AI', href: '/en/directory/notion-ai', why: 'If you are storing access notes, the workspace is where the policy belongs, not a text file.' },
+    ],
   },
 
   'word-counter': {
@@ -123,6 +137,10 @@ export const TOOL_EDITORIAL: Record<string, ToolEditorial> = {
       href: '/en/directory/copy-ai',
     },
     updated: '2026-11-23',
+    related: [
+      { name: 'Jasper AI', href: '/en/directory/jasper', why: 'Once you know a draft is short, the next question is who writes the rest.' },
+      { name: 'Copy.ai', href: '/en/directory/copy-ai', why: 'For high-volume short copy where counting words first saves a rewrite.' },
+    ],
   },
 
   'unit-converter': {
@@ -147,6 +165,10 @@ export const TOOL_EDITORIAL: Record<string, ToolEditorial> = {
       href: '/en/tools',
     },
     updated: '2026-11-23',
+    related: [
+      { name: 'Canva Magic Studio', href: '/en/directory/canva-magic', why: 'Print sizes and aspect ratios are the usual reason to convert units for a design.' },
+      { name: 'Runway', href: '/en/directory/runway', why: 'Video work has its own unit problem: credits per finished second.' },
+    ],
   },
 
   'color-picker': {
@@ -172,6 +194,10 @@ export const TOOL_EDITORIAL: Record<string, ToolEditorial> = {
       href: '/en/directory/canva-magic',
     },
     updated: '2026-11-23',
+    related: [
+      { name: 'Canva Magic Studio', href: '/en/directory/canva-magic', why: 'Where the palette you just sampled will actually be applied across assets.' },
+      { name: 'Midjourney', href: '/en/directory/midjourney', why: 'If you are choosing colours for generated imagery rather than for a brand kit.' },
+    ],
   },
 
   'pdf-to-jpg': {
@@ -198,6 +224,10 @@ export const TOOL_EDITORIAL: Record<string, ToolEditorial> = {
       monetized: false, // TODO: true no dia em que o link tiver ID
     },
     updated: '2026-11-23',
+    related: [
+      { name: 'Notion AI', href: '/en/directory/notion-ai', why: 'If the scanned pages need to become searchable text rather than a stack of images.' },
+      { name: 'Canva Magic Studio', href: '/en/directory/canva-magic', why: 'When the extracted images are going into a designed document rather than staying standalone.' },
+    ],
   },
 
   'jpg-to-pdf': {
@@ -224,6 +254,10 @@ export const TOOL_EDITORIAL: Record<string, ToolEditorial> = {
       monetized: false, // TODO: true no dia em que o link tiver ID
     },
     updated: '2026-11-23',
+    related: [
+      { name: 'Canva Magic Studio', href: '/en/directory/canva-magic', why: 'If the images are going into a designed document rather than a plain PDF.' },
+      { name: 'Runway', href: '/en/directory/runway', why: 'When the sequence of images needs to become motion.' },
+    ],
   },
 
   'compress-pdf': {
@@ -250,6 +284,10 @@ export const TOOL_EDITORIAL: Record<string, ToolEditorial> = {
       monetized: false, // TODO: true no dia em que o link tiver ID
     },
     updated: '2026-11-23',
+    related: [
+      { name: 'Notion AI', href: '/en/directory/notion-ai', why: 'If the PDF is a report that someone will later need to search inside.' },
+      { name: 'Otter.ai', href: '/en/directory/otter-ai', why: 'If the meeting that produced the document was recorded and not written up.' },
+    ],
   },
 
   'merge-pdf': {
@@ -276,6 +314,10 @@ export const TOOL_EDITORIAL: Record<string, ToolEditorial> = {
       monetized: false, // TODO: true no dia em que o link tiver ID
     },
     updated: '2026-11-23',
+    related: [
+      { name: 'Canva Magic Studio', href: '/en/directory/canva-magic', why: 'For when merging is not enough and the pages need designing.' },
+      { name: 'Copy.ai', href: '/en/directory/copy-ai', why: 'If the missing piece is the introduction or summary text that goes on top.' },
+    ],
   },
 
   'remove-bg': {
@@ -302,6 +344,10 @@ export const TOOL_EDITORIAL: Record<string, ToolEditorial> = {
       monetized: false, // TODO: true no dia em que o link tiver ID
     },
     updated: '2026-11-23',
+    related: [
+      { name: 'Canva Magic Studio', href: '/en/directory/canva-magic', why: 'Background Remover is part of Pro, alongside the Brand Kit and Magic Resize.' },
+      { name: 'Midjourney', href: '/en/directory/midjourney', why: 'If you need a new subject rather than a cut-out of an existing one.' },
+    ],
   },
 
   'image-compressor': {
@@ -327,6 +373,10 @@ export const TOOL_EDITORIAL: Record<string, ToolEditorial> = {
       href: '/en/directory/canva-magic',
     },
     updated: '2026-11-23',
+    related: [
+      { name: 'Canva Magic Studio', href: '/en/directory/canva-magic', why: 'Export settings and Magic Resize decide most file sizes before compression.' },
+      { name: 'Midjourney', href: '/en/directory/midjourney', why: 'Generated images arrive large; knowing where they came from helps size them.' },
+    ],
   },
 
   'age-calculator': {
@@ -351,6 +401,10 @@ export const TOOL_EDITORIAL: Record<string, ToolEditorial> = {
       href: '/en/tools',
     },
     updated: '2026-11-23',
+    related: [
+      { name: 'Notion AI', href: '/en/directory/notion-ai', why: 'If dates and deadlines live in documents rather than in a calculator.' },
+      { name: 'Otter.ai', href: '/en/directory/otter-ai', why: 'For keeping the record of what was agreed and when.' },
+    ],
   },
 
   'resume-builder': {
@@ -376,6 +430,10 @@ export const TOOL_EDITORIAL: Record<string, ToolEditorial> = {
       href: '/en/directory/canva-magic',
     },
     updated: '2026-11-23',
+    related: [
+      { name: 'Jasper AI', href: '/en/directory/jasper', why: 'Better for the summary paragraph than for the layout, once the layout is done.' },
+      { name: 'GitHub Copilot', href: '/en/directory/github-copilot', why: 'If the resume needs a portfolio and there is code behind it.' },
+    ],
   },
 
   'text-to-speech': {
@@ -401,6 +459,10 @@ export const TOOL_EDITORIAL: Record<string, ToolEditorial> = {
       href: '/en/directory/elevenlabs',
     },
     updated: '2026-11-23',
+    related: [
+      { name: 'ElevenLabs', href: '/en/directory/elevenlabs', why: 'When the free browser voice is not good enough to publish.' },
+      { name: 'Canva Magic Studio', href: '/en/directory/canva-magic', why: 'If the narration is one part of a video you are editing anyway.' },
+    ],
   },
 
   'url-shortener': {
@@ -425,6 +487,10 @@ export const TOOL_EDITORIAL: Record<string, ToolEditorial> = {
       href: '/en/tools',
     },
     updated: '2026-11-23',
+    related: [
+      { name: 'Copy.ai', href: '/en/directory/copy-ai', why: 'For the copy around the link, which is what actually gets clicked.' },
+      { name: 'Canva Magic Studio', href: '/en/directory/canva-magic', why: 'Where a short link usually ends up: on a designed asset.' },
+    ],
   },
 
   'bulk-studio': {
@@ -450,5 +516,9 @@ export const TOOL_EDITORIAL: Record<string, ToolEditorial> = {
       href: '/en/directory/canva-magic',
     },
     updated: '2026-11-23',
+    related: [
+      { name: 'Canva Magic Studio', href: '/en/directory/canva-magic', why: 'Batch design work is what Canva Pro’s Brand Kit and Magic Resize are for.' },
+      { name: 'Runway', href: '/en/directory/runway', why: 'If the batch output is video and not images.' },
+    ],
   },
 };

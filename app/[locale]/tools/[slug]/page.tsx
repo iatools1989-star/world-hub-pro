@@ -313,6 +313,25 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
               </p>
             </div>
 
+            {/* Leituras relacionadas — o caminho de saida para o diretorio */}
+            {ed && (
+              <section>
+                <h2 className="text-lg font-black text-zinc-900 mb-3 flex items-center gap-2">
+                  <span>📚</span> If this tool is not the whole answer
+                </h2>
+                <ul className="space-y-2">
+                  {ed.related.map((r) => (
+                    <li key={r.href} className="p-4 bg-white border border-zinc-200 rounded-2xl">
+                      <a href={r.href} className="font-bold text-sm text-zinc-900 underline">
+                        {r.name}
+                      </a>
+                      <p className="text-xs text-zinc-600 mt-1 leading-relaxed">{r.why}</p>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+
             {ed ? (
               <div className="bg-yellow-50 border border-yellow-200 rounded-2xl p-5 flex flex-col justify-between">
                 <div>
