@@ -28,6 +28,7 @@ export default function Header({ currentLocale }: { currentLocale: string }) {
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
           <a href="#tools" className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white">Tools</a>
           <a href="#directory" className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white">Directory</a>
+          <a href="/en/guides" className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white">Guides</a>
           <a href="/en/about" className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white">About</a>
         </nav>
         <div className="flex items-center gap-2">

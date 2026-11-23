@@ -14,6 +14,7 @@ export default function Footer({ currentLocale }: { currentLocale: string }) {
             <p className="text-xs mt-2 text-zinc-600">Free tools · No subscription · No paywall</p>
           </div>
           <div className="flex gap-6 text-sm">
+            <Link href="/en/guides" className="hover:text-white">Guides</Link>
             <Link href="/en/about" className="hover:text-white">About</Link>
             <Link href="/en/privacy" className="hover:text-white">Privacy</Link>
             <Link href="/en/terms" className="hover:text-white">Terms</Link>
