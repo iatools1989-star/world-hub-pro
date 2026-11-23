@@ -5,3 +5,7 @@ node_modules
 .env*.local
 .config
 .npm
+.open-next
+.wrangler
+cloudflare-env.d.ts
+.dev.vars
