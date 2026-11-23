@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { LOCALES, TOOLS, DIRECTORY_ITEMS } from '@/lib/data';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://www.iatools.online';
+  const baseUrl = 'https://iatools.online';
   const entries: MetadataRoute.Sitemap = [];
 
   // Home por locale

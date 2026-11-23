@@ -5,13 +5,12 @@ export const ADSENSE_CONFIG = {
   slotInArticle: '5432167890',
 };
 
+// Etapa 1: site publico em ingles apenas.
+// O conteudo das paginas e 100% ingles (as paginas tem o idioma fixo),
+// entao servir 6 locales gerava 5 copias identicas = conteudo duplicado.
+// Reativar um idioma exige traduzir o conteudo de verdade, nao so a lista.
 export const LOCALES = [
   { code: 'en', flag: '🇺🇸', name: 'English' },
-  { code: 'es', flag: '🇪🇸', name: 'Español' },
-  { code: 'pt', flag: '🇧🇷', name: 'Português' },
-  { code: 'de', flag: '🇩🇪', name: 'Deutsch' },
-  { code: 'fr', flag: '🇫🇷', name: 'Français' },
-  { code: 'ja', flag: '🇯🇵', name: '日本語' },
 ];
 
 export interface ToolItem {

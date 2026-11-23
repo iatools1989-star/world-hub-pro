@@ -1,37 +1,43 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-export const LOCALES = ['en','es','pt','de','fr','ja'] as const;
+// Etapa 1: site em ingles apenas.
+// Nao ha deteccao de Accept-Language nem troca de idioma:
+// todas as paginas sao escritas em ingles, entao redirecionar
+// um visitante brasileiro para /pt nao mudava nada (era a mesma pagina).
+//
+// URLs antigas em outros idiomas sao redirecionadas 301 para /en,
+// preservando qualquer link ou indexacao que ja exista.
 export const DEFAULT_LOCALE = 'en';
-
-function getLocaleFromHeader(req: NextRequest): string {
-  const header = req.headers.get('accept-language') || '';
-  for (const lang of header.split(',')) {
-    const code = lang.split(';')[0].trim().split('-')[0].toLowerCase();
-    if ((LOCALES as readonly string[]).includes(code)) return code;
-  }
-  return DEFAULT_LOCALE;
-}
+export const RETIRED_LOCALES = ['es', 'pt', 'de', 'fr', 'ja'] as const;
 
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
-  if (pathname.startsWith('/_next') || pathname.startsWith('/api') || pathname.startsWith('/go') || pathname.includes('.') || ['/robots.txt','/sitemap.xml','/ads.txt'].includes(pathname)) {
+
+  if (pathname.startsWith('/_next') || pathname.startsWith('/api') || pathname.startsWith('/go')) {
     return NextResponse.next();
   }
-  const pathnameHasLocale = LOCALES.some(l => pathname === `/${l}` || pathname.startsWith(`/${l}/`));
-  if (pathnameHasLocale) {
-    const res = NextResponse.next();
-    res.cookies.set('NEXT_LOCALE', pathname.split('/')[1], { maxAge: 31536000, path: '/' });
-    return res;
+  if (pathname.includes('.') || ['/robots.txt', '/sitemap.xml', '/ads.txt'].includes(pathname)) {
+    return NextResponse.next();
   }
-  const cookieLocale = req.cookies.get('NEXT_LOCALE')?.value;
-  if (cookieLocale && (LOCALES as readonly string[]).includes(cookieLocale)) {
-    req.nextUrl.pathname = `/${cookieLocale}${pathname}`;
-    return NextResponse.redirect(req.nextUrl);
+
+  // /es/algo -> /en/algo  (301)
+  for (const loc of RETIRED_LOCALES) {
+    if (pathname === `/${loc}` || pathname.startsWith(`/${loc}/`)) {
+      const resto = pathname.slice(loc.length + 1);
+      req.nextUrl.pathname = `/${DEFAULT_LOCALE}${resto}`;
+      return NextResponse.redirect(req.nextUrl, 301);
+    }
   }
-  const detected = getLocaleFromHeader(req);
-  req.nextUrl.pathname = `/${detected}${pathname === '/' ? '' : pathname}`;
-  return NextResponse.redirect(req.nextUrl);
+
+  // Ja esta em /en... : segue
+  if (pathname === `/${DEFAULT_LOCALE}` || pathname.startsWith(`/${DEFAULT_LOCALE}/`)) {
+    return NextResponse.next();
+  }
+
+  // Qualquer outra coisa -> /en...
+  req.nextUrl.pathname = `/${DEFAULT_LOCALE}${pathname === '/' ? '' : pathname}`;
+  return NextResponse.redirect(req.nextUrl, pathname === '/' ? 307 : 301);
 }
 
 export const config = { matcher: ['/((?!_next|.*\\..*).*)'] };
