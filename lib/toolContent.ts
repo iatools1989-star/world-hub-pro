@@ -291,11 +291,11 @@ export const TOOL_GUIDES: Record<string, ToolGuide> = {
     features: [
       { title: '100% Offline & Private', desc: 'Your photos never leave your device. No server upload.' },
       { title: 'Bulk ZIP Download', desc: 'Process 100 images in one click and download as ZIP.' },
-      { title: 'Free 10/day', desc: 'Free forever for 10 images/day. Pro $9/mo for unlimited.' },
+      { title: 'Free and unlimited', desc: 'No daily limit, no account, no subscription.' },
     ],
     faqs: [
       { q: 'Do my photos get uploaded?', a: 'No. Everything runs in your browser memory via Canvas API.' },
-      { q: 'What is the free limit?', a: '10 images per day free. Upgrade to Pro for 500/day.' },
+      { q: 'Is there a limit?', a: 'No. The tool is free and unlimited. Everything runs in your browser.' },
       { q: 'Can I use it for Shopify?', a: 'Yes. It resizes to 2000x2000 and renames for SEO automatically.' },
     ],
   },

@@ -1,7 +1,16 @@
 {
-  "Header": { "Tools": "Werkzeuge", "Directory": "Verzeichnis", "GoPro": "Pro $9 →" },
+  "Header": {
+    "Tools": "Werkzeuge",
+    "Directory": "Verzeichnis"
+  },
   "Tools": {
-    "qr-generator": { "name": "QR-Code-Generator", "desc": "Erstellen Sie sofort QR-Codes für URLs, WLAN, PIX und Texte." },
-    "bulk-studio": { "name": "Massen-Studio", "desc": "Verarbeiten Sie 100 Bilder auf einmal, 100% offline, ZIP-Download." }
+    "qr-generator": {
+      "name": "QR-Code-Generator",
+      "desc": "Erstellen Sie sofort QR-Codes für URLs, WLAN, PIX und Texte."
+    },
+    "bulk-studio": {
+      "name": "Massen-Studio",
+      "desc": "Verarbeiten Sie 100 Bilder auf einmal, 100% offline, ZIP-Download."
+    }
   }
 }

@@ -34,9 +34,9 @@ export default function Header({ currentLocale }: { currentLocale: string }) {
           <button onClick={toggleTheme} aria-label="Toggle theme" className="w-9 h-9 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 flex items-center justify-center hover:scale-105 transition">
             {mounted && (theme === 'dark' ? '☀️' : '🌙')}
           </button>
-          <Link href="/en/tools/bulk-studio" className="hidden sm:inline-flex items-center gap-1 px-4 py-2 rounded-full bg-yellow-400 text-zinc-950 font-bold text-sm hover:bg-yellow-300 transition shadow-lg shadow-yellow-400/20">
-            ⚡ Go Pro $9 →
-          </Link>
+          <a href="#tools" className="hidden sm:inline-flex items-center gap-1 px-4 py-2 rounded-full bg-yellow-400 text-zinc-950 font-bold text-sm hover:bg-yellow-300 transition shadow-lg shadow-yellow-400/20">
+            Browse free tools →
+          </a>
         </div>
       </div>
     </header>
