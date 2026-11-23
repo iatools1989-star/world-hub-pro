@@ -3,11 +3,15 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import AdSenseBanner from '@/components/AdSenseBanner';
 import { TOOLS, DIRECTORY_ITEMS } from '@/lib/data';
+import JsonLd from '@/components/JsonLd';
+import { SITE_URL, SITE_NAME, canonical, publisher } from '@/lib/seo';
 
-export async function generateMetadata() {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
   return {
-    title: 'World Tools Hub - Free Browser Utilities & Curated AI Directory',
+    title: 'Free Browser Tools & Curated AI Directory',
     description: '16 fast, client-side tools + Private Bulk Studio. Process 100 images in 10s, 100% offline.',
+    alternates: { canonical: canonical(`/${locale}`) },
   };
 }
 
@@ -16,6 +20,31 @@ export default async function HomePage() {
   return (
     <div className="flex flex-col min-h-screen bg-[#fcfcfd] dark:bg-zinc-950">
       <Header currentLocale={currentLocale} />
+
+      <JsonLd
+        data={[
+          {
+            '@context': 'https://schema.org',
+            '@type': 'WebSite',
+            name: SITE_NAME,
+            url: SITE_URL,
+            inLanguage: 'en',
+            publisher: publisher(),
+          },
+          {
+            '@context': 'https://schema.org',
+            '@type': 'ItemList',
+            name: 'Free browser tools',
+            numberOfItems: TOOLS.length,
+            itemListElement: TOOLS.map((tool, i) => ({
+              '@type': 'ListItem',
+              position: i + 1,
+              name: tool.name,
+              url: canonical(`/en/tools/${tool.slug}`),
+            })),
+          },
+        ]}
+      />
       <section className="relative overflow-hidden bg-zinc-950 text-white px-4 sm:px-6 py-10 sm:py-14">
         <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/10 via-transparent to-violet-500/10 pointer-events-none" />
         <div className="absolute -top-20 -right-20 w-[500px] h-[500px] bg-yellow-400/10 rounded-full blur-[120px]" />

@@ -1,8 +1,11 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { canonical } from '@/lib/seo';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
   return {
+    alternates: { canonical: canonical(`/${locale}/about`) },
     title: 'About World Tools Hub - Privacy-First Web Utilities',
     description: 'Learn about World Tools Hub, our browser-native computing architecture, privacy commitment, and editorial curation process for artificial intelligence software.',
   };
