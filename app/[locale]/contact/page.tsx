@@ -7,7 +7,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     alternates: { canonical: canonical(`/${locale}/contact`) },
     title: 'Contact Support & Editorial Team',
-    description: 'Get in touch with the World Tools Hub development, advertising partnership, and technical support teams.',
+    description: 'Contact World Tools Hub by email for bug reports, tool suggestions or partnership questions. One inbox, answered by the person who writes the code.',
   };
 }
 
@@ -28,7 +28,10 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
               Contact Us
             </h1>
             <p className="text-sm text-zinc-600 mt-2">
-              Have questions, feedback, partnership proposals, or bug reports? We are here to help.
+              Questions, feedback, partnership proposals or a bug you found — it all goes to the same inbox.
+            </p>
+            <p className="text-xs text-zinc-500 mt-2">
+              Last updated: November 10, 2026 · Answered by the person who maintains the code, not a support desk.
             </p>
           </div>
 
@@ -68,9 +71,9 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
             <h3 className="font-bold text-zinc-900 mb-2">Office & Operational Details</h3>
             <p className="text-xs text-zinc-600 leading-relaxed">
               <strong>World Tools Hub Operations</strong><br />
-              Digital-First Remote Engineering Team • Serving 12 Global Regions<br />
-              Domain: <a href="https://www.iatools.online" className="underline font-medium">www.iatools.online</a><br />
-              Average Response Time: Within 24-48 business hours.
+              A small independent team. No office, no call centre, no phone support.<br />
+              Domain: <a href="https://iatools.online" className="underline font-medium">iatools.online</a><br />
+              Email is the only support channel. We read everything; we reply when a human can.
             </p>
           </div>
         </div>

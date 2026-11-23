@@ -7,7 +7,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     alternates: { canonical: canonical(`/${locale}/terms`) },
     title: 'Terms of Service & Usage Agreement',
-    description: 'Read the terms of service, conditions of use, intellectual property, and disclaimers for World Tools Hub web utilities.',
+    description: 'The terms that apply when you use World Tools Hub: what the free utilities promise, what they do not, and who owns the content on this site.',
   };
 }
 
@@ -28,7 +28,7 @@ export default async function TermsPage({ params }: { params: Promise<{ locale: 
               Terms of Service
             </h1>
             <p className="text-xs text-zinc-500 mt-2">
-              Last updated: October 5, 2026 • Effective Date: January 1, 2025
+              Last updated: November 10, 2026 · Applies to the English edition at iatools.online
             </p>
           </div>
 
@@ -36,7 +36,7 @@ export default async function TermsPage({ params }: { params: Promise<{ locale: 
             <section>
               <h2 className="text-xl font-black text-zinc-900 mb-2">1. Acceptance of Terms</h2>
               <p>
-                By accessing and utilizing the web utilities, services, and software directory provided on <strong>World Tools Hub</strong> (accessible at <a href="https://www.iatools.online" className="text-yellow-600 font-bold hover:underline">https://www.iatools.online</a>), you agree to be bound by these Terms of Service, all applicable laws and regulations, and acknowledge your responsibility for compliance with local legal provisions.
+                By accessing and utilizing the web utilities, services, and software directory provided on <strong>World Tools Hub</strong> (available at <a href="https://iatools.online" className="text-yellow-600 font-bold hover:underline">https://iatools.online</a>), you agree to be bound by these Terms of Service, all applicable laws and regulations, and acknowledge your responsibility for compliance with local legal provisions.
               </p>
             </section>
 
