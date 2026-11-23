@@ -1,35 +1,50 @@
-# WORLD-HUB-PRO — 50 Tools + 500 AI Directory | 12 Languages | $50/day
+# World Tools Hub
 
-Híbrido 1+3: Hub de Ferramentas Grátis + Diretório de IAs. 1 domínio, 12 línguas, tripla monetização.
-
-## Monetização
-- **AdSense/Monetag** $8 RPM x 5k views = $40/dia
-- **Afiliado** 5 vendas x $5 = $25/dia (Canva, Adobe, ElevenLabs, Jasper 30%)
-- **Featured** $29/mês x 20 sponsors = $20/dia
+Site de ferramentas gratuitas de navegador + diretorio de IA.
+Publicado em **https://iatools.online** (Cloudflare Workers, via OpenNext).
 
 ## Stack
-Next.js 14, Tailwind, 12 locales (en,es,pt,fr,de,it,ja,ko,zh,ar,hi,ru), Vercel ISR, Prisma (opcional).
 
-## Rotas
-- `/en` `/es` `/pt` ... 12 home hreflang
-- `/[locale]/tools/[slug]` 50 tools x 12 = 600 páginas
-- `/[locale]/directory/[slug]` 500 AIs x 12 = 6000 páginas
-- `/[locale]/admin` CRUD
+- Next.js 16 (App Router) + React 19 + Tailwind 4
+- `@opennextjs/cloudflare` — o build do Next adaptado para Workers
+- Deploy manual: `npm run deploy`
 
-## Rodar
+> OpenNext ainda nao suporta Turbopack, por isso o build usa `next build --webpack`.
+
+## Desenvolvimento
+
 ```bash
 npm install
-npm run dev # http://localhost:3000/en
-npm run build
+npm run dev        # http://localhost:3000
 ```
 
-## Deploy Vercel
+## Build e deploy
+
 ```bash
-vercel --prod
-# Env: NEXT_PUBLIC_ADSENSE_ID, STRIPE_*, DATABASE_URL
+npm run build      # next build --webpack
+npm run preview    # roda localmente no runtime do Worker (workerd)
+npm run deploy     # build + wrangler deploy
 ```
 
-## .bat para iniciantes
-- `INICIAR.bat` - git init + push
-- `ATUALIZAR.bat` - git add . + push
-- `CORRIGIR-VERCEL.bat` - fix vercel.json
+Se as variaveis `CLOUDFLARE_API_TOKEN` e `CLOUDFLARE_ACCOUNT_ID` estiverem no
+ambiente, o `wrangler` autentica sem pedir login.
+
+## Estrutura
+
+```
+app/[locale]/           paginas (locale fixo em 'en')
+  tools/[slug]          16 ferramentas client-side
+  directory/[slug]      10 servicos de IA
+  tools, directory      paginas de indice
+  about, contact, privacy, terms, affiliate-disclosure
+app/go/[slug]           redirect de afiliado (valida destino)
+lib/seo.ts              SITE_URL, canonical, JSON-LD, breadcrumbs
+lib/data.ts             TOOLS, DIRECTORY_ITEMS, LOCALES
+```
+
+## Regras do projeto
+
+- **Tudo gratuito.** Nao existe plano pago, paywall ou upsell.
+- **Nenhuma prova social inventada.** Sem nota, sem contagem de usuarios, sem avaliacao falsa.
+- **Links de afiliado sao identificados.** Ver `/en/affiliate-disclosure`.
+- **Processamento no navegador.** As ferramentas nao enviam arquivos para servidor algum.
