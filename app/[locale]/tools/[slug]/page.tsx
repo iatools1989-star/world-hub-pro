@@ -195,17 +195,6 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
             </div>
           </div>
 
-          {/* Video curto mostrando a ferramenta funcionando.
-              Fica antes do runner porque e o que responde "como eu uso isso?"
-              em 12 segundos, sem precisar ler. O arquivo e servido do proprio
-              dominio: nada de player de terceiro, nada de cookie de rastreio
-              carregado antes do consentimento. */}
-          {VIDEO_TOOLS.includes(tool.slug) && (
-            <div className="mt-6">
-              <ToolVideo slug={tool.slug} name={tool.name} />
-            </div>
-          )}
-
           {/* Interactive Tool Runner */}
           <div className="mt-6 bg-[var(--color-surface-2)] border border-[var(--color-line)] rounded-[12px] p-4 sm:p-6">
             {renderToolComponent()}
@@ -274,11 +263,28 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
               </section>
             )}
 
-              {/* Step by Step Guide */}
+              {/* Step by Step Guide — com o video logo acima dos passos.
+
+                  Antes o video ficava no topo da pagina, longe do texto que
+                  explica cada passo. Aqui ele responde a mesma pergunta que
+                  os cartoes numerados (como eu uso isto?), entao ficam juntos:
+                  primeiro se assiste, depois se confere a instrucao escrita.
+                  O arquivo e servido do proprio dominio — nada de player de
+                  terceiro nem cookie de rastreio antes do consentimento. */}
               <section>
-                <h2 className="text-lg font-black text-[var(--color-ink)] mb-4 flex items-center gap-2">
+                <h2 className="text-lg font-black text-[var(--color-ink)] mb-1 flex items-center gap-2">
                   <span>📖</span> How to Use {tool.name}
                 </h2>
+                <p className="text-sm text-[var(--color-ink-muted)] mb-4">
+                  Watch the {guide.steps.length} steps in action, then follow them below.
+                </p>
+
+                {VIDEO_TOOLS.includes(tool.slug) && (
+                  <div className="mb-5">
+                    <ToolVideo slug={tool.slug} name={tool.name} passos={guide.steps.length} />
+                  </div>
+                )}
+
                 <div className="grid sm:grid-cols-3 gap-4">
                   {guide.steps.map((s) => (
                     <div key={s.step} className="bg-[var(--color-surface)] border border-[var(--color-line)] rounded-[12px] p-4 shadow-xs">
