@@ -84,7 +84,13 @@ export function Breadcrumbs({
         <span key={it.nome} className="flex items-center gap-1.5">
           {i > 0 && <span aria-hidden className="text-[var(--color-line-strong)]">/</span>}
           {it.href ? (
-            <a href={it.href} className="hover:text-[var(--color-ink)] hover:underline underline-offset-2">
+            <a
+              href={it.href}
+              /* min-h-6 = 24px: o alvo de toque minimo da WCAG 2.5.8. Sem
+                 isso o link tinha 15px de altura e era dificil de acertar
+                 no celular, mesmo parecendo normal no desktop. */
+              className="inline-flex min-h-6 items-center hover:text-[var(--color-ink)] hover:underline underline-offset-2"
+            >
               {it.nome}
             </a>
           ) : (

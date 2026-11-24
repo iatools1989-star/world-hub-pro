@@ -36,7 +36,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
             <section>
               <h2 className="text-xl font-black text-[var(--color-ink)] mb-2">1. Introduction & Core Mission</h2>
               <p>
-                Welcome to <strong>World Tools Hub</strong> (available at <a href="https://iatools.online" className="text-[var(--color-brand-deep)] font-bold hover:underline">https://iatools.online</a>). 
+                Welcome to <strong>World Tools Hub</strong> (available at <a href="https://iatools.online" className="text-[var(--color-brand-deep)] font-bold hover:underline inline-flex min-h-6 items-center">https://iatools.online</a>). 
                 We are committed to operating our browser utilities under strict <strong>Privacy-by-Design</strong> principles. 
                 Our architectural premise is straightforward: everyday utility tools (such as PDF manipulators, image converters, 
                 and text processors) should execute <strong>locally in the user's browser sandbox</strong> without uploading confidential documents 
@@ -117,7 +117,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
               </ul>
               <p className="mt-3">
                 To exercise any of these rights, or to ask what — if anything — we hold about you, write to{' '}
-                <a href="mailto:guilhermemarculasilva@gmail.com" className="text-[var(--color-brand-deep)] font-bold hover:underline">guilhermemarculasilva@gmail.com</a>{' '}
+                <a href="mailto:guilhermemarculasilva@gmail.com" className="text-[var(--color-brand-deep)] font-bold hover:underline inline-flex min-h-6 items-center">guilhermemarculasilva@gmail.com</a>{' '}
                 with the subject line <em>Data request</em>. Email is our only support channel. We answer from a real
                 inbox, not an autoresponder, so allow a few working days. If you are not satisfied with the answer, you
                 may complain to your local data protection authority — in Brazil, the ANPD.
@@ -140,7 +140,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
                 <div className="font-bold text-[var(--color-ink)]">World Tools Hub Data Protection Inquiries</div>
                 <div className="text-xs text-[var(--color-ink-muted)] mt-1">Website: iatools.online</div>
                 <div className="text-xs text-[var(--color-ink-muted)]">Email:{' '}
-                  <a href="mailto:guilhermemarculasilva@gmail.com" className="text-[var(--color-brand-deep)] font-bold hover:underline">
+                  <a href="mailto:guilhermemarculasilva@gmail.com" className="text-[var(--color-brand-deep)] font-bold hover:underline inline-flex min-h-6 items-center">
                     guilhermemarculasilva@gmail.com
                   </a>
                 </div>

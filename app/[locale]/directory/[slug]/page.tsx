@@ -151,7 +151,7 @@ export default async function DirectoryPage({ params }: { params: Promise<{ loca
               </p>
               <a
                 href={`/${locale}/affiliate-disclosure`}
-                className="mt-3 inline-block text-xs font-bold text-[var(--color-ink)] underline"
+                className="mt-3 inline-flex min-h-6 items-center text-xs font-bold text-[var(--color-ink)] underline"
               >
                 Read the full disclosure
               </a>
@@ -319,7 +319,7 @@ export default async function DirectoryPage({ params }: { params: Promise<{ loca
                 Prices and limits on this page were checked against public sources on {detail.updated}. We do
                 not test these products hands-on, so nothing here is a lab result — it is a careful reading of
                 what the vendors publish, plus where the published numbers tend to mislead.{' '}
-                <a href={`/${locale}/affiliate-disclosure`} className="underline">How we work</a>.
+                <a href={`/${locale}/affiliate-disclosure`} className="inline-flex min-h-6 items-center underline">How we work</a>.
               </p>
             </div>
           )}

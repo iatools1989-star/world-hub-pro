@@ -93,7 +93,7 @@ export default function AdminLogin({ locale }: { locale: string }) {
         </form>
 
         <p className="text-center text-[11px] text-zinc-400 mt-4">
-          <a href={`/${locale}`} className="underline">← voltar ao site</a>
+          <a href={`/${locale}`} className="inline-flex min-h-6 items-center underline">← voltar ao site</a>
         </p>
       </div>
     </div>

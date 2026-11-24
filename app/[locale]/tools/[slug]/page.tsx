@@ -168,7 +168,7 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
       />
 
       <main className="max-w-[820px] mx-auto px-4 sm:px-6 lg:px-8 py-9 sm:py-12 w-full">
-        <a href={`/${locale}#tools`} className="text-xs font-bold text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] transition">
+        <a href={`/${locale}#tools`} className="inline-flex min-h-6 items-center text-xs font-bold text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] transition">
           ← Back to All Tools
         </a>
 
@@ -394,7 +394,7 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
                   {ed.cta.monetized ? (
                     <>
                       Affiliate link. We may earn a commission at no extra cost to you.{' '}
-                      <a href={`/${locale}/affiliate-disclosure`} className="underline">
+                      <a href={`/${locale}/affiliate-disclosure`} className="inline-flex min-h-6 items-center underline">
                         Full disclosure
                       </a>
                       .
@@ -402,7 +402,7 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
                   ) : (
                     <>
                       Direct link to the official site. We earn nothing from this click.{' '}
-                      <a href={`/${locale}/affiliate-disclosure`} className="underline">
+                      <a href={`/${locale}/affiliate-disclosure`} className="inline-flex min-h-6 items-center underline">
                         Why we say this
                       </a>
                       .
