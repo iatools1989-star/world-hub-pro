@@ -23,66 +23,110 @@ export default function ResumeBuilder() {
   const [skills, setSkills] = useState('React, Next.js, TypeScript, Tailwind CSS, Node.js, Git, Technical SEO, Google AdSense');
 
   // Impressão / Exportação em PDF nativo sem distorção
-  const handlePrintPdf = () => {
-    const printWindow = window.open('', '_blank');
-    if (!printWindow) {
-      alert('Please allow pop-ups so we can generate and print your resume as a PDF.');
-      return;
+  /**
+   * Gera o curriculo como PDF de verdade, no proprio navegador.
+   *
+   * Antes isto abria uma janela e chamava window.print(), dependendo de o
+   * visitante escolher "Salvar como PDF" no dialogo — e de o navegador nao
+   * bloquear a janela, o que acontece na maioria dos celulares. Agora o
+   * arquivo baixa direto, com o texto selecionavel (nao e uma foto da folha).
+   */
+  const handlePrintPdf = async () => {
+    try {
+      const { PDFDocument, StandardFonts, rgb } = await import('pdf-lib');
+      const pdf = await PDFDocument.create();
+      const fonte = await pdf.embedFont(StandardFonts.Helvetica);
+      const fonteNegrito = await pdf.embedFont(StandardFonts.HelveticaBold);
+
+      const A4: [number, number] = [595.28, 841.89];
+      const margem = 56;
+      const larguraUtil = A4[0] - margem * 2;
+      let pagina = pdf.addPage(A4);
+      let y = A4[1] - margem;
+
+      // pdf-lib nao faz quebra de linha: a gente mede e quebra.
+      const escrever = (
+        texto: string,
+        opts: { tamanho: number; negrito?: boolean; cor?: [number, number, number]; espacoAntes?: number }
+      ) => {
+        const fonteAtual = opts.negrito ? fonteNegrito : fonte;
+        const alturaLinha = opts.tamanho * 1.45;
+        const palavras = texto.replace(/\r/g, '').split(/\s+/);
+        let linha = '';
+        y -= opts.espacoAntes ?? 0;
+
+        const desenhar = (txt: string) => {
+          if (y < margem + alturaLinha) {
+            pagina = pdf.addPage(A4);
+            y = A4[1] - margem;
+          }
+          pagina.drawText(txt, {
+            x: margem,
+            y,
+            size: opts.tamanho,
+            font: fonteAtual,
+            color: rgb(...(opts.cor ?? [0.1, 0.1, 0.12])),
+          });
+          y -= alturaLinha;
+        };
+
+        for (const palavra of palavras) {
+          if (palavra === '\n') {
+            desenhar(linha);
+            linha = '';
+            continue;
+          }
+          const tentativa = linha ? `${linha} ${palavra}` : palavra;
+          if (fonteAtual.widthOfTextAtSize(tentativa, opts.tamanho) > larguraUtil) {
+            desenhar(linha);
+            linha = palavra;
+          } else {
+            linha = tentativa;
+          }
+        }
+        if (linha) desenhar(linha);
+      };
+
+      escrever(fullName || 'Your name', { tamanho: 22, negrito: true });
+      escrever(role, { tamanho: 11, cor: [0.42, 0.42, 0.46] });
+      escrever([email, phone, location].filter(Boolean).join('  •  '), {
+        tamanho: 9,
+        cor: [0.38, 0.38, 0.42],
+        espacoAntes: 2,
+      });
+
+      const secao = (titulo: string, corpo: string) => {
+        y -= 10;
+        if (y < margem + 40) {
+          pagina = pdf.addPage(A4);
+          y = A4[1] - margem;
+        }
+        pagina.drawLine({
+          start: { x: margem, y: y + 11 },
+          end: { x: A4[0] - margem, y: y + 11 },
+          thickness: 0.8,
+          color: rgb(0.82, 0.82, 0.86),
+        });
+        escrever(titulo.toUpperCase(), { tamanho: 9.5, negrito: true, espacoAntes: 16 });
+        escrever(corpo, { tamanho: 9.5 });
+      };
+
+      if (summary.trim()) secao('Professional Summary', summary);
+      if (experience.trim()) secao('Work Experience', experience);
+      if (education.trim()) secao('Education', education);
+      if (skills.trim()) secao('Skills', skills);
+
+      const bytes = await pdf.save();
+      const blob = new Blob([bytes as unknown as BlobPart], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `resume-${(fullName || 'draft').replace(/\s+/g, '-').toLowerCase()}.pdf`;
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 10000);
+    } catch {
+      alert('Something went wrong while generating the PDF. Please try again.');
     }
-
-    printWindow.document.write(`
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <title>Curriculo_${fullName.replace(/\s+/g, '_')}</title>
-        <style>
-          @page { size: A4 portrait; margin: 15mm 20mm; }
-          body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: #18181b; line-height: 1.5; margin: 0; padding: 0; }
-          h1 { margin: 0 0 4px 0; font-size: 24pt; font-weight: 800; color: #09090b; }
-          .role { font-size: 13pt; font-weight: 600; color: #71717a; margin-bottom: 12px; }
-          .contact { font-size: 9.5pt; color: #52525b; margin-bottom: 20px; border-bottom: 1px solid #e4e4e7; padding-bottom: 12px; }
-          .section { margin-bottom: 18px; }
-          .section-title { font-size: 11pt; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: #09090b; border-bottom: 2px solid #18181b; padding-bottom: 4px; margin-bottom: 8px; }
-          p, pre { font-size: 10pt; color: #27272a; margin: 0; white-space: pre-wrap; font-family: inherit; }
-          .skills { display: flex; flex-wrap: wrap; gap: 6px; }
-          .skill-tag { background: #f4f4f5; padding: 3px 8px; border-radius: 4px; font-size: 9pt; font-weight: 600; }
-        </style>
-      </head>
-      <body>
-        <h1>${fullName}</h1>
-        <div class="role">${role}</div>
-        <div class="contact">${email} • ${phone} • ${location}</div>
-
-        <div class="section">
-          <div class="section-title">Professional Summary</div>
-          <p>${summary}</p>
-        </div>
-
-        <div class="section">
-          <div class="section-title">Work Experience</div>
-          <pre>${experience}</pre>
-        </div>
-
-        <div class="section">
-          <div class="section-title">Education</div>
-          <pre>${education}</pre>
-        </div>
-
-        <div class="section">
-          <div class="section-title">Skills</div>
-          <p>${skills}</p>
-        </div>
-
-        <script>
-          window.onload = function() {
-            window.focus();
-            window.print();
-          };
-        </script>
-      </body>
-      </html>
-    `);
-    printWindow.document.close();
   };
 
   return (

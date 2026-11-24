@@ -55,84 +55,82 @@ export default function JpgToPdf() {
     });
   };
 
-  // Conversão de Imagens para PDF Nativo em Canvas/Print ou Download
+  /**
+   * Gera um PDF de verdade com pdf-lib, no proprio navegador.
+   *
+   * Antes esta funcao abria uma janela e chamava window.print(), torcendo para
+   * o visitante escolher "Salvar como PDF" no dialogo. No celular o navegador
+   * costuma bloquear a janela e a ferramenta falhava sem avisar nada. Agora o
+   * arquivo e baixado direto, com a imagem embutida e o tamanho de pagina
+   * respeitado.
+   */
   const generatePdf = async () => {
     if (!images.length) return;
     setIsGenerating(true);
-
     try {
-      // Cria uma janela temporária formatada para impressão/salvamento direto como PDF nativo
-      const printWindow = window.open('', '_blank');
-      if (!printWindow) {
-        alert('Please allow pop-ups so we can generate your PDF at full fidelity.');
-        setIsGenerating(false);
-        return;
+      const { PDFDocument } = await import('pdf-lib');
+      const pdf = await PDFDocument.create();
+
+      // Medidas em pontos (1 pt = 1/72 pol). A4 = 595,28 x 841,89.
+      const A4: [number, number] =
+        orientation === 'portrait' ? [595.28, 841.89] : [841.89, 595.28];
+
+      for (const img of images) {
+        const bytes = await img.file.arrayBuffer();
+        // PDF so aceita JPEG e PNG embutidos. WebP e outros formatos passam por
+        // um canvas antes de entrar no documento.
+        let embutida;
+        if (img.file.type === 'image/png') {
+          embutida = await pdf.embedPng(bytes);
+        } else if (img.file.type === 'image/jpeg') {
+          embutida = await pdf.embedJpg(bytes);
+        } else {
+          const bitmap = await createImageBitmap(img.file);
+          const canvas = document.createElement('canvas');
+          canvas.width = bitmap.width;
+          canvas.height = bitmap.height;
+          canvas.getContext('2d')!.drawImage(bitmap, 0, 0);
+          const jpegUrl = canvas.toDataURL('image/jpeg', 0.92);
+          const jpegBytes = await (await fetch(jpegUrl)).arrayBuffer();
+          embutida = await pdf.embedJpg(jpegBytes);
+        }
+
+        let largura: number;
+        let altura: number;
+        if (pageSize === 'a4') {
+          [largura, altura] = A4;
+        } else {
+          // "Ajustar a imagem": a pagina tem exatamente o tamanho da imagem
+          largura = embutida.width;
+          altura = embutida.height;
+        }
+
+        const pagina = pdf.addPage([largura, altura]);
+        const escala = Math.min(
+          (largura - 24) / embutida.width,
+          (altura - 24) / embutida.height
+        );
+        const w = embutida.width * escala;
+        const h = embutida.height * escala;
+        pagina.drawImage(embutida, {
+          x: (largura - w) / 2,
+          y: (altura - h) / 2,
+          width: w,
+          height: h,
+        });
       }
 
-      const imgTags = images
-        .map(
-          (img) => `
-          <div class="page ${pageSize === 'a4' ? orientation : ''}">
-            <img src="${img.previewUrl}" alt="Page" />
-          </div>
-        `
-        )
-        .join('');
-
-      printWindow.document.write(`
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <title>Documento_Convertido_${Date.now()}</title>
-          <style>
-            @page {
-              size: ${pageSize === 'a4' ? (orientation === 'portrait' ? 'A4 portrait' : 'A4 landscape') : 'auto'};
-              margin: 0;
-            }
-            body {
-              margin: 0;
-              padding: 0;
-              background-color: #f4f4f5;
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              font-family: sans-serif;
-            }
-            .page {
-              page-break-after: always;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              width: 100vw;
-              height: 100vh;
-              overflow: hidden;
-            }
-            .page img {
-              max-width: 95%;
-              max-height: 95%;
-              object-fit: contain;
-            }
-            @media print {
-              body { background: transparent; }
-              .page { width: 100%; height: 100%; }
-            }
-          </style>
-        </head>
-        <body>
-          ${imgTags}
-          <script>
-            window.onload = function() {
-              window.focus();
-              window.print();
-            };
-          </script>
-        </body>
-        </html>
-      `);
-      printWindow.document.close();
-      setIsGenerating(false);
+      const bytes = await pdf.save();
+      const blob = new Blob([bytes as unknown as BlobPart], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `images-to-pdf-${Date.now()}.pdf`;
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 10000);
     } catch {
-      alert('Something went wrong while processing the PDF pages.');
+      alert('Something went wrong while generating the PDF. Please try again.');
+    } finally {
       setIsGenerating(false);
     }
   };
