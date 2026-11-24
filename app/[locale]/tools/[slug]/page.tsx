@@ -32,6 +32,8 @@ import TextToSpeech from '@/components/tools/TextToSpeech';
 import ResumeBuilder from '@/components/tools/ResumeBuilder';
 
 import GenericToolRunner from '@/components/tools/GenericToolRunner';
+import ToolVideo from '@/components/ToolVideo';
+import { VIDEO_TOOLS } from '@/lib/videoTools';
 import { TOOLS } from '@/lib/data';
 import { TOOL_GUIDES } from '@/lib/toolContent';
 import { TOOL_EDITORIAL } from '@/lib/toolEditorial';
@@ -192,6 +194,17 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
               </div>
             </div>
           </div>
+
+          {/* Video curto mostrando a ferramenta funcionando.
+              Fica antes do runner porque e o que responde "como eu uso isso?"
+              em 12 segundos, sem precisar ler. O arquivo e servido do proprio
+              dominio: nada de player de terceiro, nada de cookie de rastreio
+              carregado antes do consentimento. */}
+          {VIDEO_TOOLS.includes(tool.slug) && (
+            <div className="mt-6">
+              <ToolVideo slug={tool.slug} name={tool.name} />
+            </div>
+          )}
 
           {/* Interactive Tool Runner */}
           <div className="mt-6 bg-[var(--color-surface-2)] border border-[var(--color-line)] rounded-[12px] p-4 sm:p-6">

@@ -110,7 +110,7 @@ export default function TextToSpeech() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
           <div className="sm:col-span-2">
             <label className="block text-xs font-bold text-[var(--color-ink-muted)] mb-1.5 uppercase tracking-wider">
-              Voice / language ({voices.length} available)
+              Voice / language ({voices.length > 0 ? voices.length + ' available' : 'default'})
             </label>
             <select
               value={selectedVoice}

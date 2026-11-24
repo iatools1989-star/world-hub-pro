@@ -226,7 +226,7 @@ export default function RemoveBg() {
             </div>
 
             <div className="space-y-2">
-              <span className="text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider block">Fundo Removido:</span>
+              <span className="text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider block">Background removed:</span>
               <div
                 className="h-56 border border-[var(--color-line)] rounded-[12px] flex items-center justify-center p-3 overflow-hidden"
                 style={{
