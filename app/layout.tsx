@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono } from 'next/font/google';
 import '@/app/globals.css';
 import { ADSENSE_CONFIG, ADSENSE_ATIVO } from '@/lib/data';
 import { SITE_URL, SITE_NAME, AUTHOR_NAME } from '@/lib/seo';
+import GoogleTagManager from '@/components/GoogleTagManager';
 
 // Fontes servidas do próprio build (sem requisição a terceiros).
 const inter = Inter({
@@ -47,6 +48,12 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        {/* Google Tag Manager: contêiner GTM-TNRV4LXN, que distribui o GA4
+            (G-S8SZLT7KZY). Fica no topo do <head> porque e assim que o Google
+            espera encontrar — e porque a medicao de tempo de carregamento
+            depende de o dataLayer existir antes de qualquer outra coisa. */}
+        <GoogleTagManager />
+
         {/* Evita o piscar branco ao carregar já no tema escuro.
             Roda antes da primeira pintura, por isso é inline e síncrono. */}
         <script
