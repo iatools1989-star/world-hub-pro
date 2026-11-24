@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import QRCode from 'qrcode';
 
-type QRType = 'url' | 'wifi' | 'text' | 'pix';
+type QRType = 'url' | 'wifi' | 'text';
 
 export default function QRGenerator() {
   const [activeTab, setActiveTab] = useState<QRType>('url');
@@ -13,9 +13,6 @@ export default function QRGenerator() {
   const [wifiSsid, setWifiSsid] = useState('');
   const [wifiPass, setWifiPass] = useState('');
   const [wifiType, setWifiType] = useState('WPA');
-
-  // PIX inputs
-  const [pixKey, setPixKey] = useState('');
 
   // Styling options
   const [size, setSize] = useState(300);
@@ -31,8 +28,6 @@ export default function QRGenerator() {
     switch (activeTab) {
       case 'wifi':
         return `WIFI:T:${wifiType};S:${wifiSsid};P:${wifiPass};;`;
-      case 'pix':
-        return pixKey.trim() || ' ';
       case 'url':
       case 'text':
       default:
@@ -110,7 +105,7 @@ export default function QRGenerator() {
     <div className="space-y-6">
       {/* Abas de Tipos Rápidos */}
       <div className="flex flex-wrap gap-2 border-b border-[var(--color-line)] pb-3">
-        {(['url', 'wifi', 'pix', 'text'] as QRType[]).map((tab) => (
+        {(['url', 'wifi', 'text'] as QRType[]).map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
@@ -122,7 +117,6 @@ export default function QRGenerator() {
           >
             {tab === 'url' && '🔗 Link / URL'}
             {tab === 'wifi' && '📶 Wi-Fi'}
-            {tab === 'pix' && '💸 PIX Key'}
             {tab === 'text' && '📝 Plain Text'}
           </button>
         ))}
@@ -188,25 +182,10 @@ export default function QRGenerator() {
           </div>
         )}
 
-        {activeTab === 'pix' && (
-          <div>
-            <label className="block text-xs font-bold text-[var(--color-ink-soft)] uppercase tracking-wider mb-1">
-              PIX key or copy-and-paste code
-            </label>
-            <input
-              type="text"
-              value={pixKey}
-              onChange={(e) => setPixKey(e.target.value)}
-              placeholder="Tax ID, e-mail, phone or random key..."
-              className="w-full px-4 py-3 rounded-xl border border-zinc-300 text-sm"
-            />
-          </div>
-        )}
-
         {activeTab === 'text' && (
           <div>
             <label className="block text-xs font-bold text-[var(--color-ink-soft)] uppercase tracking-wider mb-1">
-              Mensagem ou Texto Livre
+              Your text
             </label>
             <textarea
               rows={3}

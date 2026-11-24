@@ -6,7 +6,7 @@
   "Tools": {
     "qr-generator": {
       "name": "QR-Code-Generator",
-      "desc": "Erstellen Sie sofort QR-Codes für URLs, WLAN, PIX und Texte."
+      "desc": "Erstellen Sie sofort QR-Codes für URLs, WLAN und Texte."
     },
     "bulk-studio": {
       "name": "Massen-Studio",
