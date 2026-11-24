@@ -11,7 +11,7 @@
   "Tools": {
     "qr-generator": {
       "name": "Gerador de QR Code",
-      "desc": "Crie QR codes para URLs, WiFi, PIX e textos instantaneamente."
+      "desc": "Crie QR codes para URLs, WiFi e textos instantaneamente."
     },
     "bulk-studio": {
       "name": "Estúdio em Lote",

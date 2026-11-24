@@ -23,7 +23,7 @@ export interface ToolItem {
 }
 
 export const TOOLS: ToolItem[] = [
-  { slug: 'qr-generator', name: 'QR Code Generator', desc: 'Create QR codes for URLs, WiFi, PIX and texts instantly.', icon: '🔳', category: 'Utility' },
+  { slug: 'qr-generator', name: 'QR Code Generator', desc: 'Create QR codes for URLs, WiFi credentials and plain text instantly.', icon: '🔳', category: 'Utility' },
   { slug: 'password-generator', name: 'Password Generator', desc: 'Generate high-entropy, cryptographically safe passwords.', icon: '🔐', category: 'Security' },
   { slug: 'word-counter', name: 'Word & Character Counter', desc: 'Real-time text analysis, word count, reading time & stats.', icon: '📝', category: 'Writing' },
   { slug: 'unit-converter', name: 'Unit Converter', desc: 'Convert length, weight, area, and temperature values.', icon: '📐', category: 'Math' },
