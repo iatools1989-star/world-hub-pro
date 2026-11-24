@@ -71,6 +71,10 @@ async function github(metodo: string, caminho: string, corpo?: unknown) {
     headers: {
       Authorization: `Bearer ${token}`,
       Accept: 'application/vnd.github+json',
+      // O GitHub recusa requisicao sem User-Agent (403 "Request forbidden by
+      // administrative rules"). O fetch do Worker nao envia esse cabecalho
+      // sozinho, entao ele vai explicito.
+      'User-Agent': 'iatools-cms',
       'X-GitHub-Api-Version': '2022-11-28',
       'Content-Type': 'application/json',
     },
