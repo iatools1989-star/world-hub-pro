@@ -42,31 +42,14 @@ export default function CompressPdf() {
 
     try {
       // Carrega pdfjs dinamicamente
-      if (!(window as any).pdfjsLib) {
-        await new Promise((resolve, reject) => {
-          const script = document.createElement('script');
-          script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
-          script.onload = resolve;
-          script.onerror = reject;
-          document.head.appendChild(script);
-        });
-      }
-
-      // Carrega pdf-lib dinamicamente
-      if (!(window as any).PDFLib) {
-        await new Promise((resolve, reject) => {
-          const script = document.createElement('script');
-          script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js';
-          script.onload = resolve;
-          script.onerror = reject;
-          document.head.appendChild(script);
-        });
-      }
-
-      const pdfjsLib = (window as any).pdfjsLib;
-      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-
-      const { PDFDocument } = (window as any).PDFLib;
+      // Ambas as bibliotecas vem do proprio bundle (npm). Antes eram baixadas
+      // de cdnjs em tempo de execucao — inclusive o worker do pdf.js — o que
+      // quebrava a promessa de processamento sem chamadas externas.
+      const [{ PDFDocument }, pdfjsLib] = await Promise.all([
+        import('pdf-lib'),
+        import('pdfjs-dist/build/pdf'),
+      ]);
+      pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js';
 
       const arrayBuffer = await file.arrayBuffer();
       const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
@@ -112,7 +95,7 @@ export default function CompressPdf() {
 
       setStatusMessage('Finishing up and packaging the PDF file...');
       const compressedBytes = await newPdf.save();
-      const blob = new Blob([compressedBytes], { type: 'application/pdf' });
+      const blob = new Blob([compressedBytes as unknown as BlobPart], { type: 'application/pdf' });
       const url = URL.createObjectURL(blob);
 
       setCompressedBlobUrl(url);

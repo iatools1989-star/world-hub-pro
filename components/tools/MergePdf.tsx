@@ -72,7 +72,7 @@ export default function MergePdf() {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   };
 
-  // Mesclagem 100% no cliente usando pdf-lib carregado dinamicamente
+  // Mesclagem 100% no cliente, com pdf-lib empacotado no bundle
   const mergeDocuments = async () => {
     if (pdfFiles.length < 2) {
       alert('Add at least 2 PDF files to merge.');
@@ -83,17 +83,11 @@ export default function MergePdf() {
     setStatusMessage('Loading the PDF engine into memory...');
 
     try {
-      if (!(window as any).PDFLib) {
-        await new Promise((resolve, reject) => {
-          const script = document.createElement('script');
-          script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js';
-          script.onload = resolve;
-          script.onerror = reject;
-          document.head.appendChild(script);
-        });
-      }
-
-      const { PDFDocument } = (window as any).PDFLib;
+      // pdf-lib vem do proprio bundle (npm), nao de CDN.
+      // Antes esta ferramenta baixava o script de cdnjs em tempo de execucao,
+      // o que contradizia a promessa "100% no navegador, sem chamadas externas"
+      // e fazia a ferramenta falhar quando o CDN nao respondia.
+      const { PDFDocument } = await import('pdf-lib');
       setStatusMessage('Creating the combined PDF document...');
 
       const mergedPdf = await PDFDocument.create();
@@ -108,7 +102,7 @@ export default function MergePdf() {
 
       setStatusMessage('Finishing up and generating the file...');
       const mergedPdfBytes = await mergedPdf.save();
-      const blob = new Blob([mergedPdfBytes], { type: 'application/pdf' });
+      const blob = new Blob([mergedPdfBytes as unknown as BlobPart], { type: 'application/pdf' });
       const url = URL.createObjectURL(blob);
 
       setMergedBlobUrl(url);

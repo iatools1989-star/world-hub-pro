@@ -31,18 +31,9 @@ export default function PdfToJpg() {
 
     try {
       // Injeta pdfjs via script tag se ainda não estiver disponível na janela
-      if (!(window as any).pdfjsLib) {
-        await new Promise((resolve, reject) => {
-          const script = document.createElement('script');
-          script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
-          script.onload = resolve;
-          script.onerror = reject;
-          document.head.appendChild(script);
-        });
-      }
-
-      const pdfjsLib = (window as any).pdfjsLib;
-      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+      // pdf.js empacotado no bundle; o worker e servido do proprio dominio.
+      const pdfjsLib = await import('pdfjs-dist/build/pdf');
+      pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js';
 
       const arrayBuffer = await file.arrayBuffer();
       const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
