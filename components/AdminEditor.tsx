@@ -1,6 +1,13 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import { GUIDES } from '@/lib/guidesContent';
+
+/**
+ * Guias que existem no codigo. Os demais, com tipo `guide`, foram criados pelo
+ * CMS e sao os unicos que podem ser apagados pelo editor.
+ */
+const GUIAS_CONHECIDOS = new Set(Object.keys(GUIDES));
 
 /**
  * Editor de conteudo do site.
@@ -63,6 +70,8 @@ export default function AdminEditor() {
   const [erroCriar, setErroCriar] = useState<string | null>(null);
   const [enviandoCriar, setEnviandoCriar] = useState(false);
   const [recarregar, setRecarregar] = useState(0);
+  const [confirmandoApagar, setConfirmandoApagar] = useState(false);
+  const [erroApagar, setErroApagar] = useState<string | null>(null);
 
   // lista
   useEffect(() => {
@@ -85,6 +94,14 @@ export default function AdminEditor() {
       .catch(() => setDoc(null))
       .finally(() => setCarregandoDoc(false));
   }, [aberto]);
+
+  // Criado pelo CMS = nao existe em lib/guidesContent.ts. A lista da API ja
+  // mescla os dois, entao comparo com o slug conhecido.
+  const ehCriado = useMemo(() => {
+    if (!aberto?.startsWith('guide:') || !doc) return false;
+    const slug = aberto.slice('guide:'.length);
+    return !GUIAS_CONHECIDOS.has(slug);
+  }, [aberto, doc]);
 
   const visiveis = useMemo(() => {
     if (!docs) return [];
@@ -132,6 +149,21 @@ export default function AdminEditor() {
       setErroCriar((e as Error).message);
     } finally {
       setEnviandoCriar(false);
+    }
+  }
+
+  async function apagar() {
+    if (!aberto) return;
+    try {
+      const r = await fetch(`/api/admin/content?id=${encodeURIComponent(aberto)}`, { method: 'DELETE' });
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.erro || `falhou (${r.status})`);
+      setConfirmandoApagar(false);
+      setAberto(null);
+      setRecarregar((n) => n + 1);
+      setMensagem({ tom: 'ok', rotulo: 'Página apagada.', texto: d.aviso ?? '' });
+    } catch (e) {
+      setErroApagar((e as Error).message);
     }
   }
 
@@ -212,6 +244,37 @@ export default function AdminEditor() {
                 }`}
               >
                 {enviandoCriar ? 'Criando…' : 'Criar página'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {confirmandoApagar && (
+        <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4">
+          <div className="w-full max-w-md rounded-2xl bg-white p-5 shadow-xl">
+            <h2 className="text-base font-black text-zinc-900">Apagar esta página?</h2>
+            <p className="text-xs text-zinc-500 mt-1 leading-relaxed">
+              O endereço sai do ar e o texto é removido do repositório. O histórico do git
+              continua com a versão anterior, então dá para recuperar.
+            </p>
+            {erroApagar && (
+              <p className="mt-3 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-[12px] text-red-800">
+                {erroApagar}
+              </p>
+            )}
+            <div className="mt-4 flex justify-end gap-2">
+              <button
+                onClick={() => { setConfirmandoApagar(false); setErroApagar(null); }}
+                className="rounded-full border border-zinc-300 px-4 py-1.5 text-xs font-bold text-zinc-600 hover:border-zinc-500"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={apagar}
+                className="rounded-full bg-red-600 px-4 py-1.5 text-xs font-bold text-white hover:bg-red-700"
+              >
+                Apagar
               </button>
             </div>
           </div>
@@ -309,6 +372,14 @@ export default function AdminEditor() {
                 >
                   ver página ↗
                 </a>
+                {ehCriado && (
+                  <button
+                    onClick={() => { setConfirmandoApagar(true); setErroApagar(null); }}
+                    className="rounded-full border border-red-200 px-3 py-1.5 text-xs font-bold text-red-700 hover:bg-red-50 transition"
+                  >
+                    Apagar
+                  </button>
+                )}
                 <button
                   onClick={salvar}
                   disabled={salvando || Object.keys(alterados).length === 0}

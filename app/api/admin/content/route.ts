@@ -281,6 +281,70 @@ export async function POST(req: Request) {
   });
 }
 
+/**
+ * Apaga uma pagina criada pelo CMS.
+ *
+ * So vale para o que foi criado aqui (criados.json). Pagina escrita no codigo
+ * nao se apaga por botao: ela tem componente, rota e link interno que
+ * apontariam para o vazio. Nesse caso a resposta explica em vez de sumir com
+ * metade da pagina.
+ */
+export async function DELETE(req: Request) {
+  if (!(await sessaoValida())) return semSessao();
+
+  if (!process.env.ADMIN_GITHUB_TOKEN) {
+    return NextResponse.json({ erro: 'Falta o secret ADMIN_GITHUB_TOKEN no Cloudflare.' }, { status: 503 });
+  }
+
+  const id = new URL(req.url).searchParams.get('id') ?? '';
+  const [tipo, slug] = id.split(':');
+  if (tipo !== 'guide' || !slug) {
+    return NextResponse.json({ erro: 'Só é possível apagar guias criados pelo CMS.' }, { status: 400 });
+  }
+
+  let criados: Record<string, Record<string, unknown>> = {};
+  let sha: string | null = null;
+  try {
+    const dados = await github('GET', `contents/${ARQUIVO_CRIADOS}?ref=${BRANCH}`);
+    if (dados?.content) {
+      criados = JSON.parse(Buffer.from(dados.content, 'base64').toString('utf8'));
+      sha = dados.sha;
+    }
+  } catch {
+    /* arquivo ausente: nada a apagar */
+  }
+
+  const guias = (criados.guide ?? {}) as Record<string, unknown>;
+  if (!guias[slug]) {
+    return NextResponse.json(
+      {
+        erro:
+          'Esta página foi escrita no código, não pelo CMS. Para removê-la é preciso apagar o arquivo correspondente — me peça isso em vez de tentar pelo editor.',
+      },
+      { status: 400 }
+    );
+  }
+
+  delete guias[slug];
+  criados.guide = guias as Record<string, Record<string, unknown>>;
+
+  try {
+    await github('PUT', `contents/${ARQUIVO_CRIADOS}`, {
+      message: `CMS: apaga o guia ${slug}`,
+      content: Buffer.from(JSON.stringify(criados, null, 2) + '\n', 'utf8').toString('base64'),
+      branch: BRANCH,
+      ...(sha ? { sha } : {}),
+    });
+  } catch (e) {
+    return NextResponse.json({ erro: (e as Error).message }, { status: 502 });
+  }
+
+  return NextResponse.json({
+    ok: true,
+    aviso: 'Página apagada. O endereço sai do ar no próximo build (~2 minutos).',
+  });
+}
+
 export async function PUT(req: Request) {
   if (!(await sessaoValida())) return semSessao();
 
