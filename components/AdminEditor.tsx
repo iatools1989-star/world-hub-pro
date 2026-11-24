@@ -12,16 +12,16 @@ import { useEffect, useMemo, useState } from 'react';
  * conteudo como dado: carrega JSON pela API, mostra campos, e o que nao foi
  * tocado continua vindo do arquivo original.
  *
- * O QUE ESTA TELA FAZ HOJE
- * - lista todas as 41 paginas de conteudo (10 diretorio, 16 ferramentas, 3 guias)
+ * O QUE ESTA TELA FAZ
+ * - lista todas as paginas de conteudo (diretorio, ferramentas, artigos)
  * - abre qualquer uma e mostra os textos em campos editaveis
- * - deixa editar em memoria e comparar com o publicado
+ * - salva: o texto vai para content/overrides.json, o arquivo e commitado no
+ *   GitHub e o Cloudflare rebuild. O site publica sozinho em ~2 minutos.
  *
- * O QUE AINDA FALTA (e o motivo de nao estar aqui)
- * - gravar: exige um commit no repositorio, e isso precisa de um token do
- *   GitHub com permissao de escrita. Enquanto esse token nao existir como
- *   secret no Cloudflare, um botao "Salvar" que nao salva seria pior que
- *   nenhum botao. Por isso o botao aparece desabilitado, dizendo o que falta.
+ * O QUE AINDA FALTA
+ * - criar pagina nova do zero (hoje so edita as que existem)
+ * - a gravacao depende do secret ADMIN_GITHUB_TOKEN no Cloudflare; sem ele o
+ *   botao avisa em vez de fingir que salvou.
  */
 
 type Resumo = {
@@ -36,8 +36,15 @@ const ROTULO_TIPO: Record<string, string> = {
   guide: 'Artigos',
 };
 
-/** Campos que nao devem ser editados como texto corrido. */
-const CAMPOS_TECNICOS = new Set(['tipo', 'slug', 'updated', 'readingMinutes', 'step']);
+/**
+ * Campos que nao devem aparecer como texto editavel.
+ *
+ * `nome` entra aqui de proposito: ele vem de lib/data.ts e alimenta menu,
+ * breadcrumb e schema. Editar o nome no CMS seria um botao que nao publica
+ * nada — o texto salvaria e o site continuaria igual. Quem troca o nome de
+ * uma ferramenta mexe no codigo, e isso e raro de proposito.
+ */
+const CAMPOS_TECNICOS = new Set(['tipo', 'slug', 'updated', 'readingMinutes', 'step', 'nome']);
 
 export default function AdminEditor() {
   const [docs, setDocs] = useState<Resumo[] | null>(null);
@@ -48,6 +55,8 @@ export default function AdminEditor() {
   const [doc, setDoc] = useState<Documento | null>(null);
   const [carregandoDoc, setCarregandoDoc] = useState(false);
   const [alterados, setAlterados] = useState<Record<string, unknown>>({});
+  const [salvando, setSalvando] = useState(false);
+  const [mensagem, setMensagem] = useState<{ tom: 'ok' | 'erro'; texto: string } | null>(null);
 
   // lista
   useEffect(() => {
@@ -89,6 +98,28 @@ export default function AdminEditor() {
 
   function editar(caminho: string, valor: unknown) {
     setAlterados((a) => ({ ...a, [caminho]: valor }));
+    setMensagem(null);
+  }
+
+  async function salvar() {
+    if (!aberto || Object.keys(alterados).length === 0 || salvando) return;
+    setSalvando(true);
+    setMensagem(null);
+    try {
+      const r = await fetch('/api/admin/content', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: aberto, alterados }),
+      });
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.erro || `falhou (${r.status})`);
+      setAlterados({});
+      setMensagem({ tom: 'ok', texto: d.aviso ?? 'Gravado.' });
+    } catch (e) {
+      setMensagem({ tom: 'erro', texto: (e as Error).message });
+    } finally {
+      setSalvando(false);
+    }
   }
 
   if (erro) {
@@ -188,27 +219,49 @@ export default function AdminEditor() {
                   ver página ↗
                 </a>
                 <button
-                  disabled
-                  title="Falta configurar o token de escrita do GitHub no Cloudflare"
-                  className="rounded-full bg-zinc-200 text-zinc-500 px-4 py-1.5 text-xs font-bold cursor-not-allowed"
+                  onClick={salvar}
+                  disabled={salvando || Object.keys(alterados).length === 0}
+                  title={
+                    Object.keys(alterados).length === 0
+                      ? 'Nada foi alterado ainda'
+                      : 'Grava e publica em ~2 minutos'
+                  }
+                  className={`rounded-full px-4 py-1.5 text-xs font-bold transition ${
+                    salvando || Object.keys(alterados).length === 0
+                      ? 'bg-zinc-200 text-zinc-500 cursor-not-allowed'
+                      : 'bg-zinc-900 text-amber-300 hover:bg-zinc-800'
+                  }`}
                 >
-                  Salvar
+                  {salvando ? 'Salvando…' : 'Salvar e publicar'}
                 </button>
               </div>
             </header>
 
-            <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-[12px] text-amber-900">
-              <strong>Leitura e edição em memória.</strong> Nada é gravado ainda: falta um token do
-              GitHub com permissão de escrita configurado como secret no Cloudflare. Sem isso, um
-              botão que não salva seria pior que nenhum botão.
-            </div>
+            {mensagem && (
+              <div
+                className={`rounded-xl border px-4 py-3 text-[12px] ${
+                  mensagem.tom === 'ok'
+                    ? 'border-green-200 bg-green-50 text-green-900'
+                    : 'border-red-200 bg-red-50 text-red-800'
+                }`}
+              >
+                <strong>{mensagem.tom === 'ok' ? 'Publicado. ' : 'Não salvou. '}</strong>
+                {mensagem.texto}
+              </div>
+            )}
+
+            {Object.keys(alterados).length > 0 && !mensagem && (
+              <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-[12px] text-amber-900">
+                Alterações ainda não publicadas. Clique em <strong>Salvar e publicar</strong> — o site
+                atualiza em cerca de 2 minutos.
+              </div>
+            )}
 
             <Campos doc={doc} alterados={alterados} editar={editar} />
 
             {Object.keys(alterados).length > 0 && (
               <p className="text-[12px] text-zinc-600">
-                {Object.keys(alterados).length} campo(s) alterado(s) nesta sessão, ainda não
-                publicados.
+                {Object.keys(alterados).length} campo(s) alterado(s) nesta sessão.
               </p>
             )}
           </div>

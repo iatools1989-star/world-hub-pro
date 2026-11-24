@@ -36,6 +36,7 @@ import ToolVideo from '@/components/ToolVideo';
 import { VIDEO_TOOLS } from '@/lib/videoTools';
 import { TOOLS } from '@/lib/data';
 import { TOOL_GUIDES } from '@/lib/toolContent';
+import { overridesDe, aplicarPatch } from '@/lib/cms/overrides';
 import { TOOL_EDITORIAL } from '@/lib/toolEditorial';
 import { TOOL_OVERRIDES, mergeOverride } from '@/lib/contentOverrides';
 import JsonLd from '@/components/JsonLd';
@@ -45,8 +46,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale, slug } = await params;
   const tool = TOOLS.find((t) => t.slug === slug);
   if (!tool) return {};
-  const guide = TOOL_GUIDES[slug];
-  const ed = mergeOverride(TOOL_EDITORIAL[slug], TOOL_OVERRIDES[slug]);
+  const guide = aplicarPatch(TOOL_GUIDES[slug], overridesDe('toolHero', slug));
+  const ed = aplicarPatch(
+    mergeOverride(TOOL_EDITORIAL[slug], TOOL_OVERRIDES[slug]),
+    overridesDe('tool', slug)
+  );
 
   // Preferimos o titulo/descricao editoriais: foram escritos com limite de
   // tamanho e com a palavra-chave no inicio. O nome puro da ferramenta nao
@@ -81,8 +85,11 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
     notFound();
   }
 
-  const guide = TOOL_GUIDES[slug];
-  const ed = mergeOverride(TOOL_EDITORIAL[slug], TOOL_OVERRIDES[slug]);
+  const guide = aplicarPatch(TOOL_GUIDES[slug], overridesDe('toolHero', slug));
+  const ed = aplicarPatch(
+    mergeOverride(TOOL_EDITORIAL[slug], TOOL_OVERRIDES[slug]),
+    overridesDe('tool', slug)
+  );
 
   const renderToolComponent = () => {
     switch (tool.slug) {

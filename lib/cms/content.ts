@@ -19,6 +19,7 @@ import { TOOL_EDITORIAL } from '@/lib/toolEditorial';
 import { TOOL_OVERRIDES, mergeOverride } from '@/lib/contentOverrides';
 import { DIRECTORY_DETAILS } from '@/lib/directoryContent';
 import { GUIDES } from '@/lib/guidesContent';
+import { overridesDe, aplicarPatch } from '@/lib/cms/overrides';
 
 export type DocDiretorio = {
   tipo: 'directory';
@@ -101,8 +102,9 @@ export function listarDocumentos(): ResumoDocumento[] {
   const lista: ResumoDocumento[] = [];
 
   for (const item of DIRECTORY_ITEMS) {
-    const d = DIRECTORY_DETAILS[item.slug];
-    if (!d) continue;
+    const bruto = DIRECTORY_DETAILS[item.slug];
+    if (!bruto) continue;
+    const d = aplicarPatch(bruto, overridesDe('directory', item.slug))!;
     lista.push({
       id: `directory:${item.slug}`,
       tipo: 'directory',
@@ -115,8 +117,11 @@ export function listarDocumentos(): ResumoDocumento[] {
   }
 
   for (const tool of TOOLS) {
-    const ed = mergeOverride(TOOL_EDITORIAL[tool.slug], TOOL_OVERRIDES[tool.slug]);
-    const guide = TOOL_GUIDES[tool.slug];
+    const ed = aplicarPatch(
+      mergeOverride(TOOL_EDITORIAL[tool.slug], TOOL_OVERRIDES[tool.slug]),
+      overridesDe('tool', tool.slug)
+    );
+    const guide = aplicarPatch(TOOL_GUIDES[tool.slug], overridesDe('toolHero', tool.slug));
     lista.push({
       id: `tool:${tool.slug}`,
       tipo: 'tool',
@@ -128,7 +133,8 @@ export function listarDocumentos(): ResumoDocumento[] {
     });
   }
 
-  for (const g of Object.values(GUIDES)) {
+  for (const bruto of Object.values(GUIDES)) {
+    const g = aplicarPatch(bruto, overridesDe('guide', bruto.slug))!;
     lista.push({
       id: `guide:${g.slug}`,
       tipo: 'guide',
@@ -149,9 +155,10 @@ export function carregarDocumento(id: string): Documento | null {
   if (!tipo || !slug) return null;
 
   if (tipo === 'directory') {
-    const d = DIRECTORY_DETAILS[slug];
+    const bruto = DIRECTORY_DETAILS[slug];
     const item = DIRECTORY_ITEMS.find((i) => i.slug === slug);
-    if (!d || !item) return null;
+    if (!bruto || !item) return null;
+    const d = aplicarPatch(bruto, overridesDe('directory', slug))!;
     return {
       tipo: 'directory',
       slug,
@@ -176,17 +183,23 @@ export function carregarDocumento(id: string): Documento | null {
   if (tipo === 'tool') {
     const tool = TOOLS.find((t) => t.slug === slug);
     if (!tool) return null;
-    const ed = mergeOverride(TOOL_EDITORIAL[slug], TOOL_OVERRIDES[slug]);
-    const guide = TOOL_GUIDES[slug];
+    const ed = aplicarPatch(
+      mergeOverride(TOOL_EDITORIAL[slug], TOOL_OVERRIDES[slug]),
+      overridesDe('tool', slug)
+    );
+    const guide = aplicarPatch(TOOL_GUIDES[slug], overridesDe('toolHero', slug));
     return {
       tipo: 'tool',
       slug,
       nome: tool.name,
-      metaTitle: ed?.metaTitle ?? `${tool.name} - Free Online Browser Tool`,
-      metaDescription: ed?.metaDescription ?? guide?.summary ?? tool.desc,
-      keyword: ed?.keyword ?? slug,
+      metaTitle: (ed as { metaTitle?: string })?.metaTitle ?? `${tool.name} - Free Online Browser Tool`,
+      metaDescription:
+        (ed as { metaDescription?: string })?.metaDescription ??
+        (guide as { summary?: string })?.summary ??
+        tool.desc,
+      keyword: (ed as { keyword?: string })?.keyword ?? slug,
       updated: (ed as { updated?: string })?.updated ?? '2026-11-10',
-      resumo: guide?.summary ?? tool.desc,
+      resumo: (guide as { summary?: string })?.summary ?? tool.desc,
       intro: ed?.intro ?? [tool.desc],
       beneficios: ed?.benefits ?? guide?.features ?? [],
       naoIdealPara: ed?.notIdealFor ?? '',
@@ -196,8 +209,9 @@ export function carregarDocumento(id: string): Documento | null {
   }
 
   if (tipo === 'guide') {
-    const g = GUIDES[slug];
-    if (!g) return null;
+    const bruto = GUIDES[slug];
+    if (!bruto) return null;
+    const g = aplicarPatch(bruto, overridesDe('guide', slug))!;
     return {
       tipo: 'guide',
       slug,

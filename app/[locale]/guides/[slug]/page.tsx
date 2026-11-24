@@ -5,6 +5,7 @@ import Footer from '@/components/Footer';
 import AdSenseBanner from '@/components/AdSenseBanner';
 import JsonLd from '@/components/JsonLd';
 import { GUIDES } from '@/lib/guidesContent';
+import { overridesDe, aplicarPatch } from '@/lib/cms/overrides';
 import { canonical, breadcrumbs, publisher, authorEntity } from '@/lib/seo';
 
 export function generateStaticParams() {
@@ -13,8 +14,9 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { locale, slug } = await params;
-  const g = GUIDES[slug];
-  if (!g) return {};
+  const bruto = GUIDES[slug];
+  if (!bruto) return {};
+  const g = aplicarPatch(bruto, overridesDe('guide', slug))!;
   return {
     title: g.metaTitle,
     description: g.metaDescription,
@@ -32,8 +34,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function GuidePage({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { locale, slug } = await params;
-  const g = GUIDES[slug];
-  if (!g) notFound();
+  const bruto = GUIDES[slug];
+  if (!bruto) notFound();
+  const g = aplicarPatch(bruto, overridesDe('guide', slug))!;
 
   const irmas = Object.values(GUIDES).filter((x) => x.slug !== slug);
 
