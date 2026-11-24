@@ -23,10 +23,13 @@ import { useRef, useState } from 'react';
  * 4. `poster` e uma moldura do proprio video, gerada no mesmo processo de
  *    gravacao. Assim a primeira coisa que o visitante ve ja e a ferramenta,
  *    nao um retangulo preto.
+ *
+ * 5. Fica na secao "How to use", junto dos passos escritos: e a mesma
+ *    pergunta ("como eu uso isto?") respondida de duas formas.
  */
 
 
-export default function ToolVideo({ slug, name }: { slug: string; name: string }) {
+export default function ToolVideo({ slug, name, passos = 3 }: { slug: string; name: string; passos?: number }) {
   const [tocando, setTocando] = useState(false);
   const ref = useRef<HTMLVideoElement>(null);
 
@@ -75,8 +78,8 @@ export default function ToolVideo({ slug, name }: { slug: string; name: string }
       </div>
 
       <figcaption className="px-4 py-3 text-xs text-[var(--color-ink-muted)] flex items-center gap-2 border-t border-[var(--color-line)]">
-        <span className="font-bold text-[var(--color-ink)]">{name}</span>
-        in action — 15 seconds, no sound needed
+        <span className="font-bold text-[var(--color-ink)]">Watch it in action</span>
+        — the {passos} steps in {passos * 7} seconds, with captions, no sound needed
       </figcaption>
     </figure>
   );
