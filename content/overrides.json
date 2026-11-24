@@ -1,7 +1,8 @@
 {
   "tool": {
     "word-counter": {
-      "metaTitle": "Word & Character Counter — Free Online Tool"
+      "metaTitle": "Word & Character Counter — Free Online Tool",
+      "metaDescription": "Count words, characters and sentences as you type, with read — tested through the browser."
     }
   }
 }
