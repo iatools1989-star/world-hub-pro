@@ -1,34 +1,3 @@
 {
-  "guide": {
-    "how-to-test-a-free-online-tool-before-trusting-it": {
-      "slug": "how-to-test-a-free-online-tool-before-trusting-it",
-      "title": "How to Test a Free Online Tool Before Trusting It",
-      "metaTitle": "How to Test a Free Online Tool Before Trusting It",
-      "metaDescription": "",
-      "keyword": "",
-      "updated": "2026-11-24",
-      "readingMinutes": 5,
-      "intro": [
-        ""
-      ],
-      "sections": [
-        {
-          "h": "",
-          "p": [
-            ""
-          ]
-        }
-      ],
-      "limitations": [
-        ""
-      ],
-      "related": [],
-      "faqs": [
-        {
-          "q": "",
-          "a": ""
-        }
-      ]
-    }
-  }
+  "guide": {}
 }
