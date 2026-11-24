@@ -1,6 +1,26 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+
+  /**
+   * pdf.js e pdf-lib sao usados no navegador (PDF to JPG, Compress PDF,
+   * Merge PDF, JPG to PDF, Resume Builder) e vem do proprio bundle — antes
+   * eram baixados de cdnjs em tempo de execucao, o que quebrava a promessa
+   * de processamento sem chamadas externas.
+   *
+   * O build legado do pdf.js faz `require('canvas')` num trecho que so roda
+   * em Node (renderizacao no servidor). No navegador esse trecho nunca e
+   * executado, mas o webpack tenta resolver o modulo e falha. O alias abaixo
+   * resolve para `false`, que e o jeito padrao de dizer "isso nao existe no
+   * cliente".
+   */
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      canvas: false,
+    };
+    return config;
+  },
   async redirects() {
     return [
       {
