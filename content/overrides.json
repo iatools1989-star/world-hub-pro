@@ -5,7 +5,8 @@
       "metaDescription": "Count words, characters and sentences as you type, with read — tested through the browser."
     },
     "qr-generator": {
-      "nome": "Free QR Code Generator — No Tracking, No Expiry"
+      "nome": "Free QR Code Generator — No Tracking, No Expiry",
+      "metaTitle": "Free QR Code Generator — No Tracking, No Expiry"
     }
   }
 }
