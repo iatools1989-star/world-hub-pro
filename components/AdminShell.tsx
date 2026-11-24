@@ -56,7 +56,7 @@ export default function AdminShell({ email, locale }: { email: string; locale: s
       )}
 
       <iframe
-        src="/painel/index.html?embed=1"
+        src="/en/admin/editor"
         title="Editor de conteúdo"
         onLoad={() => setCarregado(true)}
         className="w-full border-0 block"
