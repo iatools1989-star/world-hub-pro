@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next';
 import { LOCALES, TOOLS, DIRECTORY_ITEMS } from '@/lib/data';
 import { GUIDES } from '@/lib/guidesContent';
+import { guiasCriados } from '@/lib/cms/criados';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://iatools.online';
@@ -68,7 +69,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.8,
     });
-    for (const guide of Object.values(GUIDES)) {
+    for (const guide of [...guiasCriados(), ...Object.values(GUIDES)]) {
       entries.push({
         url: `${baseUrl}/${loc.code}/guides/${guide.slug}`,
         lastModified: new Date(guide.updated),

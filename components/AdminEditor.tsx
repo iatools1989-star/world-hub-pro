@@ -56,7 +56,13 @@ export default function AdminEditor() {
   const [carregandoDoc, setCarregandoDoc] = useState(false);
   const [alterados, setAlterados] = useState<Record<string, unknown>>({});
   const [salvando, setSalvando] = useState(false);
-  const [mensagem, setMensagem] = useState<{ tom: 'ok' | 'erro'; texto: string } | null>(null);
+  const [mensagem, setMensagem] = useState<{ tom: 'ok' | 'erro'; rotulo?: string; texto: string } | null>(null);
+  // criacao de pagina nova
+  const [criando, setCriando] = useState(false);
+  const [novoTitulo, setNovoTitulo] = useState('');
+  const [erroCriar, setErroCriar] = useState<string | null>(null);
+  const [enviandoCriar, setEnviandoCriar] = useState(false);
+  const [recarregar, setRecarregar] = useState(0);
 
   // lista
   useEffect(() => {
@@ -67,7 +73,7 @@ export default function AdminEditor() {
       })
       .then((d) => setDocs(d.documentos))
       .catch((e) => setErro(e.message));
-  }, []);
+  }, [recarregar]);
 
   // documento
   useEffect(() => {
@@ -99,6 +105,34 @@ export default function AdminEditor() {
   function editar(caminho: string, valor: unknown) {
     setAlterados((a) => ({ ...a, [caminho]: valor }));
     setMensagem(null);
+  }
+
+  async function criarPagina() {
+    if (enviandoCriar) return;
+    setEnviandoCriar(true);
+    setErroCriar(null);
+    try {
+      const r = await fetch('/api/admin/content', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tipo: 'guide', titulo: novoTitulo }),
+      });
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.erro || `falhou (${r.status})`);
+      setCriando(false);
+      setNovoTitulo('');
+      setRecarregar((n) => n + 1);
+      setAberto(d.id);
+      setMensagem({
+        tom: 'ok',
+        rotulo: 'Página criada.',
+        texto: `Ela já está na lista em ${d.caminho}. Preencha os textos e clique em Salvar e publicar.`,
+      });
+    } catch (e) {
+      setErroCriar((e as Error).message);
+    } finally {
+      setEnviandoCriar(false);
+    }
   }
 
   async function salvar() {
@@ -134,6 +168,56 @@ export default function AdminEditor() {
 
   return (
     <div className="max-w-[1400px] mx-auto px-4 py-5 grid lg:grid-cols-[340px_1fr] gap-5">
+      {criando && (
+        <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4">
+          <div className="w-full max-w-md rounded-2xl bg-white p-5 shadow-xl">
+            <h2 className="text-base font-black text-zinc-900">Nova página</h2>
+            <p className="text-xs text-zinc-500 mt-1 leading-relaxed">
+              Escreva o título. O endereço é gerado a partir dele e aparece na hora —
+              confira antes de criar, porque mudar depois quebra link.
+            </p>
+            <input
+              autoFocus
+              value={novoTitulo}
+              onChange={(e) => { setNovoTitulo(e.target.value); setErroCriar(null); }}
+              onKeyDown={(e) => { if (e.key === 'Enter') criarPagina(); }}
+              placeholder="Ex.: How to pick a transcription tool"
+              className="mt-3 w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+            />
+            <p className="mt-2 text-[11px] text-zinc-500 font-mono">
+              /en/guides/{novoTitulo.trim()
+                ? novoTitulo.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+                    .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 70) || '…'
+                : '…'}
+            </p>
+            {erroCriar && (
+              <p className="mt-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-[12px] text-red-800">
+                {erroCriar}
+              </p>
+            )}
+            <div className="mt-4 flex justify-end gap-2">
+              <button
+                onClick={() => { setCriando(false); setNovoTitulo(''); setErroCriar(null); }}
+                className="rounded-full border border-zinc-300 px-4 py-1.5 text-xs font-bold text-zinc-600 hover:border-zinc-500"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={criarPagina}
+                disabled={enviandoCriar || novoTitulo.trim().length < 3}
+                className={`rounded-full px-4 py-1.5 text-xs font-bold transition ${
+                  enviandoCriar || novoTitulo.trim().length < 3
+                    ? 'bg-zinc-200 text-zinc-500 cursor-not-allowed'
+                    : 'bg-zinc-900 text-amber-300 hover:bg-zinc-800'
+                }`}
+              >
+                {enviandoCriar ? 'Criando…' : 'Criar página'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* ---------------- coluna da lista ---------------- */}
       <aside className="space-y-3">
         <input
@@ -159,6 +243,13 @@ export default function AdminEditor() {
             )
           )}
         </div>
+
+        <button
+          onClick={() => { setCriando(true); setErroCriar(null); }}
+          className="w-full rounded-lg border border-zinc-900 bg-zinc-900 text-amber-300 px-3 py-2 text-xs font-bold hover:bg-zinc-800 transition"
+        >
+          + Nova página
+        </button>
 
         {!docs && <p className="text-xs text-zinc-500">Carregando…</p>}
 
@@ -245,7 +336,7 @@ export default function AdminEditor() {
                     : 'border-red-200 bg-red-50 text-red-800'
                 }`}
               >
-                <strong>{mensagem.tom === 'ok' ? 'Publicado. ' : 'Não salvou. '}</strong>
+                <strong>{mensagem.tom === 'ok' ? mensagem.rotulo ?? 'Publicado. ' : 'Não salvou. '}</strong>
                 {mensagem.texto}
               </div>
             )}
