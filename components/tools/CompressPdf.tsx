@@ -15,7 +15,7 @@ export default function CompressPdf() {
     if (!selected) return;
 
     if (selected.type !== 'application/pdf' && !selected.name.toLowerCase().endsWith('.pdf')) {
-      alert('Selecione um arquivo PDF válido.');
+      alert('Please select a valid PDF file.');
       return;
     }
 
@@ -38,7 +38,7 @@ export default function CompressPdf() {
     if (!file) return;
 
     setIsCompressing(true);
-    setStatusMessage('Inicializando motor de compressão local...');
+    setStatusMessage('Starting the local compression engine...');
 
     try {
       // Carrega pdfjs dinamicamente
@@ -79,7 +79,7 @@ export default function CompressPdf() {
       const maxPages = Math.min(pdf.numPages, 15);
 
       for (let i = 1; i <= maxPages; i++) {
-        setStatusMessage(`Otimizando página ${i} de ${maxPages}...`);
+        setStatusMessage(`Optimising page ${i} of ${maxPages}...`);
         const page = await pdf.getPage(i);
         const viewport = page.getViewport({ scale });
 
@@ -110,7 +110,7 @@ export default function CompressPdf() {
         });
       }
 
-      setStatusMessage('Finalizando e empacotando arquivo PDF...');
+      setStatusMessage('Finishing up and packaging the PDF file...');
       const compressedBytes = await newPdf.save();
       const blob = new Blob([compressedBytes], { type: 'application/pdf' });
       const url = URL.createObjectURL(blob);
@@ -120,7 +120,7 @@ export default function CompressPdf() {
       setStatusMessage('');
       setIsCompressing(false);
     } catch {
-      setStatusMessage('Nota: Este documento possui proteções criptográficas ou formato vetorial que inviabiliza compressão nativa.');
+      setStatusMessage('Note: this document has cryptographic protection or is vector-based, which prevents native compression.');
       setIsCompressing(false);
     }
   };
@@ -147,15 +147,15 @@ export default function CompressPdf() {
           <span className="text-4xl block">🗜️</span>
           <div>
             <span className="font-black text-[var(--color-ink)] block text-base">
-              {file ? file.name : 'Clique para selecionar seu documento PDF'}
+              {file ? file.name : 'Click to select your PDF document'}
             </span>
             <span className="text-xs text-[var(--color-ink-muted)] mt-1 block">
-              100% Client-Side: redução de peso sem enviar seu arquivo para a internet.
+              100% Client-Side: reduces file size without uploading your document anywhere.
             </span>
           </div>
           {file && (
             <span className="inline-block px-3 py-1 bg-zinc-100 rounded-full text-xs font-bold text-[var(--color-ink-soft)]">
-              Tamanho atual: {formatSize(file.size)}
+              Current size: {formatSize(file.size)}
             </span>
           )}
         </label>
@@ -166,13 +166,13 @@ export default function CompressPdf() {
           {/* Nível de Compressão */}
           <div className="space-y-2">
             <span className="text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider block">
-              Nível de Compressão Desejado:
+              Compression level:
             </span>
             <div className="grid grid-cols-3 gap-3">
               {[
-                { id: 'low', label: 'Básica', desc: 'Menor redução, máxima qualidade' },
-                { id: 'medium', label: 'Recomendada', desc: 'Equilíbrio ideal entre peso e nitidez' },
-                { id: 'high', label: 'Extrema', desc: 'Máxima redução de arquivo' },
+                { id: 'low', label: 'Light', desc: 'Smaller savings, maximum quality' },
+                { id: 'medium', label: 'Recommended', desc: 'Best balance of size and sharpness' },
+                { id: 'high', label: 'Maximum', desc: 'Largest file size reduction' },
               ].map((opt) => (
                 <button
                   key={opt.id}
@@ -200,7 +200,7 @@ export default function CompressPdf() {
             className="w-full py-4 bg-yellow-400 text-zinc-950 font-black rounded-[12px] hover:bg-yellow-300 transition text-sm shadow-md flex items-center justify-center gap-2 disabled:opacity-50"
           >
             <span>{isCompressing ? '⏳' : '⚡'}</span>
-            <span>{isCompressing ? 'Otimizando documento no navegador...' : 'Comprimir Arquivo PDF'}</span>
+            <span>{isCompressing ? 'Optimising the document in your browser...' : 'Compress PDF file'}</span>
           </button>
 
           {statusMessage && (
@@ -213,7 +213,7 @@ export default function CompressPdf() {
             <div className="p-6 bg-[var(--color-surface-2)] rounded-[12px] border border-[var(--color-line)] space-y-4 animate-in fade-in">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div>
-                  <span className="text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider block">Resultado da Otimização:</span>
+                  <span className="text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider block">Optimisation result:</span>
                   <div className="flex items-center gap-2 mt-1">
                     <span className="text-sm line-through text-zinc-400">{formatSize(file.size)}</span>
                     <span className="text-lg font-black text-emerald-700">{formatSize(compressedSize)}</span>
@@ -229,10 +229,10 @@ export default function CompressPdf() {
 
               <a
                 href={compressedBlobUrl}
-                download={`otimizado-${file.name}`}
+                download={`compressed-${file.name}`}
                 className="w-full py-3.5 bg-zinc-900 text-white font-bold rounded-[12px] hover:bg-zinc-800 transition text-sm flex items-center justify-center gap-2 shadow"
               >
-                <span>⬇</span> Baixar PDF Compactado
+                <span>⬇</span> Download compressed PDF
               </a>
             </div>
           )}

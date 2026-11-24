@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 
 export default function TextToSpeech() {
   const [text, setText] = useState<string>(
-    'Olá! Este é o sintetizador de voz natural da World Tools Hub. Ele converte qualquer texto em fala diretamente no seu navegador, com zero consumo de internet.'
+    'Hello! This is the World Tools Hub speech synthesiser. It turns any text into speech directly in your browser, with no data leaving the device.'
   );
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
   const [selectedVoice, setSelectedVoice] = useState<string>('');
@@ -95,13 +95,13 @@ export default function TextToSpeech() {
       <div className="bg-[var(--color-surface)] p-6 sm:p-8 rounded-[14px] border border-[var(--color-line)] shadow-sm space-y-4">
         <div>
           <label className="block text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider mb-2">
-            Texto para Reading por Voz Neural:
+            Text to read aloud:
           </label>
           <textarea
             rows={6}
             value={text}
             onChange={(e) => setText(e.target.value)}
-            placeholder="Digite ou cole aqui o texto que você deseja ouvir..."
+            placeholder="Type or paste the text you want to hear..."
             className="w-full p-4 rounded-[12px] border-2 border-[var(--color-line)] focus:outline-none focus:border-yellow-400 font-sans text-sm leading-relaxed"
           />
         </div>
@@ -110,7 +110,7 @@ export default function TextToSpeech() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
           <div className="sm:col-span-2">
             <label className="block text-xs font-bold text-[var(--color-ink-muted)] mb-1.5 uppercase tracking-wider">
-              Voz / Idioma ({voices.length} disponíveis)
+              Voice / language ({voices.length} available)
             </label>
             <select
               value={selectedVoice}
@@ -143,7 +143,7 @@ export default function TextToSpeech() {
 
           <div>
             <div className="flex justify-between items-center text-xs font-bold text-[var(--color-ink-muted)] mb-1.5">
-              <span>Tom (Pitch)</span>
+              <span>Pitch</span>
               <span className="font-mono text-[var(--color-ink)]">{pitch}x</span>
             </div>
             <input
@@ -165,7 +165,7 @@ export default function TextToSpeech() {
             type="button"
             className="flex-1 py-4 bg-yellow-400 text-zinc-950 font-black rounded-[12px] hover:bg-yellow-300 transition text-sm shadow-md flex items-center justify-center gap-2"
           >
-            <span>▶</span> {isSpeaking ? 'Reiniciar Fala' : 'Ouvir Texto Agora'}
+            <span>▶</span> {isSpeaking ? 'Restart speech' : 'Listen now'}
           </button>
 
           {isSpeaking && (

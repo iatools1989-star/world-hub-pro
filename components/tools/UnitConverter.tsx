@@ -16,12 +16,12 @@ const CATEGORIES: Record<CategoryKey, { name: string; icon: string; units: Recor
     icon: '📏',
     units: {
       m: { label: 'Meters (m)', rate: 1 },
-      km: { label: 'Quilômetros (km)', rate: 1000 },
-      cm: { label: 'Centímetros (cm)', rate: 0.01 },
-      mm: { label: 'Milímetros (mm)', rate: 0.001 },
+      km: { label: 'Kilometers (km)', rate: 1000 },
+      cm: { label: 'Centimeters (cm)', rate: 0.01 },
+      mm: { label: 'Millimeters (mm)', rate: 0.001 },
       mi: { label: 'Miles (mi)', rate: 1609.344 },
       yd: { label: 'Yards (yd)', rate: 0.9144 },
-      ft: { label: 'Pés (ft)', rate: 0.3048 },
+      ft: { label: 'Feet (ft)', rate: 0.3048 },
       in: { label: 'Inches (in)', rate: 0.0254 },
     },
   },
@@ -29,12 +29,12 @@ const CATEGORIES: Record<CategoryKey, { name: string; icon: string; units: Recor
     name: 'Weight / Mass',
     icon: '⚖️',
     units: {
-      kg: { label: 'Quilogramas (kg)', rate: 1 },
-      g: { label: 'Gramas (g)', rate: 0.001 },
-      mg: { label: 'Miligramas (mg)', rate: 0.000001 },
-      t: { label: 'Toneladas (t)', rate: 1000 },
-      lb: { label: 'Libras (lb)', rate: 0.45359237 },
-      oz: { label: 'Onças (oz)', rate: 0.02834952 },
+      kg: { label: 'Kilograms (kg)', rate: 1 },
+      g: { label: 'Grams (g)', rate: 0.001 },
+      mg: { label: 'Milligrams (mg)', rate: 0.000001 },
+      t: { label: 'Metric tons (t)', rate: 1000 },
+      lb: { label: 'Pounds (lb)', rate: 0.45359237 },
+      oz: { label: 'Ounces (oz)', rate: 0.02834952 },
     },
   },
   temperature: {
@@ -47,13 +47,13 @@ const CATEGORIES: Record<CategoryKey, { name: string; icon: string; units: Recor
     },
   },
   area: {
-    name: 'Área',
+    name: 'Area',
     icon: '📐',
     units: {
-      m2: { label: 'Metros Quadrados (m²)', rate: 1 },
-      km2: { label: 'Quilômetros Quadrados (km²)', rate: 1000000 },
+      m2: { label: 'Square meters (m²)', rate: 1 },
+      km2: { label: 'Square kilometers (km²)', rate: 1000000 },
       ha: { label: 'Hectares (ha)', rate: 10000 },
-      ft2: { label: 'Pés Quadrados (ft²)', rate: 0.092903 },
+      ft2: { label: 'Square feet (ft²)', rate: 0.092903 },
       ac: { label: 'Acres (ac)', rate: 4046.856 },
     },
   },
@@ -63,19 +63,19 @@ const CATEGORIES: Record<CategoryKey, { name: string; icon: string; units: Recor
     units: {
       l: { label: 'Litros (L)', rate: 1 },
       ml: { label: 'Mililitros (mL)', rate: 0.001 },
-      m3: { label: 'Metros Cúbicos (m³)', rate: 1000 },
-      gal: { label: 'Galões (EUA)', rate: 3.78541 },
-      cup: { label: 'Xícaras', rate: 0.24 },
+      m3: { label: 'Cubic meters (m³)', rate: 1000 },
+      gal: { label: 'Gallons (US)', rate: 3.78541 },
+      cup: { label: 'Cups', rate: 0.24 },
     },
   },
   speed: {
     name: 'Speed',
     icon: '🚀',
     units: {
-      kmh: { label: 'Quilômetros por Hora (km/h)', rate: 1 },
-      ms: { label: 'Metros por Segundo (m/s)', rate: 3.6 },
-      mph: { label: 'Milhas por Hora (mph)', rate: 1.609344 },
-      knot: { label: 'Nós (kn)', rate: 1.852 },
+      kmh: { label: 'Kilometers per hour (km/h)', rate: 1 },
+      ms: { label: 'Meters per second (m/s)', rate: 3.6 },
+      mph: { label: 'Miles per hour (mph)', rate: 1.609344 },
+      knot: { label: 'Knots (kn)', rate: 1.852 },
     },
   },
 };
@@ -209,7 +209,7 @@ export default function UnitConverter() {
         {/* Tabela de Conversão Rápida Dinâmica */}
         <div className="pt-4 border-t border-[var(--color-line)]">
           <span className="text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider block mb-3">
-            Valores de Referência ({fromValue || 0} {units[fromUnit]?.label.split(' ')[0]}):
+            Reference values ({fromValue || 0} {units[fromUnit]?.label.split(' ')[0]}):
           </span>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
             {Object.entries(units).filter(([k]) => k !== fromUnit).slice(0, 4).map(([k, item]) => {

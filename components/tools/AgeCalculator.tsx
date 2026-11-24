@@ -47,7 +47,7 @@ export default function AgeCalculator() {
     const daysUntilNextBirthday = Math.ceil((currentYearBirthday.getTime() - end.getTime()) / (1000 * 60 * 60 * 24));
 
     // Dia da semana do nascimento
-    const weekdays = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+    const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const bornDayOfWeek = weekdays[start.getDay()];
 
     return {
@@ -104,10 +104,10 @@ export default function AgeCalculator() {
               Exact Age Calculated
             </span>
             <div className="text-3xl sm:text-5xl font-black text-white">
-              {stats.years} <span className="text-xl sm:text-2xl font-normal text-zinc-400">anos</span>, {stats.months} <span className="text-xl sm:text-2xl font-normal text-zinc-400">meses e</span> {stats.days} <span className="text-xl sm:text-2xl font-normal text-zinc-400">dias</span>
+              {stats.years} <span className="text-xl sm:text-2xl font-normal text-zinc-400">years</span>, {stats.months} <span className="text-xl sm:text-2xl font-normal text-zinc-400">months and</span> {stats.days} <span className="text-xl sm:text-2xl font-normal text-zinc-400">days</span>
             </div>
             <p className="text-xs text-zinc-400">
-              You were born on a <b>{stats.bornDayOfWeek}</b>. Faltam <b>{stats.daysUntilNextBirthday} dias</b> for your next birthday!
+              You were born on a <b>{stats.bornDayOfWeek}</b>. There are <b>{stats.daysUntilNextBirthday} days</b> left until your next birthday!
             </p>
           </div>
 
@@ -115,7 +115,7 @@ export default function AgeCalculator() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
             <div className="bg-[var(--color-surface)] p-4 rounded-[12px] border border-[var(--color-line)] shadow-sm">
               <div className="text-xl sm:text-2xl font-black text-[var(--color-ink)]">{stats.totalDays.toLocaleString('pt-BR')}</div>
-              <div className="text-[10px] text-[var(--color-ink-muted)] uppercase font-bold tracking-wider mt-1">Dias de Vida</div>
+              <div className="text-[10px] text-[var(--color-ink-muted)] uppercase font-bold tracking-wider mt-1">Days Alive</div>
             </div>
 
             <div className="bg-[var(--color-surface)] p-4 rounded-[12px] border border-[var(--color-line)] shadow-sm">
@@ -125,18 +125,18 @@ export default function AgeCalculator() {
 
             <div className="bg-[var(--color-surface)] p-4 rounded-[12px] border border-[var(--color-line)] shadow-sm">
               <div className="text-xl sm:text-2xl font-black text-[var(--color-ink)]">{stats.totalHours.toLocaleString('pt-BR')}</div>
-              <div className="text-[10px] text-[var(--color-ink-muted)] uppercase font-bold tracking-wider mt-1">Horas</div>
+              <div className="text-[10px] text-[var(--color-ink-muted)] uppercase font-bold tracking-wider mt-1">Hours</div>
             </div>
 
             <div className="bg-[var(--color-surface)] p-4 rounded-[12px] border border-[var(--color-line)] shadow-sm">
               <div className="text-xl sm:text-2xl font-black text-[var(--color-ink)]">{stats.totalMinutes.toLocaleString('pt-BR')}</div>
-              <div className="text-[10px] text-[var(--color-ink-muted)] uppercase font-bold tracking-wider mt-1">Minutos</div>
+              <div className="text-[10px] text-[var(--color-ink-muted)] uppercase font-bold tracking-wider mt-1">Minutes</div>
             </div>
           </div>
         </div>
       ) : (
         <div className="p-6 bg-red-50 text-red-700 border border-red-200 rounded-[12px] text-center text-xs font-bold">
-          A data de nascimento deve ser anterior à data de referência.
+          The birth date must be earlier than the reference date.
         </div>
       )}
     </div>

@@ -18,12 +18,12 @@ const CONVERTER_CATEGORIES: Record<CategoryKey, { name: string; icon: string; un
     icon: '📏',
     units: {
       m: { label: 'Meters (m)', rate: 1 },
-      km: { label: 'Quilômetros (km)', rate: 1000 },
-      cm: { label: 'Centímetros (cm)', rate: 0.01 },
-      mm: { label: 'Milímetros (mm)', rate: 0.001 },
+      km: { label: 'Kilometers (km)', rate: 1000 },
+      cm: { label: 'Centimeters (cm)', rate: 0.01 },
+      mm: { label: 'Millimeters (mm)', rate: 0.001 },
       mi: { label: 'Miles (mi)', rate: 1609.344 },
       yd: { label: 'Yards (yd)', rate: 0.9144 },
-      ft: { label: 'Pés (ft)', rate: 0.3048 },
+      ft: { label: 'Feet (ft)', rate: 0.3048 },
       in: { label: 'Inches (in)', rate: 0.0254 },
     },
   },
@@ -31,12 +31,12 @@ const CONVERTER_CATEGORIES: Record<CategoryKey, { name: string; icon: string; un
     name: 'Weight / Mass',
     icon: '⚖️',
     units: {
-      kg: { label: 'Quilogramas (kg)', rate: 1 },
-      g: { label: 'Gramas (g)', rate: 0.001 },
-      mg: { label: 'Miligramas (mg)', rate: 0.000001 },
-      t: { label: 'Toneladas (t)', rate: 1000 },
-      lb: { label: 'Libras (lb)', rate: 0.45359237 },
-      oz: { label: 'Onças (oz)', rate: 0.02834952 },
+      kg: { label: 'Kilograms (kg)', rate: 1 },
+      g: { label: 'Grams (g)', rate: 0.001 },
+      mg: { label: 'Milligrams (mg)', rate: 0.000001 },
+      t: { label: 'Metric tons (t)', rate: 1000 },
+      lb: { label: 'Pounds (lb)', rate: 0.45359237 },
+      oz: { label: 'Ounces (oz)', rate: 0.02834952 },
     },
   },
   temperature: {
@@ -49,13 +49,13 @@ const CONVERTER_CATEGORIES: Record<CategoryKey, { name: string; icon: string; un
     },
   },
   area: {
-    name: 'Área',
+    name: 'Area',
     icon: '📐',
     units: {
-      m2: { label: 'Metros Quadrados (m²)', rate: 1 },
-      km2: { label: 'Quilômetros Quadrados (km²)', rate: 1000000 },
+      m2: { label: 'Square meters (m²)', rate: 1 },
+      km2: { label: 'Square kilometers (km²)', rate: 1000000 },
       ha: { label: 'Hectares (ha)', rate: 10000 },
-      ft2: { label: 'Pés Quadrados (ft²)', rate: 0.092903 },
+      ft2: { label: 'Square feet (ft²)', rate: 0.092903 },
       ac: { label: 'Acres (ac)', rate: 4046.856 },
     },
   },
@@ -65,19 +65,19 @@ const CONVERTER_CATEGORIES: Record<CategoryKey, { name: string; icon: string; un
     units: {
       l: { label: 'Litros (L)', rate: 1 },
       ml: { label: 'Mililitros (mL)', rate: 0.001 },
-      m3: { label: 'Metros Cúbicos (m³)', rate: 1000 },
-      gal: { label: 'Galões (gal EUA)', rate: 3.78541 },
-      cup: { label: 'Xícaras', rate: 0.24 },
+      m3: { label: 'Cubic meters (m³)', rate: 1000 },
+      gal: { label: 'Gallons (US gal)', rate: 3.78541 },
+      cup: { label: 'Cups', rate: 0.24 },
     },
   },
   speed: {
     name: 'Speed',
     icon: '🚀',
     units: {
-      kmh: { label: 'Quilômetros por Hora (km/h)', rate: 1 },
-      ms: { label: 'Metros por Segundo (m/s)', rate: 3.6 },
-      mph: { label: 'Milhas por Hora (mph)', rate: 1.609344 },
-      knot: { label: 'Nós (kn)', rate: 1.852 },
+      kmh: { label: 'Kilometers per hour (km/h)', rate: 1 },
+      ms: { label: 'Meters per second (m/s)', rate: 3.6 },
+      mph: { label: 'Miles per hour (mph)', rate: 1.609344 },
+      knot: { label: 'Knots (kn)', rate: 1.852 },
     },
   },
 };
@@ -167,7 +167,7 @@ function UnitConverterTool() {
   return (
     <div className="space-y-6">
       {/* Seletor de Categorias */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2" role="tablist" aria-label="Categorias de Conversão">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2" role="tablist" aria-label="Conversion categories">
         {(Object.keys(CONVERTER_CATEGORIES) as CategoryKey[]).map((cat) => (
           <button
             key={cat}
@@ -202,7 +202,7 @@ function UnitConverterTool() {
               placeholder="0"
               className="w-full px-4 py-3 rounded-[12px] border-2 border-[var(--color-line)] focus:outline-none focus:border-yellow-400 font-bold text-lg"
             />
-            <label htmlFor={fromSelectId} className="sr-only">Unidade de Origem</label>
+            <label htmlFor={fromSelectId} className="sr-only">Source unit</label>
             <select
               id={fromSelectId}
               value={fromUnit}
@@ -255,7 +255,7 @@ function UnitConverterTool() {
         {/* Tabela de Referência Rápida (4 Unidades Alternativas em Tempo Real) */}
         <div className="pt-4 border-t border-[var(--color-line)]">
           <span className="text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider block mb-3">
-            Tabela de Referência Rápida ({fromValue || 0} {units[fromUnit]?.label.split(' ')[0]} equivalem a):
+            Quick reference table ({fromValue || 0} {units[fromUnit]?.label.split(' ')[0]} is equal to):
           </span>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
             {Object.entries(units)
@@ -378,7 +378,7 @@ function ColorPickerTool() {
         // Usuário fechou ou cancelou
       }
     } else {
-      setEyeDropperMessage('Seu navegador atual não suporta a EyeDropper API (disponível no Chrome, Edge e Opera). Utilize o seletor visual abaixo.');
+      setEyeDropperMessage('Your browser does not support the EyeDropper API (available in Chrome, Edge and Opera). Use the visual picker below.');
       setTimeout(() => setEyeDropperMessage(null), 6000);
     }
   };
@@ -460,7 +460,7 @@ function ColorPickerTool() {
       {/* Paleta Harmônica de 7 Tons */}
       <div className="bg-[var(--color-surface)] p-6 rounded-[14px] border border-[var(--color-line)] shadow-sm space-y-3">
         <span className="text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider block">
-          Paleta Harmônica (7 Graus de Brilho HSL — Clique para selecionar):
+          Harmonic palette (7 HSL lightness levels — click to select):
         </span>
         <div className="grid grid-cols-7 gap-2">
           {generateShades().map((shade, i) => (
@@ -474,7 +474,7 @@ function ColorPickerTool() {
               className="h-12 rounded-xl border border-black/10 shadow-sm hover:scale-105 active:scale-95 transition-transform"
               style={{ backgroundColor: shade }}
               title={`Clique para selecionar ${shade}`}
-              aria-label={`Tom de cor ${shade}`}
+              aria-label={`Colour shade ${shade}`}
             />
           ))}
         </div>
@@ -517,7 +517,7 @@ function URLShortenerTool() {
       setRemovedCount(count);
       setCopied(false);
     } catch {
-      alert('URL inválida. Certifique-se de digitar o link completo iniciando com http:// ou https://');
+      alert('Invalid URL. Make sure you paste the full link, starting with http:// or https://');
     }
   };
 
@@ -533,14 +533,14 @@ function URLShortenerTool() {
       <div className="bg-[var(--color-surface)] p-6 sm:p-8 rounded-[14px] border border-[var(--color-line)] shadow-sm space-y-4">
         <div>
           <label htmlFor="url-input" className="block text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider mb-2">
-            Enter the link with tracking parameters (anúncios, redes sociais, UTMs):
+            Paste a link with tracking parameters (ads, social media, UTMs):
           </label>
           <input
             id="url-input"
             type="url"
             value={inputUrl}
             onChange={(e) => setInputUrl(e.target.value)}
-            placeholder="https://exemplo.com/pagina?utm_source=..."
+            placeholder="https://example.com/page?utm_source=..."
             className="w-full px-4 py-3 rounded-[12px] border-2 border-[var(--color-line)] focus:outline-none focus:border-yellow-400 font-sans text-sm"
           />
         </div>
@@ -563,7 +563,7 @@ function URLShortenerTool() {
             </span>
             {removedCount !== null && (
               <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
-                ✓ {removedCount} {removedCount === 1 ? 'rastreador removido' : 'rastreadores removidos'}
+                ✓ {removedCount} {removedCount === 1 ? 'tracker removed' : 'trackers removed'}
               </span>
             )}
           </div>
@@ -585,7 +585,7 @@ function URLShortenerTool() {
                   : 'bg-zinc-900 text-white hover:bg-zinc-800'
               }`}
             >
-              {copied ? '✓ Copiado para a Área de Transferência!' : '📋 Copy Link Limpo'}
+              {copied ? '✓ Copied to clipboard' : '📋 Copy clean link'}
             </button>
             <a
               href={cleanedUrl}
@@ -593,7 +593,7 @@ function URLShortenerTool() {
               rel="noopener noreferrer"
               className="py-3 px-5 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 font-bold rounded-[12px] text-xs flex items-center justify-center gap-1.5 transition"
             >
-              <span>↗</span> Testar URL em Nova Aba
+              <span>↗</span> Open cleaned URL in a new tab
             </a>
           </div>
         </div>
@@ -601,7 +601,7 @@ function URLShortenerTool() {
 
       {/* Cartão Explicativo de Privacidade */}
       <div className="bg-[var(--color-surface-2)] border border-[var(--color-line)] rounded-[12px] p-4 text-xs text-[var(--color-ink-muted)] leading-relaxed">
-        <b>💡 Por que limpar seus links?</b> Redes como Facebook, Google e TikTok anexam identificadores individuais (como <code className="bg-zinc-200 px-1 rounded">fbclid</code> e <code className="bg-zinc-200 px-1 rounded">gclid</code>) que rastreiam quem compartilhou a página. A remoção limpa esses dados sem quebrar o acesso ao destino.
+        <b>💡 Why clean your links?</b> Networks like Facebook, Google and TikTok attach personal identividuais (como <code className="bg-zinc-200 px-1 rounded">fbclid</code> e <code className="bg-zinc-200 px-1 rounded">gclid</code>) que rastreiam quem compartilhou a página. A remoção limpa esses dados sem quebrar o acesso ao destino.
       </div>
     </div>
   );
@@ -621,18 +621,18 @@ export default function Batch2ToolsPage() {
         {/* Cabeçalho */}
         <div className="text-center space-y-2">
           <div className="inline-flex items-center gap-2 bg-yellow-400/20 text-[var(--color-ink)] px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider">
-            Lote 2 • Utilitários de Conversão & Cor
+            Conversion & colour utilities
           </div>
           <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-[var(--color-ink)]">
-            Ferramentas Online Otimizadas
+            Optimised online tools
           </h1>
           <p className="text-sm text-[var(--color-ink-muted)] max-w-xl mx-auto">
-            Processamento 100% nativo no navegador, sem cookies de terceiros e sem chamadas externas.
+            100% native browser processing — no third-party cookies, no external calls.
           </p>
         </div>
 
         {/* Barra de Navegação entre as Ferramentas (Abas) */}
-        <div className="flex justify-center" role="tablist" aria-label="Navegação entre Ferramentas">
+        <div className="flex justify-center" role="tablist" aria-label="Tool navigation">
           <div className="inline-flex p-1.5 bg-[var(--color-surface)] border border-[var(--color-line)] rounded-[12px] shadow-sm gap-1">
             <button
               role="tab"
@@ -684,7 +684,7 @@ export default function Batch2ToolsPage() {
                   Unit Converter <span className="text-xs text-[var(--color-ink-muted)] font-normal">(/en/tools/unit-converter)</span>
                 </h2>
                 <p className="text-xs text-[var(--color-ink-muted)]">
-                  Conversão exata entre 6 categorias com inversão rápida e referência simultânea.
+                  Exact conversion across 6 categories, with instant swapping and a live reference table.
                 </p>
               </div>
               <UnitConverterTool />
@@ -698,7 +698,7 @@ export default function Batch2ToolsPage() {
                   Color Picker <span className="text-xs text-[var(--color-ink-muted)] font-normal">(/en/tools/color-picker)</span>
                 </h2>
                 <p className="text-xs text-[var(--color-ink-muted)]">
-                  Inspeção com conta-gotas na tela, conversão para múltiplos formatos e paletas de 7 tons.
+                  On-screen eyedropper, conversion to multiple formats and 7-shade palettes.
                 </p>
               </div>
               <ColorPickerTool />
@@ -712,7 +712,7 @@ export default function Batch2ToolsPage() {
                   URL Cleaner &amp; Shortener <span className="text-xs text-[var(--color-ink-muted)] font-normal">(/en/tools/url-shortener)</span>
                 </h2>
                 <p className="text-xs text-[var(--color-ink-muted)]">
-                  Higienize links removendo parâmetros invasivos de rastreamento com 1 clique.
+                  Clean links by stripping invasive tracking parameters in one click.
                 </p>
               </div>
               <URLShortenerTool />

@@ -61,7 +61,7 @@ export default function QRGenerator() {
           },
         },
         (err) => {
-          if (err) console.error('Erro na renderização do canvas QR:', err);
+          if (err) console.error('QR canvas rendering error:', err);
         }
       );
     }
@@ -149,7 +149,7 @@ export default function QRGenerator() {
           <div className="grid sm:grid-cols-3 gap-3">
             <div className="sm:col-span-1">
               <label className="block text-xs font-bold text-[var(--color-ink-soft)] uppercase tracking-wider mb-1">
-                Nome da Rede (SSID)
+                Network name (SSID)
               </label>
               <input
                 type="text"
@@ -161,13 +161,13 @@ export default function QRGenerator() {
             </div>
             <div className="sm:col-span-1">
               <label className="block text-xs font-bold text-[var(--color-ink-soft)] uppercase tracking-wider mb-1">
-                Senha do Wi-Fi
+                Wi-Fi password
               </label>
               <input
                 type="text"
                 value={wifiPass}
                 onChange={(e) => setWifiPass(e.target.value)}
-                placeholder="Senha da rede..."
+                placeholder="Network password..."
                 className="w-full px-4 py-2.5 rounded-xl border border-zinc-300 text-sm"
               />
             </div>
@@ -182,7 +182,7 @@ export default function QRGenerator() {
               >
                 <option value="WPA">WPA / WPA2 / WPA3</option>
                 <option value="WEP">WEP</option>
-                <option value="nopass">Rede Aberta</option>
+                <option value="nopass">Open network</option>
               </select>
             </div>
           </div>
@@ -191,13 +191,13 @@ export default function QRGenerator() {
         {activeTab === 'pix' && (
           <div>
             <label className="block text-xs font-bold text-[var(--color-ink-soft)] uppercase tracking-wider mb-1">
-              PIX Key ou Código Copia e Cola
+              PIX key or copy-and-paste code
             </label>
             <input
               type="text"
               value={pixKey}
               onChange={(e) => setPixKey(e.target.value)}
-              placeholder="CPF, CNPJ, E-mail, Celular ou chave aleatória..."
+              placeholder="Tax ID, e-mail, phone or random key..."
               className="w-full px-4 py-3 rounded-xl border border-zinc-300 text-sm"
             />
           </div>
@@ -212,7 +212,7 @@ export default function QRGenerator() {
               rows={3}
               value={rawText}
               onChange={(e) => setRawText(e.target.value)}
-              placeholder="Digite qualquer texto..."
+              placeholder="Type any text..."
               className="w-full px-4 py-2.5 rounded-xl border border-zinc-300 text-sm"
             />
           </div>
@@ -221,7 +221,7 @@ export default function QRGenerator() {
         {/* Opções Avançadas de Customização */}
         <div className="pt-4 border-t border-[var(--color-line)] grid grid-cols-2 sm:grid-cols-4 gap-4 items-center text-xs">
           <div>
-            <span className="font-bold text-[var(--color-ink-muted)] block mb-1">Tamanho: {size}px</span>
+            <span className="font-bold text-[var(--color-ink-muted)] block mb-1">Size: {size}px</span>
             <input
               type="range"
               min="150"
@@ -267,9 +267,9 @@ export default function QRGenerator() {
               className="w-full px-2 py-1.5 rounded-lg border border-zinc-300 bg-[var(--color-surface)] text-xs"
             >
               <option value="L">Low (7%)</option>
-              <option value="M">Média (15%)</option>
+              <option value="M">Medium (15%)</option>
               <option value="Q">High (25%)</option>
-              <option value="H">Máxima (30%)</option>
+              <option value="H">Maximum (30%)</option>
             </select>
           </div>
         </div>
@@ -282,7 +282,7 @@ export default function QRGenerator() {
         </div>
 
         <div className="text-xs text-[var(--color-ink-muted)] font-medium text-center">
-          ✓ 100% rendered in your browser (sem dados enviados para a rede).
+          ✓ 100% rendered in your browser — nothing is sent over the network.
         </div>
 
         <div className="flex flex-wrap gap-3 justify-center">

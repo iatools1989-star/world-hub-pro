@@ -17,7 +17,7 @@ export default function ImageCompressor() {
     if (!selected) return;
 
     if (!selected.type.startsWith('image/')) {
-      alert('Por favor, envie um arquivo de imagem válido (JPG, PNG ou WebP).');
+      alert('Please upload a valid image file (JPG, PNG or WebP).');
       return;
     }
 
@@ -50,7 +50,7 @@ export default function ImageCompressor() {
       canvas.height = targetHeight;
 
       const ctx = canvas.getContext('2d');
-      if (!ctx) throw new Error('Não foi possível inicializar o canvas.');
+      if (!ctx) throw new Error('Could not initialise the canvas.');
 
       // Se for JPEG, garante fundo branco se houver transparência
       if (outputFormat === 'image/jpeg') {
@@ -73,7 +73,7 @@ export default function ImageCompressor() {
         outputFormat === 'image/png' ? undefined : quality / 100
       );
     } catch {
-      alert('Erro ao comprimir imagem localmente.');
+      alert('Something went wrong while compressing the image locally.');
       setIsProcessing(false);
     }
   };
@@ -116,7 +116,7 @@ export default function ImageCompressor() {
           </div>
           {file && (
             <span className="inline-block px-3 py-1 bg-zinc-100 rounded-full text-xs font-bold text-[var(--color-ink-soft)]">
-              Tamanho original: {formatSize(file.size)}
+              Original size: {formatSize(file.size)}
             </span>
           )}
         </label>
@@ -128,7 +128,7 @@ export default function ImageCompressor() {
           <div className="grid sm:grid-cols-3 gap-5">
             <div>
               <div className="flex justify-between items-center text-xs font-bold text-[var(--color-ink-muted)] mb-2">
-                <span>Qualidade de Compressão</span>
+                <span>Compression quality</span>
                 <span className="font-mono text-[var(--color-ink)]">{quality}%</span>
               </div>
               <input
@@ -143,7 +143,7 @@ export default function ImageCompressor() {
 
             <div>
               <div className="flex justify-between items-center text-xs font-bold text-[var(--color-ink-muted)] mb-2">
-                <span>Dimensão (Escala)</span>
+                <span>Dimensions (scale)</span>
                 <span className="font-mono text-[var(--color-ink)]">{scalePercent}%</span>
               </div>
               <input
@@ -158,14 +158,14 @@ export default function ImageCompressor() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[var(--color-ink-muted)] mb-2">Formato de Saída</label>
+              <label className="block text-xs font-bold text-[var(--color-ink-muted)] mb-2">Output format</label>
               <select
                 value={outputFormat}
                 onChange={(e) => setOutputFormat(e.target.value as any)}
                 className="w-full p-2.5 rounded-xl border border-zinc-300 text-sm bg-[var(--color-surface)] font-medium cursor-pointer"
               >
                 <option value="image/jpeg">JPEG (.jpg)</option>
-                <option value="image/webp">WebP (.webp - Máxima compressão)</option>
+                <option value="image/webp">WebP (.webp - smallest file)</option>
                 <option value="image/png">PNG (.png)</option>
               </select>
             </div>
@@ -178,7 +178,7 @@ export default function ImageCompressor() {
             className="w-full py-4 bg-yellow-400 text-zinc-950 font-black rounded-[12px] hover:bg-yellow-300 transition text-sm shadow-md flex items-center justify-center gap-2 disabled:opacity-50"
           >
             <span>{isProcessing ? '⏳' : '⚡'}</span>
-            <span>{isProcessing ? 'Comprimindo no navegador...' : 'Comprimir Imagem Agora'}</span>
+            <span>{isProcessing ? 'Compressing in your browser...' : 'Compress image now'}</span>
           </button>
 
           {/* Comparativo de Resultados */}
@@ -186,7 +186,7 @@ export default function ImageCompressor() {
             <div className="p-6 bg-[var(--color-surface-2)] rounded-[12px] border border-[var(--color-line)] space-y-4">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div>
-                  <span className="text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider block">Resultado:</span>
+                  <span className="text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider block">Result:</span>
                   <div className="flex items-center gap-2 mt-1">
                     <span className="text-sm line-through text-zinc-400">{formatSize(file.size)}</span>
                     <span className="text-lg font-black text-emerald-700">{formatSize(compressedBlob.size)}</span>
@@ -202,10 +202,10 @@ export default function ImageCompressor() {
 
               <a
                 href={compressedUrl}
-                download={`comprimido-${file.name.replace(/\.[^/.]+$/, '')}.${outputFormat.split('/')[1]}`}
+                download={`compressed-${file.name.replace(/\.[^/.]+$/, '')}.${outputFormat.split('/')[1]}`}
                 className="w-full py-3.5 bg-zinc-900 text-white font-bold rounded-[12px] hover:bg-zinc-800 transition text-sm flex items-center justify-center gap-2 shadow"
               >
-                <span>⬇</span> Baixar Imagem Otimizada
+                <span>⬇</span> Download optimised image
               </a>
             </div>
           )}

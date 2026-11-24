@@ -89,7 +89,7 @@ export default function ColorPicker() {
         // Usuário cancelou ou fechou o dropper
       }
     } else {
-      alert('Seu navegador não suporta captura direta de tela. Use o seletor visual abaixo.');
+      alert('Your browser does not support direct screen capture. Use the visual picker below.');
     }
   };
 
@@ -163,7 +163,7 @@ export default function ColorPicker() {
       {/* Paleta Dinâmica Harmônica */}
       <div className="bg-[var(--color-surface)] p-5 rounded-[14px] border border-[var(--color-line)] shadow-sm space-y-3">
         <span className="text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider block">
-          Tons e Graduações de Brilho:
+          Shades and brightness levels:
         </span>
         <div className="grid grid-cols-7 gap-2">
           {generateShades().map((shade, i) => (

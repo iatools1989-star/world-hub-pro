@@ -26,13 +26,13 @@ export default function PasswordGenerator() {
     const entropy = Math.round(length * Math.log2(poolSize));
 
     if (entropy < 40) {
-      return { label: 'Fraca', color: 'bg-red-500', percent: 25, crackTime: 'Poucos segundos' };
+      return { label: 'Weak', color: 'bg-red-500', percent: 25, crackTime: 'A few seconds' };
     }
     if (entropy < 60) {
-      return { label: 'Média', color: 'bg-amber-500', percent: 50, crackTime: 'Algumas horas' };
+      return { label: 'Fair', color: 'bg-amber-500', percent: 50, crackTime: 'A few hours' };
     }
     if (entropy < 80) {
-      return { label: 'Forte', color: 'bg-emerald-500', percent: 75, crackTime: 'Vários anos' };
+      return { label: 'Strong', color: 'bg-emerald-500', percent: 75, crackTime: 'Several years' };
     }
     return { label: 'Impenetrable', color: 'bg-green-600', percent: 100, crackTime: 'Millions of centuries' };
   };
@@ -97,7 +97,7 @@ export default function PasswordGenerator() {
         <div className="flex gap-2">
           <button
             onClick={generate}
-            title="Gerar Nova Senha"
+            title="Generate a new password"
             className="px-4 py-3 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 font-bold rounded-[12px] transition flex items-center justify-center text-lg"
           >
             🔄
@@ -122,7 +122,7 @@ export default function PasswordGenerator() {
             Password Strength: <b className="text-[var(--color-ink)] uppercase">{strength.label}</b>
           </span>
           <span className="text-[var(--color-ink-muted)] font-medium">
-            Tempo estimado para quebrar: <b className="text-zinc-800">{strength.crackTime}</b>
+            Estimated time to crack: <b className="text-zinc-800">{strength.crackTime}</b>
           </span>
         </div>
         <div className="w-full bg-zinc-100 h-2.5 rounded-full overflow-hidden">
@@ -151,7 +151,7 @@ export default function PasswordGenerator() {
             className="w-full accent-zinc-900"
           />
           <div className="flex justify-between text-[10px] text-zinc-400 font-bold">
-            <span>8 (Mínimo)</span>
+            <span>8 (minimum)</span>
             <span>16 (Recomendado)</span>
             <span>32 (Alto)</span>
             <span>64 (Extremo)</span>

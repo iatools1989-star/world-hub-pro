@@ -64,7 +64,7 @@ export default function JpgToPdf() {
       // Cria uma janela temporária formatada para impressão/salvamento direto como PDF nativo
       const printWindow = window.open('', '_blank');
       if (!printWindow) {
-        alert('Por favor, autorize pop-ups para gerar seu PDF com alta fidelidade.');
+        alert('Please allow pop-ups so we can generate your PDF at full fidelity.');
         setIsGenerating(false);
         return;
       }
@@ -132,7 +132,7 @@ export default function JpgToPdf() {
       printWindow.document.close();
       setIsGenerating(false);
     } catch {
-      alert('Erro ao processar as páginas do PDF.');
+      alert('Something went wrong while processing the PDF pages.');
       setIsGenerating(false);
     }
   };
@@ -156,7 +156,7 @@ export default function JpgToPdf() {
               Click to select or drop multiple images here
             </span>
             <span className="text-xs text-[var(--color-ink-muted)] mt-1 block">
-              Join JPG photos, PNG e WebP em um único documento PDF em ordem personalizada.
+              Join JPG, PNG and WebP images into a single PDF, in any order you like.
             </span>
           </div>
         </label>
@@ -168,29 +168,29 @@ export default function JpgToPdf() {
           <div className="grid sm:grid-cols-2 gap-4 pb-4 border-b border-[var(--color-line)]">
             <div>
               <label className="block text-xs font-bold text-[var(--color-ink-muted)] mb-1.5 uppercase tracking-wider">
-                Tamanho da Página
+                Page size
               </label>
               <select
                 value={pageSize}
                 onChange={(e) => setPageSize(e.target.value as any)}
                 className="w-full p-2.5 rounded-xl border border-zinc-300 text-sm bg-[var(--color-surface)] font-medium cursor-pointer"
               >
-                <option value="a4">Padrão A4 (Ideal para Impressão)</option>
-                <option value="fit">Ajustar ao tamanho da imagem</option>
+                <option value="a4">Standard A4 (best for printing)</option>
+                <option value="fit">Fit to image size</option>
               </select>
             </div>
 
             <div>
               <label className="block text-xs font-bold text-[var(--color-ink-muted)] mb-1.5 uppercase tracking-wider">
-                Orientação
+                Orientation
               </label>
               <select
                 value={orientation}
                 onChange={(e) => setOrientation(e.target.value as any)}
                 className="w-full p-2.5 rounded-xl border border-zinc-300 text-sm bg-[var(--color-surface)] font-medium cursor-pointer"
               >
-                <option value="portrait">Retrato (Vertical)</option>
-                <option value="landscape">Paisagem (Horizontal)</option>
+                <option value="portrait">Portrait (vertical)</option>
+                <option value="landscape">Landscape (horizontal)</option>
               </select>
             </div>
           </div>
@@ -198,7 +198,7 @@ export default function JpgToPdf() {
           {/* Lista e Ordenação de Páginas */}
           <div className="space-y-3">
             <span className="text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider block">
-              Páginas ({images.length} selecionadas — Reordene conforme desejar):
+              Pages ({images.length} selected — drag or use the arrows to reorder):
             </span>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {images.map((img, index) => (
@@ -213,7 +213,7 @@ export default function JpgToPdf() {
                   />
                   <div className="flex-1 min-w-0">
                     <span className="font-bold text-xs text-[var(--color-ink)] block truncate">
-                      Página {index + 1}
+                      Page {index + 1}
                     </span>
                     <span className="text-[10px] text-[var(--color-ink-muted)] truncate block">
                       {img.file.name}
@@ -225,7 +225,7 @@ export default function JpgToPdf() {
                       onClick={() => moveUp(index)}
                       disabled={index === 0}
                       className="p-1 hover:bg-zinc-200 rounded text-xs disabled:opacity-20"
-                      title="Mover para cima"
+                      title="Move up"
                     >
                       ▲
                     </button>
@@ -233,7 +233,7 @@ export default function JpgToPdf() {
                       onClick={() => moveDown(index)}
                       disabled={index === images.length - 1}
                       className="p-1 hover:bg-zinc-200 rounded text-xs disabled:opacity-20"
-                      title="Mover para baixo"
+                      title="Move down"
                     >
                       ▼
                     </button>
@@ -242,7 +242,7 @@ export default function JpgToPdf() {
                   <button
                     onClick={() => removeImage(img.id)}
                     className="p-1.5 text-red-500 hover:bg-red-50 rounded-lg text-xs"
-                    title="Excluir página"
+                    title="Remove page"
                   >
                     ✕
                   </button>
@@ -258,7 +258,7 @@ export default function JpgToPdf() {
             className="w-full py-4 bg-yellow-400 text-zinc-950 font-black rounded-[12px] hover:bg-yellow-300 transition text-sm shadow-md flex items-center justify-center gap-2"
           >
             <span>{isGenerating ? '⏳' : '⚡'}</span>
-            <span>{isGenerating ? 'Processando Documento...' : 'Gerar e Salvar Documento PDF'}</span>
+            <span>{isGenerating ? 'Processing document...' : 'Generate and save PDF'}</span>
           </button>
         </div>
       )}

@@ -52,14 +52,14 @@ export default function BulkStudio() {
   return (
     <div className="p-6 bg-[var(--color-surface)] rounded-xl border">
       <h2 className="text-2xl font-bold">📦 Private Bulk Studio</h2>
-      <p className="text-sm text-gray-600">100% offline. Suas fotos nunca saem do seu navegador.</p>
+      <p className="text-sm text-gray-600">100% offline. Your photos never leave your browser.</p>
       <input type="file" multiple accept="image/*" onChange={handleFiles} className="my-4 block w-full border p-2 rounded" />
       {files.length > 0 && (
         <button onClick={processAndZip} disabled={loading} className="w-full bg-black text-white py-3 rounded-lg disabled:opacity-50">
-          {loading ? `Processando... ${progress}%` : `Processar ${files.length} imagens → Baixar ZIP`}
+          {loading ? `Processing... ${progress}%` : `Process ${files.length} ${files.length === 1 ? 'image' : 'images'} → Download ZIP`}
         </button>
       )}
-      {progress === 100 && <p className="text-green-600 text-sm mt-2">✓ Pronto! ZIP baixado. Teste com suas fotos reais.</p>}
+      {progress === 100 && <p className="text-green-600 text-sm mt-2">✓ Done! ZIP downloaded. Try it with your own photos.</p>}
     </div>
   );
 }
