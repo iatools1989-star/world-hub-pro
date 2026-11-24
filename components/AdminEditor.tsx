@@ -36,8 +36,15 @@ const ROTULO_TIPO: Record<string, string> = {
   guide: 'Artigos',
 };
 
-/** Campos que nao devem ser editados como texto corrido. */
-const CAMPOS_TECNICOS = new Set(['tipo', 'slug', 'updated', 'readingMinutes', 'step']);
+/**
+ * Campos que nao devem aparecer como texto editavel.
+ *
+ * `nome` entra aqui de proposito: ele vem de lib/data.ts e alimenta menu,
+ * breadcrumb e schema. Editar o nome no CMS seria um botao que nao publica
+ * nada — o texto salvaria e o site continuaria igual. Quem troca o nome de
+ * uma ferramenta mexe no codigo, e isso e raro de proposito.
+ */
+const CAMPOS_TECNICOS = new Set(['tipo', 'slug', 'updated', 'readingMinutes', 'step', 'nome']);
 
 export default function AdminEditor() {
   const [docs, setDocs] = useState<Resumo[] | null>(null);
