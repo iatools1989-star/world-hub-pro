@@ -18,42 +18,12 @@ export function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  // Painel de administracao.
-  // /en/admin passa por aqui normalmente (esta sob /en).
-  // O editor solto em /painel nao deve ser uma porta de entrada: quem chega
-  // nele sem sessao veria a interface sem autenticacao. Redireciona para o
-  // login. Os arquivos do editor (index.html, app.js, bases.js) continuam
-  // servidos porque o iframe de /en/admin os carrega depois do login.
-  if (pathname === '/painel' || pathname === '/painel/') {
+  // O painel antigo em /painel foi removido: servia arquivos estaticos sem
+  // autenticacao e editava lib/*.ts direto no GitHub. O editor agora vive em
+  // /en/admin, atras do login.
+  if (pathname === '/painel' || pathname.startsWith('/painel/')) {
     req.nextUrl.pathname = `/${DEFAULT_LOCALE}/admin`;
-    return NextResponse.redirect(req.nextUrl, 307);
-  }
-  // Arquivos estaticos que existem de verdade.
-  //
-  // Antes a regra era `pathname.includes('.')`, ou seja: qualquer coisa com
-  // ponto no nome passava sem passar pelo roteador. Consequencia: /index.html,
-  // /app.js e /bases.js (nomes da epoca do painel antigo) e qualquer
-  // /coisa.inventada devolviam a home com status 200 — a mesma pagina em
-  // infinitas URLs. Para um buscador isso e conteudo duplicado sem limite.
-  // Sitemap sem extensao -> sitemap.xml.
-  //
-  // Antes, /sitemap caia na regra generica e virava 301 para /en/sitemap,
-  // que nao existe. O Search Console mostrava exatamente isso: "Nao foi
-  // possivel buscar o sitemap" na entrada /sitemap. Quem digita o endereco
-  // sem extensao merece chegar no arquivo certo.
-  if (pathname === '/sitemap' || pathname === '/sitemap.xml/') {
-    req.nextUrl.pathname = '/sitemap.xml';
-    return NextResponse.redirect(req.nextUrl, 301);
-  }
-
-  const ESTATICOS = ['/robots.txt', '/sitemap.xml', '/ads.txt', '/favicon.ico'];
-  const ARQUIVOS_PUBLICOS = /^\/(pdf\.worker\.min\.js|file\.svg|globe\.svg|next\.svg|vercel\.svg|window\.svg|videos\/[\w-]+\.(mp4|jpg)|demo\/[\w-]+\.(jpg|png))$/;
-  if (ESTATICOS.includes(pathname) || ARQUIVOS_PUBLICOS.test(pathname)) {
-    return NextResponse.next();
-  }
-  if (pathname.startsWith('/painel/')) {
-    // Arquivos do editor, carregados pelo iframe de /en/admin depois do login.
-    return NextResponse.next();
+    return NextResponse.redirect(req.nextUrl, 308);
   }
 
   // Caminho com extensao de arquivo que nao existe de verdade: 404 seco.
