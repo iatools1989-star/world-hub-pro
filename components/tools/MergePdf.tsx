@@ -123,7 +123,7 @@ export default function MergePdf() {
   return (
     <div className="space-y-6">
       {/* Upload Drag & Drop */}
-      <div className="border-2 border-dashed border-zinc-300 hover:border-zinc-500 rounded-3xl p-8 text-center bg-white transition cursor-pointer shadow-sm">
+      <div className="border-2 border-dashed border-zinc-300 hover:border-zinc-500 rounded-[14px] p-8 text-center bg-[var(--color-surface)] transition cursor-pointer shadow-sm">
         <input
           type="file"
           id="merge-pdf-input"
@@ -135,10 +135,10 @@ export default function MergePdf() {
         <label htmlFor="merge-pdf-input" className="cursor-pointer block space-y-3">
           <span className="text-4xl block">📚</span>
           <div>
-            <span className="font-black text-zinc-900 block text-base">
+            <span className="font-black text-[var(--color-ink)] block text-base">
               Select or drag multiple PDF files to merge
             </span>
-            <span className="text-xs text-zinc-500 mt-1 block">
+            <span className="text-xs text-[var(--color-ink-muted)] mt-1 block">
               100% Client-Side: todo o processo roda na memória local sem envio para servidores.
             </span>
           </div>
@@ -146,10 +146,10 @@ export default function MergePdf() {
       </div>
 
       {pdfFiles.length > 0 && (
-        <div className="bg-white p-6 sm:p-8 rounded-3xl border border-zinc-200 shadow-sm space-y-6">
+        <div className="bg-[var(--color-surface)] p-6 sm:p-8 rounded-[14px] border border-[var(--color-line)] shadow-sm space-y-6">
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-zinc-500 uppercase tracking-wider">
+              <span className="text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider">
                 Ordem dos Arquivos ({pdfFiles.length} adicionados):
               </span>
               <button
@@ -164,15 +164,15 @@ export default function MergePdf() {
               {pdfFiles.map((item, index) => (
                 <div
                   key={item.id}
-                  className="p-3.5 bg-zinc-50 rounded-2xl border border-zinc-200 flex items-center justify-between gap-3"
+                  className="p-3.5 bg-[var(--color-surface-2)] rounded-[12px] border border-[var(--color-line)] flex items-center justify-between gap-3"
                 >
                   <div className="flex items-center gap-3 min-w-0">
                     <span className="w-7 h-7 bg-zinc-900 text-white rounded-lg flex items-center justify-center text-xs font-black shrink-0">
                       {index + 1}
                     </span>
                     <div className="truncate">
-                      <span className="font-bold text-xs text-zinc-900 block truncate">{item.name}</span>
-                      <span className="text-[10px] text-zinc-500 font-medium">{formatSize(item.size)}</span>
+                      <span className="font-bold text-xs text-[var(--color-ink)] block truncate">{item.name}</span>
+                      <span className="text-[10px] text-[var(--color-ink-muted)] font-medium">{formatSize(item.size)}</span>
                     </div>
                   </div>
 
@@ -210,20 +210,20 @@ export default function MergePdf() {
             onClick={mergeDocuments}
             disabled={isMerging || pdfFiles.length < 2}
             type="button"
-            className="w-full py-4 bg-yellow-400 text-zinc-950 font-black rounded-2xl hover:bg-yellow-300 transition text-sm shadow-md flex items-center justify-center gap-2 disabled:opacity-50"
+            className="w-full py-4 bg-yellow-400 text-zinc-950 font-black rounded-[12px] hover:bg-yellow-300 transition text-sm shadow-md flex items-center justify-center gap-2 disabled:opacity-50"
           >
             <span>{isMerging ? '⏳' : '⚡'}</span>
             <span>{isMerging ? 'Mesclando PDFs no navegador...' : 'Juntar Todos os Documentos PDF'}</span>
           </button>
 
           {statusMessage && (
-            <div className="p-3 bg-zinc-50 border border-zinc-200 rounded-xl text-center text-xs text-zinc-700 font-medium">
+            <div className="p-3 bg-[var(--color-surface-2)] border border-[var(--color-line)] rounded-xl text-center text-xs text-[var(--color-ink-soft)] font-medium">
               {statusMessage}
             </div>
           )}
 
           {mergedBlobUrl && (
-            <div className="p-5 bg-emerald-50 border border-emerald-200 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 animate-in fade-in">
+            <div className="p-5 bg-emerald-50 border border-emerald-200 rounded-[12px] flex flex-col sm:flex-row items-center justify-between gap-4 animate-in fade-in">
               <div className="flex items-center gap-2">
                 <span className="text-2xl">🎉</span>
                 <span className="text-xs font-bold text-emerald-900">

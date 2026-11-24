@@ -24,21 +24,21 @@ export default async function AffiliateDisclosurePage({
   return (
     <div className="flex flex-col min-h-screen">
       <Header currentLocale={locale} />
-      <main className="max-w-[900px] mx-auto px-4 sm:px-6 py-12 flex-1 w-full">
-        <div className="bg-white border border-zinc-200 rounded-3xl p-6 sm:p-10 shadow-sm">
-          <div className="border-b border-zinc-200 pb-6 mb-8">
-            <span className="text-xs uppercase tracking-wider font-bold text-yellow-600 bg-yellow-50 px-3 py-1 rounded-full border border-yellow-200">
+      <main className="max-w-[1040px] mx-auto px-4 sm:px-6 lg:px-8 py-9 sm:py-12 flex-1 w-full">
+        <div className="bg-[var(--color-surface)] border border-[var(--color-line)] rounded-[14px] p-6 sm:p-10 shadow-sm">
+          <div className="border-b border-[var(--color-line)] pb-6 mb-8">
+            <span className="text-xs uppercase tracking-wider font-bold text-[var(--color-brand-deep)] bg-yellow-50 px-3 py-1 rounded-full border border-yellow-200">
               #ad · Transparency
             </span>
-            <h1 className="text-3xl sm:text-4xl font-black text-zinc-900 mt-3 tracking-tight">
+            <h1 className="text-3xl sm:text-4xl font-black text-[var(--color-ink)] mt-3 tracking-tight">
               Affiliate Disclosure
             </h1>
-            <p className="text-xs text-zinc-500 mt-2">
+            <p className="text-xs text-[var(--color-ink-muted)] mt-2">
               Last updated: 10 November 2026 · Applies to every page on this site
             </p>
           </div>
 
-          <div className="text-zinc-700 space-y-6 text-sm leading-relaxed">
+          <div className="text-[var(--color-ink-soft)] space-y-6 text-sm leading-relaxed">
             <section className="p-4 bg-blue-50 border border-blue-200 rounded-xl">
               <p className="font-bold text-blue-900">
                 Short version: some links on this site are affiliate links. If you subscribe to a paid
@@ -48,7 +48,7 @@ export default async function AffiliateDisclosurePage({
             </section>
 
             <section>
-              <h2 className="text-xl font-black text-zinc-900 mb-2">1. Which links are affiliate links</h2>
+              <h2 className="text-xl font-black text-[var(--color-ink)] mb-2">1. Which links are affiliate links</h2>
               <p>Affiliate links are always marked in at least one of these ways:</p>
               <ul className="list-disc pl-5 space-y-1.5 mt-2">
                 <li>a visible <code className="bg-zinc-100 px-1 rounded">#ad</code> badge at the top of the page or next to the link;</li>
@@ -62,7 +62,7 @@ export default async function AffiliateDisclosurePage({
             </section>
 
             <section>
-              <h2 className="text-xl font-black text-zinc-900 mb-2">2. Programs we participate in</h2>
+              <h2 className="text-xl font-black text-[var(--color-ink)] mb-2">2. Programs we participate in</h2>
               <p>
                 We take part in affiliate programs of software vendors listed in our directory. Commission
                 rates published by those programs change without notice; the exact rate is set by the vendor,
@@ -71,14 +71,14 @@ export default async function AffiliateDisclosurePage({
             </section>
 
             <section>
-              <h2 className="text-xl font-black text-zinc-900 mb-2">3. Amazon Associates</h2>
+              <h2 className="text-xl font-black text-[var(--color-ink)] mb-2">3. Amazon Associates</h2>
               <p className="p-4 bg-orange-50 border border-orange-200 rounded-xl text-orange-900 font-semibold">
                 As an Amazon Associate I earn from qualifying purchases.
               </p>
             </section>
 
             <section>
-              <h2 className="text-xl font-black text-zinc-900 mb-2">4. What we never do</h2>
+              <h2 className="text-xl font-black text-[var(--color-ink)] mb-2">4. What we never do</h2>
               <ul className="list-disc pl-5 space-y-1.5 mt-2">
                 <li>We never publish a positive review in exchange for payment.</li>
                 <li>We never invent ratings, prices, testimonials or user numbers.</li>
@@ -88,7 +88,7 @@ export default async function AffiliateDisclosurePage({
             </section>
 
             <section>
-              <h2 className="text-xl font-black text-zinc-900 mb-2">5. Prices change</h2>
+              <h2 className="text-xl font-black text-[var(--color-ink)] mb-2">5. Prices change</h2>
               <p>
                 Prices, plans and features are set by the vendors. Anything shown on this site is for
                 comparison and may be out of date. The price you pay is always the one on the vendor&apos;s
@@ -97,11 +97,11 @@ export default async function AffiliateDisclosurePage({
             </section>
 
             <section>
-              <h2 className="text-xl font-black text-zinc-900 mb-2">6. Advertising</h2>
+              <h2 className="text-xl font-black text-[var(--color-ink)] mb-2">6. Advertising</h2>
               <p>
                 This site displays third-party advertising (Google AdSense). Advertisers do not review,
                 approve or influence our editorial content. See our{' '}
-                <a href={`/${locale}/privacy`} className="text-yellow-600 font-bold hover:underline">
+                <a href={`/${locale}/privacy`} className="text-[var(--color-brand-deep)] font-bold hover:underline">
                   Privacy Policy
                 </a>{' '}
                 for cookies and data handling.
@@ -109,11 +109,11 @@ export default async function AffiliateDisclosurePage({
             </section>
 
             <section>
-              <h2 className="text-xl font-black text-zinc-900 mb-2">7. Questions and corrections</h2>
+              <h2 className="text-xl font-black text-[var(--color-ink)] mb-2">7. Questions and corrections</h2>
               <p>
                 Found a broken or outdated link? Write to{' '}
-                <a href="mailto:contact@iatools.online" className="text-yellow-600 font-bold hover:underline">
-                  contact@iatools.online
+                <a href="mailto:guilhermemarculasilva@gmail.com" className="text-[var(--color-brand-deep)] font-bold hover:underline">
+                  guilhermemarculasilva@gmail.com
                 </a>{' '}
                 and we will correct it.
               </p>

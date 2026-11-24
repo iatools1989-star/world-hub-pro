@@ -2,6 +2,8 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import ToolIcon from '@/components/ToolIcon';
+import { Breadcrumbs } from '@/components/PageShell';
 import AdSenseBanner from '@/components/AdSenseBanner';
 import { DIRECTORY_ITEMS, ADSENSE_CONFIG } from '@/lib/data';
 import JsonLd from '@/components/JsonLd';
@@ -32,7 +34,7 @@ export default async function DirectoryIndexPage({ params }: { params: Promise<{
   }));
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#fcfcfd] dark:bg-zinc-950">
+    <div className="flex flex-col min-h-screen bg-[var(--color-canvas)]">
       <Header currentLocale={locale} />
 
       <JsonLd
@@ -61,17 +63,13 @@ export default async function DirectoryIndexPage({ params }: { params: Promise<{
         ]}
       />
 
-      <main className="flex-1 max-w-[1100px] mx-auto w-full px-4 sm:px-6 py-10">
-        <nav className="text-xs text-zinc-500 mb-4">
-          <Link href={`/${locale}`} className="hover:underline">Home</Link>
-          <span className="mx-2">/</span>
-          <span className="text-zinc-900 dark:text-zinc-300 font-semibold">Directory</span>
-        </nav>
+      <main className="flex-1 max-w-[1200px] mx-auto w-full px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+        <Breadcrumbs itens={[{ nome: 'Home', href: `/${locale}` }, { nome: 'AI Directory' }]} />
 
-        <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-zinc-900 dark:text-white">
+        <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-[var(--color-ink)]">
           AI tools directory
         </h1>
-        <p className="mt-3 text-zinc-600 dark:text-zinc-400 max-w-2xl leading-relaxed">
+        <p className="mt-3 text-[var(--color-ink-muted)] max-w-2xl leading-relaxed">
           Ten commercial AI services we actually think are worth listing — no invented ratings, no
           &ldquo;2,000 happy customers&rdquo;. Each entry states its pricing model up front so you can decide
           before clicking.
@@ -81,15 +79,15 @@ export default async function DirectoryIndexPage({ params }: { params: Promise<{
           {porPreco.map(({ preco, total }) => (
             <span
               key={preco}
-              className="text-xs font-bold px-3 py-1.5 rounded-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300"
+              className="text-xs font-bold px-3 py-1.5 rounded-full bg-[var(--color-surface)] border border-[var(--color-line)] text-[var(--color-ink-soft)]"
             >
               {preco}: {total}
             </span>
           ))}
         </div>
 
-        <div className="mt-4 bg-yellow-50 dark:bg-yellow-950/30 border border-yellow-200 dark:border-yellow-900/60 rounded-2xl p-4">
-          <p className="text-xs text-zinc-700 dark:text-zinc-300 leading-relaxed">
+        <div className="mt-4 rounded-[12px] border-l-[3px] border-[var(--color-brand)] bg-[var(--color-surface-2)] p-4">
+          <p className="text-xs text-[var(--color-ink-soft)] leading-relaxed">
             <strong>Affiliate disclosure:</strong> no affiliate ID is attached to any link on this page today,
             so we earn nothing from your clicks. If that changes, the link and this notice change with it —
             and it will never affect what appears here or the order of this list.{' '}
@@ -106,8 +104,8 @@ export default async function DirectoryIndexPage({ params }: { params: Promise<{
 
         {/* Como esta lista e feita — conteudo real, nao recheio */}
         <section className="mb-10 grid md:grid-cols-[1.4fr_1fr] gap-6">
-          <div className="space-y-3 text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed">
-            <h2 className="text-xl font-black text-zinc-900 dark:text-white">
+          <div className="space-y-3 text-sm text-[var(--color-ink-soft)] leading-relaxed">
+            <h2 className="text-xl font-black text-[var(--color-ink)]">
               How we decide what gets listed
             </h2>
             <p>
@@ -133,9 +131,9 @@ export default async function DirectoryIndexPage({ params }: { params: Promise<{
               advertising, which has no opinion about which tool you pick.
             </p>
           </div>
-          <aside className="bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-5 self-start">
-            <h3 className="font-bold text-sm text-zinc-900 dark:text-white mb-2">Before you subscribe to anything</h3>
-            <ul className="space-y-2 text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed list-disc pl-4">
+          <aside className="bg-[var(--color-surface-2)] dark:bg-zinc-900 border border-[var(--color-line)] rounded-[12px] p-5 self-start">
+            <h3 className="font-bold text-sm text-[var(--color-ink)] mb-2">Before you subscribe to anything</h3>
+            <ul className="space-y-2 text-xs text-[var(--color-ink-muted)] leading-relaxed list-disc pl-4">
               <li>Check whether the free tier covers your actual monthly volume, not the demo volume.</li>
               <li>Prefer annual billing only after a month on monthly billing — the discount is real, the commitment is too.</li>
               <li>Look at the per-seat price, not the plan price, if more than one person will use it.</li>
@@ -144,7 +142,7 @@ export default async function DirectoryIndexPage({ params }: { params: Promise<{
             </ul>
             <Link
               href={`/${locale}/tools`}
-              className="mt-4 inline-block text-xs font-bold text-zinc-900 dark:text-white underline"
+              className="mt-4 inline-block text-xs font-bold text-[var(--color-ink)] underline"
             >
               See the 16 free tools →
             </Link>
@@ -155,35 +153,37 @@ export default async function DirectoryIndexPage({ params }: { params: Promise<{
           const itens = DIRECTORY_ITEMS.filter((i) => i.category === cat);
           return (
             <section key={cat} className="mb-10">
-              <h2 className="text-lg font-black text-zinc-900 dark:text-white mb-3 flex items-center gap-2">
+              <h2 className="mb-3 flex items-center gap-2 text-[15px] font-bold tracking-[-0.01em] text-[var(--color-ink)]">
                 {cat}
-                <span className="text-xs font-bold text-zinc-400">({itens.length})</span>
+                <span className="text-[11px] font-bold text-[var(--color-ink-muted)]">
+                  {itens.length}
+                </span>
               </h2>
-              <div className="space-y-3">
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 {itens.map((item) => (
                   <Link
                     key={item.slug}
                     href={`/${locale}/directory/${item.slug}`}
-                    className="group bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-5 hover:shadow-xl hover:border-zinc-900 dark:hover:border-zinc-600 transition flex items-start gap-4"
+                    className="ui-card ui-card-hover group flex items-start gap-3.5 p-4"
                   >
-                    <div className="text-2xl">{item.icon}</div>
+                    <div className="grid h-9 w-9 place-items-center rounded-[9px] border border-[var(--color-line)] bg-[var(--color-surface-2)] text-[var(--color-ink-soft)]"><ToolIcon nome={item.slug} className="h-[18px] w-[18px]" /></div>
                     <div className="flex-1 min-w-0">
                       <div className="flex flex-wrap items-center gap-2">
-                        <h3 className="font-bold text-zinc-900 dark:text-white group-hover:underline text-sm">
+                        <h3 className="font-bold text-[var(--color-ink)] group-hover:underline text-sm">
                           {item.name}
                         </h3>
-                        <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 uppercase">
+                        <span className="ui-chip !py-0.5 !text-[10px] uppercase tracking-wide">
                           {item.pricing}
                         </span>
                         {item.badge && (
-                          <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-yellow-400 text-zinc-950 uppercase">
+                          <span className="ui-chip ui-chip-brand !py-0.5 !text-[10px] uppercase tracking-wide">
                             {item.badge}
                           </span>
                         )}
                       </div>
-                      <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-1 leading-relaxed">{item.desc}</p>
+                      <p className="text-xs text-[var(--color-ink-muted)] mt-1 leading-relaxed">{item.desc}</p>
                     </div>
-                    <span className="text-xs font-bold text-yellow-600 dark:text-yellow-400 whitespace-nowrap">
+                    <span className="shrink-0 self-center whitespace-nowrap text-[12px] font-bold text-[var(--color-ink)] group-hover:underline underline-offset-4">
                       Details →
                     </span>
                   </Link>
@@ -193,12 +193,12 @@ export default async function DirectoryIndexPage({ params }: { params: Promise<{
           );
         })}
 
-        <section className="bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6">
-          <h2 className="font-bold text-zinc-900 dark:text-white mb-2">These cost money. Ours don&rsquo;t.</h2>
-          <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+        <section className="bg-[var(--color-surface-2)] dark:bg-zinc-900 border border-[var(--color-line)] rounded-[12px] p-6">
+          <h2 className="font-bold text-[var(--color-ink)] mb-2">These cost money. Ours don&rsquo;t.</h2>
+          <p className="text-sm text-[var(--color-ink-muted)] leading-relaxed">
             If what you need is a QR code, a PDF merge or an image compressor, you don&rsquo;t have to pay a
             subscription for it. All 16 utilities in our{' '}
-            <Link href={`/${locale}/tools`} className="font-bold text-yellow-600 dark:text-yellow-400 hover:underline">
+            <Link href={`/${locale}/tools`} className="font-bold text-[var(--color-brand-deep)] hover:underline">
               free tools section
             </Link>{' '}
             run locally in your browser, with no account and no limits.

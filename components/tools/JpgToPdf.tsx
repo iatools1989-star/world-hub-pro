@@ -140,7 +140,7 @@ export default function JpgToPdf() {
   return (
     <div className="space-y-6">
       {/* Upload Múltiplo */}
-      <div className="border-2 border-dashed border-zinc-300 hover:border-zinc-500 rounded-3xl p-8 text-center bg-white transition cursor-pointer shadow-sm">
+      <div className="border-2 border-dashed border-zinc-300 hover:border-zinc-500 rounded-[14px] p-8 text-center bg-[var(--color-surface)] transition cursor-pointer shadow-sm">
         <input
           type="file"
           id="jpg-to-pdf-input"
@@ -152,10 +152,10 @@ export default function JpgToPdf() {
         <label htmlFor="jpg-to-pdf-input" className="cursor-pointer block space-y-3">
           <span className="text-4xl block">📚</span>
           <div>
-            <span className="font-black text-zinc-900 block text-base">
+            <span className="font-black text-[var(--color-ink)] block text-base">
               Click to select or drop multiple images here
             </span>
-            <span className="text-xs text-zinc-500 mt-1 block">
+            <span className="text-xs text-[var(--color-ink-muted)] mt-1 block">
               Join JPG photos, PNG e WebP em um único documento PDF em ordem personalizada.
             </span>
           </div>
@@ -163,17 +163,17 @@ export default function JpgToPdf() {
       </div>
 
       {images.length > 0 && (
-        <div className="bg-white p-6 sm:p-8 rounded-3xl border border-zinc-200 shadow-sm space-y-6">
+        <div className="bg-[var(--color-surface)] p-6 sm:p-8 rounded-[14px] border border-[var(--color-line)] shadow-sm space-y-6">
           {/* Opções de Diagramação */}
-          <div className="grid sm:grid-cols-2 gap-4 pb-4 border-b border-zinc-100">
+          <div className="grid sm:grid-cols-2 gap-4 pb-4 border-b border-[var(--color-line)]">
             <div>
-              <label className="block text-xs font-bold text-zinc-600 mb-1.5 uppercase tracking-wider">
+              <label className="block text-xs font-bold text-[var(--color-ink-muted)] mb-1.5 uppercase tracking-wider">
                 Tamanho da Página
               </label>
               <select
                 value={pageSize}
                 onChange={(e) => setPageSize(e.target.value as any)}
-                className="w-full p-2.5 rounded-xl border border-zinc-300 text-sm bg-white font-medium cursor-pointer"
+                className="w-full p-2.5 rounded-xl border border-zinc-300 text-sm bg-[var(--color-surface)] font-medium cursor-pointer"
               >
                 <option value="a4">Padrão A4 (Ideal para Impressão)</option>
                 <option value="fit">Ajustar ao tamanho da imagem</option>
@@ -181,13 +181,13 @@ export default function JpgToPdf() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-zinc-600 mb-1.5 uppercase tracking-wider">
+              <label className="block text-xs font-bold text-[var(--color-ink-muted)] mb-1.5 uppercase tracking-wider">
                 Orientação
               </label>
               <select
                 value={orientation}
                 onChange={(e) => setOrientation(e.target.value as any)}
-                className="w-full p-2.5 rounded-xl border border-zinc-300 text-sm bg-white font-medium cursor-pointer"
+                className="w-full p-2.5 rounded-xl border border-zinc-300 text-sm bg-[var(--color-surface)] font-medium cursor-pointer"
               >
                 <option value="portrait">Retrato (Vertical)</option>
                 <option value="landscape">Paisagem (Horizontal)</option>
@@ -197,25 +197,25 @@ export default function JpgToPdf() {
 
           {/* Lista e Ordenação de Páginas */}
           <div className="space-y-3">
-            <span className="text-xs font-bold text-zinc-500 uppercase tracking-wider block">
+            <span className="text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider block">
               Páginas ({images.length} selecionadas — Reordene conforme desejar):
             </span>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {images.map((img, index) => (
                 <div
                   key={img.id}
-                  className="p-3 bg-zinc-50 rounded-2xl border border-zinc-200 flex items-center gap-3 relative group"
+                  className="p-3 bg-[var(--color-surface-2)] rounded-[12px] border border-[var(--color-line)] flex items-center gap-3 relative group"
                 >
                   <img
                     src={img.previewUrl}
                     alt={img.file.name}
-                    className="w-14 h-14 object-cover rounded-xl border border-zinc-200 bg-white"
+                    className="w-14 h-14 object-cover rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)]"
                   />
                   <div className="flex-1 min-w-0">
-                    <span className="font-bold text-xs text-zinc-900 block truncate">
+                    <span className="font-bold text-xs text-[var(--color-ink)] block truncate">
                       Página {index + 1}
                     </span>
-                    <span className="text-[10px] text-zinc-500 truncate block">
+                    <span className="text-[10px] text-[var(--color-ink-muted)] truncate block">
                       {img.file.name}
                     </span>
                   </div>
@@ -255,7 +255,7 @@ export default function JpgToPdf() {
             onClick={generatePdf}
             disabled={isGenerating}
             type="button"
-            className="w-full py-4 bg-yellow-400 text-zinc-950 font-black rounded-2xl hover:bg-yellow-300 transition text-sm shadow-md flex items-center justify-center gap-2"
+            className="w-full py-4 bg-yellow-400 text-zinc-950 font-black rounded-[12px] hover:bg-yellow-300 transition text-sm shadow-md flex items-center justify-center gap-2"
           >
             <span>{isGenerating ? '⏳' : '⚡'}</span>
             <span>{isGenerating ? 'Processando Documento...' : 'Gerar e Salvar Documento PDF'}</span>

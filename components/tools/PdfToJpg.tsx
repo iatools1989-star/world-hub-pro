@@ -93,7 +93,7 @@ export default function PdfToJpg() {
   return (
     <div className="space-y-6">
       {/* Upload Drag & Drop */}
-      <div className="border-2 border-dashed border-zinc-300 hover:border-zinc-500 rounded-3xl p-8 text-center bg-white transition cursor-pointer shadow-sm">
+      <div className="border-2 border-dashed border-zinc-300 hover:border-zinc-500 rounded-[14px] p-8 text-center bg-[var(--color-surface)] transition cursor-pointer shadow-sm">
         <input
           type="file"
           id="pdf-to-jpg-input"
@@ -104,10 +104,10 @@ export default function PdfToJpg() {
         <label htmlFor="pdf-to-jpg-input" className="cursor-pointer block space-y-3">
           <span className="text-4xl block">📄</span>
           <div>
-            <span className="font-black text-zinc-900 block text-base">
+            <span className="font-black text-[var(--color-ink)] block text-base">
               {file ? file.name : 'Clique para selecionar seu documento PDF'}
             </span>
-            <span className="text-xs text-zinc-500 mt-1 block">
+            <span className="text-xs text-[var(--color-ink-muted)] mt-1 block">
               100% Privado: páginas extraídas localmente via Canvas no seu navegador.
             </span>
           </div>
@@ -115,27 +115,27 @@ export default function PdfToJpg() {
       </div>
 
       {file && (
-        <div className="bg-white p-6 sm:p-8 rounded-3xl border border-zinc-200 shadow-sm space-y-6">
+        <div className="bg-[var(--color-surface)] p-6 sm:p-8 rounded-[14px] border border-[var(--color-line)] shadow-sm space-y-6">
           <button
             onClick={convertPdfToJpg}
             disabled={isProcessing}
             type="button"
-            className="w-full py-4 bg-yellow-400 text-zinc-950 font-black rounded-2xl hover:bg-yellow-300 transition text-sm shadow-md flex items-center justify-center gap-2 disabled:opacity-50"
+            className="w-full py-4 bg-yellow-400 text-zinc-950 font-black rounded-[12px] hover:bg-yellow-300 transition text-sm shadow-md flex items-center justify-center gap-2 disabled:opacity-50"
           >
             <span>{isProcessing ? '⏳' : '⚡'}</span>
             <span>{isProcessing ? 'Extraindo páginas no navegador...' : 'Converter PDF para Imagens JPG'}</span>
           </button>
 
           {statusMessage && (
-            <div className="p-3 bg-zinc-50 border border-zinc-200 rounded-xl text-center text-xs text-zinc-600 font-medium">
+            <div className="p-3 bg-[var(--color-surface-2)] border border-[var(--color-line)] rounded-xl text-center text-xs text-[var(--color-ink-muted)] font-medium">
               {statusMessage}
             </div>
           )}
 
           {pageImages.length > 0 && (
-            <div className="space-y-4 pt-4 border-t border-zinc-100">
+            <div className="space-y-4 pt-4 border-t border-[var(--color-line)]">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-zinc-500 uppercase tracking-wider">
+                <span className="text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider">
                   Páginas Convertidas ({pageImages.length}):
                 </span>
                 <button
@@ -150,19 +150,19 @@ export default function PdfToJpg() {
                 {pageImages.map((imgUrl, idx) => (
                   <div
                     key={idx}
-                    className="p-3 bg-zinc-50 border border-zinc-200 rounded-2xl flex flex-col items-center gap-2"
+                    className="p-3 bg-[var(--color-surface-2)] border border-[var(--color-line)] rounded-[12px] flex flex-col items-center gap-2"
                   >
                     <img
                       src={imgUrl}
                       alt={`Página ${idx + 1}`}
-                      className="w-full h-40 object-contain rounded-xl border border-zinc-200 bg-white"
+                      className="w-full h-40 object-contain rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)]"
                     />
                     <div className="flex items-center justify-between w-full text-xs">
-                      <span className="font-bold text-zinc-700">Pág. {idx + 1}</span>
+                      <span className="font-bold text-[var(--color-ink-soft)]">Pág. {idx + 1}</span>
                       <a
                         href={imgUrl}
                         download={`pagina-${idx + 1}.jpg`}
-                        className="text-yellow-600 font-bold hover:underline"
+                        className="text-[var(--color-brand-deep)] font-bold hover:underline"
                       >
                         Baixar JPG
                       </a>

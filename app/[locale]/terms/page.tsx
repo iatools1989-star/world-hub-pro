@@ -18,30 +18,30 @@ export default async function TermsPage({ params }: { params: Promise<{ locale: 
   return (
     <div className="flex flex-col min-h-screen">
       <Header currentLocale={locale} />
-      <main className="max-w-[900px] mx-auto px-4 sm:px-6 py-12 flex-1 w-full">
-        <div className="bg-white border border-zinc-200 rounded-3xl p-6 sm:p-10 shadow-sm">
-          <div className="border-b border-zinc-200 pb-6 mb-8">
-            <span className="text-xs uppercase tracking-wider font-bold text-yellow-600 bg-yellow-50 px-3 py-1 rounded-full border border-yellow-200">
+      <main className="max-w-[1040px] mx-auto px-4 sm:px-6 lg:px-8 py-9 sm:py-12 flex-1 w-full">
+        <div className="bg-[var(--color-surface)] border border-[var(--color-line)] rounded-[14px] p-6 sm:p-10 shadow-sm">
+          <div className="border-b border-[var(--color-line)] pb-6 mb-8">
+            <span className="text-xs uppercase tracking-wider font-bold text-[var(--color-brand-deep)] bg-yellow-50 px-3 py-1 rounded-full border border-yellow-200">
               Legal Agreement
             </span>
-            <h1 className="text-3xl sm:text-4xl font-black text-zinc-900 mt-3 tracking-tight">
+            <h1 className="text-3xl sm:text-4xl font-black text-[var(--color-ink)] mt-3 tracking-tight">
               Terms of Service
             </h1>
-            <p className="text-xs text-zinc-500 mt-2">
+            <p className="text-xs text-[var(--color-ink-muted)] mt-2">
               Last updated: November 10, 2026 · Applies to the English edition at iatools.online
             </p>
           </div>
 
-          <div className="prose text-zinc-700 space-y-6 text-sm leading-relaxed">
+          <div className="prose text-[var(--color-ink-soft)] space-y-6 text-sm leading-relaxed">
             <section>
-              <h2 className="text-xl font-black text-zinc-900 mb-2">1. Acceptance of Terms</h2>
+              <h2 className="text-xl font-black text-[var(--color-ink)] mb-2">1. Acceptance of Terms</h2>
               <p>
-                By accessing and utilizing the web utilities, services, and software directory provided on <strong>World Tools Hub</strong> (available at <a href="https://iatools.online" className="text-yellow-600 font-bold hover:underline">https://iatools.online</a>), you agree to be bound by these Terms of Service, all applicable laws and regulations, and acknowledge your responsibility for compliance with local legal provisions.
+                By accessing and utilizing the web utilities, services, and software directory provided on <strong>World Tools Hub</strong> (available at <a href="https://iatools.online" className="text-[var(--color-brand-deep)] font-bold hover:underline">https://iatools.online</a>), you agree to be bound by these Terms of Service, all applicable laws and regulations, and acknowledge your responsibility for compliance with local legal provisions.
               </p>
             </section>
 
             <section>
-              <h2 className="text-xl font-black text-zinc-900 mb-2">2. Permitted Use & Local Processing</h2>
+              <h2 className="text-xl font-black text-[var(--color-ink)] mb-2">2. Permitted Use & Local Processing</h2>
               <p>
                 World Tools Hub grants you a revocable, non-exclusive, non-transferable license to utilize our browser-based utility tools for personal, educational, or commercial purposes.
               </p>
@@ -53,21 +53,21 @@ export default async function TermsPage({ params }: { params: Promise<{ locale: 
             </section>
 
             <section>
-              <h2 className="text-xl font-black text-zinc-900 mb-2">3. Intellectual Property Rights</h2>
+              <h2 className="text-xl font-black text-[var(--color-ink)] mb-2">3. Intellectual Property Rights</h2>
               <p>
                 The World Tools Hub website code, interface layout, brand designs, logos, software algorithms, and textual content are the intellectual property of World Tools Hub and are protected by international copyright and trademark protections.
               </p>
             </section>
 
             <section>
-              <h2 className="text-xl font-black text-zinc-900 mb-2">4. Third-Party Links & AI Directory Listings</h2>
+              <h2 className="text-xl font-black text-[var(--color-ink)] mb-2">4. Third-Party Links & AI Directory Listings</h2>
               <p>
                 Our directory contains links to third-party tools, external software providers, and affiliate partners. These third-party websites operate under separate independent terms and privacy protocols. We do not assume responsibility or liability for third-party content, billing policies, or data handling practices.
               </p>
             </section>
 
             <section>
-              <h2 className="text-xl font-black text-zinc-900 mb-2">5. Disclaimer of Warranties</h2>
+              <h2 className="text-xl font-black text-[var(--color-ink)] mb-2">5. Disclaimer of Warranties</h2>
               <p>
                 The materials, tools, and calculators on World Tools Hub are provided on an &quot;AS IS&quot; and &quot;AS AVAILABLE&quot; basis without warranties of any kind, whether express or implied. 
                 While we strive for precision in all mathematical algorithms, color models, PDF routines, and font renderings, we make no representations or warranties regarding the absolute accuracy, reliability, or completeness of the processed outputs for mission-critical or life-safety applications.
@@ -75,25 +75,25 @@ export default async function TermsPage({ params }: { params: Promise<{ locale: 
             </section>
 
             <section>
-              <h2 className="text-xl font-black text-zinc-900 mb-2">6. Limitation of Liability</h2>
+              <h2 className="text-xl font-black text-[var(--color-ink)] mb-2">6. Limitation of Liability</h2>
               <p>
                 In no event shall World Tools Hub, its founders, or contributors be held liable for any damages (including, without limitation, damages for loss of data, loss of business profits, or business interruption) arising out of the use or inability to use the tools on this website.
               </p>
             </section>
 
             <section>
-              <h2 className="text-xl font-black text-zinc-900 mb-2">7. Changes to Terms</h2>
+              <h2 className="text-xl font-black text-[var(--color-ink)] mb-2">7. Changes to Terms</h2>
               <p>
                 World Tools Hub reserves the right to modify these terms of service at any time without prior notice. By continuing to use the website following any revisions, you agree to be bound by the updated terms.
               </p>
             </section>
 
             <section>
-              <h2 className="text-xl font-black text-zinc-900 mb-2">8. Governing Law & Jurisdiction</h2>
+              <h2 className="text-xl font-black text-[var(--color-ink)] mb-2">8. Governing Law & Jurisdiction</h2>
               <p>
                 Any claims relating to World Tools Hub shall be governed by international internet commercial standards and consumer law provisions. Questions regarding these terms may be forwarded to{' '}
-                <a href="mailto:contact@iatools.online" className="text-yellow-600 font-bold hover:underline">
-                  contact@iatools.online
+                <a href="mailto:guilhermemarculasilva@gmail.com" className="text-[var(--color-brand-deep)] font-bold hover:underline">
+                  guilhermemarculasilva@gmail.com
                 </a>.
               </p>
             </section>

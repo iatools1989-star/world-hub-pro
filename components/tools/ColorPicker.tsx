@@ -96,10 +96,10 @@ export default function ColorPicker() {
   return (
     <div className="space-y-6">
       {/* Bloco Principal de Visualização */}
-      <div className="grid md:grid-cols-[1fr_1.3fr] gap-6 bg-white p-6 rounded-3xl border border-zinc-200 shadow-sm items-center">
+      <div className="grid md:grid-cols-[1fr_1.3fr] gap-6 bg-[var(--color-surface)] p-6 rounded-[14px] border border-[var(--color-line)] shadow-sm items-center">
         <div className="flex flex-col items-center gap-4">
           <div
-            className="w-full h-44 rounded-2xl shadow-inner border border-zinc-200 transition-colors flex items-center justify-center relative overflow-hidden"
+            className="w-full h-44 rounded-[12px] shadow-inner border border-[var(--color-line)] transition-colors flex items-center justify-center relative overflow-hidden"
             style={{ backgroundColor: color }}
           >
             <span
@@ -110,7 +110,7 @@ export default function ColorPicker() {
           </div>
 
           <div className="flex gap-2 w-full">
-            <label className="flex-1 py-3 px-4 bg-zinc-900 hover:bg-zinc-800 text-white font-bold rounded-2xl text-xs flex items-center justify-center gap-2 cursor-pointer transition shadow">
+            <label className="flex-1 py-3 px-4 bg-zinc-900 hover:bg-zinc-800 text-white font-bold rounded-[12px] text-xs flex items-center justify-center gap-2 cursor-pointer transition shadow">
               <span>🎨 Abrir Seletor</span>
               <input
                 type="color"
@@ -122,7 +122,7 @@ export default function ColorPicker() {
 
             <button
               onClick={handleEyeDropper}
-              className="py-3 px-4 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 font-bold rounded-2xl text-xs flex items-center gap-1.5 transition"
+              className="py-3 px-4 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 font-bold rounded-[12px] text-xs flex items-center gap-1.5 transition"
               title="Conta-gotas da tela"
             >
               <span>🧪</span> Conta-Gotas
@@ -135,7 +135,7 @@ export default function ColorPicker() {
           {colorFormats.map((fmt) => (
             <div
               key={fmt.label}
-              className="flex items-center justify-between p-3 bg-zinc-50 rounded-2xl border border-zinc-200"
+              className="flex items-center justify-between p-3 bg-[var(--color-surface-2)] rounded-[12px] border border-[var(--color-line)]"
             >
               <div>
                 <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider block">
@@ -161,8 +161,8 @@ export default function ColorPicker() {
       </div>
 
       {/* Paleta Dinâmica Harmônica */}
-      <div className="bg-white p-5 rounded-3xl border border-zinc-200 shadow-sm space-y-3">
-        <span className="text-xs font-bold text-zinc-500 uppercase tracking-wider block">
+      <div className="bg-[var(--color-surface)] p-5 rounded-[14px] border border-[var(--color-line)] shadow-sm space-y-3">
+        <span className="text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider block">
           Tons e Graduações de Brilho:
         </span>
         <div className="grid grid-cols-7 gap-2">

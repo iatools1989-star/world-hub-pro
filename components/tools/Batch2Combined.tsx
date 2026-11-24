@@ -174,10 +174,10 @@ function UnitConverterTool() {
             role="tab"
             aria-selected={category === cat}
             onClick={() => handleCategoryChange(cat)}
-            className={`p-3 rounded-2xl border text-xs font-bold flex flex-col items-center gap-1.5 transition-all ${
+            className={`p-3 rounded-[12px] border text-xs font-bold flex flex-col items-center gap-1.5 transition-all ${
               category === cat
                 ? 'bg-zinc-900 text-yellow-400 border-zinc-900 shadow-md scale-[1.02]'
-                : 'bg-white border-zinc-200 text-zinc-700 hover:border-zinc-300 hover:bg-zinc-50'
+                : 'bg-[var(--color-surface)] border-[var(--color-line)] text-[var(--color-ink-soft)] hover:border-zinc-300 hover:bg-[var(--color-surface-2)]'
             }`}
           >
             <span className="text-xl" aria-hidden="true">{CONVERTER_CATEGORIES[cat].icon}</span>
@@ -187,11 +187,11 @@ function UnitConverterTool() {
       </div>
 
       {/* Caixa de Conversão */}
-      <div className="bg-white p-6 sm:p-8 rounded-3xl border border-zinc-200 shadow-sm space-y-6">
+      <div className="bg-[var(--color-surface)] p-6 sm:p-8 rounded-[14px] border border-[var(--color-line)] shadow-sm space-y-6">
         <div className="grid md:grid-cols-[1fr_auto_1fr] gap-4 items-center">
           {/* Origem */}
           <div className="space-y-2">
-            <label htmlFor={inputId} className="block text-xs font-bold text-zinc-500 uppercase tracking-wider">
+            <label htmlFor={inputId} className="block text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider">
               De (Valor e Unidade):
             </label>
             <input
@@ -200,14 +200,14 @@ function UnitConverterTool() {
               value={fromValue}
               onChange={(e) => setFromValue(e.target.value)}
               placeholder="0"
-              className="w-full px-4 py-3 rounded-2xl border-2 border-zinc-200 focus:outline-none focus:border-yellow-400 font-bold text-lg"
+              className="w-full px-4 py-3 rounded-[12px] border-2 border-[var(--color-line)] focus:outline-none focus:border-yellow-400 font-bold text-lg"
             />
             <label htmlFor={fromSelectId} className="sr-only">Unidade de Origem</label>
             <select
               id={fromSelectId}
               value={fromUnit}
               onChange={(e) => setFromUnit(e.target.value)}
-              className="w-full p-2.5 rounded-xl border border-zinc-300 text-sm bg-white font-medium cursor-pointer"
+              className="w-full p-2.5 rounded-xl border border-zinc-300 text-sm bg-[var(--color-surface)] font-medium cursor-pointer"
             >
               {Object.entries(units).map(([key, item]) => (
                 <option key={key} value={key}>{item.label}</option>
@@ -222,7 +222,7 @@ function UnitConverterTool() {
               type="button"
               title="Inverter Unidades (⇄)"
               aria-label="Inverter Unidades"
-              className="w-12 h-12 bg-zinc-100 hover:bg-zinc-200 text-zinc-900 rounded-full flex items-center justify-center font-bold text-xl transition-transform hover:scale-110 active:scale-95 shadow-sm"
+              className="w-12 h-12 bg-zinc-100 hover:bg-zinc-200 text-[var(--color-ink)] rounded-full flex items-center justify-center font-bold text-xl transition-transform hover:scale-110 active:scale-95 shadow-sm"
             >
               ⇄
             </button>
@@ -230,11 +230,11 @@ function UnitConverterTool() {
 
           {/* Destino */}
           <div className="space-y-2">
-            <label htmlFor={toSelectId} className="block text-xs font-bold text-zinc-500 uppercase tracking-wider">
+            <label htmlFor={toSelectId} className="block text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider">
               To (Result):
             </label>
             <div
-              className="w-full px-4 py-3 rounded-2xl bg-zinc-50 border-2 border-zinc-200 font-black text-xl text-zinc-900 select-all overflow-x-auto min-h-[52px] flex items-center"
+              className="w-full px-4 py-3 rounded-[12px] bg-[var(--color-surface-2)] border-2 border-[var(--color-line)] font-black text-xl text-[var(--color-ink)] select-all overflow-x-auto min-h-[52px] flex items-center"
               aria-live="polite"
             >
               {calculateResult()}
@@ -243,7 +243,7 @@ function UnitConverterTool() {
               id={toSelectId}
               value={toUnit}
               onChange={(e) => setToUnit(e.target.value)}
-              className="w-full p-2.5 rounded-xl border border-zinc-300 text-sm bg-white font-medium cursor-pointer"
+              className="w-full p-2.5 rounded-xl border border-zinc-300 text-sm bg-[var(--color-surface)] font-medium cursor-pointer"
             >
               {Object.entries(units).map(([key, item]) => (
                 <option key={key} value={key}>{item.label}</option>
@@ -253,8 +253,8 @@ function UnitConverterTool() {
         </div>
 
         {/* Tabela de Referência Rápida (4 Unidades Alternativas em Tempo Real) */}
-        <div className="pt-4 border-t border-zinc-100">
-          <span className="text-xs font-bold text-zinc-500 uppercase tracking-wider block mb-3">
+        <div className="pt-4 border-t border-[var(--color-line)]">
+          <span className="text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider block mb-3">
             Tabela de Referência Rápida ({fromValue || 0} {units[fromUnit]?.label.split(' ')[0]} equivalem a):
           </span>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
@@ -270,11 +270,11 @@ function UnitConverterTool() {
                   converted = (num * units[fromUnit]?.rate) / item.rate;
                 }
                 return (
-                  <div key={k} className="p-3 bg-zinc-50 rounded-2xl border border-zinc-200 text-center space-y-1">
-                    <div className="font-black text-sm text-zinc-900 truncate">
+                  <div key={k} className="p-3 bg-[var(--color-surface-2)] rounded-[12px] border border-[var(--color-line)] text-center space-y-1">
+                    <div className="font-black text-sm text-[var(--color-ink)] truncate">
                       {Number(converted.toFixed(4))}
                     </div>
-                    <div className="text-[10px] text-zinc-500 font-semibold truncate">
+                    <div className="text-[10px] text-[var(--color-ink-muted)] font-semibold truncate">
                       {item.label}
                     </div>
                   </div>
@@ -387,17 +387,17 @@ function ColorPickerTool() {
     <div className="space-y-6">
       {/* Alerta Amigável para EyeDropper */}
       {eyeDropperMessage && (
-        <div className="p-3 bg-amber-50 border border-amber-200 text-amber-800 rounded-2xl text-xs flex items-center justify-between">
+        <div className="p-3 bg-amber-50 border border-amber-200 text-amber-800 rounded-[12px] text-xs flex items-center justify-between">
           <span>ℹ️ {eyeDropperMessage}</span>
           <button onClick={() => setEyeDropperMessage(null)} className="font-bold ml-2">✕</button>
         </div>
       )}
 
       {/* Bloco Principal de Visualização e Cópia */}
-      <div className="grid md:grid-cols-[1fr_1.3fr] gap-6 bg-white p-6 sm:p-8 rounded-3xl border border-zinc-200 shadow-sm items-center">
+      <div className="grid md:grid-cols-[1fr_1.3fr] gap-6 bg-[var(--color-surface)] p-6 sm:p-8 rounded-[14px] border border-[var(--color-line)] shadow-sm items-center">
         <div className="flex flex-col items-center gap-4">
           <div
-            className="w-full h-44 rounded-2xl shadow-inner border border-zinc-200 transition-colors flex items-center justify-center relative overflow-hidden"
+            className="w-full h-44 rounded-[12px] shadow-inner border border-[var(--color-line)] transition-colors flex items-center justify-center relative overflow-hidden"
             style={{ backgroundColor: color }}
           >
             <span className="px-4 py-2 bg-black/50 backdrop-blur-md rounded-xl text-white font-mono font-bold text-sm tracking-wider">
@@ -406,7 +406,7 @@ function ColorPickerTool() {
           </div>
 
           <div className="flex gap-2 w-full">
-            <label className="flex-1 py-3 px-4 bg-zinc-900 hover:bg-zinc-800 text-white font-bold rounded-2xl text-xs flex items-center justify-center gap-2 cursor-pointer transition shadow">
+            <label className="flex-1 py-3 px-4 bg-zinc-900 hover:bg-zinc-800 text-white font-bold rounded-[12px] text-xs flex items-center justify-center gap-2 cursor-pointer transition shadow">
               <span>🎨 Abrir Seletor</span>
               <input
                 type="color"
@@ -419,7 +419,7 @@ function ColorPickerTool() {
             <button
               onClick={handleEyeDropper}
               type="button"
-              className="py-3 px-4 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 font-bold rounded-2xl text-xs flex items-center gap-1.5 transition"
+              className="py-3 px-4 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 font-bold rounded-[12px] text-xs flex items-center gap-1.5 transition"
             >
               <span>🧪</span> Conta-Gotas
             </button>
@@ -431,7 +431,7 @@ function ColorPickerTool() {
           {colorFormats.map((fmt) => (
             <div
               key={fmt.label}
-              className="flex items-center justify-between p-3 bg-zinc-50 rounded-2xl border border-zinc-200"
+              className="flex items-center justify-between p-3 bg-[var(--color-surface-2)] rounded-[12px] border border-[var(--color-line)]"
             >
               <div>
                 <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider block">
@@ -458,8 +458,8 @@ function ColorPickerTool() {
       </div>
 
       {/* Paleta Harmônica de 7 Tons */}
-      <div className="bg-white p-6 rounded-3xl border border-zinc-200 shadow-sm space-y-3">
-        <span className="text-xs font-bold text-zinc-500 uppercase tracking-wider block">
+      <div className="bg-[var(--color-surface)] p-6 rounded-[14px] border border-[var(--color-line)] shadow-sm space-y-3">
+        <span className="text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider block">
           Paleta Harmônica (7 Graus de Brilho HSL — Clique para selecionar):
         </span>
         <div className="grid grid-cols-7 gap-2">
@@ -530,9 +530,9 @@ function URLShortenerTool() {
 
   return (
     <div className="space-y-6">
-      <div className="bg-white p-6 sm:p-8 rounded-3xl border border-zinc-200 shadow-sm space-y-4">
+      <div className="bg-[var(--color-surface)] p-6 sm:p-8 rounded-[14px] border border-[var(--color-line)] shadow-sm space-y-4">
         <div>
-          <label htmlFor="url-input" className="block text-xs font-bold text-zinc-500 uppercase tracking-wider mb-2">
+          <label htmlFor="url-input" className="block text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider mb-2">
             Enter the link with tracking parameters (anúncios, redes sociais, UTMs):
           </label>
           <input
@@ -541,14 +541,14 @@ function URLShortenerTool() {
             value={inputUrl}
             onChange={(e) => setInputUrl(e.target.value)}
             placeholder="https://exemplo.com/pagina?utm_source=..."
-            className="w-full px-4 py-3 rounded-2xl border-2 border-zinc-200 focus:outline-none focus:border-yellow-400 font-sans text-sm"
+            className="w-full px-4 py-3 rounded-[12px] border-2 border-[var(--color-line)] focus:outline-none focus:border-yellow-400 font-sans text-sm"
           />
         </div>
 
         <button
           onClick={cleanUrl}
           type="button"
-          className="w-full py-4 bg-yellow-400 text-zinc-950 font-black rounded-2xl hover:bg-yellow-300 transition text-sm shadow-md flex items-center justify-center gap-2"
+          className="w-full py-4 bg-yellow-400 text-zinc-950 font-black rounded-[12px] hover:bg-yellow-300 transition text-sm shadow-md flex items-center justify-center gap-2"
         >
           <span>✨</span> Clean and Remove Tracking Parameters
         </button>
@@ -556,9 +556,9 @@ function URLShortenerTool() {
 
       {/* Exibição do Resultado */}
       {cleanedUrl && (
-        <div className="bg-white p-6 sm:p-8 rounded-3xl border border-zinc-200 shadow-sm space-y-4">
+        <div className="bg-[var(--color-surface)] p-6 sm:p-8 rounded-[14px] border border-[var(--color-line)] shadow-sm space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-2">
-            <span className="text-xs font-bold text-zinc-500 uppercase tracking-wider">
+            <span className="text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider">
               URL Limpa e Otimizada:
             </span>
             {removedCount !== null && (
@@ -569,7 +569,7 @@ function URLShortenerTool() {
           </div>
 
           <div
-            className="p-4 bg-zinc-50 rounded-2xl border border-zinc-200 font-mono text-xs sm:text-sm text-zinc-800 break-all select-all leading-relaxed"
+            className="p-4 bg-[var(--color-surface-2)] rounded-[12px] border border-[var(--color-line)] font-mono text-xs sm:text-sm text-zinc-800 break-all select-all leading-relaxed"
             aria-live="polite"
           >
             {cleanedUrl}
@@ -579,7 +579,7 @@ function URLShortenerTool() {
             <button
               onClick={handleCopy}
               type="button"
-              className={`flex-1 py-3 px-5 font-bold rounded-2xl text-xs transition flex items-center justify-center gap-2 shadow ${
+              className={`flex-1 py-3 px-5 font-bold rounded-[12px] text-xs transition flex items-center justify-center gap-2 shadow ${
                 copied
                   ? 'bg-emerald-600 text-white'
                   : 'bg-zinc-900 text-white hover:bg-zinc-800'
@@ -591,7 +591,7 @@ function URLShortenerTool() {
               href={cleanedUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="py-3 px-5 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 font-bold rounded-2xl text-xs flex items-center justify-center gap-1.5 transition"
+              className="py-3 px-5 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 font-bold rounded-[12px] text-xs flex items-center justify-center gap-1.5 transition"
             >
               <span>↗</span> Testar URL em Nova Aba
             </a>
@@ -600,7 +600,7 @@ function URLShortenerTool() {
       )}
 
       {/* Cartão Explicativo de Privacidade */}
-      <div className="bg-zinc-50 border border-zinc-200 rounded-2xl p-4 text-xs text-zinc-600 leading-relaxed">
+      <div className="bg-[var(--color-surface-2)] border border-[var(--color-line)] rounded-[12px] p-4 text-xs text-[var(--color-ink-muted)] leading-relaxed">
         <b>💡 Por que limpar seus links?</b> Redes como Facebook, Google e TikTok anexam identificadores individuais (como <code className="bg-zinc-200 px-1 rounded">fbclid</code> e <code className="bg-zinc-200 px-1 rounded">gclid</code>) que rastreiam quem compartilhou a página. A remoção limpa esses dados sem quebrar o acesso ao destino.
       </div>
     </div>
@@ -616,24 +616,24 @@ export default function Batch2ToolsPage() {
   const [activeTab, setActiveTab] = useState<ToolTab>('unit-converter');
 
   return (
-    <div className="min-h-screen bg-zinc-50 text-zinc-900 py-10 px-4 sm:px-6">
+    <div className="min-h-screen bg-[var(--color-surface-2)] text-[var(--color-ink)] py-10 px-4 sm:px-6">
       <div className="max-w-[1000px] mx-auto space-y-8">
         {/* Cabeçalho */}
         <div className="text-center space-y-2">
-          <div className="inline-flex items-center gap-2 bg-yellow-400/20 text-zinc-900 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider">
+          <div className="inline-flex items-center gap-2 bg-yellow-400/20 text-[var(--color-ink)] px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider">
             Lote 2 • Utilitários de Conversão & Cor
           </div>
-          <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-zinc-900">
+          <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-[var(--color-ink)]">
             Ferramentas Online Otimizadas
           </h1>
-          <p className="text-sm text-zinc-600 max-w-xl mx-auto">
+          <p className="text-sm text-[var(--color-ink-muted)] max-w-xl mx-auto">
             Processamento 100% nativo no navegador, sem cookies de terceiros e sem chamadas externas.
           </p>
         </div>
 
         {/* Barra de Navegação entre as Ferramentas (Abas) */}
         <div className="flex justify-center" role="tablist" aria-label="Navegação entre Ferramentas">
-          <div className="inline-flex p-1.5 bg-white border border-zinc-200 rounded-2xl shadow-sm gap-1">
+          <div className="inline-flex p-1.5 bg-[var(--color-surface)] border border-[var(--color-line)] rounded-[12px] shadow-sm gap-1">
             <button
               role="tab"
               aria-selected={activeTab === 'unit-converter'}
@@ -641,7 +641,7 @@ export default function Batch2ToolsPage() {
               className={`px-4 py-2.5 rounded-xl font-bold text-xs transition flex items-center gap-2 ${
                 activeTab === 'unit-converter'
                   ? 'bg-zinc-900 text-yellow-400 shadow-sm'
-                  : 'text-zinc-600 hover:text-zinc-900'
+                  : 'text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]'
               }`}
             >
               <span>📐</span> Unit Converter
@@ -654,7 +654,7 @@ export default function Batch2ToolsPage() {
               className={`px-4 py-2.5 rounded-xl font-bold text-xs transition flex items-center gap-2 ${
                 activeTab === 'color-picker'
                   ? 'bg-zinc-900 text-yellow-400 shadow-sm'
-                  : 'text-zinc-600 hover:text-zinc-900'
+                  : 'text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]'
               }`}
             >
               <span>🎨</span> Color Picker
@@ -667,7 +667,7 @@ export default function Batch2ToolsPage() {
               className={`px-4 py-2.5 rounded-xl font-bold text-xs transition flex items-center gap-2 ${
                 activeTab === 'url-shortener'
                   ? 'bg-zinc-900 text-yellow-400 shadow-sm'
-                  : 'text-zinc-600 hover:text-zinc-900'
+                  : 'text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]'
               }`}
             >
               <span>🔗</span> URL Cleaner
@@ -680,10 +680,10 @@ export default function Batch2ToolsPage() {
           {activeTab === 'unit-converter' && (
             <section aria-labelledby="unit-converter-title">
               <div className="mb-4">
-                <h2 id="unit-converter-title" className="text-xl font-black text-zinc-900">
-                  Unit Converter <span className="text-xs text-zinc-500 font-normal">(/en/tools/unit-converter)</span>
+                <h2 id="unit-converter-title" className="text-xl font-black text-[var(--color-ink)]">
+                  Unit Converter <span className="text-xs text-[var(--color-ink-muted)] font-normal">(/en/tools/unit-converter)</span>
                 </h2>
-                <p className="text-xs text-zinc-600">
+                <p className="text-xs text-[var(--color-ink-muted)]">
                   Conversão exata entre 6 categorias com inversão rápida e referência simultânea.
                 </p>
               </div>
@@ -694,10 +694,10 @@ export default function Batch2ToolsPage() {
           {activeTab === 'color-picker' && (
             <section aria-labelledby="color-picker-title">
               <div className="mb-4">
-                <h2 id="color-picker-title" className="text-xl font-black text-zinc-900">
-                  Color Picker <span className="text-xs text-zinc-500 font-normal">(/en/tools/color-picker)</span>
+                <h2 id="color-picker-title" className="text-xl font-black text-[var(--color-ink)]">
+                  Color Picker <span className="text-xs text-[var(--color-ink-muted)] font-normal">(/en/tools/color-picker)</span>
                 </h2>
-                <p className="text-xs text-zinc-600">
+                <p className="text-xs text-[var(--color-ink-muted)]">
                   Inspeção com conta-gotas na tela, conversão para múltiplos formatos e paletas de 7 tons.
                 </p>
               </div>
@@ -708,10 +708,10 @@ export default function Batch2ToolsPage() {
           {activeTab === 'url-shortener' && (
             <section aria-labelledby="url-shortener-title">
               <div className="mb-4">
-                <h2 id="url-shortener-title" className="text-xl font-black text-zinc-900">
-                  URL Cleaner &amp; Shortener <span className="text-xs text-zinc-500 font-normal">(/en/tools/url-shortener)</span>
+                <h2 id="url-shortener-title" className="text-xl font-black text-[var(--color-ink)]">
+                  URL Cleaner &amp; Shortener <span className="text-xs text-[var(--color-ink-muted)] font-normal">(/en/tools/url-shortener)</span>
                 </h2>
-                <p className="text-xs text-zinc-600">
+                <p className="text-xs text-[var(--color-ink-muted)]">
                   Higienize links removendo parâmetros invasivos de rastreamento com 1 clique.
                 </p>
               </div>

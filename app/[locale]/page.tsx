@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import AdSenseBanner from '@/components/AdSenseBanner';
+import ToolIcon from '@/components/ToolIcon';
 import { TOOLS, DIRECTORY_ITEMS } from '@/lib/data';
 import JsonLd from '@/components/JsonLd';
 import { SITE_URL, SITE_NAME, canonical, publisher } from '@/lib/seo';
@@ -10,15 +11,25 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   return {
     title: 'Free Browser Tools & Curated AI Directory',
-    description: '16 fast, client-side tools + Private Bulk Studio. Process 100 images in 10s, 100% offline.',
+    description:
+      '16 fast, client-side tools + Private Bulk Studio. Process 100 images in 10s, 100% offline.',
     alternates: { canonical: canonical(`/${locale}`) },
   };
 }
 
+const GARANTIAS = [
+  { icone: 'lock', titulo: 'Nothing is uploaded', texto: 'Files are processed in the browser tab. There is no server to send them to.' },
+  { icone: 'bolt', titulo: 'No account, no limit', texto: 'Open the tool and use it. No sign-up wall, no daily cap, no watermark.' },
+  { icone: 'check', titulo: 'Prices we verified', texto: 'Every AI review lists the plan prices we checked and the case against buying.' },
+];
+
 export default async function HomePage() {
   const currentLocale = 'en';
+  const ferramentas = TOOLS.filter((t) => t.slug !== 'bulk-studio');
+  const destaque = TOOLS.find((t) => t.slug === 'bulk-studio');
+
   return (
-    <div className="flex flex-col min-h-screen bg-[#fcfcfd] dark:bg-zinc-950">
+    <div className="flex min-h-screen flex-col">
       <Header currentLocale={currentLocale} />
 
       <JsonLd
@@ -45,140 +56,276 @@ export default async function HomePage() {
           },
         ]}
       />
-      <section className="relative overflow-hidden bg-zinc-950 text-white px-4 sm:px-6 py-10 sm:py-14">
-        <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/10 via-transparent to-violet-500/10 pointer-events-none" />
-        <div className="absolute -top-20 -right-20 w-[500px] h-[500px] bg-yellow-400/10 rounded-full blur-[120px]" />
-        <div className="relative max-w-[1280px] mx-auto grid lg:grid-cols-[1.1fr_0.9fr] gap-8 items-center">
-          <div>
-            <div className="inline-flex items-center gap-2 bg-yellow-400 text-zinc-950 px-3 py-1 rounded-full text-xs font-black">
-              Free to use · No account needed
-            </div>
-            <h1 className="mt-4 text-4xl sm:text-5xl font-black tracking-tight leading-[1.05]">
-              Private Bulk Image Studio <span className="text-yellow-400">100% Offline</span>
-            </h1>
-            <p className="mt-4 text-lg text-zinc-400 leading-relaxed max-w-xl">
-              Drag 100 product photos and get a ZIP in 10 seconds without uploading to any server. Perfect for Shopify, Etsy and Amazon sellers.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link href="/en/tools/bulk-studio" className="px-7 py-3.5 rounded-full bg-yellow-400 text-zinc-950 font-black hover:bg-yellow-300 transition shadow-xl shadow-yellow-400/20 flex items-center gap-2">
-                🚀 Try Free Now →
-              </Link>
-              <div className="flex items-center gap-2 text-sm text-zinc-400">
-                Runs entirely in your browser — nothing is uploaded
+
+      <main className="flex-1">
+      {/* ---------------------------------------------------------------- HERO */}
+      <section className="border-b border-[var(--color-line)]">
+        <div className="mx-auto max-w-[1200px] px-4 pb-14 pt-14 sm:px-6 sm:pb-20 sm:pt-20 lg:px-8">
+          <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+            <div>
+              <p className="eyebrow">Free · Private · No account</p>
+              <h1 className="mt-4 text-[2.35rem] font-extrabold leading-[1.06] tracking-[-0.04em] text-[var(--color-ink)] sm:text-[3.4rem]">
+                Tools that never
+                <br />
+                <span className="relative inline-block">
+                  touch your files
+                  <span
+                    aria-hidden
+                    className="absolute inset-x-0 bottom-[0.12em] -z-10 h-[0.32em] bg-[var(--color-brand)]"
+                  />
+                </span>
+              </h1>
+              <p className="mt-6 max-w-[52ch] text-[17px] leading-relaxed text-[var(--color-ink-soft)]">
+                Sixteen PDF, image and text utilities that run entirely inside your browser.
+                Plus an AI directory where every price was checked and every downside is written
+                down — including the ones that cost us a commission.
+              </p>
+
+              <div className="mt-8 flex flex-wrap items-center gap-3">
+                <Link href="/en/tools" className="ui-btn ui-btn-primary">
+                  Browse 16 tools
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" className="h-4 w-4" aria-hidden>
+                    <path d="M5 12h14M13 6l6 6-6 6" />
+                  </svg>
+                </Link>
+                <Link href="/en/directory" className="ui-btn ui-btn-outline">
+                  AI directory
+                </Link>
               </div>
+
+              <dl className="mt-10 grid max-w-[440px] grid-cols-3 gap-6 border-t border-[var(--color-line)] pt-6">
+                {[
+                  ['16', 'free tools'],
+                  ['10', 'AI reviews'],
+                  ['0', 'files uploaded'],
+                ].map(([n, r]) => (
+                  <div key={r}>
+                    <dt className="text-[1.6rem] font-extrabold leading-none tracking-[-0.03em] text-[var(--color-ink)]">
+                      {n}
+                    </dt>
+                    <dd className="mt-1.5 text-[12px] font-semibold uppercase tracking-[0.06em] text-[var(--color-ink-muted)]">
+                      {r}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
             </div>
-            <div className="mt-6 flex flex-wrap gap-4 text-xs font-bold text-zinc-500">
-              <span className="flex items-center gap-1.5"><span className="w-2 h-2 bg-emerald-500 rounded-full"></span> 100% Offline</span>
-              <span className="flex items-center gap-1.5"><span className="w-2 h-2 bg-emerald-500 rounded-full"></span> No Upload</span>
-              <span className="flex items-center gap-1.5"><span className="w-2 h-2 bg-emerald-500 rounded-full"></span> ZIP in 10s</span>
-              <span className="px-2 py-1 bg-white/10 rounded-full border border-white/10">Unlimited · Free</span>
-            </div>
-          </div>
-          <div className="relative">
-            <div className="bg-white dark:bg-zinc-900 rounded-[24px] p-6 shadow-2xl border border-zinc-200 dark:border-zinc-800">
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-sm font-black text-zinc-900 dark:text-white flex items-center gap-2">📦 Bulk Studio <span className="px-2 py-0.5 bg-emerald-500 text-white text-[10px] rounded-full">LIVE</span></span>
-                <span className="text-xs text-zinc-500">Drag 100 photos → ZIP</span>
-              </div>
-              <div className="border-2 border-dashed border-zinc-200 dark:border-zinc-700 rounded-2xl bg-zinc-50 dark:bg-zinc-800/50 p-8 text-center">
-                <div className="w-12 h-12 mx-auto bg-yellow-400 rounded-xl flex items-center justify-center text-xl mb-3">📤</div>
-                <p className="font-bold text-zinc-900 dark:text-white text-sm">Drag your images here</p>
-                <p className="text-xs text-zinc-500 mt-1">JPG, PNG, WebP • up to 100 at once</p>
-                <div className="mt-4 grid grid-cols-4 gap-2 opacity-60">
-                  {[1,2,3,4].map(i=> <div key={i} className="aspect-square bg-zinc-200 dark:bg-zinc-700 rounded-lg"></div>)}
-                </div>
-              </div>
-              <div className="mt-4 flex gap-2">
-                <div className="flex-1 h-10 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full flex items-center justify-center font-bold text-sm">⚡ Process 100 images</div>
-              </div>
-              <p className="text-[11px] text-center text-zinc-500 mt-2">Your photos never leave your device • 100% in browser</p>
-            </div>
-            <div className="absolute -bottom-3 -right-3 bg-yellow-400 text-zinc-950 px-3 py-2 rounded-2xl shadow-xl font-black text-sm rotate-[-2deg]">
-              $9/mo • Unlimited
-            </div>
-          </div>
-        </div>
-      </section>
-      <section className="bg-white dark:bg-zinc-900 border-y border-zinc-100 dark:border-zinc-800 px-4 sm:px-6 py-8">
-        <div className="max-w-[1280px] mx-auto text-center">
-          <p className="text-xs font-black tracking-widest text-zinc-400 uppercase">Or use a free tool below — no sign-up</p>
-          <h2 className="mt-2 text-2xl sm:text-3xl font-black text-zinc-900 dark:text-white">
-            Fast Browser Tools <span className="text-yellow-500">& Curated AI Directory</span>
-          </h2>
-          <p className="mt-2 text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto">Perform daily PDF, text, and media tasks right inside your web browser. No uploads to foreign servers, zero data storage, entirely private.</p>
-          <div className="mt-4 flex justify-center gap-3">
-            <a href="#tools" className="px-5 py-2.5 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-bold text-sm">Explore Free Tools (16) ↓</a>
-            <a href="#directory" className="px-5 py-2.5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white font-bold text-sm border border-zinc-200 dark:border-zinc-700">Discover AI Directory →</a>
-          </div>
-        </div>
-      </section>
-      <div className="max-w-[1280px] mx-auto px-4 w-full"><AdSenseBanner /></div>
-      <section id="tools" className="max-w-[1280px] mx-auto px-4 sm:px-6 py-10 w-full">
-        <div className="flex flex-wrap items-end justify-between gap-4 mb-6">
-          <div>
-            <h2 className="text-2xl font-black text-zinc-900 dark:text-white flex items-center gap-2">
-              <span>🔧</span> Free Browser Tools
-              <span className="text-xs font-bold bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 px-2.5 py-1 rounded-full">{TOOLS.length} Ready</span>
-            </h2>
-            <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Runs entirely client-side. Your files never leave your device.</p>
-          </div>
-          <Link href="/en/tools/bulk-studio" className="text-sm font-bold text-yellow-600 hover:underline">See Bulk Studio featured →</Link>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {TOOLS.map((tool) => {
-            const isBulk = tool.slug === 'bulk-studio';
-            return (
-              <Link key={tool.slug} href={`/en/tools/${tool.slug}`} className={`rounded-2xl p-5 border hover:shadow-xl transition flex flex-col justify-between group ${isBulk ? 'bg-gradient-to-br from-yellow-400 to-amber-500 border-yellow-500 shadow-lg scale-[1.02]' : 'bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 hover:border-zinc-900 dark:hover:border-zinc-600'}`}>
+
+            {/* Cartão do Bulk Studio, sem promessa de preço */}
+            <div className="ui-card relative overflow-hidden p-6 shadow-[0_22px_60px_-40px_rgba(0,0,0,0.5)] sm:p-7">
+              <div className="flex items-start justify-between gap-4">
                 <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className={`text-2xl p-2 rounded-xl border ${isBulk ? 'bg-white/20 border-white/30' : 'bg-zinc-50 dark:bg-zinc-800 border-zinc-100 dark:border-zinc-700'} group-hover:scale-110 transition-transform`}>{tool.icon}</span>
-                    <span className="text-[10px] font-bold uppercase tracking-wider bg-zinc-900 dark:bg-zinc-700 text-white px-2 py-1 rounded-md">{tool.category}</span>
-                  </div>
-                  <h3 className={`font-bold ${isBulk ? 'text-zinc-950' : 'text-zinc-900 dark:text-white group-hover:text-yellow-600'}`}>{tool.name}</h3>
-                  <p className={`text-sm mt-1 line-clamp-2 ${isBulk ? 'text-zinc-900/70' : 'text-zinc-600 dark:text-zinc-400'}`}>{tool.desc}</p>
+                  <p className="eyebrow">Featured tool</p>
+                  <h2 className="mt-2 text-[1.15rem] font-bold tracking-[-0.02em] text-[var(--color-ink)]">
+                    Bulk Image Studio
+                  </h2>
                 </div>
-                <div className={`mt-4 pt-3 border-t flex items-center justify-between text-xs ${isBulk ? 'border-zinc-900/10' : 'border-zinc-100 dark:border-zinc-800'}`}>
-                  <span className={`font-bold group-hover:underline ${isBulk ? 'text-zinc-950' : 'text-zinc-900 dark:text-white'}`}>Use Tool →</span>
-                  {isBulk && <span className="bg-zinc-950 text-yellow-400 px-2 py-1 rounded-full font-black text-[11px]">MOST POPULAR</span>}
+                <span className="ui-chip ui-chip-brand">Free</span>
+              </div>
+
+              <div className="mt-5 rounded-[10px] border-2 border-dashed border-[var(--color-line-strong)] bg-[var(--color-surface-2)] px-5 py-8 text-center">
+                <div className="mx-auto grid h-11 w-11 place-items-center rounded-full border border-[var(--color-line)] bg-[var(--color-surface)] text-[var(--color-ink-muted)]">
+                  <ToolIcon nome="image-compressor" className="h-5 w-5" />
                 </div>
+                <p className="mt-3 text-[13.5px] font-semibold text-[var(--color-ink)]">
+                  Drop up to 100 images
+                </p>
+                <p className="mt-1 text-[12px] text-[var(--color-ink-muted)]">
+                  JPG · PNG · WebP — resized and zipped
+                </p>
+                <div className="mt-4 grid grid-cols-6 gap-1.5" aria-hidden>
+                  {Array.from({ length: 12 }).map((_, i) => (
+                    <div key={i} className="aspect-square rounded-[4px] bg-[var(--color-line)]" />
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-5 space-y-2.5">
+                {['Runs offline after first load', 'No upload, no queue, no watermark', 'Works on phone and desktop'].map((t) => (
+                  <p key={t} className="flex items-start gap-2 text-[13px] text-[var(--color-ink-soft)]">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" className="mt-[3px] h-3.5 w-3.5 shrink-0 text-[var(--color-brand-deep)]" aria-hidden>
+                      <path d="M4 13l5 5L20 7" />
+                    </svg>
+                    {t}
+                  </p>
+                ))}
+              </div>
+
+              <Link href="/en/tools/bulk-studio" className="ui-btn ui-btn-solid mt-6 w-full">
+                Open Bulk Studio
               </Link>
-            );
-          })}
-        </div>
-      </section>
-      <section id="directory" className="max-w-[1280px] mx-auto px-4 sm:px-6 py-10 w-full">
-        <div className="flex flex-wrap items-end justify-between gap-4 mb-6">
-          <div>
-            <h2 className="text-2xl font-black text-zinc-900 dark:text-white flex items-center gap-2">
-              <span>📚</span> Curated AI Directory
-              <span className="text-xs font-bold bg-yellow-400 text-zinc-950 px-2.5 py-1 rounded-full">Ranked & Reviewed</span>
-            </h2>
-            <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">We analyze and review top-tier AI software so you save time and budget.</p>
+            </div>
           </div>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {DIRECTORY_ITEMS.map((item) => (
-            <Link key={item.slug} href={`/en/directory/${item.slug}`} className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-5 hover:shadow-xl hover:border-zinc-900 dark:hover:border-zinc-600 transition flex flex-col justify-between group">
+      </section>
+
+      {/* ------------------------------------------------------- GARANTIAS */}
+      <section className="border-b border-[var(--color-line)] bg-[var(--color-surface)]">
+        <div className="mx-auto grid max-w-[1200px] gap-8 px-4 py-10 sm:grid-cols-3 sm:px-6 lg:px-8">
+          {GARANTIAS.map((g) => (
+            <div key={g.titulo} className="flex gap-3.5">
+              <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-[var(--color-line)] bg-[var(--color-surface-2)] text-[var(--color-ink)]">
+                <ToolIcon nome={g.icone} className="h-4 w-4" />
+              </div>
               <div>
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-2xl p-2 bg-zinc-50 dark:bg-zinc-800 rounded-xl border border-zinc-100 dark:border-zinc-700 group-hover:scale-110 transition-transform">{item.icon}</span>
-                  <div className="flex gap-1.5">
-                    {item.badge && <span className="text-[10px] font-black bg-yellow-400 text-zinc-950 px-2 py-1 rounded-md">{item.badge}</span>}
-                    <span className="text-[10px] font-bold bg-zinc-900 text-white px-2 py-1 rounded-md">{item.pricing}</span>
-                  </div>
-                </div>
-                <h3 className="font-bold text-zinc-900 dark:text-white group-hover:text-yellow-600 transition">{item.name}</h3>
-                <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-1 line-clamp-2">{item.desc}</p>
+                <h3 className="text-[13.5px] font-bold text-[var(--color-ink)]">{g.titulo}</h3>
+                <p className="mt-1 text-[13px] leading-relaxed text-[var(--color-ink-muted)]">{g.texto}</p>
               </div>
-              <div className="mt-4 pt-3 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-between text-xs">
-                <span className="font-bold text-zinc-900 dark:text-white group-hover:underline">Read Review →</span>
-                <span className="text-emerald-700 bg-emerald-50 dark:bg-emerald-950 dark:text-emerald-300 px-2 py-1 rounded border border-emerald-200 dark:border-emerald-800 font-bold">{item.category}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <div className="mx-auto w-full max-w-[1200px] px-4 pt-8 sm:px-6 lg:px-8">
+        <AdSenseBanner />
+      </div>
+
+      {/* ---------------------------------------------------------- TOOLS */}
+      <section id="tools" className="mx-auto w-full max-w-[1200px] px-4 py-14 sm:px-6 lg:px-8">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p className="eyebrow">Utilities</p>
+            <h2 className="mt-2 text-[1.75rem] font-extrabold tracking-[-0.03em] text-[var(--color-ink)] sm:text-[2.1rem]">
+              Free browser tools
+            </h2>
+            <p className="mt-2 max-w-[54ch] text-[14.5px] leading-relaxed text-[var(--color-ink-soft)]">
+              PDF, image, text, security and calculator utilities. All client-side — your files never
+              leave the device.
+            </p>
+          </div>
+          <Link href="/en/tools" className="ui-link text-[13.5px] font-bold">
+            See all 16
+          </Link>
+        </div>
+
+        <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {/* Destaque primeiro, largura dupla no desktop */}
+          {destaque && (
+            <Link
+              href={`/en/tools/${destaque.slug}`}
+              className="ui-card ui-card-hover group relative overflow-hidden p-5 sm:col-span-2 lg:col-span-1 lg:row-span-2"
+            >
+              <div className="flex items-start justify-between gap-3">
+                <span className="grid h-10 w-10 place-items-center rounded-[10px] border border-[var(--color-line)] bg-[var(--color-brand)] text-[#0a0a0b]">
+                  <ToolIcon nome={destaque.slug} className="h-5 w-5" />
+                </span>
+                <span className="ui-chip ui-chip-dark">Featured</span>
               </div>
+              <h3 className="mt-4 text-[15.5px] font-bold tracking-[-0.01em] text-[var(--color-ink)] group-hover:underline underline-offset-4">
+                {destaque.name}
+              </h3>
+              <p className="mt-1.5 text-[13.5px] leading-relaxed text-[var(--color-ink-muted)]">
+                {destaque.desc}
+              </p>
+              <p className="mt-5 text-[13px] font-bold text-[var(--color-ink)]">Open tool →</p>
+            </Link>
+          )}
+
+          {ferramentas.map((tool) => (
+            <Link
+              key={tool.slug}
+              href={`/en/tools/${tool.slug}`}
+              className="ui-card ui-card-hover group flex flex-col p-5"
+            >
+              <div className="flex items-start justify-between gap-3">
+                <span className="grid h-9 w-9 place-items-center rounded-[9px] border border-[var(--color-line)] bg-[var(--color-surface-2)] text-[var(--color-ink-soft)] transition-colors group-hover:bg-[var(--color-ink)] group-hover:text-[var(--color-canvas)]">
+                  <ToolIcon nome={tool.slug} className="h-[18px] w-[18px]" />
+                </span>
+                <span className="text-[10.5px] font-bold uppercase tracking-[0.08em] text-[var(--color-ink-muted)]">
+                  {tool.category}
+                </span>
+              </div>
+              <h3 className="mt-3.5 text-[14.5px] font-bold tracking-[-0.01em] text-[var(--color-ink)]">
+                {tool.name}
+              </h3>
+              <p className="mt-1 flex-1 text-[13px] leading-relaxed text-[var(--color-ink-muted)]">
+                {tool.desc}
+              </p>
             </Link>
           ))}
         </div>
       </section>
-      <div className="max-w-[1280px] mx-auto px-4 w-full"><AdSenseBanner /></div>
+
+      <div className="mx-auto w-full max-w-[1200px] px-4 sm:px-6 lg:px-8">
+        <AdSenseBanner />
+      </div>
+
+      {/* ------------------------------------------------------- DIRECTORY */}
+      <section id="directory" className="border-t border-[var(--color-line)] bg-[var(--color-surface-2)]">
+        <div className="mx-auto w-full max-w-[1200px] px-4 py-14 sm:px-6 lg:px-8">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="eyebrow">Reviewed</p>
+              <h2 className="mt-2 text-[1.75rem] font-extrabold tracking-[-0.03em] text-[var(--color-ink)] sm:text-[2.1rem]">
+                AI tools directory
+              </h2>
+              <p className="mt-2 max-w-[56ch] text-[14.5px] leading-relaxed text-[var(--color-ink-soft)]">
+                Ten commercial services, each with its November 2026 prices, the case against buying
+                it, and a cheaper alternative.
+              </p>
+            </div>
+            <Link href="/en/directory" className="ui-link text-[13.5px] font-bold">
+              Compare all
+            </Link>
+          </div>
+
+          <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {DIRECTORY_ITEMS.map((item) => (
+              <Link
+                key={item.slug}
+                href={`/en/directory/${item.slug}`}
+                className="ui-card ui-card-hover group flex flex-col p-5"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <span className="grid h-9 w-9 place-items-center rounded-[9px] border border-[var(--color-line)] bg-[var(--color-surface-2)] text-[var(--color-ink-soft)]">
+                    <ToolIcon nome={item.slug} className="h-[18px] w-[18px]" />
+                  </span>
+                  <div className="flex flex-wrap justify-end gap-1.5">
+                    {item.badge && <span className="ui-chip ui-chip-brand">{item.badge}</span>}
+                    <span className="ui-chip">{item.pricing}</span>
+                  </div>
+                </div>
+                <h3 className="mt-3.5 text-[14.5px] font-bold tracking-[-0.01em] text-[var(--color-ink)] group-hover:underline underline-offset-4">
+                  {item.name}
+                </h3>
+                <p className="mt-1 flex-1 text-[13px] leading-relaxed text-[var(--color-ink-muted)]">
+                  {item.desc}
+                </p>
+                <div className="mt-4 flex items-center justify-between border-t border-[var(--color-line)] pt-3">
+                  <span className="text-[12px] font-semibold text-[var(--color-ink-soft)]">
+                    {item.category}
+                  </span>
+                  <span className="text-[12px] font-bold text-[var(--color-ink)]">Read review →</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ------------------------------------------------------------ CTA */}
+      <section className="border-t border-[var(--color-line)]">
+        <div className="mx-auto max-w-[1200px] px-4 py-14 sm:px-6 lg:px-8">
+          <div className="ui-card flex flex-col items-start justify-between gap-6 p-7 sm:flex-row sm:items-center sm:p-9">
+            <div>
+              <p className="eyebrow">Start here</p>
+              <h2 className="mt-2 text-[1.4rem] font-extrabold tracking-[-0.025em] text-[var(--color-ink)] sm:text-[1.6rem]">
+                Not sure which tool you actually need?
+              </h2>
+              <p className="mt-2 max-w-[62ch] text-[14px] leading-relaxed text-[var(--color-ink-soft)]">
+                Our guides explain how to choose without jargon, what a pricing page hides, and how
+                affiliate commissions work — including why we tell you about them.
+              </p>
+            </div>
+            <Link href="/en/guides" className="ui-btn ui-btn-primary shrink-0">
+              Read the guides
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      </main>
+
       <Footer currentLocale={currentLocale} />
     </div>
   );

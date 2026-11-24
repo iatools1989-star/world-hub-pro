@@ -96,7 +96,7 @@ export default function ImageCompressor() {
   return (
     <div className="space-y-6">
       {/* Upload Drag & Drop */}
-      <div className="border-2 border-dashed border-zinc-300 hover:border-zinc-500 rounded-3xl p-8 text-center bg-white transition cursor-pointer shadow-sm">
+      <div className="border-2 border-dashed border-zinc-300 hover:border-zinc-500 rounded-[14px] p-8 text-center bg-[var(--color-surface)] transition cursor-pointer shadow-sm">
         <input
           type="file"
           id="img-upload-input"
@@ -107,15 +107,15 @@ export default function ImageCompressor() {
         <label htmlFor="img-upload-input" className="cursor-pointer block space-y-3">
           <span className="text-4xl block">🖼️</span>
           <div>
-            <span className="font-black text-zinc-900 block text-base">
+            <span className="font-black text-[var(--color-ink)] block text-base">
               {file ? file.name : 'Select or drag your JPG, PNG or WebP image'}
             </span>
-            <span className="text-xs text-zinc-500 mt-1 block">
+            <span className="text-xs text-[var(--color-ink-muted)] mt-1 block">
               100% Client-Side: your photo is processed in your browser without going to the cloud.
             </span>
           </div>
           {file && (
-            <span className="inline-block px-3 py-1 bg-zinc-100 rounded-full text-xs font-bold text-zinc-700">
+            <span className="inline-block px-3 py-1 bg-zinc-100 rounded-full text-xs font-bold text-[var(--color-ink-soft)]">
               Tamanho original: {formatSize(file.size)}
             </span>
           )}
@@ -123,13 +123,13 @@ export default function ImageCompressor() {
       </div>
 
       {file && (
-        <div className="bg-white p-6 sm:p-8 rounded-3xl border border-zinc-200 shadow-sm space-y-6">
+        <div className="bg-[var(--color-surface)] p-6 sm:p-8 rounded-[14px] border border-[var(--color-line)] shadow-sm space-y-6">
           {/* Controles de Qualidade e Formato */}
           <div className="grid sm:grid-cols-3 gap-5">
             <div>
-              <div className="flex justify-between items-center text-xs font-bold text-zinc-600 mb-2">
+              <div className="flex justify-between items-center text-xs font-bold text-[var(--color-ink-muted)] mb-2">
                 <span>Qualidade de Compressão</span>
-                <span className="font-mono text-zinc-900">{quality}%</span>
+                <span className="font-mono text-[var(--color-ink)]">{quality}%</span>
               </div>
               <input
                 type="range"
@@ -142,9 +142,9 @@ export default function ImageCompressor() {
             </div>
 
             <div>
-              <div className="flex justify-between items-center text-xs font-bold text-zinc-600 mb-2">
+              <div className="flex justify-between items-center text-xs font-bold text-[var(--color-ink-muted)] mb-2">
                 <span>Dimensão (Escala)</span>
-                <span className="font-mono text-zinc-900">{scalePercent}%</span>
+                <span className="font-mono text-[var(--color-ink)]">{scalePercent}%</span>
               </div>
               <input
                 type="range"
@@ -158,11 +158,11 @@ export default function ImageCompressor() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-zinc-600 mb-2">Formato de Saída</label>
+              <label className="block text-xs font-bold text-[var(--color-ink-muted)] mb-2">Formato de Saída</label>
               <select
                 value={outputFormat}
                 onChange={(e) => setOutputFormat(e.target.value as any)}
-                className="w-full p-2.5 rounded-xl border border-zinc-300 text-sm bg-white font-medium cursor-pointer"
+                className="w-full p-2.5 rounded-xl border border-zinc-300 text-sm bg-[var(--color-surface)] font-medium cursor-pointer"
               >
                 <option value="image/jpeg">JPEG (.jpg)</option>
                 <option value="image/webp">WebP (.webp - Máxima compressão)</option>
@@ -175,7 +175,7 @@ export default function ImageCompressor() {
             onClick={compressImage}
             disabled={isProcessing}
             type="button"
-            className="w-full py-4 bg-yellow-400 text-zinc-950 font-black rounded-2xl hover:bg-yellow-300 transition text-sm shadow-md flex items-center justify-center gap-2 disabled:opacity-50"
+            className="w-full py-4 bg-yellow-400 text-zinc-950 font-black rounded-[12px] hover:bg-yellow-300 transition text-sm shadow-md flex items-center justify-center gap-2 disabled:opacity-50"
           >
             <span>{isProcessing ? '⏳' : '⚡'}</span>
             <span>{isProcessing ? 'Comprimindo no navegador...' : 'Comprimir Imagem Agora'}</span>
@@ -183,10 +183,10 @@ export default function ImageCompressor() {
 
           {/* Comparativo de Resultados */}
           {compressedBlob && (
-            <div className="p-6 bg-zinc-50 rounded-2xl border border-zinc-200 space-y-4">
+            <div className="p-6 bg-[var(--color-surface-2)] rounded-[12px] border border-[var(--color-line)] space-y-4">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div>
-                  <span className="text-xs font-bold text-zinc-500 uppercase tracking-wider block">Resultado:</span>
+                  <span className="text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider block">Resultado:</span>
                   <div className="flex items-center gap-2 mt-1">
                     <span className="text-sm line-through text-zinc-400">{formatSize(file.size)}</span>
                     <span className="text-lg font-black text-emerald-700">{formatSize(compressedBlob.size)}</span>
@@ -203,7 +203,7 @@ export default function ImageCompressor() {
               <a
                 href={compressedUrl}
                 download={`comprimido-${file.name.replace(/\.[^/.]+$/, '')}.${outputFormat.split('/')[1]}`}
-                className="w-full py-3.5 bg-zinc-900 text-white font-bold rounded-2xl hover:bg-zinc-800 transition text-sm flex items-center justify-center gap-2 shadow"
+                className="w-full py-3.5 bg-zinc-900 text-white font-bold rounded-[12px] hover:bg-zinc-800 transition text-sm flex items-center justify-center gap-2 shadow"
               >
                 <span>⬇</span> Baixar Imagem Otimizada
               </a>

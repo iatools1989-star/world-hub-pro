@@ -50,7 +50,7 @@ export default function BulkStudio() {
   };
 
   return (
-    <div className="p-6 bg-white rounded-xl border">
+    <div className="p-6 bg-[var(--color-surface)] rounded-xl border">
       <h2 className="text-2xl font-bold">📦 Private Bulk Studio</h2>
       <p className="text-sm text-gray-600">100% offline. Suas fotos nunca saem do seu navegador.</p>
       <input type="file" multiple accept="image/*" onChange={handleFiles} className="my-4 block w-full border p-2 rounded" />

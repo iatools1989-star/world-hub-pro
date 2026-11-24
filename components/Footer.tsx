@@ -1,32 +1,89 @@
 import Link from 'next/link';
 
+const COLUNAS: { titulo: string; itens: { label: string; href: string }[] }[] = [
+  {
+    titulo: 'Product',
+    itens: [
+      { label: 'All tools', href: '/en/tools' },
+      { label: 'AI directory', href: '/en/directory' },
+      { label: 'Guides', href: '/en/guides' },
+    ],
+  },
+  {
+    titulo: 'Company',
+    itens: [
+      { label: 'About', href: '/en/about' },
+      { label: 'Contact', href: '/en/contact' },
+    ],
+  },
+  {
+    titulo: 'Legal',
+    itens: [
+      { label: 'Privacy', href: '/en/privacy' },
+      { label: 'Terms', href: '/en/terms' },
+      { label: 'Affiliate disclosure', href: '/en/affiliate-disclosure' },
+    ],
+  },
+];
+
 export default function Footer({ currentLocale }: { currentLocale: string }) {
+  const ano = new Date().getFullYear();
   return (
-    <footer className="bg-zinc-950 text-zinc-400 border-t border-zinc-900">
-      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 py-8">
-        <div className="flex flex-col md:flex-row justify-between gap-6">
+    <footer className="border-t border-[var(--color-line)] bg-[var(--color-surface-2)]">
+      <div className="mx-auto max-w-[1200px] px-4 py-12 sm:px-6 lg:px-8">
+        <div className="grid gap-10 md:grid-cols-[1.6fr_repeat(3,1fr)]">
+          {/* Marca */}
           <div>
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-full bg-gradient-to-br from-emerald-400 to-blue-500" />
-              <span className="font-black text-white tracking-tight">WORLD<span className="font-normal">HUB</span></span>
+            <div className="flex items-center gap-2.5">
+              <span className="grid h-8 w-8 place-items-center rounded-[9px] bg-[var(--color-ink)] text-[13px] font-black text-[var(--color-brand)]">
+                W
+              </span>
+              <span className="text-[14.5px] font-extrabold tracking-[-0.02em] text-[var(--color-ink)]">
+                World Tools Hub
+              </span>
             </div>
-            <p className="text-sm mt-2 text-zinc-500">Privacy-first tools. 100% client-side. No upload, no account required.</p>
-            <p className="text-xs mt-2 text-zinc-600">Free tools · No subscription · No paywall</p>
+            <p className="mt-4 max-w-[34ch] text-[13.5px] leading-relaxed text-[var(--color-ink-muted)]">
+              Free browser tools that never upload your files, plus an AI directory with prices
+              verified and limitations stated upfront.
+            </p>
+            <p className="mt-3 text-[12px] text-[var(--color-ink-muted)]">
+              Some outbound links are affiliate links (<span className="font-semibold">#ad</span>).
+              They never affect ranking or verdicts.
+            </p>
           </div>
-          <div className="flex gap-6 text-sm">
-            <Link href="/en/guides" className="hover:text-white">Guides</Link>
-            <Link href="/en/about" className="hover:text-white">About</Link>
-            <Link href="/en/privacy" className="hover:text-white">Privacy</Link>
-            <Link href="/en/terms" className="hover:text-white">Terms</Link>
-            <Link href="/en/affiliate-disclosure" className="hover:text-white">Affiliate disclosure</Link>
-            <a href="mailto:contact@iatools.online" className="hover:text-white">contact@iatools.online</a>
-          </div>
+
+          {/* Colunas */}
+          {COLUNAS.map((col) => (
+            <div key={col.titulo}>
+              <p className="eyebrow mb-3">{col.titulo}</p>
+              <ul className="space-y-2">
+                {col.itens.map((it) => (
+                  <li key={it.href}>
+                    <Link
+                      href={it.href}
+                      className="text-[13.5px] font-medium text-[var(--color-ink-soft)] hover:text-[var(--color-ink)] hover:underline underline-offset-4"
+                    >
+                      {it.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
-        <div className="mt-8 pt-6 border-t border-zinc-900 flex flex-col sm:flex-row justify-between gap-4 text-xs text-zinc-500">
-          <span>© 2026 World Tools Hub · Free browser tools · Some outbound links may be affiliate links (#ad) — never a paid ranking</span>
-          <span className="flex items-center gap-2">
-            <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" /> All systems operational
-          </span>
+
+        <hr className="ui-rule my-8" />
+
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-[12px] text-[var(--color-ink-muted)]">
+            © {ano} World Tools Hub · Free tools · No subscription · No paywall
+          </p>
+          <a
+            href="mailto:guilhermemarculasilva@gmail.com"
+            className="text-[12.5px] font-semibold text-[var(--color-ink-soft)] hover:text-[var(--color-ink)] hover:underline underline-offset-4"
+          >
+            guilhermemarculasilva@gmail.com
+          </a>
         </div>
       </div>
     </footer>

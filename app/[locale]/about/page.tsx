@@ -18,29 +18,29 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   return (
     <div className="flex flex-col min-h-screen">
       <Header currentLocale={locale} />
-      <main className="max-w-[900px] mx-auto px-4 sm:px-6 py-12 flex-1 w-full">
-        <div className="bg-white border border-zinc-200 rounded-3xl p-6 sm:p-10 shadow-sm">
-          <div className="border-b border-zinc-200 pb-6 mb-8">
-            <span className="text-xs uppercase tracking-wider font-bold text-yellow-600 bg-yellow-50 px-3 py-1 rounded-full border border-yellow-200">
+      <main className="max-w-[1040px] mx-auto px-4 sm:px-6 lg:px-8 py-9 sm:py-12 flex-1 w-full">
+        <div className="bg-[var(--color-surface)] border border-[var(--color-line)] rounded-[14px] p-6 sm:p-10 shadow-sm">
+          <div className="border-b border-[var(--color-line)] pb-6 mb-8">
+            <span className="text-xs uppercase tracking-wider font-bold text-[var(--color-brand-deep)] bg-yellow-50 px-3 py-1 rounded-full border border-yellow-200">
               Our Vision
             </span>
-            <h1 className="text-3xl sm:text-4xl font-black text-zinc-900 mt-3 tracking-tight">
+            <h1 className="text-3xl sm:text-4xl font-black text-[var(--color-ink)] mt-3 tracking-tight">
               About World Tools Hub
             </h1>
-            <p className="text-sm text-zinc-600 mt-2">
+            <p className="text-sm text-[var(--color-ink-muted)] mt-2">
               Sixteen free browser tools that never see your files, and a short directory of the paid ones we
               would actually pay for.
             </p>
-            <p className="text-xs text-zinc-500 mt-2">
+            <p className="text-xs text-[var(--color-ink-muted)] mt-2">
               Last updated: November 10, 2026
             </p>
           </div>
 
-          <div className="prose text-zinc-700 space-y-6 text-sm leading-relaxed">
+          <div className="prose text-[var(--color-ink-soft)] space-y-6 text-sm leading-relaxed">
             <section>
-              <h2 className="text-xl font-black text-zinc-900 mb-2">1. Who We Are</h2>
+              <h2 className="text-xl font-black text-[var(--color-ink)] mb-2">1. Who We Are</h2>
               <p>
-                <strong>World Tools Hub</strong> (<a href="https://iatools.online" className="text-yellow-600 font-bold hover:underline">iatools.online</a>) is an open utility initiative created by engineers and digital creators who were tired of bloated, ad-ridden converter websites that demand file uploads and harvest user telemetry.
+                <strong>World Tools Hub</strong> (<a href="https://iatools.online" className="text-[var(--color-brand-deep)] font-bold hover:underline">iatools.online</a>) is an open utility initiative created by engineers and digital creators who were tired of bloated, ad-ridden converter websites that demand file uploads and harvest user telemetry.
               </p>
               <p className="mt-2">
                 We believe that modern web browsers possess more than enough compute power to process PDFs, manipulate images, analyze text, and execute cryptographic calculations locally without transmitting confidential documents across public internet servers.
@@ -48,32 +48,32 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             </section>
 
             <section>
-              <h2 className="text-xl font-black text-zinc-900 mb-2">2. The Client-Side Advantage: Zero Server Footprint</h2>
+              <h2 className="text-xl font-black text-[var(--color-ink)] mb-2">2. The Client-Side Advantage: Zero Server Footprint</h2>
               <p>
                 Most online document converters require you to send sensitive contracts, personal photos, and business spreadsheets to cloud instances owned by unknown third parties. 
                 At World Tools Hub, our architecture relies entirely on <strong>client-side execution</strong>:
               </p>
               <div className="grid sm:grid-cols-3 gap-4 mt-4 not-prose">
-                <div className="p-4 bg-zinc-50 rounded-2xl border border-zinc-200">
+                <div className="p-4 bg-[var(--color-surface-2)] rounded-[12px] border border-[var(--color-line)]">
                   <div className="text-2xl mb-1">🛡️</div>
-                  <div className="font-bold text-zinc-900 text-sm">Strict Privacy</div>
-                  <div className="text-xs text-zinc-600 mt-1">Your data never touches our server disks or backend databases.</div>
+                  <div className="font-bold text-[var(--color-ink)] text-sm">Strict Privacy</div>
+                  <div className="text-xs text-[var(--color-ink-muted)] mt-1">Your data never touches our server disks or backend databases.</div>
                 </div>
-                <div className="p-4 bg-zinc-50 rounded-2xl border border-zinc-200">
+                <div className="p-4 bg-[var(--color-surface-2)] rounded-[12px] border border-[var(--color-line)]">
                   <div className="text-2xl mb-1">⚡</div>
-                  <div className="font-bold text-zinc-900 text-sm">Instant Execution</div>
-                  <div className="text-xs text-zinc-600 mt-1">No upload queues, no network latency, and zero wait time.</div>
+                  <div className="font-bold text-[var(--color-ink)] text-sm">Instant Execution</div>
+                  <div className="text-xs text-[var(--color-ink-muted)] mt-1">No upload queues, no network latency, and zero wait time.</div>
                 </div>
-                <div className="p-4 bg-zinc-50 rounded-2xl border border-zinc-200">
+                <div className="p-4 bg-[var(--color-surface-2)] rounded-[12px] border border-[var(--color-line)]">
                   <div className="text-2xl mb-1">🌍</div>
-                  <div className="font-bold text-zinc-900 text-sm">One Language, Done Properly</div>
-                  <div className="text-xs text-zinc-600 mt-1">Everything here is written in English. We chose one language done properly over twelve machine-translated ones.</div>
+                  <div className="font-bold text-[var(--color-ink)] text-sm">One Language, Done Properly</div>
+                  <div className="text-xs text-[var(--color-ink-muted)] mt-1">Everything here is written in English. We chose one language done properly over twelve machine-translated ones.</div>
                 </div>
               </div>
             </section>
 
             <section>
-              <h2 className="text-xl font-black text-zinc-900 mb-2">3. Our Editorial & Testing Methodology</h2>
+              <h2 className="text-xl font-black text-[var(--color-ink)] mb-2">3. Our Editorial & Testing Methodology</h2>
               <p>
                 In addition to our browser utilities, we curate a focused directory of artificial intelligence software. Every tool listed undergoes rigorous criteria before inclusion:
               </p>
@@ -85,7 +85,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             </section>
 
             <section>
-              <h2 className="text-xl font-black text-zinc-900 mb-2">4. Sustainable Monetization Model</h2>
+              <h2 className="text-xl font-black text-[var(--color-ink)] mb-2">4. Sustainable Monetization Model</h2>
               <p>
                 We do not sell user data, we do not require account registration, and we do not paywall our utilities. Our infrastructure and ongoing development are sustained by:
               </p>
@@ -96,12 +96,12 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             </section>
 
             <section>
-              <h2 className="text-xl font-black text-zinc-900 mb-2">5. Editorial Leadership & Contact</h2>
+              <h2 className="text-xl font-black text-[var(--color-ink)] mb-2">5. Editorial Leadership & Contact</h2>
               <p>
                 World Tools Hub is continually updated to support modern Web APIs (WebAssembly, HTML5 Canvas 2D, Web Speech API, and Client Crypto). 
                 For suggestions, bug reports, or feature requests, contact us directly at{' '}
-                <a href="mailto:contact@iatools.online" className="text-yellow-600 font-bold hover:underline">
-                  contact@iatools.online
+                <a href="mailto:guilhermemarculasilva@gmail.com" className="text-[var(--color-brand-deep)] font-bold hover:underline">
+                  guilhermemarculasilva@gmail.com
                 </a>.
               </p>
             </section>

@@ -88,10 +88,10 @@ export default function ResumeBuilder() {
   return (
     <div className="space-y-6">
       {/* Formulário de Edição */}
-      <div className="bg-white p-6 sm:p-8 rounded-3xl border border-zinc-200 shadow-sm space-y-5">
+      <div className="bg-[var(--color-surface)] p-6 sm:p-8 rounded-[14px] border border-[var(--color-line)] shadow-sm space-y-5">
         <div className="grid sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs font-bold text-zinc-500 uppercase tracking-wider mb-1.5">Full Name</label>
+            <label className="block text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider mb-1.5">Full Name</label>
             <input
               type="text"
               value={fullName}
@@ -101,7 +101,7 @@ export default function ResumeBuilder() {
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-zinc-500 uppercase tracking-wider mb-1.5">Job Title</label>
+            <label className="block text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider mb-1.5">Job Title</label>
             <input
               type="text"
               value={role}
@@ -111,7 +111,7 @@ export default function ResumeBuilder() {
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-zinc-500 uppercase tracking-wider mb-1.5">E-mail</label>
+            <label className="block text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider mb-1.5">E-mail</label>
             <input
               type="email"
               value={email}
@@ -121,7 +121,7 @@ export default function ResumeBuilder() {
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-zinc-500 uppercase tracking-wider mb-1.5">Phone / WhatsApp</label>
+            <label className="block text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider mb-1.5">Phone / WhatsApp</label>
             <input
               type="text"
               value={phone}
@@ -132,7 +132,7 @@ export default function ResumeBuilder() {
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-zinc-500 uppercase tracking-wider mb-1.5">Professional Summary</label>
+          <label className="block text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider mb-1.5">Professional Summary</label>
           <textarea
             rows={3}
             value={summary}
@@ -142,7 +142,7 @@ export default function ResumeBuilder() {
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-zinc-500 uppercase tracking-wider mb-1.5">Work Experience</label>
+          <label className="block text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider mb-1.5">Work Experience</label>
           <textarea
             rows={5}
             value={experience}
@@ -152,7 +152,7 @@ export default function ResumeBuilder() {
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-zinc-500 uppercase tracking-wider mb-1.5">Education & Courses</label>
+          <label className="block text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider mb-1.5">Education & Courses</label>
           <textarea
             rows={3}
             value={education}
@@ -162,7 +162,7 @@ export default function ResumeBuilder() {
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-zinc-500 uppercase tracking-wider mb-1.5">Skills (comma separated)</label>
+          <label className="block text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider mb-1.5">Skills (comma separated)</label>
           <input
             type="text"
             value={skills}
@@ -174,7 +174,7 @@ export default function ResumeBuilder() {
         <button
           onClick={handlePrintPdf}
           type="button"
-          className="w-full py-4 bg-yellow-400 text-zinc-950 font-black rounded-2xl hover:bg-yellow-300 transition text-sm shadow-md flex items-center justify-center gap-2"
+          className="w-full py-4 bg-yellow-400 text-zinc-950 font-black rounded-[12px] hover:bg-yellow-300 transition text-sm shadow-md flex items-center justify-center gap-2"
         >
           <span>📄</span> Generate and Download Formatted Resume (PDF / Print)
         </button>

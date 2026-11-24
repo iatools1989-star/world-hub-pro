@@ -1,1 +1,298 @@
 @import "tailwindcss";
+
+/* ==========================================================================
+   TEMA ESCURO — CORREÇÃO DA CAUSA RAIZ
+   O Tailwind v4, por padrão, compila `dark:` como
+   `@media (prefers-color-scheme: dark)`.
+   Ou seja: o botão de tema mudava a classe `.dark` no <html>, mas NENHUMA
+   classe `dark:` do site respondia a ela — o site só seguia o tema do
+   sistema operacional. Essa linha troca o gatilho para a classe, que é o
+   que o botão controla.
+   ========================================================================== */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* --------------------------------------------------------------------------
+   TOKENS
+   Substituem os valores soltos (bg-[#fcfcfd], text-zinc-900...) por nomes
+   com significado. Uma mudança aqui reflete no site inteiro.
+   -------------------------------------------------------------------------- */
+@theme {
+  --color-canvas: #faf9f7;
+  --color-canvas-deep: #f2f0eb;
+  --color-surface: #ffffff;
+  --color-surface-2: #f6f5f2;
+  --color-line: #e6e3dd;
+  --color-line-strong: #d3cfc6;
+  --color-ink: #101012;
+  --color-ink-soft: #3f3f46;
+  --color-ink-muted: #6b6b76;
+  --color-brand: #f5c518;
+  --color-brand-deep: #d9a800;
+
+  --radius-card: 14px;
+  --radius-pill: 999px;
+}
+
+/* Tokens do modo escuro: sobrescreve as variáveis, não as classes. */
+.dark {
+  --color-canvas: #0a0a0c;
+  --color-canvas-deep: #08080a;
+  --color-surface: #141417;
+  --color-surface-2: #1b1b20;
+  --color-line: #2a2a30;
+  --color-line-strong: #3a3a42;
+  --color-ink: #f4f4f5;
+  --color-ink-soft: #d4d4d8;
+  --color-ink-muted: #9b9ba4;
+}
+
+/* --------------------------------------------------------------------------
+   BASE
+   -------------------------------------------------------------------------- */
+:root {
+  color-scheme: light;
+  --nav-h: 68px;
+}
+.dark {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+  font-feature-settings: "kern" 1, "liga" 1, "cv11" 1;
+  text-rendering: optimizeLegibility;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+::selection {
+  background: var(--color-brand);
+  color: #0a0a0b;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brand-deep);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Barra de rolagem discreta */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-line-strong) transparent;
+}
+
+/* --------------------------------------------------------------------------
+   COMPONENTES DE BASE
+   Usados em todas as páginas para garantir o MESMO padrão visual.
+   Escrever estas regras aqui (em vez de repetir 15 classes em cada página)
+   é o que impede o layout de divergir página a página.
+   -------------------------------------------------------------------------- */
+
+/* Superfície de cartão */
+.ui-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+}
+
+.ui-card-hover {
+  transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+}
+.ui-card-hover:hover {
+  border-color: var(--color-line-strong);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px -18px rgb(0 0 0 / 0.28);
+}
+.dark .ui-card-hover:hover {
+  box-shadow: 0 10px 30px -14px rgb(0 0 0 / 0.9);
+}
+
+/* Painel suave */
+.ui-panel {
+  background-color: var(--color-surface-2);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+}
+
+/* Rótulo pequeno em caixa alta — assinatura editorial */
+.eyebrow {
+  font-family: var(--font-mono, ui-monospace, "SF Mono", Menlo, monospace);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+}
+
+/* Chip / etiqueta */
+.ui-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-line);
+  background-color: var(--color-surface);
+  color: var(--color-ink-soft);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.ui-chip-brand {
+  border-color: var(--color-brand);
+  background-color: var(--color-brand);
+  color: #0a0a0b;
+}
+
+.ui-chip-dark {
+  border-color: transparent;
+  background-color: var(--color-ink);
+  color: var(--color-canvas);
+}
+
+/* Botões */
+.ui-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 20px;
+  border-radius: var(--radius-pill);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  border: 1px solid transparent;
+  transition: background-color 0.16s ease, border-color 0.16s ease,
+    color 0.16s ease, transform 0.16s ease;
+}
+.ui-btn:active {
+  transform: translateY(1px);
+}
+
+.ui-btn-primary {
+  background-color: var(--color-brand);
+  color: #0a0a0b;
+}
+.ui-btn-primary:hover {
+  background-color: var(--color-brand-deep);
+}
+
+.ui-btn-solid {
+  background-color: var(--color-ink);
+  color: var(--color-canvas);
+}
+.ui-btn-solid:hover {
+  opacity: 0.88;
+}
+
+.ui-btn-outline {
+  background-color: transparent;
+  border-color: var(--color-line-strong);
+  color: var(--color-ink);
+}
+.ui-btn-outline:hover {
+  background-color: var(--color-surface-2);
+}
+
+/* Link com sublinhado que aparece no hover */
+.ui-link {
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-decoration-color: var(--color-line-strong);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.16s ease;
+}
+.ui-link:hover {
+  text-decoration-color: var(--color-brand-deep);
+}
+
+/* Régua horizontal */
+.ui-rule {
+  height: 1px;
+  background-color: var(--color-line);
+  border: 0;
+}
+
+/* Corpo de texto longo — medida de leitura e ritmo */
+.ui-prose {
+  color: var(--color-ink-soft);
+  font-size: 16px;
+  line-height: 1.75;
+}
+.ui-prose p {
+  margin-bottom: 1.05em;
+}
+.ui-prose p:last-child {
+  margin-bottom: 0;
+}
+.ui-prose h2 {
+  color: var(--color-ink);
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  margin: 2.2em 0 0.7em;
+  scroll-margin-top: calc(var(--nav-h) + 16px);
+}
+.ui-prose h3 {
+  color: var(--color-ink);
+  font-size: 1.08rem;
+  font-weight: 750;
+  margin: 1.7em 0 0.5em;
+}
+.ui-prose ul,
+.ui-prose ol {
+  margin: 0 0 1.05em 1.15em;
+  padding-left: 0.35em;
+}
+.ui-prose li {
+  margin-bottom: 0.45em;
+  padding-left: 0.2em;
+}
+.ui-prose ul > li {
+  list-style-type: "— ";
+}
+.ui-prose strong {
+  color: var(--color-ink);
+  font-weight: 700;
+}
+.ui-prose a {
+  color: var(--color-ink);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--color-brand-deep);
+  text-underline-offset: 3px;
+}
+.ui-prose blockquote {
+  border-left: 3px solid var(--color-brand);
+  padding-left: 1em;
+  color: var(--color-ink-soft);
+  font-style: italic;
+  margin: 1.4em 0;
+}
+
+/* Foco de âncora mais charmoso */
+[id] {
+  scroll-margin-top: calc(var(--nav-h) + 20px);
+}
+
+/* Respeita quem prefere menos movimento */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
