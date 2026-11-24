@@ -70,10 +70,15 @@ export async function POST(req: NextRequest) {
   }
 
   const cookie = await assinarSessao(email, secret);
+  // Cookie Secure so quando a conexao e https de verdade. Em producao e
+  // sempre https (Cloudflare). Fixar Secure em qualquer ambiente quebra o
+  // login em teste local (http), o que atrapalha depurar o painel.
+  const https =
+    req.headers.get('x-forwarded-proto') === 'https' || req.nextUrl.protocol === 'https:';
   const res = NextResponse.json({ ok: true });
   res.cookies.set(COOKIE_NAME, cookie, {
     httpOnly: true,
-    secure: true,
+    secure: https,
     sameSite: 'strict',
     path: '/',
     maxAge: SESSAO_HORAS * 3600,
