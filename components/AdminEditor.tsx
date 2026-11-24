@@ -343,6 +343,19 @@ export default function AdminEditor() {
 
       {/* ---------------- coluna do editor ---------------- */}
       <main>
+        {!aberto && mensagem && (
+          <div
+            className={`mb-4 rounded-xl border px-4 py-3 text-[12px] ${
+              mensagem.tom === 'ok'
+                ? 'border-green-200 bg-green-50 text-green-900'
+                : 'border-red-200 bg-red-50 text-red-800'
+            }`}
+          >
+            <strong>{mensagem.rotulo ?? 'Pronto. '}</strong>
+            {mensagem.texto}
+          </div>
+        )}
+
         {!aberto && (
           <div className="rounded-xl border border-dashed border-zinc-300 bg-white p-10 text-center">
             <p className="text-sm font-bold text-zinc-900">Escolha uma página à esquerda</p>
