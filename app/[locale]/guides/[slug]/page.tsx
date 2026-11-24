@@ -6,15 +6,18 @@ import AdSenseBanner from '@/components/AdSenseBanner';
 import JsonLd from '@/components/JsonLd';
 import { GUIDES } from '@/lib/guidesContent';
 import { overridesDe, aplicarPatch } from '@/lib/cms/overrides';
+import { guiasCriados, lerCriados } from '@/lib/cms/criados';
 import { canonical, breadcrumbs, publisher, authorEntity } from '@/lib/seo';
 
 export function generateStaticParams() {
-  return Object.keys(GUIDES).map((slug) => ({ slug }));
+  // Inclui os guias escritos pelo CMS: sem isto a pagina nova existiria no
+  // editor mas nao seria gerada no build, e o link cairia em 404.
+  return [...Object.keys(GUIDES), ...guiasCriados().map((g) => g.slug)].map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { locale, slug } = await params;
-  const bruto = GUIDES[slug];
+  const bruto = lerCriados().guide?.[slug] ?? GUIDES[slug];
   if (!bruto) return {};
   const g = aplicarPatch(bruto, overridesDe('guide', slug))!;
   return {
@@ -34,11 +37,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function GuidePage({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { locale, slug } = await params;
-  const bruto = GUIDES[slug];
+  const bruto = lerCriados().guide?.[slug] ?? GUIDES[slug];
   if (!bruto) notFound();
   const g = aplicarPatch(bruto, overridesDe('guide', slug))!;
 
-  const irmas = Object.values(GUIDES).filter((x) => x.slug !== slug);
+  const irmas = [...guiasCriados(), ...Object.values(GUIDES)].filter((x) => x.slug !== slug);
 
   return (
     <div className="flex flex-col min-h-screen bg-[var(--color-canvas)]">

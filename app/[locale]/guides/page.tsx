@@ -4,6 +4,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import JsonLd from '@/components/JsonLd';
 import { GUIDES } from '@/lib/guidesContent';
+import { guiasCriados } from '@/lib/cms/criados';
 import { canonical, breadcrumbs, SITE_URL } from '@/lib/seo';
 
 export const metadata: Metadata = {
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
 
 export default async function GuidesIndex({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const guias = Object.values(GUIDES);
+  const guias = [...guiasCriados(), ...Object.values(GUIDES)];
 
   return (
     <div className="flex flex-col min-h-screen bg-[var(--color-canvas)]">

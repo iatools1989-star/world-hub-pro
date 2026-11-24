@@ -20,6 +20,7 @@ import { TOOL_OVERRIDES, mergeOverride } from '@/lib/contentOverrides';
 import { DIRECTORY_DETAILS } from '@/lib/directoryContent';
 import { GUIDES } from '@/lib/guidesContent';
 import { overridesDe, aplicarPatch } from '@/lib/cms/overrides';
+import { guiasCriados, lerCriados } from '@/lib/cms/criados';
 
 export type DocDiretorio = {
   tipo: 'directory';
@@ -133,7 +134,10 @@ export function listarDocumentos(): ResumoDocumento[] {
     });
   }
 
-  for (const bruto of Object.values(GUIDES)) {
+  // Guias escritos pelo CMS vem primeiro: sao os mais recentes e os que o
+  // autor vai querer reabrir.
+  const todosGuias = [...guiasCriados(), ...Object.values(GUIDES)];
+  for (const bruto of todosGuias) {
     const g = aplicarPatch(bruto, overridesDe('guide', bruto.slug))!;
     lista.push({
       id: `guide:${g.slug}`,
@@ -209,7 +213,7 @@ export function carregarDocumento(id: string): Documento | null {
   }
 
   if (tipo === 'guide') {
-    const bruto = GUIDES[slug];
+    const bruto = lerCriados().guide?.[slug] ?? GUIDES[slug];
     if (!bruto) return null;
     const g = aplicarPatch(bruto, overridesDe('guide', slug))!;
     return {
