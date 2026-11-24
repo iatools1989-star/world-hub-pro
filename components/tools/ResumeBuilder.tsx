@@ -6,7 +6,7 @@ export default function ResumeBuilder() {
   const [fullName, setFullName] = useState('Alex Morgan');
   const [role, setRole] = useState('Senior Full Stack Developer');
   const [email, setEmail] = useState('alex.morgan@example.com');
-  const [phone, setPhone] = useState('+55 (11) 98765-4321');
+  const [phone, setPhone] = useState('+1 (512) 555-0148');
   const [location, setLocation] = useState('Austin, TX, USA');
   const [summary, setSummary] = useState(
     'Engineer with 8+ years building web software, scalable architectures, Next.js, Node.js and product performance work.'
