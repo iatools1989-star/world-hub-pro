@@ -123,9 +123,9 @@ export default function ColorPicker() {
             <button
               onClick={handleEyeDropper}
               className="py-3 px-4 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 font-bold rounded-[12px] text-xs flex items-center gap-1.5 transition"
-              title="Conta-gotas da tela"
+              title="Pick a colour from anywhere on your screen"
             >
-              <span>🧪</span> Conta-Gotas
+              <span>🧪</span> Eyedropper
             </button>
           </div>
         </div>

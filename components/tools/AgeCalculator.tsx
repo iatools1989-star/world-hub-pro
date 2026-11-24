@@ -120,7 +120,7 @@ export default function AgeCalculator() {
 
             <div className="bg-[var(--color-surface)] p-4 rounded-[12px] border border-[var(--color-line)] shadow-sm">
               <div className="text-xl sm:text-2xl font-black text-[var(--color-ink)]">{stats.totalWeeks.toLocaleString('pt-BR')}</div>
-              <div className="text-[10px] text-[var(--color-ink-muted)] uppercase font-bold tracking-wider mt-1">Semanas</div>
+              <div className="text-[10px] text-[var(--color-ink-muted)] uppercase font-bold tracking-wider mt-1">Weeks</div>
             </div>
 
             <div className="bg-[var(--color-surface)] p-4 rounded-[12px] border border-[var(--color-line)] shadow-sm">
