@@ -92,19 +92,19 @@ export default function PasswordGenerator() {
           type="text"
           readOnly
           value={password}
-          className="flex-1 px-5 py-4 bg-white text-zinc-900 rounded-2xl font-mono text-base sm:text-lg border-2 border-zinc-200 focus:outline-none focus:border-yellow-400 select-all tracking-wider shadow-inner"
+          className="flex-1 px-5 py-4 bg-[var(--color-surface)] text-[var(--color-ink)] rounded-[12px] font-mono text-base sm:text-lg border-2 border-[var(--color-line)] focus:outline-none focus:border-yellow-400 select-all tracking-wider shadow-inner"
         />
         <div className="flex gap-2">
           <button
             onClick={generate}
             title="Gerar Nova Senha"
-            className="px-4 py-3 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 font-bold rounded-2xl transition flex items-center justify-center text-lg"
+            className="px-4 py-3 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 font-bold rounded-[12px] transition flex items-center justify-center text-lg"
           >
             🔄
           </button>
           <button
             onClick={copyToClipboard}
-            className={`px-6 py-3 font-bold rounded-2xl text-sm transition flex items-center gap-2 shadow ${
+            className={`px-6 py-3 font-bold rounded-[12px] text-sm transition flex items-center gap-2 shadow ${
               copied
                 ? 'bg-emerald-600 text-white'
                 : 'bg-zinc-900 text-white hover:bg-zinc-800'
@@ -116,12 +116,12 @@ export default function PasswordGenerator() {
       </div>
 
       {/* Medidor de Força e Estimativa de Brute-Force */}
-      <div className="bg-white p-4 rounded-2xl border border-zinc-200 shadow-sm space-y-2">
+      <div className="bg-[var(--color-surface)] p-4 rounded-[12px] border border-[var(--color-line)] shadow-sm space-y-2">
         <div className="flex justify-between items-center text-xs">
-          <span className="font-bold text-zinc-600">
-            Password Strength: <b className="text-zinc-900 uppercase">{strength.label}</b>
+          <span className="font-bold text-[var(--color-ink-muted)]">
+            Password Strength: <b className="text-[var(--color-ink)] uppercase">{strength.label}</b>
           </span>
-          <span className="text-zinc-500 font-medium">
+          <span className="text-[var(--color-ink-muted)] font-medium">
             Tempo estimado para quebrar: <b className="text-zinc-800">{strength.crackTime}</b>
           </span>
         </div>
@@ -134,11 +134,11 @@ export default function PasswordGenerator() {
       </div>
 
       {/* Controles de Configuração */}
-      <div className="space-y-4 bg-white p-6 rounded-2xl border border-zinc-200 shadow-sm">
+      <div className="space-y-4 bg-[var(--color-surface)] p-6 rounded-[12px] border border-[var(--color-line)] shadow-sm">
         <div className="space-y-2">
           <div className="flex items-center justify-between text-sm">
             <span className="font-bold text-zinc-800">Password Length</span>
-            <span className="font-mono text-base font-black px-3 py-1 bg-zinc-100 rounded-lg border border-zinc-200">
+            <span className="font-mono text-base font-black px-3 py-1 bg-zinc-100 rounded-lg border border-[var(--color-line)]">
               {length} caracteres
             </span>
           </div>
@@ -158,55 +158,55 @@ export default function PasswordGenerator() {
           </div>
         </div>
 
-        <div className="pt-4 border-t border-zinc-100 grid sm:grid-cols-2 gap-3 text-sm">
-          <label className="flex items-center gap-2.5 p-2.5 rounded-xl border border-zinc-100 hover:bg-zinc-50 cursor-pointer">
+        <div className="pt-4 border-t border-[var(--color-line)] grid sm:grid-cols-2 gap-3 text-sm">
+          <label className="flex items-center gap-2.5 p-2.5 rounded-xl border border-[var(--color-line)] hover:bg-[var(--color-surface-2)] cursor-pointer">
             <input
               type="checkbox"
               checked={includeUpper}
               onChange={(e) => setIncludeUpper(e.target.checked)}
               className="w-4 h-4 accent-zinc-900 rounded"
             />
-            <span className="font-semibold text-zinc-700">Uppercase (A-Z)</span>
+            <span className="font-semibold text-[var(--color-ink-soft)]">Uppercase (A-Z)</span>
           </label>
 
-          <label className="flex items-center gap-2.5 p-2.5 rounded-xl border border-zinc-100 hover:bg-zinc-50 cursor-pointer">
+          <label className="flex items-center gap-2.5 p-2.5 rounded-xl border border-[var(--color-line)] hover:bg-[var(--color-surface-2)] cursor-pointer">
             <input
               type="checkbox"
               checked={includeLower}
               onChange={(e) => setIncludeLower(e.target.checked)}
               className="w-4 h-4 accent-zinc-900 rounded"
             />
-            <span className="font-semibold text-zinc-700">Lowercase (a-z)</span>
+            <span className="font-semibold text-[var(--color-ink-soft)]">Lowercase (a-z)</span>
           </label>
 
-          <label className="flex items-center gap-2.5 p-2.5 rounded-xl border border-zinc-100 hover:bg-zinc-50 cursor-pointer">
+          <label className="flex items-center gap-2.5 p-2.5 rounded-xl border border-[var(--color-line)] hover:bg-[var(--color-surface-2)] cursor-pointer">
             <input
               type="checkbox"
               checked={includeNumbers}
               onChange={(e) => setIncludeNumbers(e.target.checked)}
               className="w-4 h-4 accent-zinc-900 rounded"
             />
-            <span className="font-semibold text-zinc-700">Numbers (0-9)</span>
+            <span className="font-semibold text-[var(--color-ink-soft)]">Numbers (0-9)</span>
           </label>
 
-          <label className="flex items-center gap-2.5 p-2.5 rounded-xl border border-zinc-100 hover:bg-zinc-50 cursor-pointer">
+          <label className="flex items-center gap-2.5 p-2.5 rounded-xl border border-[var(--color-line)] hover:bg-[var(--color-surface-2)] cursor-pointer">
             <input
               type="checkbox"
               checked={includeSymbols}
               onChange={(e) => setIncludeSymbols(e.target.checked)}
               className="w-4 h-4 accent-zinc-900 rounded"
             />
-            <span className="font-semibold text-zinc-700">Symbols (!@#$)</span>
+            <span className="font-semibold text-[var(--color-ink-soft)]">Symbols (!@#$)</span>
           </label>
 
-          <label className="sm:col-span-2 flex items-center gap-2.5 p-2.5 rounded-xl border border-zinc-100 hover:bg-zinc-50 cursor-pointer">
+          <label className="sm:col-span-2 flex items-center gap-2.5 p-2.5 rounded-xl border border-[var(--color-line)] hover:bg-[var(--color-surface-2)] cursor-pointer">
             <input
               type="checkbox"
               checked={excludeAmbiguous}
               onChange={(e) => setExcludeAmbiguous(e.target.checked)}
               className="w-4 h-4 accent-zinc-900 rounded"
             />
-            <span className="font-semibold text-zinc-700">
+            <span className="font-semibold text-[var(--color-ink-soft)]">
               Avoid similar characters (ex: 1, l, I, 0, O, o)
             </span>
           </label>
@@ -215,7 +215,7 @@ export default function PasswordGenerator() {
 
       <button
         onClick={generate}
-        className="w-full py-4 bg-yellow-400 text-zinc-950 font-black rounded-2xl hover:bg-yellow-300 transition text-sm shadow-md flex items-center justify-center gap-2"
+        className="w-full py-4 bg-yellow-400 text-zinc-950 font-black rounded-[12px] hover:bg-yellow-300 transition text-sm shadow-md flex items-center justify-center gap-2"
       >
         <span>⚡</span> Generate New Encrypted Password
       </button>

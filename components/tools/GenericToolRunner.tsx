@@ -15,7 +15,7 @@ export default function GenericToolRunner({ name }: { name: string }) {
 
   return (
     <div className="space-y-4">
-      <div className="border-2 border-dashed border-zinc-300 rounded-2xl p-8 text-center bg-zinc-50 hover:bg-zinc-100 transition cursor-pointer">
+      <div className="border-2 border-dashed border-zinc-300 rounded-[12px] p-8 text-center bg-[var(--color-surface-2)] hover:bg-zinc-100 transition cursor-pointer">
         <input
           type="file"
           id="toolFileInput"
@@ -27,7 +27,7 @@ export default function GenericToolRunner({ name }: { name: string }) {
           <div className="font-bold text-zinc-800">
             {file ? file.name : `Select file to run ${name}`}
           </div>
-          <div className="text-xs text-zinc-500">
+          <div className="text-xs text-[var(--color-ink-muted)]">
             100% Client-Side. No data is sent to external servers.
           </div>
         </label>

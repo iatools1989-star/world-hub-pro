@@ -2,6 +2,8 @@ import BulkStudio from "@/components/tools/BulkStudio";
 import { notFound } from 'next/navigation';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import ToolIcon from '@/components/ToolIcon';
+import { Breadcrumbs } from '@/components/PageShell';
 import AdSenseBanner from '@/components/AdSenseBanner';
 
 // Lote 1
@@ -163,19 +165,21 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
         ]}
       />
 
-      <main className="max-w-[960px] mx-auto px-4 sm:px-6 py-8 w-full">
-        <a href={`/${locale}#tools`} className="text-xs font-bold text-zinc-500 hover:text-zinc-900 transition">
+      <main className="max-w-[820px] mx-auto px-4 sm:px-6 lg:px-8 py-9 sm:py-12 w-full">
+        <a href={`/${locale}#tools`} className="text-xs font-bold text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] transition">
           ← Back to All Tools
         </a>
 
-        <div className="mt-4 bg-white rounded-3xl p-6 sm:p-8 border border-zinc-200 shadow-sm">
-          <div className="flex gap-4 items-start pb-6 border-b border-zinc-100">
-            <span className="text-5xl">{tool.icon}</span>
+        <Breadcrumbs itens={[{ nome: 'Home', href: `/${locale}` }, { nome: 'Tools', href: `/${locale}/tools` }, { nome: tool.name }]} />
+
+        <div className="mt-4 bg-[var(--color-surface)] rounded-[14px] p-6 sm:p-8 border border-[var(--color-line)] shadow-sm">
+          <div className="flex gap-4 items-start pb-6 border-b border-[var(--color-line)]">
+            <span className="grid h-14 w-14 place-items-center rounded-[13px] border border-[var(--color-line)] bg-[var(--color-surface-2)] text-[var(--color-ink)]"><ToolIcon nome={tool.slug} className="h-7 w-7" /></span>
             <div className="flex-1">
-              <h1 className="text-2xl sm:text-3xl font-black text-zinc-900">{tool.name}</h1>
-              <p className="text-zinc-600 mt-1 text-sm sm:text-base">{tool.desc}</p>
+              <h1 className="text-2xl sm:text-3xl font-black text-[var(--color-ink)]">{tool.name}</h1>
+              <p className="text-[var(--color-ink-muted)] mt-1 text-sm sm:text-base">{tool.desc}</p>
               <div className="mt-3 flex flex-wrap gap-2 text-xs">
-                <span className="bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-1 rounded-full font-bold">
+                <span className="bg-[var(--color-surface-2)] text-[var(--color-ink)] border border-[var(--color-line)] px-2.5 py-1 rounded-full font-bold">
                   ✓ 100% Client-Side
                 </span>
                 <span className="bg-zinc-900 text-white px-2.5 py-1 rounded-full font-bold">
@@ -190,7 +194,7 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
           </div>
 
           {/* Interactive Tool Runner */}
-          <div className="mt-6 bg-zinc-50 border border-zinc-200 rounded-2xl p-4 sm:p-6">
+          <div className="mt-6 bg-[var(--color-surface-2)] border border-[var(--color-line)] rounded-[12px] p-4 sm:p-6">
             {renderToolComponent()}
           </div>
 
@@ -199,13 +203,13 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
 
           {/* Rich Editorial Content: Solves Thin Content for AdSense */}
           {guide && (
-            <div className="mt-8 space-y-8 pt-6 border-t border-zinc-100">
+            <div className="mt-8 space-y-8 pt-6 border-t border-[var(--color-line)]">
               {/* Comprehensive Overview */}
-              <section className="bg-zinc-50/70 border border-zinc-200 rounded-2xl p-6">
-                <h2 className="text-lg font-black text-zinc-900 mb-2">
+              <section className="bg-[var(--color-surface-2)] border border-[var(--color-line)] rounded-[12px] p-6">
+                <h2 className="text-lg font-black text-[var(--color-ink)] mb-2">
                   About {guide.title}
                 </h2>
-                <p className="text-sm text-zinc-600 leading-relaxed">
+                <p className="text-sm text-[var(--color-ink-muted)] leading-relaxed">
                   {guide.summary}
                 </p>
               </section>
@@ -214,31 +218,31 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
 
             {/* Introducao: o que a ferramenta faz e por que importa */}
             <section>
-              <h2 className="text-lg font-black text-zinc-900 mb-3 flex items-center gap-2">
+              <h2 className="text-lg font-black text-[var(--color-ink)] mb-3 flex items-center gap-2">
                 <span>🧭</span> What {tool.name} does
               </h2>
               {ed ? (
-                <div className="space-y-3 text-sm text-zinc-700 leading-relaxed max-w-prose">
+                <div className="space-y-3 text-sm text-[var(--color-ink-soft)] leading-relaxed max-w-prose">
                   {ed.intro.map((p, i) => (
                     <p key={i}>{p}</p>
                   ))}
                 </div>
               ) : (
-                <p className="text-sm text-zinc-700 leading-relaxed max-w-prose">{tool.desc}</p>
+                <p className="text-sm text-[var(--color-ink-soft)] leading-relaxed max-w-prose">{tool.desc}</p>
               )}
             </section>
 
             {/* Beneficios concretos */}
             {ed && (
               <section>
-                <h2 className="text-lg font-black text-zinc-900 mb-3 flex items-center gap-2">
+                <h2 className="text-lg font-black text-[var(--color-ink)] mb-3 flex items-center gap-2">
                   <span>✅</span> Why use this one
                 </h2>
                 <div className="grid sm:grid-cols-3 gap-3">
                   {ed.benefits.map((b) => (
-                    <div key={b.title} className="bg-zinc-50 border border-zinc-200 rounded-2xl p-4">
-                      <h3 className="font-bold text-sm text-zinc-900">{b.title}</h3>
-                      <p className="text-xs text-zinc-600 mt-1 leading-relaxed">{b.desc}</p>
+                    <div key={b.title} className="bg-[var(--color-surface-2)] border border-[var(--color-line)] rounded-[12px] p-4">
+                      <h3 className="font-bold text-sm text-[var(--color-ink)]">{b.title}</h3>
+                      <p className="text-xs text-[var(--color-ink-muted)] mt-1 leading-relaxed">{b.desc}</p>
                     </div>
                   ))}
                 </div>
@@ -248,28 +252,28 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
             {/* Limitacao honesta — o que ganha confianca com o leitor e com o revisor */}
             {ed && (
               <section>
-                <h2 className="text-lg font-black text-zinc-900 mb-3 flex items-center gap-2">
+                <h2 className="text-lg font-black text-[var(--color-ink)] mb-3 flex items-center gap-2">
                   <span>⚠️</span> When this tool is the wrong choice
                 </h2>
-                <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4">
-                  <p className="text-sm text-zinc-700 leading-relaxed">{ed.notIdealFor}</p>
+                <div className="bg-[var(--color-surface-2)] border border-[var(--color-line)] rounded-[12px] p-4">
+                  <p className="text-sm text-[var(--color-ink-soft)] leading-relaxed">{ed.notIdealFor}</p>
                 </div>
               </section>
             )}
 
               {/* Step by Step Guide */}
               <section>
-                <h2 className="text-lg font-black text-zinc-900 mb-4 flex items-center gap-2">
+                <h2 className="text-lg font-black text-[var(--color-ink)] mb-4 flex items-center gap-2">
                   <span>📖</span> How to Use {tool.name}
                 </h2>
                 <div className="grid sm:grid-cols-3 gap-4">
                   {guide.steps.map((s) => (
-                    <div key={s.step} className="bg-white border border-zinc-200 rounded-2xl p-4 shadow-xs">
+                    <div key={s.step} className="bg-[var(--color-surface)] border border-[var(--color-line)] rounded-[12px] p-4 shadow-xs">
                       <div className="w-7 h-7 rounded-full bg-zinc-900 text-yellow-400 font-bold flex items-center justify-center text-xs mb-2">
                         {s.step}
                       </div>
-                      <h3 className="font-bold text-sm text-zinc-900">{s.title}</h3>
-                      <p className="text-xs text-zinc-600 mt-1 leading-normal">{s.desc}</p>
+                      <h3 className="font-bold text-sm text-[var(--color-ink)]">{s.title}</h3>
+                      <p className="text-xs text-[var(--color-ink-muted)] mt-1 leading-normal">{s.desc}</p>
                     </div>
                   ))}
                 </div>
@@ -277,14 +281,14 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
 
               {/* Key Features & Architecture */}
               <section>
-                <h2 className="text-lg font-black text-zinc-900 mb-4 flex items-center gap-2">
+                <h2 className="text-lg font-black text-[var(--color-ink)] mb-4 flex items-center gap-2">
                   <span>⚡</span> Technical Features & Privacy Architecture
                 </h2>
                 <div className="grid sm:grid-cols-3 gap-4">
                   {guide.features.map((f, idx) => (
-                    <div key={idx} className="bg-zinc-50 border border-zinc-200 rounded-2xl p-4">
-                      <h3 className="font-bold text-sm text-zinc-900">{f.title}</h3>
-                      <p className="text-xs text-zinc-600 mt-1 leading-normal">{f.desc}</p>
+                    <div key={idx} className="bg-[var(--color-surface-2)] border border-[var(--color-line)] rounded-[12px] p-4">
+                      <h3 className="font-bold text-sm text-[var(--color-ink)]">{f.title}</h3>
+                      <p className="text-xs text-[var(--color-ink-muted)] mt-1 leading-normal">{f.desc}</p>
                     </div>
                   ))}
                 </div>
@@ -292,14 +296,14 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
 
               {/* Structured FAQ Section */}
               <section>
-                <h2 className="text-lg font-black text-zinc-900 mb-4 flex items-center gap-2">
+                <h2 className="text-lg font-black text-[var(--color-ink)] mb-4 flex items-center gap-2">
                   <span>❓</span> Frequently Asked Questions (FAQ)
                 </h2>
                 <div className="space-y-3">
                   {guide.faqs.map((faq, idx) => (
-                    <div key={idx} className="bg-white border border-zinc-200 rounded-2xl p-4">
-                      <h3 className="font-bold text-sm text-zinc-900 mb-1">{faq.q}</h3>
-                      <p className="text-xs text-zinc-600 leading-relaxed">{faq.a}</p>
+                    <div key={idx} className="bg-[var(--color-surface)] border border-[var(--color-line)] rounded-[12px] p-4">
+                      <h3 className="font-bold text-sm text-[var(--color-ink)] mb-1">{faq.q}</h3>
+                      <p className="text-xs text-[var(--color-ink-muted)] leading-relaxed">{faq.a}</p>
                     </div>
                   ))}
                 </div>
@@ -309,9 +313,9 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
 
           {/* Bottom Pro Recommendation & Info Box */}
           <div className="mt-8 grid md:grid-cols-2 gap-4 text-sm">
-            <div className="bg-zinc-50 border border-zinc-200 rounded-2xl p-5">
-              <h3 className="font-bold text-zinc-900 mb-2">100% Client-Side Privacy Guarantee</h3>
-              <p className="text-xs text-zinc-600 leading-relaxed">
+            <div className="bg-[var(--color-surface-2)] border border-[var(--color-line)] rounded-[12px] p-5">
+              <h3 className="font-bold text-[var(--color-ink)] mb-2">100% Client-Side Privacy Guarantee</h3>
+              <p className="text-xs text-[var(--color-ink-muted)] leading-relaxed">
                 All computational algorithms execute exclusively within your local browser memory via HTML5, Canvas, and WebAssembly APIs. 
                 Your files and inputs are never transmitted, cached, or logged on remote servers.
               </p>
@@ -320,16 +324,16 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
             {/* Leituras relacionadas — o caminho de saida para o diretorio */}
             {ed && (
               <section>
-                <h2 className="text-lg font-black text-zinc-900 mb-3 flex items-center gap-2">
+                <h2 className="text-lg font-black text-[var(--color-ink)] mb-3 flex items-center gap-2">
                   <span>📚</span> If this tool is not the whole answer
                 </h2>
                 <ul className="space-y-2">
                   {ed.related.map((r) => (
-                    <li key={r.href} className="p-4 bg-white border border-zinc-200 rounded-2xl">
-                      <a href={r.href} className="font-bold text-sm text-zinc-900 underline">
+                    <li key={r.href} className="p-4 bg-[var(--color-surface)] border border-[var(--color-line)] rounded-[12px]">
+                      <a href={r.href} className="font-bold text-sm text-[var(--color-ink)] underline">
                         {r.name}
                       </a>
-                      <p className="text-xs text-zinc-600 mt-1 leading-relaxed">{r.why}</p>
+                      <p className="text-xs text-[var(--color-ink-muted)] mt-1 leading-relaxed">{r.why}</p>
                     </li>
                   ))}
                 </ul>
@@ -337,7 +341,7 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
             )}
 
             {ed ? (
-              <div className="bg-yellow-50 border border-yellow-200 rounded-2xl p-5 flex flex-col justify-between">
+              <div className="bg-yellow-50 border border-yellow-200 rounded-[12px] p-5 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
                     {ed.cta.monetized ? (
@@ -345,18 +349,18 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
                         #ad
                       </span>
                     ) : (
-                      <span className="text-[10px] font-black uppercase tracking-wider bg-zinc-200 text-zinc-700 px-2 py-0.5 rounded">
+                      <span className="text-[10px] font-black uppercase tracking-wider bg-zinc-200 text-[var(--color-ink-soft)] px-2 py-0.5 rounded">
                         Official site
                       </span>
                     )}
                     {ed.cta.partner && (
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-500">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-ink-muted)]">
                         {ed.cta.partner}
                       </span>
                     )}
                   </div>
-                  <h3 className="font-bold text-zinc-900 mb-1">When this tool is not enough</h3>
-                  <p className="text-xs text-zinc-600 leading-relaxed">{ed.cta.body}</p>
+                  <h3 className="font-bold text-[var(--color-ink)] mb-1">When this tool is not enough</h3>
+                  <p className="text-xs text-[var(--color-ink-muted)] leading-relaxed">{ed.cta.body}</p>
                 </div>
                 <a
                   href={ed.cta.href}
@@ -367,7 +371,7 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
                 >
                   {ed.cta.label} →
                 </a>
-                <p className="text-[10px] text-zinc-500 mt-2 leading-snug">
+                <p className="text-[10px] text-[var(--color-ink-muted)] mt-2 leading-snug">
                   {ed.cta.monetized ? (
                     <>
                       Affiliate link. We may earn a commission at no extra cost to you.{' '}
@@ -388,9 +392,9 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
                 </p>
               </div>
             ) : (
-              <div className="bg-zinc-50 border border-zinc-200 rounded-2xl p-5">
-                <h3 className="font-bold text-zinc-900 mb-1">Other free tools</h3>
-                <p className="text-xs text-zinc-600 mb-3">
+              <div className="bg-[var(--color-surface-2)] border border-[var(--color-line)] rounded-[12px] p-5">
+                <h3 className="font-bold text-[var(--color-ink)] mb-1">Other free tools</h3>
+                <p className="text-xs text-[var(--color-ink-muted)] mb-3">
                   Sixteen browser utilities, all free, all processed locally.
                 </p>
                 <a

@@ -26,6 +26,10 @@ const ALLOWED_HOSTS = new Set([
   'copy.ai',
   'pika.art',
   'canva.com',
+  'www.canva.com',
+  'gamma.app',
+  'capcut.com',
+  'www.capcut.com',
   'otter.ai',
   'adobe.com',
   'www.adobe.com',
@@ -63,8 +67,11 @@ export async function GET(
       return NextResponse.redirect(safe, 307);
     }
     // Destino invalido: nao redireciona para lugar nenhum inesperado.
-    return NextResponse.redirect(new URL('/en/directory', request.url), 307);
+    // Caminho relativo: o Next resolve contra a origem publica da requisicao.
+    // Antes usava request.url, que atras de proxy/Worker pode ser localhost:3000
+    // e mandava o visitante para um endereco invalido.
+    return NextResponse.redirect(new URL('/en/directory', request.nextUrl.origin), 307);
   }
 
-  return NextResponse.redirect(new URL('/en', request.url));
+  return NextResponse.redirect(new URL('/en', request.nextUrl.origin), 307);
 }

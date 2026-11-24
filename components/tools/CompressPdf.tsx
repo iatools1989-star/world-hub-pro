@@ -135,7 +135,7 @@ export default function CompressPdf() {
   return (
     <div className="space-y-6">
       {/* Upload Drag & Drop */}
-      <div className="border-2 border-dashed border-zinc-300 hover:border-zinc-500 rounded-3xl p-8 text-center bg-white transition cursor-pointer shadow-sm">
+      <div className="border-2 border-dashed border-zinc-300 hover:border-zinc-500 rounded-[14px] p-8 text-center bg-[var(--color-surface)] transition cursor-pointer shadow-sm">
         <input
           type="file"
           id="compress-pdf-input"
@@ -146,15 +146,15 @@ export default function CompressPdf() {
         <label htmlFor="compress-pdf-input" className="cursor-pointer block space-y-3">
           <span className="text-4xl block">🗜️</span>
           <div>
-            <span className="font-black text-zinc-900 block text-base">
+            <span className="font-black text-[var(--color-ink)] block text-base">
               {file ? file.name : 'Clique para selecionar seu documento PDF'}
             </span>
-            <span className="text-xs text-zinc-500 mt-1 block">
+            <span className="text-xs text-[var(--color-ink-muted)] mt-1 block">
               100% Client-Side: redução de peso sem enviar seu arquivo para a internet.
             </span>
           </div>
           {file && (
-            <span className="inline-block px-3 py-1 bg-zinc-100 rounded-full text-xs font-bold text-zinc-700">
+            <span className="inline-block px-3 py-1 bg-zinc-100 rounded-full text-xs font-bold text-[var(--color-ink-soft)]">
               Tamanho atual: {formatSize(file.size)}
             </span>
           )}
@@ -162,10 +162,10 @@ export default function CompressPdf() {
       </div>
 
       {file && (
-        <div className="bg-white p-6 sm:p-8 rounded-3xl border border-zinc-200 shadow-sm space-y-6">
+        <div className="bg-[var(--color-surface)] p-6 sm:p-8 rounded-[14px] border border-[var(--color-line)] shadow-sm space-y-6">
           {/* Nível de Compressão */}
           <div className="space-y-2">
-            <span className="text-xs font-bold text-zinc-500 uppercase tracking-wider block">
+            <span className="text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider block">
               Nível de Compressão Desejado:
             </span>
             <div className="grid grid-cols-3 gap-3">
@@ -178,14 +178,14 @@ export default function CompressPdf() {
                   key={opt.id}
                   type="button"
                   onClick={() => setCompressionLevel(opt.id as any)}
-                  className={`p-3.5 rounded-2xl border text-left transition ${
+                  className={`p-3.5 rounded-[12px] border text-left transition ${
                     compressionLevel === opt.id
                       ? 'bg-zinc-900 text-white border-zinc-900 shadow-sm'
-                      : 'bg-zinc-50 border-zinc-200 text-zinc-700 hover:bg-zinc-100'
+                      : 'bg-[var(--color-surface-2)] border-[var(--color-line)] text-[var(--color-ink-soft)] hover:bg-zinc-100'
                   }`}
                 >
                   <span className="font-bold text-xs block">{opt.label}</span>
-                  <span className={`text-[10px] block mt-0.5 ${compressionLevel === opt.id ? 'text-zinc-400' : 'text-zinc-500'}`}>
+                  <span className={`text-[10px] block mt-0.5 ${compressionLevel === opt.id ? 'text-zinc-400' : 'text-[var(--color-ink-muted)]'}`}>
                     {opt.desc}
                   </span>
                 </button>
@@ -197,23 +197,23 @@ export default function CompressPdf() {
             onClick={compressPdfDocument}
             disabled={isCompressing}
             type="button"
-            className="w-full py-4 bg-yellow-400 text-zinc-950 font-black rounded-2xl hover:bg-yellow-300 transition text-sm shadow-md flex items-center justify-center gap-2 disabled:opacity-50"
+            className="w-full py-4 bg-yellow-400 text-zinc-950 font-black rounded-[12px] hover:bg-yellow-300 transition text-sm shadow-md flex items-center justify-center gap-2 disabled:opacity-50"
           >
             <span>{isCompressing ? '⏳' : '⚡'}</span>
             <span>{isCompressing ? 'Otimizando documento no navegador...' : 'Comprimir Arquivo PDF'}</span>
           </button>
 
           {statusMessage && (
-            <div className="p-3 bg-zinc-50 border border-zinc-200 rounded-xl text-center text-xs text-zinc-700 font-medium">
+            <div className="p-3 bg-[var(--color-surface-2)] border border-[var(--color-line)] rounded-xl text-center text-xs text-[var(--color-ink-soft)] font-medium">
               {statusMessage}
             </div>
           )}
 
           {compressedBlobUrl && compressedSize !== null && (
-            <div className="p-6 bg-zinc-50 rounded-2xl border border-zinc-200 space-y-4 animate-in fade-in">
+            <div className="p-6 bg-[var(--color-surface-2)] rounded-[12px] border border-[var(--color-line)] space-y-4 animate-in fade-in">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div>
-                  <span className="text-xs font-bold text-zinc-500 uppercase tracking-wider block">Resultado da Otimização:</span>
+                  <span className="text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider block">Resultado da Otimização:</span>
                   <div className="flex items-center gap-2 mt-1">
                     <span className="text-sm line-through text-zinc-400">{formatSize(file.size)}</span>
                     <span className="text-lg font-black text-emerald-700">{formatSize(compressedSize)}</span>
@@ -230,7 +230,7 @@ export default function CompressPdf() {
               <a
                 href={compressedBlobUrl}
                 download={`otimizado-${file.name}`}
-                className="w-full py-3.5 bg-zinc-900 text-white font-bold rounded-2xl hover:bg-zinc-800 transition text-sm flex items-center justify-center gap-2 shadow"
+                className="w-full py-3.5 bg-zinc-900 text-white font-bold rounded-[12px] hover:bg-zinc-800 transition text-sm flex items-center justify-center gap-2 shadow"
               >
                 <span>⬇</span> Baixar PDF Compactado
               </a>

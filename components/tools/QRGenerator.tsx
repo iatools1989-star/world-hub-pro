@@ -109,7 +109,7 @@ export default function QRGenerator() {
   return (
     <div className="space-y-6">
       {/* Abas de Tipos Rápidos */}
-      <div className="flex flex-wrap gap-2 border-b border-zinc-200 pb-3">
+      <div className="flex flex-wrap gap-2 border-b border-[var(--color-line)] pb-3">
         {(['url', 'wifi', 'pix', 'text'] as QRType[]).map((tab) => (
           <button
             key={tab}
@@ -117,7 +117,7 @@ export default function QRGenerator() {
             className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition ${
               activeTab === tab
                 ? 'bg-zinc-900 text-yellow-400 shadow'
-                : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200'
+                : 'bg-zinc-100 text-[var(--color-ink-muted)] hover:bg-zinc-200'
             }`}
           >
             {tab === 'url' && '🔗 Link / URL'}
@@ -129,10 +129,10 @@ export default function QRGenerator() {
       </div>
 
       {/* Formulários dinâmicos por tipo */}
-      <div className="bg-white p-5 rounded-2xl border border-zinc-200 shadow-sm space-y-4">
+      <div className="bg-[var(--color-surface)] p-5 rounded-[12px] border border-[var(--color-line)] shadow-sm space-y-4">
         {activeTab === 'url' && (
           <div>
-            <label className="block text-xs font-bold text-zinc-700 uppercase tracking-wider mb-1">
+            <label className="block text-xs font-bold text-[var(--color-ink-soft)] uppercase tracking-wider mb-1">
               Website or Destination Link
             </label>
             <input
@@ -148,7 +148,7 @@ export default function QRGenerator() {
         {activeTab === 'wifi' && (
           <div className="grid sm:grid-cols-3 gap-3">
             <div className="sm:col-span-1">
-              <label className="block text-xs font-bold text-zinc-700 uppercase tracking-wider mb-1">
+              <label className="block text-xs font-bold text-[var(--color-ink-soft)] uppercase tracking-wider mb-1">
                 Nome da Rede (SSID)
               </label>
               <input
@@ -160,7 +160,7 @@ export default function QRGenerator() {
               />
             </div>
             <div className="sm:col-span-1">
-              <label className="block text-xs font-bold text-zinc-700 uppercase tracking-wider mb-1">
+              <label className="block text-xs font-bold text-[var(--color-ink-soft)] uppercase tracking-wider mb-1">
                 Senha do Wi-Fi
               </label>
               <input
@@ -172,13 +172,13 @@ export default function QRGenerator() {
               />
             </div>
             <div className="sm:col-span-1">
-              <label className="block text-xs font-bold text-zinc-700 uppercase tracking-wider mb-1">
+              <label className="block text-xs font-bold text-[var(--color-ink-soft)] uppercase tracking-wider mb-1">
                 Criptografia
               </label>
               <select
                 value={wifiType}
                 onChange={(e) => setWifiType(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl border border-zinc-300 text-sm bg-white"
+                className="w-full px-4 py-2.5 rounded-xl border border-zinc-300 text-sm bg-[var(--color-surface)]"
               >
                 <option value="WPA">WPA / WPA2 / WPA3</option>
                 <option value="WEP">WEP</option>
@@ -190,7 +190,7 @@ export default function QRGenerator() {
 
         {activeTab === 'pix' && (
           <div>
-            <label className="block text-xs font-bold text-zinc-700 uppercase tracking-wider mb-1">
+            <label className="block text-xs font-bold text-[var(--color-ink-soft)] uppercase tracking-wider mb-1">
               PIX Key ou Código Copia e Cola
             </label>
             <input
@@ -205,7 +205,7 @@ export default function QRGenerator() {
 
         {activeTab === 'text' && (
           <div>
-            <label className="block text-xs font-bold text-zinc-700 uppercase tracking-wider mb-1">
+            <label className="block text-xs font-bold text-[var(--color-ink-soft)] uppercase tracking-wider mb-1">
               Mensagem ou Texto Livre
             </label>
             <textarea
@@ -219,9 +219,9 @@ export default function QRGenerator() {
         )}
 
         {/* Opções Avançadas de Customização */}
-        <div className="pt-4 border-t border-zinc-100 grid grid-cols-2 sm:grid-cols-4 gap-4 items-center text-xs">
+        <div className="pt-4 border-t border-[var(--color-line)] grid grid-cols-2 sm:grid-cols-4 gap-4 items-center text-xs">
           <div>
-            <span className="font-bold text-zinc-600 block mb-1">Tamanho: {size}px</span>
+            <span className="font-bold text-[var(--color-ink-muted)] block mb-1">Tamanho: {size}px</span>
             <input
               type="range"
               min="150"
@@ -234,7 +234,7 @@ export default function QRGenerator() {
           </div>
 
           <div>
-            <span className="font-bold text-zinc-600 block mb-1">QR Color</span>
+            <span className="font-bold text-[var(--color-ink-muted)] block mb-1">QR Color</span>
             <div className="flex items-center gap-2">
               <input
                 type="color"
@@ -247,7 +247,7 @@ export default function QRGenerator() {
           </div>
 
           <div>
-            <span className="font-bold text-zinc-600 block mb-1">Background Color</span>
+            <span className="font-bold text-[var(--color-ink-muted)] block mb-1">Background Color</span>
             <div className="flex items-center gap-2">
               <input
                 type="color"
@@ -260,11 +260,11 @@ export default function QRGenerator() {
           </div>
 
           <div>
-            <span className="font-bold text-zinc-600 block mb-1">Error Correction</span>
+            <span className="font-bold text-[var(--color-ink-muted)] block mb-1">Error Correction</span>
             <select
               value={errorLevel}
               onChange={(e) => setErrorLevel(e.target.value as any)}
-              className="w-full px-2 py-1.5 rounded-lg border border-zinc-300 bg-white text-xs"
+              className="w-full px-2 py-1.5 rounded-lg border border-zinc-300 bg-[var(--color-surface)] text-xs"
             >
               <option value="L">Low (7%)</option>
               <option value="M">Média (15%)</option>
@@ -276,12 +276,12 @@ export default function QRGenerator() {
       </div>
 
       {/* Área de Preview e Download */}
-      <div className="p-8 bg-white border border-zinc-200 rounded-3xl flex flex-col items-center justify-center gap-5 shadow-sm">
-        <div className="p-4 bg-white rounded-2xl shadow-inner border border-zinc-100 flex items-center justify-center">
+      <div className="p-8 bg-[var(--color-surface)] border border-[var(--color-line)] rounded-[14px] flex flex-col items-center justify-center gap-5 shadow-sm">
+        <div className="p-4 bg-[var(--color-surface)] rounded-[12px] shadow-inner border border-[var(--color-line)] flex items-center justify-center">
           <canvas ref={canvasRef} className="max-w-full rounded-lg" />
         </div>
 
-        <div className="text-xs text-zinc-500 font-medium text-center">
+        <div className="text-xs text-[var(--color-ink-muted)] font-medium text-center">
           ✓ 100% rendered in your browser (sem dados enviados para a rede).
         </div>
 

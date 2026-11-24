@@ -132,7 +132,7 @@ export default function RemoveBg() {
   return (
     <div className="space-y-6">
       {/* Upload Drag & Drop */}
-      <div className="border-2 border-dashed border-zinc-300 hover:border-zinc-500 rounded-3xl p-8 text-center bg-white transition cursor-pointer shadow-sm">
+      <div className="border-2 border-dashed border-zinc-300 hover:border-zinc-500 rounded-[14px] p-8 text-center bg-[var(--color-surface)] transition cursor-pointer shadow-sm">
         <input
           type="file"
           id="remove-bg-input"
@@ -143,10 +143,10 @@ export default function RemoveBg() {
         <label htmlFor="remove-bg-input" className="cursor-pointer block space-y-3">
           <span className="text-4xl block">✂️</span>
           <div>
-            <span className="font-black text-zinc-900 block text-base">
+            <span className="font-black text-[var(--color-ink)] block text-base">
               {file ? file.name : 'Selecione uma imagem para remover o fundo'}
             </span>
-            <span className="text-xs text-zinc-500 mt-1 block">
+            <span className="text-xs text-[var(--color-ink-muted)] mt-1 block">
               100% Client-Side: processamento instantâneo via Canvas sem enviar sua foto para servidores.
             </span>
           </div>
@@ -154,13 +154,13 @@ export default function RemoveBg() {
       </div>
 
       {file && (
-        <div className="bg-white p-6 sm:p-8 rounded-3xl border border-zinc-200 shadow-sm space-y-6">
+        <div className="bg-[var(--color-surface)] p-6 sm:p-8 rounded-[14px] border border-[var(--color-line)] shadow-sm space-y-6">
           {/* Controles de Tolerância e Fundo */}
           <div className="grid sm:grid-cols-3 gap-5">
             <div>
-              <div className="flex justify-between items-center text-xs font-bold text-zinc-600 mb-2">
+              <div className="flex justify-between items-center text-xs font-bold text-[var(--color-ink-muted)] mb-2">
                 <span>Tolerância de Cor</span>
-                <span className="font-mono text-zinc-900">{tolerance}%</span>
+                <span className="font-mono text-[var(--color-ink)]">{tolerance}%</span>
               </div>
               <input
                 type="range"
@@ -173,9 +173,9 @@ export default function RemoveBg() {
             </div>
 
             <div>
-              <div className="flex justify-between items-center text-xs font-bold text-zinc-600 mb-2">
+              <div className="flex justify-between items-center text-xs font-bold text-[var(--color-ink-muted)] mb-2">
                 <span>Suavização de Bordas</span>
-                <span className="font-mono text-zinc-900">{feather}px</span>
+                <span className="font-mono text-[var(--color-ink)]">{feather}px</span>
               </div>
               <input
                 type="range"
@@ -188,7 +188,7 @@ export default function RemoveBg() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-zinc-600 mb-2">Novo Fundo</label>
+              <label className="block text-xs font-bold text-[var(--color-ink-muted)] mb-2">Novo Fundo</label>
               <div className="flex gap-2">
                 {(['transparent', 'white', 'black', 'custom'] as const).map((bg) => (
                   <button
@@ -198,7 +198,7 @@ export default function RemoveBg() {
                     className={`flex-1 py-2 text-xs font-bold rounded-xl border transition ${
                       bgColor === bg
                         ? 'bg-zinc-900 text-white border-zinc-900'
-                        : 'bg-zinc-50 border-zinc-200 text-zinc-700 hover:bg-zinc-100'
+                        : 'bg-[var(--color-surface-2)] border-[var(--color-line)] text-[var(--color-ink-soft)] hover:bg-zinc-100'
                     }`}
                   >
                     {bg === 'transparent' ? 'PNG' : bg === 'white' ? 'Branco' : bg === 'black' ? 'Preto' : 'Cor'}
@@ -219,16 +219,16 @@ export default function RemoveBg() {
           {/* Comparativo Lado a Lado */}
           <div className="grid sm:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <span className="text-xs font-bold text-zinc-500 uppercase tracking-wider block">Original:</span>
-              <div className="h-56 bg-zinc-50 border border-zinc-200 rounded-2xl flex items-center justify-center p-3 overflow-hidden">
+              <span className="text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider block">Original:</span>
+              <div className="h-56 bg-[var(--color-surface-2)] border border-[var(--color-line)] rounded-[12px] flex items-center justify-center p-3 overflow-hidden">
                 <img src={previewUrl} alt="Original" className="max-h-full max-w-full object-contain rounded-lg" />
               </div>
             </div>
 
             <div className="space-y-2">
-              <span className="text-xs font-bold text-zinc-500 uppercase tracking-wider block">Fundo Removido:</span>
+              <span className="text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider block">Fundo Removido:</span>
               <div
-                className="h-56 border border-zinc-200 rounded-2xl flex items-center justify-center p-3 overflow-hidden"
+                className="h-56 border border-[var(--color-line)] rounded-[12px] flex items-center justify-center p-3 overflow-hidden"
                 style={{
                   backgroundImage:
                     bgColor === 'transparent'
@@ -240,7 +240,7 @@ export default function RemoveBg() {
                 }}
               >
                 {isProcessing ? (
-                  <span className="text-xs font-bold text-zinc-500 animate-pulse">Processando pixels...</span>
+                  <span className="text-xs font-bold text-[var(--color-ink-muted)] animate-pulse">Processando pixels...</span>
                 ) : processedUrl ? (
                   <img src={processedUrl} alt="Processada" className="max-h-full max-w-full object-contain rounded-lg" />
                 ) : null}
@@ -252,7 +252,7 @@ export default function RemoveBg() {
             <a
               href={processedUrl}
               download={`sem-fundo-${file.name.replace(/\.[^/.]+$/, '')}.png`}
-              className="w-full py-4 bg-zinc-900 text-white font-bold rounded-2xl hover:bg-zinc-800 transition text-sm shadow-md flex items-center justify-center gap-2"
+              className="w-full py-4 bg-zinc-900 text-white font-bold rounded-[12px] hover:bg-zinc-800 transition text-sm shadow-md flex items-center justify-center gap-2"
             >
               <span>⬇</span> Baixar Imagem Transparente (PNG)
             </a>

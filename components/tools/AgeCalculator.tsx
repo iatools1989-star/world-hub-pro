@@ -68,29 +68,29 @@ export default function AgeCalculator() {
   return (
     <div className="space-y-6">
       {/* Formulário de Datas */}
-      <div className="bg-white p-6 sm:p-8 rounded-3xl border border-zinc-200 shadow-sm space-y-4">
+      <div className="bg-[var(--color-surface)] p-6 sm:p-8 rounded-[14px] border border-[var(--color-line)] shadow-sm space-y-4">
         <div className="grid sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs font-bold text-zinc-500 uppercase tracking-wider mb-2">
+            <label className="block text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider mb-2">
               Date of Birth:
             </label>
             <input
               type="date"
               value={birthDate}
               onChange={(e) => setBirthDate(e.target.value)}
-              className="w-full px-4 py-3 rounded-2xl border-2 border-zinc-200 focus:outline-none focus:border-yellow-400 font-bold text-sm bg-zinc-50"
+              className="w-full px-4 py-3 rounded-[12px] border-2 border-[var(--color-line)] focus:outline-none focus:border-yellow-400 font-bold text-sm bg-[var(--color-surface-2)]"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-zinc-500 uppercase tracking-wider mb-2">
+            <label className="block text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider mb-2">
               Calculate Age on Date (Today by default):
             </label>
             <input
               type="date"
               value={targetDate}
               onChange={(e) => setTargetDate(e.target.value)}
-              className="w-full px-4 py-3 rounded-2xl border-2 border-zinc-200 focus:outline-none focus:border-yellow-400 font-bold text-sm bg-zinc-50"
+              className="w-full px-4 py-3 rounded-[12px] border-2 border-[var(--color-line)] focus:outline-none focus:border-yellow-400 font-bold text-sm bg-[var(--color-surface-2)]"
             />
           </div>
         </div>
@@ -99,7 +99,7 @@ export default function AgeCalculator() {
       {stats ? (
         <div className="space-y-6 animate-in fade-in">
           {/* Cartão de Destaque da Idade */}
-          <div className="bg-zinc-900 text-white p-6 sm:p-8 rounded-3xl shadow-sm text-center space-y-2">
+          <div className="bg-zinc-900 text-white p-6 sm:p-8 rounded-[14px] shadow-sm text-center space-y-2">
             <span className="text-xs uppercase tracking-widest text-yellow-400 font-bold">
               Exact Age Calculated
             </span>
@@ -113,29 +113,29 @@ export default function AgeCalculator() {
 
           {/* Grade de Totais Acumulados */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
-            <div className="bg-white p-4 rounded-2xl border border-zinc-200 shadow-sm">
-              <div className="text-xl sm:text-2xl font-black text-zinc-900">{stats.totalDays.toLocaleString('pt-BR')}</div>
-              <div className="text-[10px] text-zinc-500 uppercase font-bold tracking-wider mt-1">Dias de Vida</div>
+            <div className="bg-[var(--color-surface)] p-4 rounded-[12px] border border-[var(--color-line)] shadow-sm">
+              <div className="text-xl sm:text-2xl font-black text-[var(--color-ink)]">{stats.totalDays.toLocaleString('pt-BR')}</div>
+              <div className="text-[10px] text-[var(--color-ink-muted)] uppercase font-bold tracking-wider mt-1">Dias de Vida</div>
             </div>
 
-            <div className="bg-white p-4 rounded-2xl border border-zinc-200 shadow-sm">
-              <div className="text-xl sm:text-2xl font-black text-zinc-900">{stats.totalWeeks.toLocaleString('pt-BR')}</div>
-              <div className="text-[10px] text-zinc-500 uppercase font-bold tracking-wider mt-1">Semanas</div>
+            <div className="bg-[var(--color-surface)] p-4 rounded-[12px] border border-[var(--color-line)] shadow-sm">
+              <div className="text-xl sm:text-2xl font-black text-[var(--color-ink)]">{stats.totalWeeks.toLocaleString('pt-BR')}</div>
+              <div className="text-[10px] text-[var(--color-ink-muted)] uppercase font-bold tracking-wider mt-1">Semanas</div>
             </div>
 
-            <div className="bg-white p-4 rounded-2xl border border-zinc-200 shadow-sm">
-              <div className="text-xl sm:text-2xl font-black text-zinc-900">{stats.totalHours.toLocaleString('pt-BR')}</div>
-              <div className="text-[10px] text-zinc-500 uppercase font-bold tracking-wider mt-1">Horas</div>
+            <div className="bg-[var(--color-surface)] p-4 rounded-[12px] border border-[var(--color-line)] shadow-sm">
+              <div className="text-xl sm:text-2xl font-black text-[var(--color-ink)]">{stats.totalHours.toLocaleString('pt-BR')}</div>
+              <div className="text-[10px] text-[var(--color-ink-muted)] uppercase font-bold tracking-wider mt-1">Horas</div>
             </div>
 
-            <div className="bg-white p-4 rounded-2xl border border-zinc-200 shadow-sm">
-              <div className="text-xl sm:text-2xl font-black text-zinc-900">{stats.totalMinutes.toLocaleString('pt-BR')}</div>
-              <div className="text-[10px] text-zinc-500 uppercase font-bold tracking-wider mt-1">Minutos</div>
+            <div className="bg-[var(--color-surface)] p-4 rounded-[12px] border border-[var(--color-line)] shadow-sm">
+              <div className="text-xl sm:text-2xl font-black text-[var(--color-ink)]">{stats.totalMinutes.toLocaleString('pt-BR')}</div>
+              <div className="text-[10px] text-[var(--color-ink-muted)] uppercase font-bold tracking-wider mt-1">Minutos</div>
             </div>
           </div>
         </div>
       ) : (
-        <div className="p-6 bg-red-50 text-red-700 border border-red-200 rounded-2xl text-center text-xs font-bold">
+        <div className="p-6 bg-red-50 text-red-700 border border-red-200 rounded-[12px] text-center text-xs font-bold">
           A data de nascimento deve ser anterior à data de referência.
         </div>
       )}

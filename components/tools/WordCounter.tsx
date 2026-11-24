@@ -44,58 +44,58 @@ export default function WordCounter() {
     <div className="space-y-6">
       {/* Grade de Estatísticas Principais */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-        <div className="bg-white border border-zinc-200 p-3.5 rounded-2xl text-center shadow-sm">
-          <div className="text-3xl font-black text-zinc-900">{words}</div>
-          <div className="text-[11px] text-zinc-500 font-bold uppercase tracking-wider mt-0.5">Words</div>
+        <div className="bg-[var(--color-surface)] border border-[var(--color-line)] p-3.5 rounded-[12px] text-center shadow-sm">
+          <div className="text-3xl font-black text-[var(--color-ink)]">{words}</div>
+          <div className="text-[11px] text-[var(--color-ink-muted)] font-bold uppercase tracking-wider mt-0.5">Words</div>
         </div>
 
-        <div className="bg-white border border-zinc-200 p-3.5 rounded-2xl text-center shadow-sm">
-          <div className="text-3xl font-black text-zinc-900">{chars}</div>
-          <div className="text-[11px] text-zinc-500 font-bold uppercase tracking-wider mt-0.5">Characters</div>
+        <div className="bg-[var(--color-surface)] border border-[var(--color-line)] p-3.5 rounded-[12px] text-center shadow-sm">
+          <div className="text-3xl font-black text-[var(--color-ink)]">{chars}</div>
+          <div className="text-[11px] text-[var(--color-ink-muted)] font-bold uppercase tracking-wider mt-0.5">Characters</div>
         </div>
 
-        <div className="bg-white border border-zinc-200 p-3.5 rounded-2xl text-center shadow-sm">
-          <div className="text-3xl font-black text-zinc-900">{charsNoSpaces}</div>
-          <div className="text-[11px] text-zinc-500 font-bold uppercase tracking-wider mt-0.5">No Spaces</div>
+        <div className="bg-[var(--color-surface)] border border-[var(--color-line)] p-3.5 rounded-[12px] text-center shadow-sm">
+          <div className="text-3xl font-black text-[var(--color-ink)]">{charsNoSpaces}</div>
+          <div className="text-[11px] text-[var(--color-ink-muted)] font-bold uppercase tracking-wider mt-0.5">No Spaces</div>
         </div>
 
-        <div className="bg-white border border-zinc-200 p-3.5 rounded-2xl text-center shadow-sm">
-          <div className="text-3xl font-black text-zinc-900">{sentences}</div>
-          <div className="text-[11px] text-zinc-500 font-bold uppercase tracking-wider mt-0.5">Sentences</div>
+        <div className="bg-[var(--color-surface)] border border-[var(--color-line)] p-3.5 rounded-[12px] text-center shadow-sm">
+          <div className="text-3xl font-black text-[var(--color-ink)]">{sentences}</div>
+          <div className="text-[11px] text-[var(--color-ink-muted)] font-bold uppercase tracking-wider mt-0.5">Sentences</div>
         </div>
 
-        <div className="bg-white border border-zinc-200 p-3.5 rounded-2xl text-center shadow-sm">
-          <div className="text-3xl font-black text-zinc-900">{paragraphs}</div>
-          <div className="text-[11px] text-zinc-500 font-bold uppercase tracking-wider mt-0.5">Paragraphs</div>
+        <div className="bg-[var(--color-surface)] border border-[var(--color-line)] p-3.5 rounded-[12px] text-center shadow-sm">
+          <div className="text-3xl font-black text-[var(--color-ink)]">{paragraphs}</div>
+          <div className="text-[11px] text-[var(--color-ink-muted)] font-bold uppercase tracking-wider mt-0.5">Paragraphs</div>
         </div>
 
-        <div className="bg-white border border-zinc-200 p-3.5 rounded-2xl text-center shadow-sm">
-          <div className="text-2xl font-black text-zinc-900">~{readingTime}m</div>
-          <div className="text-[11px] text-zinc-500 font-bold uppercase tracking-wider mt-0.5">Reading (~{speakingTime}m fala)</div>
+        <div className="bg-[var(--color-surface)] border border-[var(--color-line)] p-3.5 rounded-[12px] text-center shadow-sm">
+          <div className="text-2xl font-black text-[var(--color-ink)]">~{readingTime}m</div>
+          <div className="text-[11px] text-[var(--color-ink-muted)] font-bold uppercase tracking-wider mt-0.5">Reading (~{speakingTime}m fala)</div>
         </div>
       </div>
 
       {/* Barra de Ações Rápidas */}
-      <div className="flex flex-wrap items-center justify-between gap-2 bg-white p-2.5 rounded-2xl border border-zinc-200 shadow-sm text-xs">
+      <div className="flex flex-wrap items-center justify-between gap-2 bg-[var(--color-surface)] p-2.5 rounded-[12px] border border-[var(--color-line)] shadow-sm text-xs">
         <div className="flex flex-wrap gap-1.5">
           <button
             onClick={handleUpperCase}
             disabled={!text}
-            className="px-3 py-1.5 bg-zinc-100 hover:bg-zinc-200 rounded-lg font-bold text-zinc-700 disabled:opacity-40 transition"
+            className="px-3 py-1.5 bg-zinc-100 hover:bg-zinc-200 rounded-lg font-bold text-[var(--color-ink-soft)] disabled:opacity-40 transition"
           >
             MAIÚSCULAS
           </button>
           <button
             onClick={handleLowerCase}
             disabled={!text}
-            className="px-3 py-1.5 bg-zinc-100 hover:bg-zinc-200 rounded-lg font-bold text-zinc-700 disabled:opacity-40 transition"
+            className="px-3 py-1.5 bg-zinc-100 hover:bg-zinc-200 rounded-lg font-bold text-[var(--color-ink-soft)] disabled:opacity-40 transition"
           >
             minúsculas
           </button>
           <button
             onClick={handleCapitalize}
             disabled={!text}
-            className="px-3 py-1.5 bg-zinc-100 hover:bg-zinc-200 rounded-lg font-bold text-zinc-700 disabled:opacity-40 transition"
+            className="px-3 py-1.5 bg-zinc-100 hover:bg-zinc-200 rounded-lg font-bold text-[var(--color-ink-soft)] disabled:opacity-40 transition"
           >
             Primeira Maiúscula
           </button>
@@ -127,7 +127,7 @@ export default function WordCounter() {
         value={text}
         onChange={(e) => setText(e.target.value)}
         placeholder="Cole ou digite o texto aqui para analisar em tempo real..."
-        className="w-full p-5 bg-white rounded-3xl border-2 border-zinc-200 focus:outline-none focus:border-yellow-400 font-sans text-sm leading-relaxed shadow-inner"
+        className="w-full p-5 bg-[var(--color-surface)] rounded-[14px] border-2 border-[var(--color-line)] focus:outline-none focus:border-yellow-400 font-sans text-sm leading-relaxed shadow-inner"
       />
     </div>
   );

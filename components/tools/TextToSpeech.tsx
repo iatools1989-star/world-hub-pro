@@ -92,9 +92,9 @@ export default function TextToSpeech() {
   return (
     <div className="space-y-6">
       {/* Entrada de Texto */}
-      <div className="bg-white p-6 sm:p-8 rounded-3xl border border-zinc-200 shadow-sm space-y-4">
+      <div className="bg-[var(--color-surface)] p-6 sm:p-8 rounded-[14px] border border-[var(--color-line)] shadow-sm space-y-4">
         <div>
-          <label className="block text-xs font-bold text-zinc-500 uppercase tracking-wider mb-2">
+          <label className="block text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider mb-2">
             Texto para Reading por Voz Neural:
           </label>
           <textarea
@@ -102,20 +102,20 @@ export default function TextToSpeech() {
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder="Digite ou cole aqui o texto que você deseja ouvir..."
-            className="w-full p-4 rounded-2xl border-2 border-zinc-200 focus:outline-none focus:border-yellow-400 font-sans text-sm leading-relaxed"
+            className="w-full p-4 rounded-[12px] border-2 border-[var(--color-line)] focus:outline-none focus:border-yellow-400 font-sans text-sm leading-relaxed"
           />
         </div>
 
         {/* Seleção de Voz e Ajustes */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
           <div className="sm:col-span-2">
-            <label className="block text-xs font-bold text-zinc-600 mb-1.5 uppercase tracking-wider">
+            <label className="block text-xs font-bold text-[var(--color-ink-muted)] mb-1.5 uppercase tracking-wider">
               Voz / Idioma ({voices.length} disponíveis)
             </label>
             <select
               value={selectedVoice}
               onChange={(e) => setSelectedVoice(e.target.value)}
-              className="w-full p-2.5 rounded-xl border border-zinc-300 text-xs bg-white font-medium cursor-pointer"
+              className="w-full p-2.5 rounded-xl border border-zinc-300 text-xs bg-[var(--color-surface)] font-medium cursor-pointer"
             >
               {voices.map((v) => (
                 <option key={v.name} value={v.name}>
@@ -126,9 +126,9 @@ export default function TextToSpeech() {
           </div>
 
           <div>
-            <div className="flex justify-between items-center text-xs font-bold text-zinc-600 mb-1.5">
+            <div className="flex justify-between items-center text-xs font-bold text-[var(--color-ink-muted)] mb-1.5">
               <span>Speed</span>
-              <span className="font-mono text-zinc-900">{rate}x</span>
+              <span className="font-mono text-[var(--color-ink)]">{rate}x</span>
             </div>
             <input
               type="range"
@@ -142,9 +142,9 @@ export default function TextToSpeech() {
           </div>
 
           <div>
-            <div className="flex justify-between items-center text-xs font-bold text-zinc-600 mb-1.5">
+            <div className="flex justify-between items-center text-xs font-bold text-[var(--color-ink-muted)] mb-1.5">
               <span>Tom (Pitch)</span>
-              <span className="font-mono text-zinc-900">{pitch}x</span>
+              <span className="font-mono text-[var(--color-ink)]">{pitch}x</span>
             </div>
             <input
               type="range"
@@ -159,11 +159,11 @@ export default function TextToSpeech() {
         </div>
 
         {/* Barra de Controles de Áudio */}
-        <div className="flex flex-wrap gap-3 pt-4 border-t border-zinc-100">
+        <div className="flex flex-wrap gap-3 pt-4 border-t border-[var(--color-line)]">
           <button
             onClick={handleSpeak}
             type="button"
-            className="flex-1 py-4 bg-yellow-400 text-zinc-950 font-black rounded-2xl hover:bg-yellow-300 transition text-sm shadow-md flex items-center justify-center gap-2"
+            className="flex-1 py-4 bg-yellow-400 text-zinc-950 font-black rounded-[12px] hover:bg-yellow-300 transition text-sm shadow-md flex items-center justify-center gap-2"
           >
             <span>▶</span> {isSpeaking ? 'Reiniciar Fala' : 'Ouvir Texto Agora'}
           </button>
@@ -172,7 +172,7 @@ export default function TextToSpeech() {
             <button
               onClick={handlePauseResume}
               type="button"
-              className="px-6 py-4 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 font-bold rounded-2xl text-sm transition"
+              className="px-6 py-4 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 font-bold rounded-[12px] text-sm transition"
             >
               {isPaused ? 'Continuar ⏯' : 'Pausar ⏸'}
             </button>
@@ -182,7 +182,7 @@ export default function TextToSpeech() {
             <button
               onClick={handleStop}
               type="button"
-              className="px-6 py-4 bg-red-50 hover:bg-red-100 text-red-600 font-bold rounded-2xl text-sm transition"
+              className="px-6 py-4 bg-red-50 hover:bg-red-100 text-red-600 font-bold rounded-[12px] text-sm transition"
             >
               Parar ⏹
             </button>

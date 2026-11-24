@@ -141,10 +141,10 @@ export default function UnitConverter() {
           <button
             key={cat}
             onClick={() => handleCategoryChange(cat)}
-            className={`p-3 rounded-2xl border text-xs font-bold flex flex-col items-center gap-1.5 transition ${
+            className={`p-3 rounded-[12px] border text-xs font-bold flex flex-col items-center gap-1.5 transition ${
               category === cat
                 ? 'bg-zinc-900 text-yellow-400 border-zinc-900 shadow'
-                : 'bg-white border-zinc-200 text-zinc-700 hover:border-zinc-300 hover:bg-zinc-50'
+                : 'bg-[var(--color-surface)] border-[var(--color-line)] text-[var(--color-ink-soft)] hover:border-zinc-300 hover:bg-[var(--color-surface-2)]'
             }`}
           >
             <span className="text-xl">{CATEGORIES[cat].icon}</span>
@@ -154,22 +154,22 @@ export default function UnitConverter() {
       </div>
 
       {/* Caixa de Conversão */}
-      <div className="bg-white p-6 rounded-3xl border border-zinc-200 shadow-sm space-y-6">
+      <div className="bg-[var(--color-surface)] p-6 rounded-[14px] border border-[var(--color-line)] shadow-sm space-y-6">
         <div className="grid md:grid-cols-[1fr_auto_1fr] gap-4 items-center">
           {/* Origem */}
           <div className="space-y-2">
-            <label className="block text-xs font-bold text-zinc-500 uppercase tracking-wider">From:</label>
+            <label className="block text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider">From:</label>
             <input
               type="number"
               value={fromValue}
               onChange={(e) => setFromValue(e.target.value)}
               placeholder="0"
-              className="w-full px-4 py-3 rounded-2xl border-2 border-zinc-200 focus:outline-none focus:border-yellow-400 font-bold text-lg"
+              className="w-full px-4 py-3 rounded-[12px] border-2 border-[var(--color-line)] focus:outline-none focus:border-yellow-400 font-bold text-lg"
             />
             <select
               value={fromUnit}
               onChange={(e) => setFromUnit(e.target.value)}
-              className="w-full p-2.5 rounded-xl border border-zinc-300 text-sm bg-white font-medium cursor-pointer"
+              className="w-full p-2.5 rounded-xl border border-zinc-300 text-sm bg-[var(--color-surface)] font-medium cursor-pointer"
             >
               {Object.entries(units).map(([key, item]) => (
                 <option key={key} value={key}>{item.label}</option>
@@ -190,14 +190,14 @@ export default function UnitConverter() {
 
           {/* Destino */}
           <div className="space-y-2">
-            <label className="block text-xs font-bold text-zinc-500 uppercase tracking-wider">To (Result):</label>
-            <div className="w-full px-4 py-3 rounded-2xl bg-zinc-50 border-2 border-zinc-200 font-black text-xl text-zinc-900 select-all overflow-x-auto">
+            <label className="block text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider">To (Result):</label>
+            <div className="w-full px-4 py-3 rounded-[12px] bg-[var(--color-surface-2)] border-2 border-[var(--color-line)] font-black text-xl text-[var(--color-ink)] select-all overflow-x-auto">
               {calculateResult()}
             </div>
             <select
               value={toUnit}
               onChange={(e) => setToUnit(e.target.value)}
-              className="w-full p-2.5 rounded-xl border border-zinc-300 text-sm bg-white font-medium cursor-pointer"
+              className="w-full p-2.5 rounded-xl border border-zinc-300 text-sm bg-[var(--color-surface)] font-medium cursor-pointer"
             >
               {Object.entries(units).map(([key, item]) => (
                 <option key={key} value={key}>{item.label}</option>
@@ -207,8 +207,8 @@ export default function UnitConverter() {
         </div>
 
         {/* Tabela de Conversão Rápida Dinâmica */}
-        <div className="pt-4 border-t border-zinc-100">
-          <span className="text-xs font-bold text-zinc-500 uppercase tracking-wider block mb-3">
+        <div className="pt-4 border-t border-[var(--color-line)]">
+          <span className="text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider block mb-3">
             Valores de Referência ({fromValue || 0} {units[fromUnit]?.label.split(' ')[0]}):
           </span>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
@@ -221,9 +221,9 @@ export default function UnitConverter() {
                 converted = (num * units[fromUnit]?.rate) / item.rate;
               }
               return (
-                <div key={k} className="p-2.5 bg-zinc-50 rounded-xl border border-zinc-200 text-center">
-                  <div className="font-bold text-zinc-900">{Number(converted.toFixed(4))}</div>
-                  <div className="text-[10px] text-zinc-500 truncate">{item.label}</div>
+                <div key={k} className="p-2.5 bg-[var(--color-surface-2)] rounded-xl border border-[var(--color-line)] text-center">
+                  <div className="font-bold text-[var(--color-ink)]">{Number(converted.toFixed(4))}</div>
+                  <div className="text-[10px] text-[var(--color-ink-muted)] truncate">{item.label}</div>
                 </div>
               );
             })}

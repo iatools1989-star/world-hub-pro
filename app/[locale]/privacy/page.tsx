@@ -18,25 +18,25 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
   return (
     <div className="flex flex-col min-h-screen">
       <Header currentLocale={locale} />
-      <main className="max-w-[900px] mx-auto px-4 sm:px-6 py-12 flex-1 w-full">
-        <div className="bg-white border border-zinc-200 rounded-3xl p-6 sm:p-10 shadow-sm">
-          <div className="border-b border-zinc-200 pb-6 mb-8">
-            <span className="text-xs uppercase tracking-wider font-bold text-yellow-600 bg-yellow-50 px-3 py-1 rounded-full border border-yellow-200">
+      <main className="max-w-[1040px] mx-auto px-4 sm:px-6 lg:px-8 py-9 sm:py-12 flex-1 w-full">
+        <div className="bg-[var(--color-surface)] border border-[var(--color-line)] rounded-[14px] p-6 sm:p-10 shadow-sm">
+          <div className="border-b border-[var(--color-line)] pb-6 mb-8">
+            <span className="text-xs uppercase tracking-wider font-bold text-[var(--color-brand-deep)] bg-yellow-50 px-3 py-1 rounded-full border border-yellow-200">
               Legal & Trust
             </span>
-            <h1 className="text-3xl sm:text-4xl font-black text-zinc-900 mt-3 tracking-tight">
+            <h1 className="text-3xl sm:text-4xl font-black text-[var(--color-ink)] mt-3 tracking-tight">
               Privacy Policy
             </h1>
-            <p className="text-xs text-zinc-500 mt-2">
+            <p className="text-xs text-[var(--color-ink-muted)] mt-2">
               Last updated: November 10, 2026 · Applies to the English edition at iatools.online
             </p>
           </div>
 
-          <div className="prose text-zinc-700 space-y-6 text-sm leading-relaxed">
+          <div className="prose text-[var(--color-ink-soft)] space-y-6 text-sm leading-relaxed">
             <section>
-              <h2 className="text-xl font-black text-zinc-900 mb-2">1. Introduction & Core Mission</h2>
+              <h2 className="text-xl font-black text-[var(--color-ink)] mb-2">1. Introduction & Core Mission</h2>
               <p>
-                Welcome to <strong>World Tools Hub</strong> (available at <a href="https://iatools.online" className="text-yellow-600 font-bold hover:underline">https://iatools.online</a>). 
+                Welcome to <strong>World Tools Hub</strong> (available at <a href="https://iatools.online" className="text-[var(--color-brand-deep)] font-bold hover:underline">https://iatools.online</a>). 
                 We are committed to operating our browser utilities under strict <strong>Privacy-by-Design</strong> principles. 
                 Our architectural premise is straightforward: everyday utility tools (such as PDF manipulators, image converters, 
                 and text processors) should execute <strong>locally in the user's browser sandbox</strong> without uploading confidential documents 
@@ -45,7 +45,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
             </section>
 
             <section>
-              <h2 className="text-xl font-black text-zinc-900 mb-2">2. Local File Processing</h2>
+              <h2 className="text-xl font-black text-[var(--color-ink)] mb-2">2. Local File Processing</h2>
               <p>
                 When you use tools on World Tools Hub—including but not limited to <em>PDF to JPG, Merge PDF, Compress PDF, Remove Background, 
                 Image Compressor, Password Generator, and Text to Speech</em>:
@@ -58,7 +58,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
             </section>
 
             <section>
-              <h2 className="text-xl font-black text-zinc-900 mb-2">3. Google AdSense & Third-Party Cookies Policy</h2>
+              <h2 className="text-xl font-black text-[var(--color-ink)] mb-2">3. Google AdSense & Third-Party Cookies Policy</h2>
               <p>
                 To provide free access to all utility tools, World Tools Hub partners with <strong>Google AdSense</strong> to display digital advertisements.
               </p>
@@ -67,13 +67,13 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
                 <li>Google's use of advertising cookies enables it and its partners to serve ads to users based on their visit to our site and/or other sites on the Internet.</li>
                 <li>
                   Users may opt out of personalized advertising by visiting Google's Ad Settings at{' '}
-                  <a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer" className="text-yellow-600 font-bold underline">
+                  <a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer" className="text-[var(--color-brand-deep)] font-bold underline">
                     Google Ads Settings
                   </a>.
                 </li>
                 <li>
                   Alternatively, users can opt out of a third-party vendor's use of cookies for personalized advertising by visiting{' '}
-                  <a href="https://www.aboutads.info/choices" target="_blank" rel="noopener noreferrer" className="text-yellow-600 font-bold underline">
+                  <a href="https://www.aboutads.info/choices" target="_blank" rel="noopener noreferrer" className="text-[var(--color-brand-deep)] font-bold underline">
                     www.aboutads.info
                   </a>.
                 </li>
@@ -81,7 +81,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
             </section>
 
             <section>
-              <h2 className="text-xl font-black text-zinc-900 mb-2">4. Web Analytics & Server Logs</h2>
+              <h2 className="text-xl font-black text-[var(--color-ink)] mb-2">4. Web Analytics & Server Logs</h2>
               <p>
                 When you browse our pages, basic standard technical logs may be automatically recorded by our hosting infrastructure (Vercel Edge Network), such as:
               </p>
@@ -96,7 +96,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
             </section>
 
             <section>
-              <h2 className="text-xl font-black text-zinc-900 mb-2">5. Affiliate Disclosure & Transparency</h2>
+              <h2 className="text-xl font-black text-[var(--color-ink)] mb-2">5. Affiliate Disclosure & Transparency</h2>
               <p>
                 World Tools Hub participates in curated affiliate partner programs (e.g., enterprise AI software directories and advanced desktop alternatives). 
                 If you choose to click on an external affiliate link (such as <em>/go/[slug]</em>) and purchase a subscription or software license, 
@@ -106,7 +106,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
             </section>
 
             <section>
-              <h2 className="text-xl font-black text-zinc-900 mb-2">6. User Rights (GDPR & LGPD Compliance)</h2>
+              <h2 className="text-xl font-black text-[var(--color-ink)] mb-2">6. User Rights (GDPR & LGPD Compliance)</h2>
               <p>
                 Under global data protection regulations, including the European Union General Data Protection Regulation (GDPR) and the Brazilian Lei Geral de Proteção de Dados (LGPD), you possess the following rights:
               </p>
@@ -117,7 +117,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
               </ul>
               <p className="mt-3">
                 To exercise any of these rights, or to ask what — if anything — we hold about you, write to{' '}
-                <a href="mailto:contact@iatools.online" className="text-yellow-600 font-bold hover:underline">contact@iatools.online</a>{' '}
+                <a href="mailto:guilhermemarculasilva@gmail.com" className="text-[var(--color-brand-deep)] font-bold hover:underline">guilhermemarculasilva@gmail.com</a>{' '}
                 with the subject line <em>Data request</em>. Email is our only support channel. We answer from a real
                 inbox, not an autoresponder, so allow a few working days. If you are not satisfied with the answer, you
                 may complain to your local data protection authority — in Brazil, the ANPD.
@@ -125,23 +125,23 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
             </section>
 
             <section>
-              <h2 className="text-xl font-black text-zinc-900 mb-2">7. Children's Information (COPPA Compliance)</h2>
+              <h2 className="text-xl font-black text-[var(--color-ink)] mb-2">7. Children's Information (COPPA Compliance)</h2>
               <p>
                 World Tools Hub does not knowingly collect or solicit any personally identifiable information from children under the age of 13. If you believe your child provided personal information on our website, please contact us immediately, and we will promptly remove such records from our standard server logs.
               </p>
             </section>
 
             <section>
-              <h2 className="text-xl font-black text-zinc-900 mb-2">8. Contact Information & Data Protection Officer</h2>
+              <h2 className="text-xl font-black text-[var(--color-ink)] mb-2">8. Contact Information & Data Protection Officer</h2>
               <p>
                 If you have questions, inquiries, or suggestions regarding this Privacy Policy, please contact our Data Governance team:
               </p>
-              <div className="mt-3 p-4 bg-zinc-50 rounded-xl border border-zinc-200">
-                <div className="font-bold text-zinc-900">World Tools Hub Data Protection Inquiries</div>
-                <div className="text-xs text-zinc-600 mt-1">Website: iatools.online</div>
-                <div className="text-xs text-zinc-600">Email:{' '}
-                  <a href="mailto:contact@iatools.online" className="text-yellow-600 font-bold hover:underline">
-                    contact@iatools.online
+              <div className="mt-3 p-4 bg-[var(--color-surface-2)] rounded-xl border border-[var(--color-line)]">
+                <div className="font-bold text-[var(--color-ink)]">World Tools Hub Data Protection Inquiries</div>
+                <div className="text-xs text-[var(--color-ink-muted)] mt-1">Website: iatools.online</div>
+                <div className="text-xs text-[var(--color-ink-muted)]">Email:{' '}
+                  <a href="mailto:guilhermemarculasilva@gmail.com" className="text-[var(--color-brand-deep)] font-bold hover:underline">
+                    guilhermemarculasilva@gmail.com
                   </a>
                 </div>
               </div>
