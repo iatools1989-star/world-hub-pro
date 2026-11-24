@@ -7,7 +7,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     alternates: { canonical: canonical(`/${locale}/privacy`) },
     title: 'Privacy Policy & Data Protection',
-    description: 'What World Tools Hub stores and what it does not: local file processing, the cookies Google AdSense sets, and the rights you can exercise by email.',
+    description: 'What World Tools Hub stores and what it does not: local file processing, the cookies Google AdSense and Analytics set, and the rights you can exercise by email.',
   };
 }
 
@@ -83,7 +83,35 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
             <section>
               <h2 className="text-xl font-black text-[var(--color-ink)] mb-2">4. Web Analytics & Server Logs</h2>
               <p>
-                When you browse our pages, basic standard technical logs may be automatically recorded by our hosting infrastructure (Vercel Edge Network), such as:
+                We use <strong>Google Analytics 4</strong> (delivered through Google Tag Manager) to
+                understand which pages people find useful and which ones they leave immediately. It
+                records things like the pages you visit, how long you stay, the country your
+                connection comes from, and the browser and device you use. It does not receive the
+                contents of any file you process — that never leaves your browser, and analytics has
+                no way to see it.
+              </p>
+              <ul className="list-disc pl-5 space-y-1 mt-2">
+                <li>
+                  <strong>What it sets:</strong> cookies that distinguish one visit from another
+                  (<code className="text-[13px]">_ga</code>,{' '}
+                  <code className="text-[13px]">_ga_*</code>), valid for up to 2 years.
+                </li>
+                <li>
+                  <strong>IP addresses:</strong> Google Analytics 4 does not log or store your full
+                  IP address.
+                </li>
+                <li>
+                  <strong>Opting out:</strong> install the{' '}
+                  <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" className="text-[var(--color-brand-deep)] font-bold underline">
+                    Google Analytics Opt-out Browser Add-on
+                  </a>
+                  , or block the cookies with your browser settings. The tools on this site keep
+                  working either way — they do not depend on analytics.
+                </li>
+              </ul>
+              <p className="mt-3">
+                Separately, basic standard technical logs may be automatically recorded by our
+                hosting infrastructure (Cloudflare Workers), such as:
               </p>
               <ul className="list-disc pl-5 space-y-1 mt-2">
                 <li>Internet Protocol (IP) address;</li>
