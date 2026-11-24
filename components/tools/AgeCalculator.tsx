@@ -114,22 +114,22 @@ export default function AgeCalculator() {
           {/* Grade de Totais Acumulados */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
             <div className="bg-[var(--color-surface)] p-4 rounded-[12px] border border-[var(--color-line)] shadow-sm">
-              <div className="text-xl sm:text-2xl font-black text-[var(--color-ink)]">{stats.totalDays.toLocaleString('pt-BR')}</div>
+              <div className="text-xl sm:text-2xl font-black text-[var(--color-ink)]">{stats.totalDays.toLocaleString('en-US')}</div>
               <div className="text-[10px] text-[var(--color-ink-muted)] uppercase font-bold tracking-wider mt-1">Days Alive</div>
             </div>
 
             <div className="bg-[var(--color-surface)] p-4 rounded-[12px] border border-[var(--color-line)] shadow-sm">
-              <div className="text-xl sm:text-2xl font-black text-[var(--color-ink)]">{stats.totalWeeks.toLocaleString('pt-BR')}</div>
+              <div className="text-xl sm:text-2xl font-black text-[var(--color-ink)]">{stats.totalWeeks.toLocaleString('en-US')}</div>
               <div className="text-[10px] text-[var(--color-ink-muted)] uppercase font-bold tracking-wider mt-1">Weeks</div>
             </div>
 
             <div className="bg-[var(--color-surface)] p-4 rounded-[12px] border border-[var(--color-line)] shadow-sm">
-              <div className="text-xl sm:text-2xl font-black text-[var(--color-ink)]">{stats.totalHours.toLocaleString('pt-BR')}</div>
+              <div className="text-xl sm:text-2xl font-black text-[var(--color-ink)]">{stats.totalHours.toLocaleString('en-US')}</div>
               <div className="text-[10px] text-[var(--color-ink-muted)] uppercase font-bold tracking-wider mt-1">Hours</div>
             </div>
 
             <div className="bg-[var(--color-surface)] p-4 rounded-[12px] border border-[var(--color-line)] shadow-sm">
-              <div className="text-xl sm:text-2xl font-black text-[var(--color-ink)]">{stats.totalMinutes.toLocaleString('pt-BR')}</div>
+              <div className="text-xl sm:text-2xl font-black text-[var(--color-ink)]">{stats.totalMinutes.toLocaleString('en-US')}</div>
               <div className="text-[10px] text-[var(--color-ink-muted)] uppercase font-bold tracking-wider mt-1">Minutes</div>
             </div>
           </div>

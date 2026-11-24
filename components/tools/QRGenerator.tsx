@@ -133,7 +133,7 @@ export default function QRGenerator() {
               type="url"
               value={rawText}
               onChange={(e) => setRawText(e.target.value)}
-              placeholder="https://exemplo.com"
+              placeholder="https://example.com/my-page"
               className="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 text-sm"
             />
           </div>
@@ -149,7 +149,7 @@ export default function QRGenerator() {
                 type="text"
                 value={wifiSsid}
                 onChange={(e) => setWifiSsid(e.target.value)}
-                placeholder="Ex: MinhaCasa_5G"
+                placeholder="e.g. Home_5G"
                 className="w-full px-4 py-2.5 rounded-xl border border-zinc-300 text-sm"
               />
             </div>
