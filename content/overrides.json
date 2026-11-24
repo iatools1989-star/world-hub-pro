@@ -1,1 +1,7 @@
-{}
+{
+  "tool": {
+    "qr-generator": {
+      "metaTitle": "Free QR Code Generator — Static, No Tracking"
+    }
+  }
+}
