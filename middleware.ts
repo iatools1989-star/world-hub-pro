@@ -26,6 +26,24 @@ export function middleware(req: NextRequest) {
     return NextResponse.redirect(req.nextUrl, 308);
   }
 
+  // Sitemap sem extensao -> sitemap.xml.
+  //
+  // Antes, /sitemap caia na regra generica e virava 301 para /en/sitemap,
+  // que nao existe. O Search Console mostrava exatamente isso: "Nao foi
+  // possivel buscar o sitemap" na entrada /sitemap. Quem digita o endereco
+  // sem extensao merece chegar no arquivo certo.
+  if (pathname === '/sitemap' || pathname === '/sitemap.xml/') {
+    req.nextUrl.pathname = '/sitemap.xml';
+    return NextResponse.redirect(req.nextUrl, 301);
+  }
+
+  // Arquivos que o Next/Cloudflare servem direto e que nao tem locale.
+  const ESTATICOS = ['/robots.txt', '/sitemap.xml', '/ads.txt', '/favicon.ico'];
+  const ARQUIVOS_PUBLICOS = /^\/(pdf\.worker\.min\.js|file\.svg|globe\.svg|next\.svg|vercel\.svg|window\.svg|videos\/[\w-]+\.(mp4|jpg)|demo\/[\w-]+\.(jpg|png))$/;
+  if (ESTATICOS.includes(pathname) || ARQUIVOS_PUBLICOS.test(pathname)) {
+    return NextResponse.next();
+  }
+
   // Caminho com extensao de arquivo que nao existe de verdade: 404 seco.
   //
   // Sem isto, /index.html virava 301 para /en/index.html, que por sua vez
