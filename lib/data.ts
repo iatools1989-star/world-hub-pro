@@ -1,9 +1,32 @@
+/**
+ * Configuracao do AdSense.
+ *
+ * O script do Google (`adsbygoogle.js` + `show_ads_impl.js`) pesa cerca de
+ * 800 KB — mais da metade do peso das nossas paginas. Ele so faz sentido
+ * quando existe um bloco real para preencher.
+ *
+ * Enquanto a conta nao esta aprovada, os IDs abaixo sao os de exemplo e o
+ * layout NAO carrega o script: pagina leve, sem requisicao a googlesyndication.
+ * No dia em que o AdSense aprovar, basta colar o ID de bloco real gerado no
+ * painel (Anuncios > Por bloco de anuncio) — o script volta sozinho, porque a
+ * checagem e feita em ADSENSE_ATIVO.
+ */
 export const ADSENSE_CONFIG = {
   client: 'ca-pub-3588158822524146',
-  slotTools: '8910111213', // Substitua pelo ID gerado no AdSense
+  // Trocar pelos IDs reais do painel quando a conta for aprovada.
+  slotTools: '8910111213',
   slotDirectory: '9876543210',
   slotInArticle: '5432167890',
 };
+
+/**
+ * Um bloco do AdSense tem ID numerico longo. O valor '8910111213' e um
+ * placeholder; qualquer coisa assim e tratada como "ainda nao configurado".
+ * Basta substituir por um ID real para o script voltar a carregar.
+ */
+export const ADSENSE_ATIVO =
+  ADSENSE_CONFIG.slotTools !== '8910111213' &&
+  /^\d{6,}$/.test(ADSENSE_CONFIG.slotTools);
 
 // Etapa 1: site publico em ingles apenas.
 // O conteudo das paginas e 100% ingles (as paginas tem o idioma fixo),

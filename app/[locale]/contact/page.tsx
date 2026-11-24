@@ -45,7 +45,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                 </p>
               </div>
               <div className="mt-4 pt-4 border-t border-[var(--color-line)]">
-                <a href="mailto:guilhermemarculasilva@gmail.com" className="text-sm font-bold text-[var(--color-ink)] hover:text-[var(--color-brand-deep)] transition flex items-center gap-1">
+                <a href="mailto:guilhermemarculasilva@gmail.com" className="inline-flex min-h-6 items-center text-sm font-bold text-[var(--color-ink)] hover:text-[var(--color-brand-deep)] transition flex items-center gap-1">
                   guilhermemarculasilva@gmail.com <span>→</span>
                 </a>
               </div>
@@ -60,7 +60,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                 </p>
               </div>
               <div className="mt-4 pt-4 border-t border-yellow-200">
-                <a href="mailto:guilhermemarculasilva@gmail.com?subject=Partnership%20Inquiry" className="text-sm font-bold text-[var(--color-ink)] hover:text-[var(--color-brand-deep)] transition flex items-center gap-1">
+                <a href="mailto:guilhermemarculasilva@gmail.com?subject=Partnership%20Inquiry" className="inline-flex min-h-6 items-center text-sm font-bold text-[var(--color-ink)] hover:text-[var(--color-brand-deep)] transition flex items-center gap-1">
                   partnerships@iatools.online <span>→</span>
                 </a>
               </div>

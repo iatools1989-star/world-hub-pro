@@ -195,7 +195,7 @@ export default async function HomePage() {
               leave the device.
             </p>
           </div>
-          <Link href="/en/tools" className="ui-link text-[13.5px] font-bold">
+          <Link href="/en/tools" className="ui-link inline-flex min-h-6 items-center text-[13.5px] font-bold">
             See all 16
           </Link>
         </div>
@@ -266,7 +266,7 @@ export default async function HomePage() {
                 it, and a cheaper alternative.
               </p>
             </div>
-            <Link href="/en/directory" className="ui-link text-[13.5px] font-bold">
+            <Link href="/en/directory" className="ui-link inline-flex min-h-6 items-center text-[13.5px] font-bold">
               Compare all
             </Link>
           </div>

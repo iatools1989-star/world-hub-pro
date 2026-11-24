@@ -73,9 +73,9 @@ export default async function GuidePage({ params }: { params: Promise<{ locale: 
 
       <main className="flex-1 max-w-[720px] mx-auto w-full px-4 sm:px-6 lg:px-8 py-9 sm:py-12">
         <nav className="text-xs text-[var(--color-ink-muted)] mb-4">
-          <Link href={`/${locale}`} className="hover:underline">Home</Link>
+          <Link href={`/${locale}`} className="inline-flex min-h-6 items-center hover:underline">Home</Link>
           <span className="mx-2">/</span>
-          <Link href={`/${locale}/guides`} className="hover:underline">Guides</Link>
+          <Link href={`/${locale}/guides`} className="inline-flex min-h-6 items-center hover:underline">Guides</Link>
         </nav>
 
         <article>
@@ -153,7 +153,7 @@ export default async function GuidePage({ params }: { params: Promise<{ locale: 
 
           <p className="mt-8 text-xs text-[var(--color-ink-muted)] leading-relaxed">
             Written by Silva. No affiliate ID is attached to any link on this page.{' '}
-            <Link href={`/${locale}/affiliate-disclosure`} className="underline">Full disclosure</Link>.
+            <Link href={`/${locale}/affiliate-disclosure`} className="inline-flex min-h-6 items-center underline">Full disclosure</Link>.
           </p>
         </article>
 

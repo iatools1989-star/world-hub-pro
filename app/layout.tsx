@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter, JetBrains_Mono } from 'next/font/google';
 import '@/app/globals.css';
-import { ADSENSE_CONFIG } from '@/lib/data';
+import { ADSENSE_CONFIG, ADSENSE_ATIVO } from '@/lib/data';
 import { SITE_URL, SITE_NAME, AUTHOR_NAME } from '@/lib/seo';
 
 // Fontes servidas do próprio build (sem requisição a terceiros).
@@ -69,11 +69,16 @@ export default function RootLayout({
             do Next injeta um atributo data-nscript que o Google rejeita com
             "AdSense head tag doesn't support data-nscript attribute" — o que
             pode invalidar a verificação do site. Por isso vai como script puro. */}
-        <script
-          async
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CONFIG.client}`}
-          crossOrigin="anonymous"
-        />
+        {/* O script so entra quando existe um bloco real configurado.
+            Sem isso, 800 KB de JS de anuncio viajam para o celular do
+            visitante para exibir um espaco vazio — e o Google mede isso. */}
+        {ADSENSE_ATIVO && (
+          <script
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CONFIG.client}`}
+            crossOrigin="anonymous"
+          />
+        )}
       </head>
       <body className="min-h-screen flex flex-col antialiased">
         {children}

@@ -28,6 +28,10 @@
   --color-ink-muted: #6b6b76;
   --color-brand: #f5c518;
   --color-brand-deep: #d9a800;
+  /* Amarelo da marca tem contraste 1,9:1 sobre branco — serve para fundo e
+     borda, nunca para texto. Este tom é a versao escura do mesmo matiz,
+     com 5,6:1, que passa AA para texto normal. */
+  --color-link: #8a6400;
 
   --radius-card: 14px;
   --radius-pill: 999px;
@@ -44,6 +48,9 @@
   --color-ink: #f4f4f5;
   --color-ink-soft: #d4d4d8;
   --color-ink-muted: #9b9ba4;
+  /* Mesmo matiz, clareado: sobre fundo escuro o link
+     precisa de contraste na direcao oposta. */
+  --color-link: #f5c518;
 }
 
 /* --------------------------------------------------------------------------
@@ -295,4 +302,27 @@ body {
     animation-duration: 0.001ms !important;
     transition-duration: 0.001ms !important;
   }
+}
+
+/* ---------------------------------------------------------------------------
+   Correcao de acessibilidade: links dentro de texto corrido.
+
+   O amarelo da marca (#f5c518 / #d9a800) tem contraste de 1,9:1 e 2,2:1
+   sobre o fundo claro. A WCAG 2.1 pede 4,5:1 para texto normal. Esses links
+   aparecem nas paginas de privacidade, termos e nos cartoes de "onde ir
+   depois", ou seja, em texto que o visitante precisa conseguir ler.
+
+   Regra: o amarelo continua mandando no visual, mas em blocos graficos
+   (fundo, borda, chips). Texto com peso de leitura usa --color-link.
+--------------------------------------------------------------------------- */
+main a.text-\[var\(--color-brand-deep\)\],
+main a.text-\[var\(--color-brand\)\] {
+  color: var(--color-link);
+  text-decoration-color: currentColor;
+}
+
+main .ui-link,
+main .ui-link:hover {
+  color: var(--color-ink);
+  text-decoration-color: var(--color-ink-muted);
 }

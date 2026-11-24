@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { ADSENSE_CONFIG } from '@/lib/data';
+import { ADSENSE_CONFIG, ADSENSE_ATIVO } from '@/lib/data';
 
 interface AdSlotProps {
   slotId?: string;
@@ -20,6 +20,9 @@ export default function AdSenseBanner({
   const [estado, setEstado] = useState<'carregando' | 'preenchido' | 'vazio'>('carregando');
 
   useEffect(() => {
+    // Sem bloco configurado nao existe o que preencher: nao empurra nada
+    // para o Google nem espera o timeout para decidir que esta vazio.
+    if (!ADSENSE_ATIVO) return;
     try {
       ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
     } catch {
@@ -37,6 +40,7 @@ export default function AdSenseBanner({
     return () => clearTimeout(t);
   }, []);
 
+  if (!ADSENSE_ATIVO) return null;
   const compacto = estado !== 'preenchido';
 
   return (
