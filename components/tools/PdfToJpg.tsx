@@ -13,7 +13,7 @@ export default function PdfToJpg() {
     if (!selected) return;
 
     if (selected.type !== 'application/pdf') {
-      alert('Por favor, selecione um arquivo no formato PDF.');
+      alert('Please select a PDF file.');
       return;
     }
 
@@ -27,7 +27,7 @@ export default function PdfToJpg() {
     if (!file) return;
 
     setIsProcessing(true);
-    setStatusMessage('Inicializando motor de renderização PDF no navegador...');
+    setStatusMessage('Starting the PDF renderer in your browser...');
 
     try {
       // Injeta pdfjs via script tag se ainda não estiver disponível na janela
@@ -47,7 +47,7 @@ export default function PdfToJpg() {
       const arrayBuffer = await file.arrayBuffer();
       const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
 
-      setStatusMessage(`Convertendo ${pdf.numPages} páginas em alta definição...`);
+      setStatusMessage(`Converting ${pdf.numPages} pages at high resolution...`);
       const convertedList: string[] = [];
 
       const maxPages = Math.min(pdf.numPages, 10);
@@ -76,7 +76,7 @@ export default function PdfToJpg() {
       setStatusMessage('');
       setIsProcessing(false);
     } catch {
-      setStatusMessage('Nota: Não foi possível converter este PDF localmente. O arquivo pode estar protegido por senha.');
+      setStatusMessage('Note: this PDF could not be converted locally. The file may be password-protected.');
       setIsProcessing(false);
     }
   };
@@ -105,10 +105,10 @@ export default function PdfToJpg() {
           <span className="text-4xl block">📄</span>
           <div>
             <span className="font-black text-[var(--color-ink)] block text-base">
-              {file ? file.name : 'Clique para selecionar seu documento PDF'}
+              {file ? file.name : 'Click to select your PDF document'}
             </span>
             <span className="text-xs text-[var(--color-ink-muted)] mt-1 block">
-              100% Privado: páginas extraídas localmente via Canvas no seu navegador.
+              100% private: pages are extracted locally with Canvas in your browser.
             </span>
           </div>
         </label>
@@ -123,7 +123,7 @@ export default function PdfToJpg() {
             className="w-full py-4 bg-yellow-400 text-zinc-950 font-black rounded-[12px] hover:bg-yellow-300 transition text-sm shadow-md flex items-center justify-center gap-2 disabled:opacity-50"
           >
             <span>{isProcessing ? '⏳' : '⚡'}</span>
-            <span>{isProcessing ? 'Extraindo páginas no navegador...' : 'Converter PDF para Imagens JPG'}</span>
+            <span>{isProcessing ? 'Extracting pages in your browser...' : 'Convert PDF to JPG images'}</span>
           </button>
 
           {statusMessage && (
@@ -136,13 +136,13 @@ export default function PdfToJpg() {
             <div className="space-y-4 pt-4 border-t border-[var(--color-line)]">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider">
-                  Páginas Convertidas ({pageImages.length}):
+                  Converted pages ({pageImages.length}):
                 </span>
                 <button
                   onClick={downloadAll}
                   className="px-4 py-2 bg-zinc-900 text-white rounded-xl text-xs font-bold hover:bg-zinc-800 transition"
                 >
-                  Baixar Todas as Imagens
+                  Download all images
                 </button>
               </div>
 
@@ -154,17 +154,17 @@ export default function PdfToJpg() {
                   >
                     <img
                       src={imgUrl}
-                      alt={`Página ${idx + 1}`}
+                      alt={`Page ${idx + 1}`}
                       className="w-full h-40 object-contain rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)]"
                     />
                     <div className="flex items-center justify-between w-full text-xs">
-                      <span className="font-bold text-[var(--color-ink-soft)]">Pág. {idx + 1}</span>
+                      <span className="font-bold text-[var(--color-ink-soft)]">Page {idx + 1}</span>
                       <a
                         href={imgUrl}
                         download={`pagina-${idx + 1}.jpg`}
                         className="text-[var(--color-brand-deep)] font-bold hover:underline"
                       >
-                        Baixar JPG
+                        Download JPG
                       </a>
                     </div>
                   </div>

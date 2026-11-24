@@ -36,7 +36,7 @@ export const TOOLS: ToolItem[] = [
   { slug: 'age-calculator', name: 'Age & Date Calculator', desc: 'Calculate exact age, time difference and days elapsed.', icon: '🎂', category: 'Calculator' },
   { slug: 'resume-builder', name: 'Quick Resume Builder', desc: 'Build and format clean printable resumes.', icon: '📄', category: 'Career', featured: 'Rezi Pro' },
   { slug: 'text-to-speech', name: 'Text to Speech (TTS)', desc: 'Natural speech synthesizer using native browser Web Speech API.', icon: '🔊', category: 'Audio', featured: 'ElevenLabs' },
-  { slug: 'url-shortener', name: 'Clean URL & Link Cleaner', desc: 'Remove tracking params (UTM, fbclid) and format clean URLs.', icon: '🔗', category: 'Utility' },
+  { slug: 'url-shortener', name: 'Link Cleaner — Remove Tracking Parameters', desc: 'Strip UTM, fbclid, gclid and other tracking parameters before you share a link.', icon: '🔗', category: 'Utility' },
   { slug: 'merge-pdf', name: 'Merge PDF Documents', desc: 'Join multiple PDF documents in exact order.', icon: '📚', category: 'PDF' },
   { slug: 'bulk-studio', name: 'Bulk Studio', desc: 'Process 100 images at once, 100% offline, ZIP download.', icon: '📦', category: 'Image' },
 ];

@@ -19,7 +19,7 @@ export default function RemoveBg() {
     if (!selected) return;
 
     if (!selected.type.startsWith('image/')) {
-      alert('Selecione uma imagem válida (PNG, JPG ou WebP).');
+      alert('Please select a valid image (PNG, JPG or WebP).');
       return;
     }
 
@@ -118,7 +118,7 @@ export default function RemoveBg() {
     };
 
     img.onerror = () => {
-      alert('Erro ao carregar a imagem na memória local.');
+      alert('Could not load the image into local memory.');
       setIsProcessing(false);
     };
   };
@@ -144,10 +144,10 @@ export default function RemoveBg() {
           <span className="text-4xl block">✂️</span>
           <div>
             <span className="font-black text-[var(--color-ink)] block text-base">
-              {file ? file.name : 'Selecione uma imagem para remover o fundo'}
+              {file ? file.name : 'Select an image to remove the background'}
             </span>
             <span className="text-xs text-[var(--color-ink-muted)] mt-1 block">
-              100% Client-Side: processamento instantâneo via Canvas sem enviar sua foto para servidores.
+              100% Client-Side: instant Canvas processing — your photo is never uploaded.
             </span>
           </div>
         </label>
@@ -159,7 +159,7 @@ export default function RemoveBg() {
           <div className="grid sm:grid-cols-3 gap-5">
             <div>
               <div className="flex justify-between items-center text-xs font-bold text-[var(--color-ink-muted)] mb-2">
-                <span>Tolerância de Cor</span>
+                <span>Colour tolerance</span>
                 <span className="font-mono text-[var(--color-ink)]">{tolerance}%</span>
               </div>
               <input
@@ -174,7 +174,7 @@ export default function RemoveBg() {
 
             <div>
               <div className="flex justify-between items-center text-xs font-bold text-[var(--color-ink-muted)] mb-2">
-                <span>Suavização de Bordas</span>
+                <span>Edge smoothing</span>
                 <span className="font-mono text-[var(--color-ink)]">{feather}px</span>
               </div>
               <input
@@ -188,7 +188,7 @@ export default function RemoveBg() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[var(--color-ink-muted)] mb-2">Novo Fundo</label>
+              <label className="block text-xs font-bold text-[var(--color-ink-muted)] mb-2">New background</label>
               <div className="flex gap-2">
                 {(['transparent', 'white', 'black', 'custom'] as const).map((bg) => (
                   <button
@@ -201,7 +201,7 @@ export default function RemoveBg() {
                         : 'bg-[var(--color-surface-2)] border-[var(--color-line)] text-[var(--color-ink-soft)] hover:bg-zinc-100'
                     }`}
                   >
-                    {bg === 'transparent' ? 'PNG' : bg === 'white' ? 'Branco' : bg === 'black' ? 'Preto' : 'Cor'}
+                    {bg === 'transparent' ? 'PNG' : bg === 'white' ? 'White' : bg === 'black' ? 'Black' : 'Colour'}
                   </button>
                 ))}
                 {bgColor === 'custom' && (
@@ -221,7 +221,7 @@ export default function RemoveBg() {
             <div className="space-y-2">
               <span className="text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider block">Original:</span>
               <div className="h-56 bg-[var(--color-surface-2)] border border-[var(--color-line)] rounded-[12px] flex items-center justify-center p-3 overflow-hidden">
-                <img src={previewUrl} alt="Original" className="max-h-full max-w-full object-contain rounded-lg" />
+                <img src={previewUrl} alt="Original image" className="max-h-full max-w-full object-contain rounded-lg" />
               </div>
             </div>
 
@@ -251,10 +251,10 @@ export default function RemoveBg() {
           {processedUrl && (
             <a
               href={processedUrl}
-              download={`sem-fundo-${file.name.replace(/\.[^/.]+$/, '')}.png`}
+              download={`no-background-${file.name.replace(/\.[^/.]+$/, '')}.png`}
               className="w-full py-4 bg-zinc-900 text-white font-bold rounded-[12px] hover:bg-zinc-800 transition text-sm shadow-md flex items-center justify-center gap-2"
             >
-              <span>⬇</span> Baixar Imagem Transparente (PNG)
+              <span>⬇</span> Download transparent PNG
             </a>
           )}
         </div>

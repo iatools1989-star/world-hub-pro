@@ -83,21 +83,21 @@ export default function WordCounter() {
             disabled={!text}
             className="px-3 py-1.5 bg-zinc-100 hover:bg-zinc-200 rounded-lg font-bold text-[var(--color-ink-soft)] disabled:opacity-40 transition"
           >
-            MAIÚSCULAS
+            UPPERCASE
           </button>
           <button
             onClick={handleLowerCase}
             disabled={!text}
             className="px-3 py-1.5 bg-zinc-100 hover:bg-zinc-200 rounded-lg font-bold text-[var(--color-ink-soft)] disabled:opacity-40 transition"
           >
-            minúsculas
+            lowercase
           </button>
           <button
             onClick={handleCapitalize}
             disabled={!text}
             className="px-3 py-1.5 bg-zinc-100 hover:bg-zinc-200 rounded-lg font-bold text-[var(--color-ink-soft)] disabled:opacity-40 transition"
           >
-            Primeira Maiúscula
+            Capitalise each word
           </button>
         </div>
 
@@ -126,7 +126,7 @@ export default function WordCounter() {
         rows={9}
         value={text}
         onChange={(e) => setText(e.target.value)}
-        placeholder="Cole ou digite o texto aqui para analisar em tempo real..."
+        placeholder="Paste or type your text here for a live analysis..."
         className="w-full p-5 bg-[var(--color-surface)] rounded-[14px] border-2 border-[var(--color-line)] focus:outline-none focus:border-yellow-400 font-sans text-sm leading-relaxed shadow-inner"
       />
     </div>

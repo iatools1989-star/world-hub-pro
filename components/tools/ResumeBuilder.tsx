@@ -3,30 +3,30 @@
 import React, { useState } from 'react';
 
 export default function ResumeBuilder() {
-  const [fullName, setFullName] = useState('João Silva');
-  const [role, setRole] = useState('Desenvolvedor Full Stack Sênior');
-  const [email, setEmail] = useState('joao.silva@email.com');
+  const [fullName, setFullName] = useState('Alex Morgan');
+  const [role, setRole] = useState('Senior Full Stack Developer');
+  const [email, setEmail] = useState('alex.morgan@example.com');
   const [phone, setPhone] = useState('+55 (11) 98765-4321');
-  const [location, setLocation] = useState('São Paulo, Brasil');
+  const [location, setLocation] = useState('Austin, TX, USA');
   const [summary, setSummary] = useState(
-    'Profissional com mais de 8 anos de experiência em engenharia de software web, arquiteturas escaláveis, Next.js, Node.js e otimização de produtos de alta conversão.'
+    'Engineer with 8+ years building web software, scalable architectures, Next.js, Node.js and product performance work.'
   );
 
   const [experience, setExperience] = useState(
-    'Tech Lead — Tech Corp (2021 - Presente)\n- Liderança de arquitetura frontend e micro-serviços.\n- Redução de tempo de carregamento de páginas em 45%.\n\nEngenheiro Frontend — Digital Agency (2018 - 2021)\n- Desenvolvimento de portais de alto tráfego com foco em SEO e monetização.'
+    'Tech Lead — Tech Corp (2021 - Present)\n- Led frontend architecture and micro-services.\n- Cut page load time by 45%.\n\nFrontend Engineer — Digital Agency (2018 - 2021)\n- Built high-traffic portals focused on SEO and monetisation.'
   );
 
   const [education, setEducation] = useState(
-    'Bacharelado em Ciência da Computação — Universidade Federal (2014 - 2018)\nCertificação AWS Certified Solutions Architect'
+    'BSc Computer Science — State University (2014 - 2018)\nAWS Certified Solutions Architect'
   );
 
-  const [skills, setSkills] = useState('React, Next.js, TypeScript, Tailwind CSS, Node.js, Git, SEO Técnico, Google AdSense');
+  const [skills, setSkills] = useState('React, Next.js, TypeScript, Tailwind CSS, Node.js, Git, Technical SEO, Google AdSense');
 
   // Impressão / Exportação em PDF nativo sem distorção
   const handlePrintPdf = () => {
     const printWindow = window.open('', '_blank');
     if (!printWindow) {
-      alert('Por favor, autorize pop-ups para gerar e imprimir seu currículo em PDF.');
+      alert('Please allow pop-ups so we can generate and print your resume as a PDF.');
       return;
     }
 
@@ -59,17 +59,17 @@ export default function ResumeBuilder() {
         </div>
 
         <div class="section">
-          <div class="section-title">Experiência Profissional</div>
+          <div class="section-title">Work Experience</div>
           <pre>${experience}</pre>
         </div>
 
         <div class="section">
-          <div class="section-title">Formação Acadêmica</div>
+          <div class="section-title">Education</div>
           <pre>${education}</pre>
         </div>
 
         <div class="section">
-          <div class="section-title">Habilidades & Competências</div>
+          <div class="section-title">Skills</div>
           <p>${skills}</p>
         </div>
 

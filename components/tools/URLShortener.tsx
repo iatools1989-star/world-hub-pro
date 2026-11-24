@@ -23,7 +23,7 @@ const TRACKING_PARAMS = [
 ];
 
 export default function URLShortener() {
-  const [inputUrl, setInputUrl] = useState('https://exemplo.com/artigo?utm_source=facebook&utm_medium=cpc&fbclid=IwAR123456789&gclid=XYZ999&session=ok');
+  const [inputUrl, setInputUrl] = useState('https://example.com/article?utm_source=facebook&utm_medium=cpc&fbclid=IwAR123456789&gclid=XYZ999&session=ok');
   const [cleanedUrl, setCleanedUrl] = useState('');
   const [removedCount, setRemovedCount] = useState<number | null>(null);
   const [copied, setCopied] = useState(false);
@@ -53,7 +53,7 @@ export default function URLShortener() {
       setRemovedCount(count);
       setCopied(false);
     } catch {
-      alert('URL inválida. Certifique-se de digitar o link completo iniciando com http:// ou https://');
+      alert('Invalid URL. Make sure you paste the full link, starting with http:// or https://');
     }
   };
 
@@ -69,14 +69,14 @@ export default function URLShortener() {
       <div className="bg-[var(--color-surface)] p-6 sm:p-8 rounded-[14px] border border-[var(--color-line)] shadow-sm space-y-4">
         <div>
           <label htmlFor="url-input-standalone" className="block text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider mb-2">
-            Enter the link with tracking parameters (anúncios, redes sociais, UTMs):
+            Paste a link with tracking parameters (ads, social media, UTMs):
           </label>
           <input
             id="url-input-standalone"
             type="url"
             value={inputUrl}
             onChange={(e) => setInputUrl(e.target.value)}
-            placeholder="https://exemplo.com/pagina?utm_source=..."
+            placeholder="https://example.com/page?utm_source=..."
             className="w-full px-4 py-3 rounded-[12px] border-2 border-[var(--color-line)] focus:outline-none focus:border-yellow-400 font-sans text-sm"
           />
         </div>
@@ -95,11 +95,11 @@ export default function URLShortener() {
         <div className="bg-[var(--color-surface)] p-6 sm:p-8 rounded-[14px] border border-[var(--color-line)] shadow-sm space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <span className="text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider">
-              URL Limpa e Otimizada:
+              Clean URL:
             </span>
             {removedCount !== null && (
               <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
-                ✓ {removedCount} {removedCount === 1 ? 'rastreador removido' : 'rastreadores removidos'}
+                ✓ {removedCount} {removedCount === 1 ? 'tracker removed' : 'trackers removed'}
               </span>
             )}
           </div>
@@ -121,7 +121,7 @@ export default function URLShortener() {
                   : 'bg-zinc-900 text-white hover:bg-zinc-800'
               }`}
             >
-              {copied ? '✓ Copiado para a Área de Transferência!' : '📋 Copy Link Limpo'}
+              {copied ? '✓ Copied to clipboard' : '📋 Copy clean link'}
             </button>
             <a
               href={cleanedUrl}
@@ -129,7 +129,7 @@ export default function URLShortener() {
               rel="noopener noreferrer"
               className="py-3 px-5 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 font-bold rounded-[12px] text-xs flex items-center justify-center gap-1.5 transition"
             >
-              <span>↗</span> Testar URL em Nova Aba
+              <span>↗</span> Open cleaned URL in a new tab
             </a>
           </div>
         </div>
@@ -137,7 +137,7 @@ export default function URLShortener() {
 
       {/* Cartão Explicativo de Privacidade */}
       <div className="bg-[var(--color-surface-2)] border border-[var(--color-line)] rounded-[12px] p-4 text-xs text-[var(--color-ink-muted)] leading-relaxed">
-        <b>💡 Por que limpar seus links?</b> Redes como Facebook, Google e TikTok anexam identificadores individuais (como <code className="bg-zinc-200 px-1 rounded">fbclid</code> e <code className="bg-zinc-200 px-1 rounded">gclid</code>) que rastreiam quem compartilhou a página. A remoção limpa esses dados sem quebrar o acesso ao destino.
+        <b>💡 Why clean your links?</b> Networks like Facebook, Google and TikTok attach personal identifiers (such as <code className="bg-zinc-200 px-1 rounded">fbclid</code> and <code className="bg-zinc-200 px-1 rounded">gclid</code>) that track who shared the page. Removing them clears that data without breaking the destination.
       </div>
     </div>
   );

@@ -29,7 +29,7 @@ export default function MergePdf() {
       }));
 
     if (validPdfs.length === 0) {
-      alert('Selecione arquivos PDF válidos.');
+      alert('Please select valid PDF files.');
       return;
     }
 
@@ -75,12 +75,12 @@ export default function MergePdf() {
   // Mesclagem 100% no cliente usando pdf-lib carregado dinamicamente
   const mergeDocuments = async () => {
     if (pdfFiles.length < 2) {
-      alert('Adicione pelo menos 2 arquivos PDF para mesclar.');
+      alert('Add at least 2 PDF files to merge.');
       return;
     }
 
     setIsMerging(true);
-    setStatusMessage('Carregando biblioteca de manipulação PDF em memória...');
+    setStatusMessage('Loading the PDF engine into memory...');
 
     try {
       if (!(window as any).PDFLib) {
@@ -94,28 +94,28 @@ export default function MergePdf() {
       }
 
       const { PDFDocument } = (window as any).PDFLib;
-      setStatusMessage('Criando documento PDF consolidado...');
+      setStatusMessage('Creating the combined PDF document...');
 
       const mergedPdf = await PDFDocument.create();
 
       for (let i = 0; i < pdfFiles.length; i++) {
-        setStatusMessage(`Mesclando arquivo ${i + 1} de ${pdfFiles.length}: "${pdfFiles[i].name}"...`);
+        setStatusMessage(`Merging file ${i + 1} of ${pdfFiles.length}: "${pdfFiles[i].name}"...`);
         const arrayBuffer = await pdfFiles[i].file.arrayBuffer();
         const donorPdf = await PDFDocument.load(arrayBuffer);
         const copiedPages = await mergedPdf.copyPages(donorPdf, donorPdf.getPageIndices());
         copiedPages.forEach((page: any) => mergedPdf.addPage(page));
       }
 
-      setStatusMessage('Finalizando e gerando arquivo...');
+      setStatusMessage('Finishing up and generating the file...');
       const mergedPdfBytes = await mergedPdf.save();
       const blob = new Blob([mergedPdfBytes], { type: 'application/pdf' });
       const url = URL.createObjectURL(blob);
 
       setMergedBlobUrl(url);
-      setStatusMessage('Sucesso! Seu PDF mesclado está pronto para download.');
+      setStatusMessage('Done. Your merged PDF is ready to download.');
       setIsMerging(false);
     } catch {
-      setStatusMessage('Nota: Um dos arquivos PDF pode estar corrompido ou protegido por senha restritiva.');
+      setStatusMessage('Note: one of the PDFs may be corrupted or protected by a restrictive password.');
       setIsMerging(false);
     }
   };
@@ -139,7 +139,7 @@ export default function MergePdf() {
               Select or drag multiple PDF files to merge
             </span>
             <span className="text-xs text-[var(--color-ink-muted)] mt-1 block">
-              100% Client-Side: todo o processo roda na memória local sem envio para servidores.
+              100% Client-Side: everything runs in local memory — nothing is sent to a server.
             </span>
           </div>
         </label>
@@ -181,7 +181,7 @@ export default function MergePdf() {
                       onClick={() => moveUp(index)}
                       disabled={index === 0}
                       className="p-1.5 hover:bg-zinc-200 rounded-lg text-xs disabled:opacity-20"
-                      title="Mover para cima"
+                      title="Move up"
                     >
                       ▲
                     </button>
@@ -189,14 +189,14 @@ export default function MergePdf() {
                       onClick={() => moveDown(index)}
                       disabled={index === pdfFiles.length - 1}
                       className="p-1.5 hover:bg-zinc-200 rounded-lg text-xs disabled:opacity-20"
-                      title="Mover para baixo"
+                      title="Move down"
                     >
                       ▼
                     </button>
                     <button
                       onClick={() => removePdf(item.id)}
                       className="p-1.5 text-red-500 hover:bg-red-50 rounded-lg text-xs font-bold ml-1"
-                      title="Remover arquivo"
+                      title="Remove file"
                     >
                       ✕
                     </button>
@@ -213,7 +213,7 @@ export default function MergePdf() {
             className="w-full py-4 bg-yellow-400 text-zinc-950 font-black rounded-[12px] hover:bg-yellow-300 transition text-sm shadow-md flex items-center justify-center gap-2 disabled:opacity-50"
           >
             <span>{isMerging ? '⏳' : '⚡'}</span>
-            <span>{isMerging ? 'Mesclando PDFs no navegador...' : 'Juntar Todos os Documentos PDF'}</span>
+            <span>{isMerging ? 'Merging PDFs in your browser...' : 'Merge all PDF documents'}</span>
           </button>
 
           {statusMessage && (
@@ -232,10 +232,10 @@ export default function MergePdf() {
               </div>
               <a
                 href={mergedBlobUrl}
-                download={`documento-combinado-${Date.now()}.pdf`}
+                download={`merged-document-${Date.now()}.pdf`}
                 className="px-6 py-2.5 bg-zinc-900 text-white font-bold rounded-xl text-xs hover:bg-zinc-800 transition shadow"
               >
-                ⬇ Baixar PDF Mesclado
+                ⬇ Download merged PDF
               </a>
             </div>
           )}
