@@ -63,6 +63,18 @@ async function criadosDoGithub(): Promise<Record<string, Record<string, unknown>
   return (lerCriados().guide ?? {}) as unknown as Record<string, Record<string, unknown>>;
 }
 
+/**
+ * Deixa o guia no mesmo dialeto dos que vem da build.
+ *
+ * O arquivo guarda `title` e `sections` (nomes do lib/guidesContent). A API
+ * entrega `titulo` e `secoes`, que e o que o editor mostra. Sem esta conversao
+ * o mesmo documento aparecia com nomes de campo diferentes antes e depois do
+ * deploy, e o patch salvo por ultimo nao batia com o que a pagina lia.
+ */
+function normalizarGuiaCriado(g: Record<string, unknown>): Record<string, unknown> {
+  return { ...g, titulo: g.titulo ?? g.title ?? '', secoes: g.secoes ?? g.sections ?? [] };
+}
+
 export async function GET(req: Request) {
   if (!(await sessaoValida())) return semSessao();
 
@@ -89,11 +101,12 @@ export async function GET(req: Request) {
     return NextResponse.json({ documentos });
   }
 
-  // Guia recem-criado: monta a partir do GitHub antes de olhar a build.
+  // Guia criado pelo CMS: o documento inteiro mora em criados.json, e a
+  // versao do GitHub e a fonte da verdade (o rebuild pode nao ter rodado).
   const [tipo, slug] = id.split(':');
-  if (tipo === 'guide' && slug && doGithub[slug] && !lerCriados().guide?.[slug]) {
+  if (tipo === 'guide' && slug && doGithub[slug]) {
     return NextResponse.json({
-      documento: { tipo: 'guide', ...doGithub[slug] },
+      documento: { tipo: 'guide', ...normalizarGuiaCriado(doGithub[slug]) },
     });
   }
 
@@ -382,7 +395,8 @@ export async function PUT(req: Request) {
 
   // Guia criado pelo CMS mora inteiro em criados.json: salvar um campo dele
   // em overrides.json nao teria efeito, porque o documento nao existe na base.
-  const ehCriado = tipo === 'guide' && !!(await criadosDoGithub())[slug];
+  const criadosGh = tipo === 'guide' ? await criadosDoGithub() : {};
+  const ehCriado = tipo === 'guide' && !!criadosGh[slug];
 
   try {
     if (ehCriado) {
@@ -394,7 +408,24 @@ export async function PUT(req: Request) {
         shaCriados = dados.sha;
       }
       const guia = ((criados.guide ?? {}) as Record<string, Record<string, unknown>>)[slug] ?? {};
-      criados.guide = { ...(criados.guide ?? {}), [slug]: aplicarNoObjeto(guia, alterados) };
+      // O editor edita `titulo` e `secoes`; o arquivo usa `title` e
+      // `sections`. Sem esta traducao o texto salvo ficaria numa chave que a
+      // pagina nunca le.
+      const patch: Record<string, unknown> = { ...alterados };
+      for (const [de, para] of [
+        ['titulo', 'title'],
+        ['secoes', 'sections'],
+      ] as const) {
+        const prefixo = de + '.';
+        for (const chave of Object.keys(alterados)) {
+          if (chave === de || chave.startsWith(prefixo)) {
+            patch[para + chave.slice(de.length)] = alterados[chave];
+            if (chave !== de) delete patch[chave];
+          }
+        }
+        if (de in alterados) delete patch[de];
+      }
+      criados.guide = { ...(criados.guide ?? {}), [slug]: aplicarNoObjeto(guia, patch) };
 
       await github('PUT', `contents/${ARQUIVO_CRIADOS}`, {
         message: `CMS: edita ${id}\n\nCampos: ${chaves.join(', ')}`,
