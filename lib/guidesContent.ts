@@ -341,4 +341,94 @@ export const GUIDES: Record<string, Guide> = {
       { q: 'Do you earn from the links on this site?', a: 'Not today. No link carries an affiliate ID. When that changes, affected pages will show #ad before the link and will say so at the top.' },
     ],
   },
+  'gamma-vs-canva': {
+    slug: 'gamma-vs-canva',
+    title: 'Gamma vs Canva: which one actually fits your work',
+    metaTitle: 'Gamma vs Canva (November 2026): Which One to Pay For',
+    metaDescription:
+      'Gamma starts at $9/month and Canva Pro at $18. We compared both on official pricing checked in November 2026: what each one is actually for, where each breaks down, and which to skip.',
+    keyword: 'gamma vs canva',
+    updated: '2026-11-10',
+    readingMinutes: 9,
+    intro: [
+      'These two get compared constantly, and the comparison is usually framed as a fight. It is not one. Gamma generates a first draft of a deck from a prompt and expects you to fix the result. Canva gives you a huge library of designed pieces and expects you to pick one and edit it. One starts from nothing, the other starts from something designed.',
+      'That difference decides the purchase more reliably than any feature list, because it maps to how much of the work you actually want to do. If you enjoy the design part and hate the blank page, they are complements, not competitors. If you are paying for one and not using it, this guide should tell you quickly which one to cancel.',
+      'All prices below are the official ones on gamma.app/pricing and canva.com/pricing, checked on 10 November 2026, in US dollars, before tax. Both companies change prices without warning and run regional pricing, so confirm on the official page before you pay.',
+    ],
+    sections: [
+      {
+        h: 'The one-sentence difference',
+        p: [
+          'Gamma is a generator: you describe the deck, document or page you need, and it assembles slides, text and layout for you. Its core skill is getting you from a blank page to a structured draft in under a minute. You then edit, and the amount of editing it needs is the honest measure of whether it suits you.',
+          'Canva is an editor with a very large catalogue: 1.6 million templates and 4.7 million elements free, 3.6 million and 141 million on paid plans, per Canva pricing in November 2026. Its core skill is that someone already designed the thing you are about to make, at the right size, and you adapt it. It will also generate with AI, but generation is not the reason people stay.',
+          'So the question is not "which is better". It is "does my work start from a blank page, or from a format that already exists?"',
+        ],
+        callout:
+          'Blank page to draft: Gamma. Existing format you adapt: Canva. If you answer "both" honestly, you may genuinely need both, and that is a $27/month decision, not a $9 one.',
+      },
+      {
+        h: 'What each one costs in November 2026',
+        p: [
+          'Gamma publishes four individual tiers. Free is $0 with 400 credits granted once at signup: those credits do not refill, which makes Free a trial that never says it is a trial. Plus is $9/month ($108 billed annually), includes 1,500 monthly credits and removes the Gamma badge from exports. Pro is $18/month ($216 annually) with 4,000 credits, premium image models, custom branding, analytics and up to 10 custom domains. Ultra is $90/month ($1,080 annually) with 20,000 credits and access to the most advanced models.',
+          'Canva publishes Free at $0, Pro at $18/month for one person, Business at $25 per person per month, and Enterprise by quote. Canva does not sell AI as a separate subscription: the AI tools sit inside the plan, and AI usage shares a monthly allowance that is larger on paid tiers (Canva describes Pro as 10× the free allowance and Business as 20×). There is an AI Pass add-on for extra usage.',
+          'Two things worth noticing. First, Gamma Plus at $9 undercuts Canva Pro at $18 by exactly half, and that is the comparison most people are actually making. Second, both sites were running promotions in November 2026 — Canva advertised 50% off the first three months — so the first invoice rarely matches the annual price.',
+        ],
+      },
+      {
+        h: 'Where Gamma wins',
+        p: [
+          'Speed from prompt to structure. If a deck has to exist by tomorrow morning and the content is already in your head, Gamma produces a coherent draft, ordered, with speaker-ready slides, faster than assembling it by hand. That is the whole product, and it is genuinely good at it.',
+          'Price per seat for a solo user. At $9/month on Plus, removing the badge — the single upgrade most people need — costs half of what the equivalent step costs on Canva.',
+          'Multiple output types from one prompt. The same generation can land as a presentation, a document, a one-page website or a social asset. If your deliverable format is still undecided, that flexibility saves a decision.',
+          'Card-based output that behaves well on screens. Gamma decks scroll and adapt rather than sitting in a fixed 16:9 frame, which suits links sent by email or chat. It is a worse fit for a projector in a rented conference room.',
+        ],
+      },
+      {
+        h: 'Where Canva wins',
+        p: [
+          'Everything that is not a deck. Social posts, print files, business cards, thumbnails, invitations, simple video, the brand kit that keeps colours and fonts consistent across all of it. Gamma does not seriously compete here, and pretending otherwise wastes a comparison.',
+          'The library. 141 million elements and 3.6 million templates on paid plans is a different order of magnitude from what a generator produces. When the output has to look like it belongs to an existing brand system, starting from a designed piece is faster than fixing a generated one.',
+          'Print and export control. CMYK print-ready export, custom dimensions, resize from one format to another in one action. These are boring features until the day you need them, and Gamma does not have them.',
+          'It is the safer default for a non-designer who needs a decent-looking result by Friday and does not want to iterate with an AI.',
+        ],
+        callout:
+          'If you have never used either, start on Canva Free. You will produce something real within an hour, and you will learn what you actually need. Gamma Free tells you whether you like AI generation, which is a narrower question.',
+      },
+      {
+        h: 'A cost comparison that is not just the sticker price',
+        p: [
+          'Gamma charges in credits, and credits are not a flat rate: an action costs different amounts depending on the model used and the length of the generation. On the free tier, every AI action draws from the 400-credit grant, so the grant runs out faster than "400 presentations" would suggest. On paid plans, most ordinary generation is included and credits are drawn mainly by the heavier features — which means the practical question is not "how many credits do I get" but "do I use the expensive features".',
+          'Canva charges in AI allowance on the paid tiers and, more importantly, in the value of the asset library. If you would otherwise buy stock photos, a background remover and a template pack separately, the $18 is not really $18 — it is replacing three line items. That is the strongest argument for Canva Pro and it has nothing to do with AI.',
+          'Annual billing changes both numbers by roughly a fifth. Gamma advertises saving up to 28% annually; The Canva pricing page says "save from 16%". Neither is a trick, but both turn a flexible monthly cost into a twelve-month commitment, and a subscription you stop using in month two is expensive at any discount.',
+        ],
+      },
+      {
+        h: 'The combination that makes sense, and when it does not',
+        p: [
+          'A consultant who builds 20 client decks a month and needs a branded template for each is a Canva customer. A founder who needs one investor deck, three one-pagers and a landing page this week, and will not touch either tool again until next quarter, is a Gamma customer on Plus, cancelled after the month.',
+          'The combination that people actually run: Canva for anything that ships as a designed asset, Gamma for the thinking-in-public stage where the content is still moving. That works, costs $27/month on the monthly plans, and is only worth it if both are used in the same week. If one of them goes a month untouched, it is not a workflow, it is a subscription.',
+        ],
+      },
+    ],
+    limitations: [
+      'We did not run a timed head-to-head test in November 2026. The pricing above is verified against both official pages; the workflow advice comes from how the two products are built, not from a measured benchmark.',
+      'No affiliate ID is used in the links on this page, so we earn nothing whichever one you pick. This site lists tools and links to their official pages without commission.',
+      'Prices are in US dollars before tax. Both companies use regional pricing, so what you see from Brazil or the EU may differ from the figures here.',
+      'Neither tool is a substitute for a designed brand system. If your output has to match an existing corporate identity exactly, the tool is not the constraint — the brand guidelines are.',
+    ],
+    related: [
+      { name: 'Canva Magic Studio', href: '/en/directory/canva-magic', why: 'The directory page with Canva pricing, what the AI allowance actually covers, and when it is the wrong buy.' },
+      { name: 'Gamma pricing on the official page', href: 'https://gamma.app/pricing', why: 'Prices move. This is the only page that is right on the day you pay.' },
+      { name: 'Canva pricing on the official page', href: 'https://www.canva.com/pricing/', why: 'Same reason. Check the plan cards, not a review from last year.' },
+      { name: 'Image compressor', href: '/en/tools/image-compressor', why: 'Decks and social images have size limits. Shrinking them here costs nothing and happens in your browser.' },
+    ],
+    faqs: [
+      { q: 'Is Gamma cheaper than Canva?', a: 'Yes, on the entry paid tier. Gamma Plus is $9/month or $108 billed annually; Canva Pro is $18/month for one person. The gap narrows if you would otherwise pay for stock photos and a background remover, which Canva Pro includes.' },
+      { q: 'Can Gamma replace Canva?', a: 'Only if everything you make is a presentation, document or simple web page. Canva covers print, social formats, video, brand kits and 141 million stock elements; Gamma does not try to. For a deck-only workflow, Gamma is enough.' },
+      { q: 'Does Canva have AI like Gamma?', a: 'Yes, under the Canva AI name. It generates designs, images, text and video inside the editor, and AI usage shares a monthly allowance that is larger on paid plans. The difference is intent: Canva generates into a template you can edit, Gamma generates the structure itself.' },
+      { q: 'What happens to my work if I cancel?', a: 'Both say your content stays yours. Gamma keeps your content accessible on the Free plan with some advanced features limited; Canva keeps your designs, but premium elements used in them may need replacing or licensing if you downgrade.' },
+      { q: 'Which one should a freelancer buy first?', a: 'If the work is decks for clients, Gamma Plus covers the draft and the cheap badge removal. If the work is anything else visual, Canva Pro is the broader purchase. A freelancer doing both will usually end up paying for both, which is a reason to start with one and add the second only when a real job requires it.' },
+    ],
+  },
+
 };
