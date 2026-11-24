@@ -51,7 +51,7 @@ export function middleware(req: NextRequest) {
   // carregava a home. O correto e dizer "nao existe" de uma vez: redirect em
   // URL inexistente gasta rastreamento do Googlebot e ainda cria o par
   // duplicado. O Next serve o proprio 404 do site.
-  if (/\.[a-z0-9]{2,5}$/i.test(pathname)) {
+  if (/\.[a-z0-9]{2,}$/i.test(pathname)) {
     return new NextResponse('Not Found', { status: 404, headers: { 'content-type': 'text/plain' } });
   }
 
