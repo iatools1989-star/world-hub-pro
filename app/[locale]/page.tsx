@@ -67,12 +67,14 @@ export default async function HomePage() {
               <h1 className="mt-4 text-[2.35rem] font-extrabold leading-[1.06] tracking-[-0.04em] text-[var(--color-ink)] sm:text-[3.4rem]">
                 Tools that never
                 <br />
+                {/* Marcador: traço de caneta ABAIXO das letras, não atrás.
+                    Motivo: faixa atrás do texto obriga o texto a ser escuro, e
+                    escuro só funciona em metade da altura da letra — a outra
+                    metade fica branca sobre preto. Com o traço abaixo, a cor do
+                    texto continua sendo --color-ink e os dois temas ficam iguais. */}
                 <span className="relative inline-block">
+                  <span aria-hidden className="absolute inset-x-[-0.04em] -bottom-[0.1em] -z-10 h-[0.16em] -rotate-[0.4deg] rounded-[2px] bg-[var(--color-brand)]" />
                   touch your files
-                  <span
-                    aria-hidden
-                    className="absolute inset-x-0 bottom-[0.12em] -z-10 h-[0.32em] bg-[var(--color-brand)]"
-                  />
                 </span>
               </h1>
               <p className="mt-6 max-w-[52ch] text-[17px] leading-relaxed text-[var(--color-ink-soft)]">
