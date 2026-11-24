@@ -21,12 +21,12 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { COOKIE_NAME, verificarSessao } from '@/lib/admin/auth';
 import { listarDocumentos, carregarDocumento } from '@/lib/cms/content';
-import { lerOverrides, serializarOverrides, type Overrides } from '@/lib/cms/overrides';
+import { lerOverrides, serializarOverrides, ARQUIVO_REPO, type Overrides } from '@/lib/cms/overrides';
 
 export const dynamic = 'force-dynamic';
 
 const REPO = process.env.ADMIN_GITHUB_REPO || 'iatools1989-star/world-hub-pro';
-const ARQUIVO = 'content/overrides.json';
+const ARQUIVO = ARQUIVO_REPO;
 const BRANCH = 'main';
 
 async function sessaoValida(): Promise<boolean> {

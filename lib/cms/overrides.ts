@@ -11,8 +11,7 @@
  * lib/*.ts e um erro de virgula derrubava o build inteiro. JSON nao compila,
  * entao um erro de conteudo nunca quebra o site.
  */
-import fs from 'node:fs';
-import path from 'node:path';
+import overridesPublicados from '@/content/overrides.json';
 
 export type Overrides = {
   directory?: Record<string, Record<string, unknown>>;
@@ -21,14 +20,20 @@ export type Overrides = {
   guide?: Record<string, Record<string, unknown>>;
 };
 
-const ARQUIVO = path.join(process.cwd(), 'content', 'overrides.json');
-
+/**
+ * POR QUE IMPORT ESTATICO E NAO fs.readFile
+ *
+ * No Cloudflare Worker nao existe sistema de arquivos: ler o JSON com `fs` em
+ * tempo de requisicao devolve vazio, e a edicao some no site publicado mesmo
+ * tendo sido gravada no repositorio. Importar o JSON faz o bundler embutir o
+ * conteudo na build — funciona igual em `next start` e no Worker.
+ *
+ * Consequencia (de proposito): editar `content/overrides.json` na mao so vale
+ * depois de um novo build. A gravacao pelo editor continua passando pelo
+ * GitHub justamente para disparar esse build.
+ */
 export function lerOverrides(): Overrides {
-  try {
-    return JSON.parse(fs.readFileSync(ARQUIVO, 'utf8')) as Overrides;
-  } catch {
-    return {};
-  }
+  return overridesPublicados as Overrides;
 }
 
 export function overridesDe(tipo: keyof Overrides, slug: string): Record<string, unknown> {
@@ -59,4 +64,4 @@ export function serializarOverrides(o: Overrides): string {
   return JSON.stringify(o, null, 2) + '\n';
 }
 
-export { ARQUIVO };
+export const ARQUIVO_REPO = 'content/overrides.json';
