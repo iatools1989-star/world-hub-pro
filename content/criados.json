@@ -1,34 +1,3 @@
 {
-  "guide": {
-    "transcription-tools-compared": {
-      "slug": "transcription-tools-compared",
-      "title": "Transcription Tools: What Actually Matters",
-      "metaTitle": "Transcription Tools: 4 Checks Before You Pay",
-      "metaDescription": "",
-      "keyword": "",
-      "updated": "2026-11-24",
-      "readingMinutes": 5,
-      "intro": [
-        ""
-      ],
-      "sections": [
-        {
-          "h": "Check one: the free limit",
-          "p": [
-            ""
-          ]
-        }
-      ],
-      "limitations": [
-        ""
-      ],
-      "related": [],
-      "faqs": [
-        {
-          "q": "",
-          "a": ""
-        }
-      ]
-    }
-  }
+  "guide": {}
 }
