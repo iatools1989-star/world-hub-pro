@@ -81,8 +81,16 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
             </section>
 
             <section>
-              <h2 className="text-xl font-black text-[var(--color-ink)] mb-2">4. Web Analytics & Server Logs</h2>
+              <h2 className="text-xl font-black text-[var(--color-ink)] mb-2">4. Cookies, Analytics & Server Logs</h2>
               <p>
+                <strong>You choose first.</strong> When you arrive, a banner asks whether we may set
+                analytics and advertising cookies. Nothing is loaded before you answer: no Google
+                Analytics script, no AdSense script, no cookie. If you decline, the site keeps working
+                exactly the same — every tool runs in your browser and needs no permission. You can
+                change your answer at any time through <strong>Cookie settings</strong> in the footer;
+                declining there also deletes the analytics cookies already set.
+              </p>
+              <p className="mt-2">
                 We use <strong>Google Analytics 4</strong> (delivered through Google Tag Manager) to
                 understand which pages people find useful and which ones they leave immediately. It
                 records things like the pages you visit, how long you stay, the country your
