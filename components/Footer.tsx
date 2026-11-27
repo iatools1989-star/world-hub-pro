@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { BotaoCookies } from './ConsentBanner';
 
 const COLUNAS: { titulo: string; itens: { label: string; href: string }[] }[] = [
   {
@@ -22,6 +23,9 @@ const COLUNAS: { titulo: string; itens: { label: string; href: string }[] }[] = 
       { label: 'Privacy', href: '/en/privacy' },
       { label: 'Terms', href: '/en/terms' },
       { label: 'Affiliate disclosure', href: '/en/affiliate-disclosure' },
+      // Nao e um link: limpa a escolha e recarrega, para o banner voltar a
+      // aparecer. Consentimento precisa ser tao facil de retirar quanto de dar.
+      { label: 'Cookie settings', href: '#' },
     ],
   },
 ];
@@ -59,12 +63,18 @@ export default function Footer({ currentLocale }: { currentLocale: string }) {
               <ul className="space-y-2">
                 {col.itens.map((it) => (
                   <li key={it.href}>
-                    <Link
-                      href={it.href}
-                      className="text-[13.5px] font-medium text-[var(--color-ink-soft)] hover:text-[var(--color-ink)] hover:underline underline-offset-4"
-                    >
-                      {it.label}
-                    </Link>
+                    {it.label === 'Cookie settings' ? (
+                      <span className="text-[13.5px] font-medium text-[var(--color-ink-soft)]">
+                        <BotaoCookies />
+                      </span>
+                    ) : (
+                      <Link
+                        href={it.href}
+                        className="text-[13.5px] font-medium text-[var(--color-ink-soft)] hover:text-[var(--color-ink)] hover:underline underline-offset-4"
+                      >
+                        {it.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>

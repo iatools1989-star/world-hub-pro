@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import { Inter, JetBrains_Mono } from 'next/font/google';
 import '@/app/globals.css';
-import { ADSENSE_CONFIG, ADSENSE_ATIVO } from '@/lib/data';
+import { ADSENSE_CONFIG } from '@/lib/data';
 import { SITE_URL, SITE_NAME, AUTHOR_NAME } from '@/lib/seo';
-import GoogleTagManager from '@/components/GoogleTagManager';
+import ConsentBanner from '@/components/ConsentBanner';
 
 // Fontes servidas do próprio build (sem requisição a terceiros).
 const inter = Inter({
@@ -48,12 +48,6 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        {/* Google Tag Manager: contêiner GTM-TNRV4LXN, que distribui o GA4
-            (G-S8SZLT7KZY). Fica no topo do <head> porque e assim que o Google
-            espera encontrar — e porque a medicao de tempo de carregamento
-            depende de o dataLayer existir antes de qualquer outra coisa. */}
-        <GoogleTagManager />
-
         {/* Evita o piscar branco ao carregar já no tema escuro.
             Roda antes da primeira pintura, por isso é inline e síncrono. */}
         <script
@@ -76,19 +70,15 @@ export default function RootLayout({
             do Next injeta um atributo data-nscript que o Google rejeita com
             "AdSense head tag doesn't support data-nscript attribute" — o que
             pode invalidar a verificação do site. Por isso vai como script puro. */}
-        {/* O script so entra quando existe um bloco real configurado.
-            Sem isso, 800 KB de JS de anuncio viajam para o celular do
-            visitante para exibir um espaco vazio — e o Google mede isso. */}
-        {ADSENSE_ATIVO && (
-          <script
-            async
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CONFIG.client}`}
-            crossOrigin="anonymous"
-          />
-        )}
+        {/* O script do AdSense NAO fica mais aqui.
+            Ele grava cookie de publicidade, e cookie de publicidade exige
+            consentimento previo (GDPR/LGPD). Quem o injeta — e so depois do
+            aceite — e o componente ConsentBanner. O atributo de verificacao
+            do AdSense continua no metadata, que nao grava nada. */}
       </head>
       <body className="min-h-screen flex flex-col antialiased">
         {children}
+        <ConsentBanner />
       </body>
     </html>
   );
