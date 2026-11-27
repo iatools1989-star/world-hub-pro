@@ -11,9 +11,23 @@
  *  - nenhuma promessa de resultado ("melhore 300%" nao aparece aqui)
  *  - limitacao honesta declarada em `notIdealFor`
  *  - o CTA de afiliado e marcado com `#ad` e o link leva `rel="sponsored"`
+ *  - o #ad NUNCA e escrito a mao: ele aparece quando `lib/afiliados.ts`
+ *    encontra um link de afiliado real (ver `ctaResolvido`)
  */
 
+import { destinoDoPrograma } from '@/lib/afiliados';
+
 export interface ToolAffiliateCta {
+  /**
+   * Chave do programa em `content/afiliados.json` (ex.: 'adobe', 'elevenlabs').
+   *
+   * Quando presente, o site resolve sozinho o destino e a divulgacao: enquanto
+   * o programa estiver 'pendente' (sem ID), o CTA vai para `href` e a pagina
+   * diz que nao ganhamos nada; no dia em que o ID for cadastrado no painel, o
+   * CTA passa a apontar para o link rastreado, ganha #ad e rel="sponsored", e
+   * o texto muda. Nada disso exige mexer neste arquivo.
+   */
+  programa?: string;
   /** Texto honesto do porque existe uma alternativa paga. */
   body: string;
   /** Rotulo do botao. Nunca "comprar agora" se o produto e outro. */
@@ -55,6 +69,43 @@ export interface ToolEditorial {
   related: { name: string; href: string; why: string }[];
 }
 
+/**
+ * Frase sobre dinheiro do CTA, na mesma fonte unica do resto do site.
+ *
+ * Existe porque a frase estava escrita a mao em cada entrada ("earn nothing
+ * from the click"). Quando um programa fosse aprovado, o site passaria a ganhar
+ * comissao e continuaria dizendo que nao ganha — o oposto do que a divulgacao
+ * exige. Aqui ela segue o link: sem link, diz que nao ganhamos; com link, diz
+ * que podemos ganhar.
+ */
+export function rotuloDoCta(cta: ToolAffiliateCta, locale: string): {
+  monetizado: boolean;
+  texto: string;
+  hrefDisclosure: string;
+} {
+  const monetizado = !!cta.monetized;
+  return {
+    monetizado,
+    texto: monetizado
+      ? 'Affiliate link. We may earn a commission at no extra cost to you.'
+      : 'Direct link to the official site. We earn nothing from this click.',
+    hrefDisclosure: `/${locale}/affiliate-disclosure`,
+  };
+}
+
+/**
+ * Aplica o registro de afiliados sobre o CTA.
+ *
+ * `monetized` deixa de ser uma decisao escrita a mao (que envelhece) e passa a
+ * ser consequencia de existir link rastreado de verdade. Ver lib/afiliados.ts.
+ */
+export function ctaResolvido(cta: ToolAffiliateCta): ToolAffiliateCta {
+  if (!cta.programa) return cta;
+  const link = destinoDoPrograma(cta.programa);
+  if (!link) return { ...cta, monetized: false };
+  return { ...cta, href: link, monetized: true };
+}
+
 export const TOOL_EDITORIAL: Record<string, ToolEditorial> = {
 
   'qr-generator': {
@@ -74,6 +125,7 @@ export const TOOL_EDITORIAL: Record<string, ToolEditorial> = {
     notIdealFor:
       'If you need to change the destination after the code is printed, or you need scan analytics by city and device, a static code cannot do that — those features require a redirect service, and that always means a third party sees every scan.',
     cta: {
+      programa: 'canva-magic',
       partner: 'Canva',
       body: 'Need the artwork around the code as well — a poster, a menu, a table tent? Canva has templates for print layouts that already respect the quiet zone a QR code needs to scan reliably.',
       label: 'See Canva layout templates',
@@ -131,6 +183,7 @@ export const TOOL_EDITORIAL: Record<string, ToolEditorial> = {
     notIdealFor:
       'Counting words is not editing. A draft that hits the exact word count can still be unclear, and this tool will not tell you that — no counter will.',
     cta: {
+      programa: 'copy-ai',
       partner: 'Copy.ai',
       body: 'If the bottleneck is not length but getting the first draft out at all, an AI writing assistant helps more than a counter. Copy.ai is the one we list with the highest published commission — which is exactly why we disclose it here rather than hiding it.',
       label: 'See Copy.ai pricing and details',
@@ -188,6 +241,7 @@ export const TOOL_EDITORIAL: Record<string, ToolEditorial> = {
     notIdealFor:
       'This is not a full design tool. It does not extract palettes from an image, generate accessible variants automatically, or manage a shared brand library — for that you need design software.',
     cta: {
+      programa: 'canva-magic',
       partner: 'Canva',
       body: 'Once you have the palette, Canva lets you apply it across templates without rebuilding the layout by hand. We earn a commission if you subscribe through our link — stated before you click, not after.',
       label: 'See Canva design tools',
@@ -217,11 +271,12 @@ export const TOOL_EDITORIAL: Record<string, ToolEditorial> = {
     notIdealFor:
       'A converted PDF loses its text layer: the result is an image, so the words inside it can no longer be selected, searched or read by a screen reader. If the text needs to stay usable, convert to text instead of an image.',
     cta: {
+      programa: 'adobe',
       partner: 'Adobe Acrobat',
-      body: 'If you need OCR — recovering the text layer from a scanned PDF — that is beyond what a browser converter can do reliably. Adobe Acrobat handles it. We link to the official page and earn nothing from the click.',
+      body: 'If you need OCR — recovering the text layer from a scanned PDF — that is beyond what a browser converter can do reliably. Adobe Acrobat handles it. The button goes to the official page.',
       label: 'Compare Acrobat options',
       href: '/go/adobe',
-      monetized: false, // TODO: true no dia em que o link tiver ID
+      monetized: false
     },
     updated: '2026-11-23',
     related: [
@@ -247,11 +302,12 @@ export const TOOL_EDITORIAL: Record<string, ToolEditorial> = {
     notIdealFor:
       'The result is a PDF made of images, so it stays large and its text is not searchable. For a document of scanned text you intend to share widely, compress it afterwards or use a tool with OCR.',
     cta: {
+      programa: 'adobe',
       partner: 'Adobe Acrobat',
       body: 'For a PDF that needs to be small, searchable and editable after assembly, Acrobat does the part this tool deliberately does not. Affiliate link — disclosed here, before the click.',
       label: 'See Acrobat pricing',
       href: '/go/adobe',
-      monetized: false, // TODO: true no dia em que o link tiver ID
+      monetized: false
     },
     updated: '2026-11-23',
     related: [
@@ -277,11 +333,12 @@ export const TOOL_EDITORIAL: Record<string, ToolEditorial> = {
     notIdealFor:
       'If the PDF must stay print-ready — a press file with CMYK images and embedded fonts — compression will degrade it in ways that matter. Keep the original for print and compress only the copy you send by email.',
     cta: {
+      programa: 'smallpdf',
       partner: 'Smallpdf',
-      body: 'If you compress PDFs in volume or need it inside a workflow with a phone app, a dedicated service may be worth it. Smallpdf is the one we list for that. We link to its official page and earn nothing from the click.',
+      body: 'If you compress PDFs in volume or need it inside a workflow with a phone app, a dedicated service may be worth it. Smallpdf is the one we list for that. The button goes to the official page.',
       label: 'See Smallpdf plans',
       href: '/go/smallpdf',
-      monetized: false, // TODO: true no dia em que o link tiver ID
+      monetized: false
     },
     updated: '2026-11-23',
     related: [
@@ -307,11 +364,12 @@ export const TOOL_EDITORIAL: Record<string, ToolEditorial> = {
     notIdealFor:
       'Password-protected PDFs must be unlocked before they can be merged, and encrypted files will be rejected rather than quietly altered. Some merged files also lose their individual bookmarks — check the result if navigation matters.',
     cta: {
+      programa: 'smallpdf',
       partner: 'Smallpdf',
       body: 'For merging on a phone, or merging inside a document workflow with OCR and signing, a dedicated service covers ground this tool does not. Commission disclosed before the click.',
       label: 'See Smallpdf plans',
       href: '/go/smallpdf',
-      monetized: false, // TODO: true no dia em que o link tiver ID
+      monetized: false
     },
     updated: '2026-11-23',
     related: [
@@ -337,11 +395,12 @@ export const TOOL_EDITORIAL: Record<string, ToolEditorial> = {
     notIdealFor:
       'Fine detail is where local processing shows its limit. Stray hair, semi-transparent fabric, glass and reflections need a model trained for cut-outs, and results from any browser-based method will show rough edges that a specialist service handles better.',
     cta: {
+      programa: 'removebg',
       partner: 'remove.bg',
       body: 'If you need clean edges on hair or glass, or you process hundreds of product images, a dedicated service will do better on those specific cases. We earn a commission if you buy credits through our link.',
       label: 'Compare remove.bg credits',
       href: '/go/removebg',
-      monetized: false, // TODO: true no dia em que o link tiver ID
+      monetized: false
     },
     updated: '2026-11-23',
     related: [
@@ -367,6 +426,7 @@ export const TOOL_EDITORIAL: Record<string, ToolEditorial> = {
     notIdealFor:
       'Compression cannot add detail that is not there, and repeated re-saving of a JPEG degrades it further each time — always compress from the original file, never from an already compressed copy. For images that must stay pixel-exact, use lossless PNG optimisation instead.',
     cta: {
+      programa: 'canva-magic',
       partner: 'Canva',
       body: 'If the images are going into a design rather than just onto a page, Canva exports at the right size for each placement, which prevents the problem rather than fixing it afterwards.',
       label: 'See Canva export options',
@@ -424,6 +484,7 @@ export const TOOL_EDITORIAL: Record<string, ToolEditorial> = {
     notIdealFor:
       'Applicant tracking systems parse text, not layout. A visually strong resume that uses tables or columns can be read incorrectly by the software screening it, so for large employers consider a plain single-column version as well.',
     cta: {
+      programa: 'canva-magic',
       partner: 'Canva',
       body: 'If you want a designed resume with a visual identity — and you are applying where a human reads first — Canva has layouts that export to PDF cleanly.',
       label: 'See Canva resume templates',
@@ -453,6 +514,7 @@ export const TOOL_EDITORIAL: Record<string, ToolEditorial> = {
     notIdealFor:
       'If you need a natural, human-sounding voice for a video, a podcast or a product demo, system voices are not close — they sound synthetic, and listeners notice within seconds. That is a job for a trained speech model, not a browser API.',
     cta: {
+      programa: 'elevenlabs',
       partner: 'ElevenLabs',
       body: 'For narration that people will actually listen to — voiceover, audiobook, product demo — ElevenLabs generates speech that does not sound synthetic. We earn a commission if you subscribe through our link, which is stated here rather than buried.',
       label: 'See ElevenLabs pricing',
@@ -510,6 +572,7 @@ export const TOOL_EDITORIAL: Record<string, ToolEditorial> = {
     notIdealFor:
       'Very large batches on a modest machine will stall the browser tab while it works; there is no server to offload to. On a phone or a laptop with little memory, split the folder into smaller runs.',
     cta: {
+      programa: 'canva-magic',
       partner: 'Canva',
       body: 'If the batch is going into a storefront or a social template, Canva applies one layout across many images, which is often the step after resizing.',
       label: 'See Canva batch tools',

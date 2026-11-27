@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { DIRECTORY_ITEMS } from '@/lib/data';
+import { destinoDoPrograma, listarProgramas } from '@/lib/afiliados';
 
 const FALLBACK_AFFILIATES: Record<string, string> = {
   adobe: 'https://www.adobe.com/acrobat/online.html',
@@ -39,6 +40,16 @@ const ALLOWED_HOSTS = new Set([
   'www.removebg.com',
 ]);
 
+/**
+ * Hosts dos programas cadastrados em content/afiliados.json.
+ * Somado a lista fixa abaixo, que fica como rede de seguranca: um programa novo
+ * no JSON nao pode abrir um redirect para lugar nenhum sem que o dominio tenha
+ * sido declarado la.
+ */
+const HOSTS_DOS_PROGRAMAS = new Set(
+  listarProgramas().flatMap(({ programa }) => programa.dominios.map((d) => d.toLowerCase()))
+);
+
 function safeRedirect(rawUrl: string, request: NextRequest): string | null {
   let url: URL;
   try {
@@ -47,7 +58,7 @@ function safeRedirect(rawUrl: string, request: NextRequest): string | null {
     return null;
   }
   if (url.protocol !== 'https:') return null;
-  if (!ALLOWED_HOSTS.has(url.hostname)) return null;
+  if (!ALLOWED_HOSTS.has(url.hostname) && !HOSTS_DOS_PROGRAMAS.has(url.hostname)) return null;
   return url.toString();
 }
 
@@ -58,8 +69,15 @@ export async function GET(
   const { slug } = await context.params;
   const lowerSlug = slug.toLowerCase();
 
+  // Ordem de preferencia:
+  //  1. link de afiliado cadastrado e aprovado no registro (gera comissao);
+  //  2. URL oficial do diretorio (sem comissao);
+  //  3. fallback fixo para ferramentas que nao estao no diretorio.
+  // Assim /go/adobe continua funcionando hoje (link direto) e passa a
+  // comissionar no dia em que o ID for cadastrado no painel, sem mudar codigo.
+  const doPrograma = destinoDoPrograma(lowerSlug);
   const dirMatch = DIRECTORY_ITEMS.find((d) => d.slug === lowerSlug);
-  const raw = dirMatch?.affiliateUrl || FALLBACK_AFFILIATES[lowerSlug];
+  const raw = doPrograma || dirMatch?.affiliateUrl || FALLBACK_AFFILIATES[lowerSlug];
 
   if (raw) {
     const safe = safeRedirect(raw, request);

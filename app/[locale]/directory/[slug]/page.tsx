@@ -10,6 +10,7 @@ import { canonical, breadcrumbs, publisher, authorEntity } from '@/lib/seo';
 import { DIRECTORY_DETAILS } from '@/lib/directoryContent';
 import { DIRECTORY_OVERRIDES, mergeOverride } from '@/lib/contentOverrides';
 import { overridesDe, aplicarPatch } from '@/lib/cms/overrides';
+import { ctaDestino, rotuloDoDinheiro, aprovado } from '@/lib/afiliados';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { locale, slug } = await params;
@@ -136,25 +137,30 @@ export default async function DirectoryPage({ params }: { params: Promise<{ loca
               <div>
                 <h2 className="font-black text-xl mb-1">Visit {item.name}</h2>
                 <p className="text-zinc-400 text-xs">
-                  Straight to the official site. No affiliate ID is attached to this link, so we earn nothing
-                  from your click — the recommendation above is the only thing we are offering.
+                  {rotuloDoDinheiro(item.slug) ??
+                    'Straight to the official site. No affiliate ID is attached to this link, so we earn nothing from your click.'}
                 </p>
               </div>
               <a
-                href={`/go/${item.slug}`}
-                rel="noopener noreferrer"
+                href={ctaDestino(item.slug, `/go/${item.slug}`)}
+                {...(aprovado(item.slug)
+                  ? { rel: 'sponsored noopener noreferrer' }
+                  : { rel: 'noopener noreferrer' })}
                 className="mt-5 inline-block text-center bg-yellow-400 text-zinc-950 font-black py-3 px-6 rounded-full hover:bg-yellow-300 transition text-sm shadow-md"
               >
-                Visit Official Website ↗
+                {aprovado(item.slug) ? 'Visit official site ↗' : 'Visit Official Website ↗'}
               </a>
+              {aprovado(item.slug) && (
+                <p className="text-[10px] font-bold uppercase tracking-wider text-zinc-500 mt-2">#ad · affiliate link</p>
+              )}
             </div>
 
             <div className="bg-[var(--color-surface-2)] border border-[var(--color-line)] rounded-[12px] p-6">
               <h3 className="font-bold text-[var(--color-ink)] mb-1">How this page is funded</h3>
               <p className="text-[var(--color-ink-muted)] text-xs leading-relaxed">
-                Display advertising and nothing else. We do not sell rankings or placements, and we do not
-                accept payment to make a listing look better — which is why these pages disagree with the
-                marketing copy on the vendors’ own sites.
+                {aprovado(item.slug)
+                  ? 'Display advertising plus an affiliate commission if you subscribe through the button on the left. The commission never buys a better verdict: these pages disagree with the marketing copy on the vendors’ own sites, and a partner that is the wrong buy is written as the wrong buy.'
+                  : 'Display advertising and nothing else. We do not sell rankings or placements, and we do not accept payment to make a listing look better — which is why these pages disagree with the marketing copy on the vendors’ own sites.'}
               </p>
               <a
                 href={`/${locale}/affiliate-disclosure`}

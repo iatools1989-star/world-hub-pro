@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 /**
  * Casca do painel ja autenticado.
@@ -15,6 +15,7 @@ import { useState, useEffect } from 'react';
  */
 export default function AdminShell({ email, locale }: { email: string; locale: string }) {
   const [carregado, setCarregado] = useState(false);
+  const [aba, setAba] = useState<'conteudo' | 'afiliados'>('conteudo');
 
   async function sair() {
     await fetch('/api/admin/logout', { method: 'POST' });
@@ -33,6 +34,22 @@ export default function AdminShell({ email, locale }: { email: string; locale: s
           </span>
           <span className="text-[11px] text-[var(--color-ink-muted)]">{email}</span>
           <span className="flex-1" />
+          <nav className="flex items-center gap-1 rounded-full border border-[var(--color-line)] p-0.5">
+            {(['conteudo', 'afiliados'] as const).map((t) => (
+              <button
+                key={t}
+                onClick={() => { setCarregado(false); setAba(t); }}
+                className={
+                  'text-xs font-bold px-3 py-1 rounded-full transition ' +
+                  (aba === t
+                    ? 'bg-[var(--color-btn-bg)] text-[var(--color-btn-fg)]'
+                    : 'text-[var(--color-ink-soft)] hover:text-[var(--color-ink)]')
+                }
+              >
+                {t === 'conteudo' ? 'Conteúdo' : 'Afiliados'}
+              </button>
+            ))}
+          </nav>
           <a
             href={`/${locale}`}
             target="_blank"
@@ -56,8 +73,8 @@ export default function AdminShell({ email, locale }: { email: string; locale: s
       )}
 
       <iframe
-        src="/en/admin/editor"
-        title="Editor de conteúdo"
+        src={aba === 'conteudo' ? '/en/admin/editor' : '/en/admin/afiliados'}
+        title={aba === 'conteudo' ? 'Editor de conteúdo' : 'Afiliados'}
         onLoad={() => setCarregado(true)}
         className="w-full border-0 block"
         style={{ height: 'calc(100vh - 46px)' }}
