@@ -13,24 +13,35 @@ export default function TextToSpeech() {
   const [volume, setVolume] = useState<number>(1.0);
   const [isSpeaking, setIsSpeaking] = useState<boolean>(false);
   const [isPaused, setIsPaused] = useState<boolean>(false);
+  const [onlyFallback, setOnlyFallback] = useState<boolean>(false);
 
   useEffect(() => {
     if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
 
     const loadVoices = () => {
-      const availableVoices = window.speechSynthesis.getVoices();
-      setVoices(availableVoices);
+      // So ingles nesta tela.
+      //
+      // O site e escrito, publicado e monetizado em ingles: um visitante que
+      // abre uma ferramenta de leitura em voz alta espera ouvir o texto no
+      // idioma da pagina. Listar as 40 vozes instaladas no sistema dele
+      // (muitas vezes em pt-BR, es, de) fazia a voz padrao sair errada e a
+      // lista virar ruido. Se o site um dia tiver versao em outro idioma,
+      // este filtro passa a ser por locale da pagina.
+      const todas = window.speechSynthesis.getVoices();
+      const ingles = todas.filter((v) => v.lang.toLowerCase().startsWith('en'));
+      // Se o sistema nao tem NENHUMA voz em ingles instalada, a lista fica
+      // vazia e explicamos o motivo. Nao caímos de volta para as vozes do
+      // sistema: numa maquina em portugues isso enchia a lista de nomes em
+      // pt-BR. Sem voz escolhida, o navegador usa a voz padrao dele.
+      setVoices(ingles);
+      setOnlyFallback(todas.length > 0 && ingles.length === 0);
+      const disponiveis = ingles;
 
-      // A voz inicial e a do idioma da interface (ingles), nao a do sistema
-      // operacional de quem esta visitando. O site e escrito e vendido em
-      // ingles: um visitante americano abrindo a pagina nao deveria ouvir o
-      // texto padrao em portugues, e vice-versa. A lista completa continua
-      // disponivel para trocar.
-      if (availableVoices.length > 0 && !selectedVoice) {
+      if (disponiveis.length > 0 && !selectedVoice) {
         const preferred =
-          availableVoices.find((v) => v.lang.startsWith('en-US')) ||
-          availableVoices.find((v) => v.lang.startsWith('en')) ||
-          availableVoices[0];
+          disponiveis.find((v) => v.lang.startsWith('en-US')) ||
+          disponiveis.find((v) => v.lang.startsWith('en-GB')) ||
+          disponiveis[0];
         setSelectedVoice(preferred.name);
       }
     };
@@ -114,7 +125,7 @@ export default function TextToSpeech() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
           <div className="sm:col-span-2">
             <label className="block text-xs font-bold text-[var(--color-ink-muted)] mb-1.5 uppercase tracking-wider">
-              Voice / language ({voices.length > 0 ? voices.length + ' available' : 'default'})
+              English voice ({voices.length > 0 ? `${voices.length} available` : 'default'})
             </label>
             <select
               value={selectedVoice}
@@ -127,6 +138,12 @@ export default function TextToSpeech() {
                 </option>
               ))}
             </select>
+            {onlyFallback && (
+              <p className="mt-1.5 text-[11px] text-[var(--color-ink-muted)]">
+                No English voice is installed on this device. Enable one in your operating system
+                to choose a voice here; until then the browser default is used.
+              </p>
+            )}
           </div>
 
           <div>
@@ -178,7 +195,7 @@ export default function TextToSpeech() {
               type="button"
               className="px-6 py-4 bg-[var(--color-surface-2)] hover:bg-[var(--color-line)] text-[var(--color-ink)] font-bold rounded-[12px] text-sm transition"
             >
-              {isPaused ? 'Continuar ⏯' : 'Pausar ⏸'}
+              {isPaused ? 'Resume' : 'Pause'}
             </button>
           )}
 
@@ -188,7 +205,7 @@ export default function TextToSpeech() {
               type="button"
               className="px-6 py-4 bg-red-50 hover:bg-red-100 text-red-600 font-bold rounded-[12px] text-sm transition"
             >
-              Parar ⏹
+              Stop
             </button>
           )}
         </div>
