@@ -37,7 +37,7 @@ import { VIDEO_TOOLS } from '@/lib/videoTools';
 import { TOOLS } from '@/lib/data';
 import { TOOL_GUIDES } from '@/lib/toolContent';
 import { overridesDe, aplicarPatch } from '@/lib/cms/overrides';
-import { TOOL_EDITORIAL } from '@/lib/toolEditorial';
+import { TOOL_EDITORIAL, ctaResolvido, rotuloDoCta } from '@/lib/toolEditorial';
 import { TOOL_OVERRIDES, mergeOverride } from '@/lib/contentOverrides';
 import JsonLd from '@/components/JsonLd';
 import { canonical, breadcrumbs, publisher, authorEntity } from '@/lib/seo';
@@ -90,6 +90,12 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
     mergeOverride(TOOL_EDITORIAL[slug], TOOL_OVERRIDES[slug]),
     overridesDe('tool', slug)
   );
+
+  // O destino e a divulgacao do CTA saem do registro de afiliados, nao do texto
+  // escrito a mao. Sem link rastreado cadastrado, o botao vai para a pagina
+  // interna/oficial e a pagina diz que nao ganhamos nada.
+  const cta = ed ? ctaResolvido(ed.cta) : null;
+  const dinheiro = cta ? rotuloDoCta(cta, locale) : null;
 
   const renderToolComponent = () => {
     switch (tool.slug) {
@@ -366,11 +372,11 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
               </section>
             )}
 
-            {ed ? (
+            {ed && cta ? (
               <div className="bg-yellow-50 border border-yellow-200 rounded-[12px] p-5 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    {ed.cta.monetized ? (
+                    {cta.monetized ? (
                       <span className="text-[10px] font-black uppercase tracking-wider bg-zinc-900 text-yellow-400 px-2 py-0.5 rounded">
                         #ad
                       </span>
@@ -379,42 +385,30 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
                         Official site
                       </span>
                     )}
-                    {ed.cta.partner && (
+                    {cta.partner && (
                       <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-ink-muted)]">
-                        {ed.cta.partner}
+                        {cta.partner}
                       </span>
                     )}
                   </div>
                   <h3 className="font-bold text-[var(--color-ink)] mb-1">When this tool is not enough</h3>
-                  <p className="text-xs text-[var(--color-ink-muted)] leading-relaxed">{ed.cta.body}</p>
+                  <p className="text-xs text-[var(--color-ink-muted)] leading-relaxed">{cta.body}</p>
                 </div>
                 <a
-                  href={ed.cta.href}
-                  {...(ed.cta.monetized
+                  href={cta.href}
+                  {...(cta.monetized
                     ? { rel: 'sponsored noopener noreferrer' }
                     : { rel: 'noopener noreferrer' })}
                   className="mt-3 inline-block text-center py-2 px-4 bg-[var(--color-btn-bg)] text-[var(--color-btn-fg)] rounded-full font-bold text-xs hover:opacity-90 transition"
                 >
-                  {ed.cta.label} →
+                  {cta.label} →
                 </a>
                 <p className="text-[10px] text-[var(--color-ink-muted)] mt-2 leading-snug">
-                  {ed.cta.monetized ? (
-                    <>
-                      Affiliate link. We may earn a commission at no extra cost to you.{' '}
-                      <a href={`/${locale}/affiliate-disclosure`} className="inline-flex min-h-6 items-center underline">
-                        Full disclosure
-                      </a>
-                      .
-                    </>
-                  ) : (
-                    <>
-                      Direct link to the official site. We earn nothing from this click.{' '}
-                      <a href={`/${locale}/affiliate-disclosure`} className="inline-flex min-h-6 items-center underline">
-                        Why we say this
-                      </a>
-                      .
-                    </>
-                  )}
+                  {dinheiro?.texto}{' '}
+                  <a href={dinheiro?.hrefDisclosure} className="inline-flex min-h-6 items-center underline">
+                    {dinheiro?.monetizado ? 'Full disclosure' : 'Why we say this'}
+                  </a>
+                  .
                 </p>
               </div>
             ) : (
