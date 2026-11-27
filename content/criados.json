@@ -1,3 +1,34 @@
 {
-  "guide": {}
+  "guide": {
+    "teste": {
+      "slug": "teste",
+      "title": "teste",
+      "metaTitle": "teste",
+      "metaDescription": "",
+      "keyword": "",
+      "updated": "2026-11-27",
+      "readingMinutes": 5,
+      "intro": [
+        ""
+      ],
+      "sections": [
+        {
+          "h": "",
+          "p": [
+            ""
+          ]
+        }
+      ],
+      "limitations": [
+        ""
+      ],
+      "related": [],
+      "faqs": [
+        {
+          "q": "",
+          "a": ""
+        }
+      ]
+    }
+  }
 }
