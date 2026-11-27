@@ -110,8 +110,8 @@ export default function ColorPicker() {
           </div>
 
           <div className="flex gap-2 w-full">
-            <label className="flex-1 py-3 px-4 bg-zinc-900 hover:bg-zinc-800 text-white font-bold rounded-[12px] text-xs flex items-center justify-center gap-2 cursor-pointer transition shadow">
-              <span>🎨 Abrir Seletor</span>
+            <label className="flex-1 py-3 px-4 bg-[var(--color-btn-bg)] hover:opacity-90 text-[var(--color-btn-fg)] font-bold rounded-[12px] text-xs flex items-center justify-center gap-2 cursor-pointer transition shadow">
+              <span>Open colour picker</span>
               <input
                 type="color"
                 value={color}

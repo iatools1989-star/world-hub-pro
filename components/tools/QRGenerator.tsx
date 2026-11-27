@@ -275,7 +275,7 @@ export default function QRGenerator() {
             onClick={downloadSVG}
             className="px-6 py-3 bg-yellow-400 text-zinc-950 font-bold rounded-full hover:bg-yellow-300 transition text-sm flex items-center gap-2 shadow"
           >
-            <span>⚡</span> Download SVG Vector (Infinito)
+            <span>⚡</span> Download SVG Vector (infinite resolution)
           </button>
         </div>
       </div>
