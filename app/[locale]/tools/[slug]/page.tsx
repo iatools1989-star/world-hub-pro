@@ -191,7 +191,7 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
                 <span className="bg-[var(--color-surface-2)] text-[var(--color-ink)] border border-[var(--color-line)] px-2.5 py-1 rounded-full font-bold">
                   ✓ 100% Client-Side
                 </span>
-                <span className="bg-zinc-900 text-white px-2.5 py-1 rounded-full font-bold">
+                <span className="bg-[var(--color-btn-bg)] text-[var(--color-btn-fg)] px-2.5 py-1 rounded-full font-bold">
                   Free to use
                 </span>
                 {/* O selo "Pro: X" saiu daqui de proposito: era um segundo caminho
@@ -375,7 +375,7 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
                         #ad
                       </span>
                     ) : (
-                      <span className="text-[10px] font-black uppercase tracking-wider bg-zinc-200 text-[var(--color-ink-soft)] px-2 py-0.5 rounded">
+                      <span className="text-[10px] font-black uppercase tracking-wider bg-[var(--color-line)] text-[var(--color-ink-soft)] px-2 py-0.5 rounded">
                         Official site
                       </span>
                     )}
@@ -393,7 +393,7 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
                   {...(ed.cta.monetized
                     ? { rel: 'sponsored noopener noreferrer' }
                     : { rel: 'noopener noreferrer' })}
-                  className="mt-3 inline-block text-center py-2 px-4 bg-zinc-900 text-white rounded-full font-bold text-xs hover:bg-zinc-800 transition"
+                  className="mt-3 inline-block text-center py-2 px-4 bg-[var(--color-btn-bg)] text-[var(--color-btn-fg)] rounded-full font-bold text-xs hover:opacity-90 transition"
                 >
                   {ed.cta.label} →
                 </a>
@@ -425,7 +425,7 @@ export default async function ToolPage({ params }: { params: Promise<{ locale: s
                 </p>
                 <a
                   href={`/${locale}/tools`}
-                  className="inline-block text-center py-2 px-4 bg-zinc-900 text-white rounded-full font-bold text-xs hover:bg-zinc-800 transition"
+                  className="inline-block text-center py-2 px-4 bg-[var(--color-btn-bg)] text-[var(--color-btn-fg)] rounded-full font-bold text-xs hover:opacity-90 transition"
                 >
                   Browse all tools →
                 </a>

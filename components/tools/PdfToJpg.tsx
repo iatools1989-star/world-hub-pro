@@ -84,7 +84,7 @@ export default function PdfToJpg() {
   return (
     <div className="space-y-6">
       {/* Upload Drag & Drop */}
-      <div className="border-2 border-dashed border-zinc-300 hover:border-zinc-500 rounded-[14px] p-8 text-center bg-[var(--color-surface)] transition cursor-pointer shadow-sm">
+      <div className="border-2 border-dashed border-[var(--color-line-strong)] hover:border-zinc-500 rounded-[14px] p-8 text-center bg-[var(--color-surface)] transition cursor-pointer shadow-sm">
         <input
           type="file"
           id="pdf-to-jpg-input"
@@ -131,7 +131,7 @@ export default function PdfToJpg() {
                 </span>
                 <button
                   onClick={downloadAll}
-                  className="px-4 py-2 bg-zinc-900 text-white rounded-xl text-xs font-bold hover:bg-zinc-800 transition"
+                  className="px-4 py-2 bg-[var(--color-btn-bg)] text-[var(--color-btn-fg)] rounded-xl text-xs font-bold hover:opacity-90 transition"
                 >
                   Download all images
                 </button>

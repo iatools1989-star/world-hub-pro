@@ -71,7 +71,12 @@ export default function WordCounter() {
 
         <div className="bg-[var(--color-surface)] border border-[var(--color-line)] p-3.5 rounded-[12px] text-center shadow-sm">
           <div className="text-2xl font-black text-[var(--color-ink)]">~{readingTime}m</div>
-          <div className="text-[11px] text-[var(--color-ink-muted)] font-bold uppercase tracking-wider mt-0.5">Reading (~{speakingTime}m fala)</div>
+          <div className="text-[11px] text-[var(--color-ink-muted)] font-bold uppercase tracking-wider mt-0.5">
+            Reading
+          </div>
+          <div className="text-[10px] text-[var(--color-ink-muted)] mt-0.5">
+            ~{speakingTime}m spoken
+          </div>
         </div>
       </div>
 
@@ -81,21 +86,21 @@ export default function WordCounter() {
           <button
             onClick={handleUpperCase}
             disabled={!text}
-            className="px-3 py-1.5 bg-zinc-100 hover:bg-zinc-200 rounded-lg font-bold text-[var(--color-ink-soft)] disabled:opacity-40 transition"
+            className="px-3 py-1.5 bg-[var(--color-surface-2)] hover:bg-[var(--color-line)] rounded-lg font-bold text-[var(--color-ink-soft)] disabled:opacity-40 transition"
           >
             UPPERCASE
           </button>
           <button
             onClick={handleLowerCase}
             disabled={!text}
-            className="px-3 py-1.5 bg-zinc-100 hover:bg-zinc-200 rounded-lg font-bold text-[var(--color-ink-soft)] disabled:opacity-40 transition"
+            className="px-3 py-1.5 bg-[var(--color-surface-2)] hover:bg-[var(--color-line)] rounded-lg font-bold text-[var(--color-ink-soft)] disabled:opacity-40 transition"
           >
             lowercase
           </button>
           <button
             onClick={handleCapitalize}
             disabled={!text}
-            className="px-3 py-1.5 bg-zinc-100 hover:bg-zinc-200 rounded-lg font-bold text-[var(--color-ink-soft)] disabled:opacity-40 transition"
+            className="px-3 py-1.5 bg-[var(--color-surface-2)] hover:bg-[var(--color-line)] rounded-lg font-bold text-[var(--color-ink-soft)] disabled:opacity-40 transition"
           >
             Capitalise each word
           </button>
@@ -106,17 +111,17 @@ export default function WordCounter() {
             onClick={handleCopy}
             disabled={!text}
             className={`px-3 py-1.5 font-bold rounded-lg transition disabled:opacity-40 ${
-              copied ? 'bg-emerald-600 text-white' : 'bg-zinc-900 text-white hover:bg-zinc-800'
+              copied ? 'bg-emerald-600 text-white' : 'bg-[var(--color-btn-bg)] text-[var(--color-btn-fg)] hover:opacity-90'
             }`}
           >
-            {copied ? '✓ Copiado!' : '📋 Copy'}
+            {copied ? '✓ Copied!' : 'Copy'}
           </button>
           <button
             onClick={handleClear}
             disabled={!text}
             className="px-3 py-1.5 bg-red-50 text-red-600 hover:bg-red-100 rounded-lg font-bold transition disabled:opacity-40"
           >
-            🗑️ Clear
+            Clear
           </button>
         </div>
       </div>

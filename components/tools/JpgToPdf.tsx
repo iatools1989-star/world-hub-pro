@@ -138,7 +138,7 @@ export default function JpgToPdf() {
   return (
     <div className="space-y-6">
       {/* Upload Múltiplo */}
-      <div className="border-2 border-dashed border-zinc-300 hover:border-zinc-500 rounded-[14px] p-8 text-center bg-[var(--color-surface)] transition cursor-pointer shadow-sm">
+      <div className="border-2 border-dashed border-[var(--color-line-strong)] hover:border-zinc-500 rounded-[14px] p-8 text-center bg-[var(--color-surface)] transition cursor-pointer shadow-sm">
         <input
           type="file"
           id="jpg-to-pdf-input"
@@ -171,7 +171,7 @@ export default function JpgToPdf() {
               <select
                 value={pageSize}
                 onChange={(e) => setPageSize(e.target.value as any)}
-                className="w-full p-2.5 rounded-xl border border-zinc-300 text-sm bg-[var(--color-surface)] font-medium cursor-pointer"
+                className="w-full p-2.5 rounded-xl border border-[var(--color-line-strong)] text-sm bg-[var(--color-surface)] font-medium cursor-pointer"
               >
                 <option value="a4">Standard A4 (best for printing)</option>
                 <option value="fit">Fit to image size</option>
@@ -185,7 +185,7 @@ export default function JpgToPdf() {
               <select
                 value={orientation}
                 onChange={(e) => setOrientation(e.target.value as any)}
-                className="w-full p-2.5 rounded-xl border border-zinc-300 text-sm bg-[var(--color-surface)] font-medium cursor-pointer"
+                className="w-full p-2.5 rounded-xl border border-[var(--color-line-strong)] text-sm bg-[var(--color-surface)] font-medium cursor-pointer"
               >
                 <option value="portrait">Portrait (vertical)</option>
                 <option value="landscape">Landscape (horizontal)</option>
@@ -222,7 +222,7 @@ export default function JpgToPdf() {
                     <button
                       onClick={() => moveUp(index)}
                       disabled={index === 0}
-                      className="p-1 hover:bg-zinc-200 rounded text-xs disabled:opacity-20"
+                      className="p-1 hover:bg-[var(--color-line)] rounded text-xs disabled:opacity-20"
                       title="Move up"
                     >
                       ▲
@@ -230,7 +230,7 @@ export default function JpgToPdf() {
                     <button
                       onClick={() => moveDown(index)}
                       disabled={index === images.length - 1}
-                      className="p-1 hover:bg-zinc-200 rounded text-xs disabled:opacity-20"
+                      className="p-1 hover:bg-[var(--color-line)] rounded text-xs disabled:opacity-20"
                       title="Move down"
                     >
                       ▼

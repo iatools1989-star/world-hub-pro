@@ -144,7 +144,7 @@ export default function UnitConverter() {
             className={`p-3 rounded-[12px] border text-xs font-bold flex flex-col items-center gap-1.5 transition ${
               category === cat
                 ? 'bg-zinc-900 text-yellow-400 border-zinc-900 shadow'
-                : 'bg-[var(--color-surface)] border-[var(--color-line)] text-[var(--color-ink-soft)] hover:border-zinc-300 hover:bg-[var(--color-surface-2)]'
+                : 'bg-[var(--color-surface)] border-[var(--color-line)] text-[var(--color-ink-soft)] hover:border-[var(--color-line-strong)] hover:bg-[var(--color-surface-2)]'
             }`}
           >
             <span className="text-xl">{CATEGORIES[cat].icon}</span>
@@ -169,7 +169,7 @@ export default function UnitConverter() {
             <select
               value={fromUnit}
               onChange={(e) => setFromUnit(e.target.value)}
-              className="w-full p-2.5 rounded-xl border border-zinc-300 text-sm bg-[var(--color-surface)] font-medium cursor-pointer"
+              className="w-full p-2.5 rounded-xl border border-[var(--color-line-strong)] text-sm bg-[var(--color-surface)] font-medium cursor-pointer"
             >
               {Object.entries(units).map(([key, item]) => (
                 <option key={key} value={key}>{item.label}</option>
@@ -182,7 +182,7 @@ export default function UnitConverter() {
             <button
               onClick={handleSwap}
               title="Inverter Unidades"
-              className="w-12 h-12 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 rounded-full flex items-center justify-center font-bold text-lg transition shadow-sm"
+              className="w-12 h-12 bg-[var(--color-surface-2)] hover:bg-[var(--color-line)] text-[var(--color-ink)] rounded-full flex items-center justify-center font-bold text-lg transition shadow-sm"
             >
               ⇄
             </button>
@@ -197,7 +197,7 @@ export default function UnitConverter() {
             <select
               value={toUnit}
               onChange={(e) => setToUnit(e.target.value)}
-              className="w-full p-2.5 rounded-xl border border-zinc-300 text-sm bg-[var(--color-surface)] font-medium cursor-pointer"
+              className="w-full p-2.5 rounded-xl border border-[var(--color-line-strong)] text-sm bg-[var(--color-surface)] font-medium cursor-pointer"
             >
               {Object.entries(units).map(([key, item]) => (
                 <option key={key} value={key}>{item.label}</option>

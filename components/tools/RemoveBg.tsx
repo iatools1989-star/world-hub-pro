@@ -132,7 +132,7 @@ export default function RemoveBg() {
   return (
     <div className="space-y-6">
       {/* Upload Drag & Drop */}
-      <div className="border-2 border-dashed border-zinc-300 hover:border-zinc-500 rounded-[14px] p-8 text-center bg-[var(--color-surface)] transition cursor-pointer shadow-sm">
+      <div className="border-2 border-dashed border-[var(--color-line-strong)] hover:border-zinc-500 rounded-[14px] p-8 text-center bg-[var(--color-surface)] transition cursor-pointer shadow-sm">
         <input
           type="file"
           id="remove-bg-input"
@@ -197,8 +197,8 @@ export default function RemoveBg() {
                     onClick={() => setBgColor(bg)}
                     className={`flex-1 py-2 text-xs font-bold rounded-xl border transition ${
                       bgColor === bg
-                        ? 'bg-zinc-900 text-white border-zinc-900'
-                        : 'bg-[var(--color-surface-2)] border-[var(--color-line)] text-[var(--color-ink-soft)] hover:bg-zinc-100'
+                        ? 'bg-[var(--color-btn-bg)] text-[var(--color-btn-fg)] border-zinc-900'
+                        : 'bg-[var(--color-surface-2)] border-[var(--color-line)] text-[var(--color-ink-soft)] hover:bg-[var(--color-surface-2)]'
                     }`}
                   >
                     {bg === 'transparent' ? 'PNG' : bg === 'white' ? 'White' : bg === 'black' ? 'Black' : 'Colour'}
@@ -252,7 +252,7 @@ export default function RemoveBg() {
             <a
               href={processedUrl}
               download={`no-background-${file.name.replace(/\.[^/.]+$/, '')}.png`}
-              className="w-full py-4 bg-zinc-900 text-white font-bold rounded-[12px] hover:bg-zinc-800 transition text-sm shadow-md flex items-center justify-center gap-2"
+              className="w-full py-4 bg-[var(--color-btn-bg)] text-[var(--color-btn-fg)] font-bold rounded-[12px] hover:opacity-90 transition text-sm shadow-md flex items-center justify-center gap-2"
             >
               <span>⬇</span> Download transparent PNG
             </a>

@@ -122,7 +122,7 @@ export default function ColorPicker() {
 
             <button
               onClick={handleEyeDropper}
-              className="py-3 px-4 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 font-bold rounded-[12px] text-xs flex items-center gap-1.5 transition"
+              className="py-3 px-4 bg-[var(--color-surface-2)] hover:bg-[var(--color-line)] text-[var(--color-ink)] font-bold rounded-[12px] text-xs flex items-center gap-1.5 transition"
               title="Pick a colour from anywhere on your screen"
             >
               <span>🧪</span> Eyedropper
@@ -141,7 +141,7 @@ export default function ColorPicker() {
                 <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider block">
                   {fmt.label}
                 </span>
-                <span className="font-mono text-xs sm:text-sm font-bold text-zinc-800">
+                <span className="font-mono text-xs sm:text-sm font-bold text-[var(--color-ink)]">
                   {fmt.value}
                 </span>
               </div>
@@ -150,10 +150,10 @@ export default function ColorPicker() {
                 className={`px-3 py-1.5 rounded-xl text-xs font-bold transition ${
                   copiedFormat === fmt.label
                     ? 'bg-emerald-600 text-white'
-                    : 'bg-zinc-200 hover:bg-zinc-300 text-zinc-800'
+                    : 'bg-[var(--color-line)] hover:bg-zinc-300 text-[var(--color-ink)]'
                 }`}
               >
-                {copiedFormat === fmt.label ? '✓ Copiado' : 'Copy'}
+                {copiedFormat === fmt.label ? '✓ Copied' : 'Copy'}
               </button>
             </div>
           ))}

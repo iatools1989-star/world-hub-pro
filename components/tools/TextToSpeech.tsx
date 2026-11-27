@@ -21,10 +21,14 @@ export default function TextToSpeech() {
       const availableVoices = window.speechSynthesis.getVoices();
       setVoices(availableVoices);
 
-      // Prioriza vozes em português ou inglês como padrão inicial
+      // A voz inicial e a do idioma da interface (ingles), nao a do sistema
+      // operacional de quem esta visitando. O site e escrito e vendido em
+      // ingles: um visitante americano abrindo a pagina nao deveria ouvir o
+      // texto padrao em portugues, e vice-versa. A lista completa continua
+      // disponivel para trocar.
       if (availableVoices.length > 0 && !selectedVoice) {
         const preferred =
-          availableVoices.find((v) => v.lang.startsWith('pt')) ||
+          availableVoices.find((v) => v.lang.startsWith('en-US')) ||
           availableVoices.find((v) => v.lang.startsWith('en')) ||
           availableVoices[0];
         setSelectedVoice(preferred.name);
@@ -115,7 +119,7 @@ export default function TextToSpeech() {
             <select
               value={selectedVoice}
               onChange={(e) => setSelectedVoice(e.target.value)}
-              className="w-full p-2.5 rounded-xl border border-zinc-300 text-xs bg-[var(--color-surface)] font-medium cursor-pointer"
+              className="w-full p-2.5 rounded-xl border border-[var(--color-line-strong)] text-xs bg-[var(--color-surface)] font-medium cursor-pointer"
             >
               {voices.map((v) => (
                 <option key={v.name} value={v.name}>
@@ -172,7 +176,7 @@ export default function TextToSpeech() {
             <button
               onClick={handlePauseResume}
               type="button"
-              className="px-6 py-4 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 font-bold rounded-[12px] text-sm transition"
+              className="px-6 py-4 bg-[var(--color-surface-2)] hover:bg-[var(--color-line)] text-[var(--color-ink)] font-bold rounded-[12px] text-sm transition"
             >
               {isPaused ? 'Continuar ⏯' : 'Pausar ⏸'}
             </button>

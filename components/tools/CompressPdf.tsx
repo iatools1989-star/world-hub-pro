@@ -118,7 +118,7 @@ export default function CompressPdf() {
   return (
     <div className="space-y-6">
       {/* Upload Drag & Drop */}
-      <div className="border-2 border-dashed border-zinc-300 hover:border-zinc-500 rounded-[14px] p-8 text-center bg-[var(--color-surface)] transition cursor-pointer shadow-sm">
+      <div className="border-2 border-dashed border-[var(--color-line-strong)] hover:border-zinc-500 rounded-[14px] p-8 text-center bg-[var(--color-surface)] transition cursor-pointer shadow-sm">
         <input
           type="file"
           id="compress-pdf-input"
@@ -137,7 +137,7 @@ export default function CompressPdf() {
             </span>
           </div>
           {file && (
-            <span className="inline-block px-3 py-1 bg-zinc-100 rounded-full text-xs font-bold text-[var(--color-ink-soft)]">
+            <span className="inline-block px-3 py-1 bg-[var(--color-surface-2)] rounded-full text-xs font-bold text-[var(--color-ink-soft)]">
               Current size: {formatSize(file.size)}
             </span>
           )}
@@ -163,8 +163,8 @@ export default function CompressPdf() {
                   onClick={() => setCompressionLevel(opt.id as any)}
                   className={`p-3.5 rounded-[12px] border text-left transition ${
                     compressionLevel === opt.id
-                      ? 'bg-zinc-900 text-white border-zinc-900 shadow-sm'
-                      : 'bg-[var(--color-surface-2)] border-[var(--color-line)] text-[var(--color-ink-soft)] hover:bg-zinc-100'
+                      ? 'bg-[var(--color-btn-bg)] text-[var(--color-btn-fg)] border-zinc-900 shadow-sm'
+                      : 'bg-[var(--color-surface-2)] border-[var(--color-line)] text-[var(--color-ink-soft)] hover:bg-[var(--color-surface-2)]'
                   }`}
                 >
                   <span className="font-bold text-xs block">{opt.label}</span>
@@ -213,7 +213,7 @@ export default function CompressPdf() {
               <a
                 href={compressedBlobUrl}
                 download={`compressed-${file.name}`}
-                className="w-full py-3.5 bg-zinc-900 text-white font-bold rounded-[12px] hover:bg-zinc-800 transition text-sm flex items-center justify-center gap-2 shadow"
+                className="w-full py-3.5 bg-[var(--color-btn-bg)] text-[var(--color-btn-fg)] font-bold rounded-[12px] hover:opacity-90 transition text-sm flex items-center justify-center gap-2 shadow"
               >
                 <span>⬇</span> Download compressed PDF
               </a>

@@ -33,6 +33,16 @@
      com 5,6:1, que passa AA para texto normal. */
   --color-link: #8a6400;
 
+  /* Botao solido.
+     `bg-[var(--color-ink)] text-white` parece certo e quebra no tema escuro:
+     o fundo vira branco (ink inverte) e o texto continua branco — botao
+     invisivel. Estes dois tokens invertem juntos. */
+  --color-btn-bg: #101012;
+  --color-btn-fg: #ffffff;
+  /* Botao escuro com texto da marca: so no tema claro, onde o amarelo separa.
+     No escuro o fundo teria de ser claro e o texto escuro. */
+  --color-btn-brand-fg: #f5c518;
+
   --radius-card: 14px;
   --radius-pill: 999px;
 }
@@ -51,6 +61,13 @@
   /* Mesmo matiz, clareado: sobre fundo escuro o link
      precisa de contraste na direcao oposta. */
   --color-link: #f5c518;
+
+  /* No escuro o botao solido inverte: fundo claro, texto escuro. */
+  --color-btn-bg: #f4f4f5;
+  --color-btn-fg: #101012;
+  /* Fundo claro pede texto escuro, nao amarelo (amarelo sobre quase-branco
+     tem 1,4:1 de contraste, ilegivel). */
+  --color-btn-brand-fg: #101012;
 }
 
 /* --------------------------------------------------------------------------
