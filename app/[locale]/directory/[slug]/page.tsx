@@ -111,7 +111,7 @@ export default async function DirectoryPage({ params }: { params: Promise<{ loca
               <h1 className="text-2xl sm:text-3xl font-black text-[var(--color-ink)]">{item.name}</h1>
               <p className="text-[var(--color-ink-muted)] mt-1 text-sm sm:text-base">{item.desc}</p>
               <div className="mt-3 flex flex-wrap gap-2 text-xs">
-                <span className="bg-zinc-900 text-white px-2.5 py-1 rounded-full font-bold">
+                <span className="bg-[var(--color-btn-bg)] text-[var(--color-btn-fg)] px-2.5 py-1 rounded-full font-bold">
                   {item.pricing}
                 </span>
                 <span className="bg-zinc-100 border border-[var(--color-line)] text-[var(--color-ink-soft)] px-2.5 py-1 rounded-full font-bold">
@@ -268,13 +268,13 @@ export default async function DirectoryPage({ params }: { params: Promise<{ loca
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="p-5 bg-[var(--color-surface-2)] border border-[var(--color-line)] rounded-[12px]">
                     <h3 className="text-xs font-black uppercase tracking-wider text-[var(--color-ink-muted)] mb-2">Buy it if</h3>
-                    <p className="text-sm text-zinc-800 leading-relaxed">{detail.bestFor}</p>
+                    <p className="text-sm text-[var(--color-ink)] leading-relaxed">{detail.bestFor}</p>
                   </div>
                   <div className="p-5 bg-[var(--color-surface-2)] border border-[var(--color-line)] rounded-[12px]">
                     <h3 className="text-xs font-black uppercase tracking-wider text-amber-700 mb-2">
                       Do not buy it if
                     </h3>
-                    <p className="text-sm text-zinc-800 leading-relaxed">{detail.notFor}</p>
+                    <p className="text-sm text-[var(--color-ink)] leading-relaxed">{detail.notFor}</p>
                   </div>
                 </div>
               </section>

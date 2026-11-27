@@ -96,7 +96,7 @@ export default function ImageCompressor() {
   return (
     <div className="space-y-6">
       {/* Upload Drag & Drop */}
-      <div className="border-2 border-dashed border-zinc-300 hover:border-zinc-500 rounded-[14px] p-8 text-center bg-[var(--color-surface)] transition cursor-pointer shadow-sm">
+      <div className="border-2 border-dashed border-[var(--color-line-strong)] hover:border-zinc-500 rounded-[14px] p-8 text-center bg-[var(--color-surface)] transition cursor-pointer shadow-sm">
         <input
           type="file"
           id="img-upload-input"
@@ -115,7 +115,7 @@ export default function ImageCompressor() {
             </span>
           </div>
           {file && (
-            <span className="inline-block px-3 py-1 bg-zinc-100 rounded-full text-xs font-bold text-[var(--color-ink-soft)]">
+            <span className="inline-block px-3 py-1 bg-[var(--color-surface-2)] rounded-full text-xs font-bold text-[var(--color-ink-soft)]">
               Original size: {formatSize(file.size)}
             </span>
           )}
@@ -162,7 +162,7 @@ export default function ImageCompressor() {
               <select
                 value={outputFormat}
                 onChange={(e) => setOutputFormat(e.target.value as any)}
-                className="w-full p-2.5 rounded-xl border border-zinc-300 text-sm bg-[var(--color-surface)] font-medium cursor-pointer"
+                className="w-full p-2.5 rounded-xl border border-[var(--color-line-strong)] text-sm bg-[var(--color-surface)] font-medium cursor-pointer"
               >
                 <option value="image/jpeg">JPEG (.jpg)</option>
                 <option value="image/webp">WebP (.webp - smallest file)</option>
@@ -203,7 +203,7 @@ export default function ImageCompressor() {
               <a
                 href={compressedUrl}
                 download={`compressed-${file.name.replace(/\.[^/.]+$/, '')}.${outputFormat.split('/')[1]}`}
-                className="w-full py-3.5 bg-zinc-900 text-white font-bold rounded-[12px] hover:bg-zinc-800 transition text-sm flex items-center justify-center gap-2 shadow"
+                className="w-full py-3.5 bg-[var(--color-btn-bg)] text-[var(--color-btn-fg)] font-bold rounded-[12px] hover:opacity-90 transition text-sm flex items-center justify-center gap-2 shadow"
               >
                 <span>⬇</span> Download optimised image
               </a>

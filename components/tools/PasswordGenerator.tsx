@@ -98,7 +98,7 @@ export default function PasswordGenerator() {
           <button
             onClick={generate}
             title="Generate a new password"
-            className="px-4 py-3 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 font-bold rounded-[12px] transition flex items-center justify-center text-lg"
+            className="px-4 py-3 bg-[var(--color-surface-2)] hover:bg-[var(--color-line)] text-[var(--color-ink)] font-bold rounded-[12px] transition flex items-center justify-center text-lg"
           >
             🔄
           </button>
@@ -107,10 +107,10 @@ export default function PasswordGenerator() {
             className={`px-6 py-3 font-bold rounded-[12px] text-sm transition flex items-center gap-2 shadow ${
               copied
                 ? 'bg-emerald-600 text-white'
-                : 'bg-zinc-900 text-white hover:bg-zinc-800'
+                : 'bg-[var(--color-btn-bg)] text-[var(--color-btn-fg)] hover:opacity-90'
             }`}
           >
-            {copied ? '✓ Copiado!' : '📋 Copy'}
+            {copied ? '✓ Copied!' : 'Copy'}
           </button>
         </div>
       </div>
@@ -122,10 +122,10 @@ export default function PasswordGenerator() {
             Password Strength: <b className="text-[var(--color-ink)] uppercase">{strength.label}</b>
           </span>
           <span className="text-[var(--color-ink-muted)] font-medium">
-            Estimated time to crack: <b className="text-zinc-800">{strength.crackTime}</b>
+            Estimated time to crack: <b className="text-[var(--color-ink)]">{strength.crackTime}</b>
           </span>
         </div>
-        <div className="w-full bg-zinc-100 h-2.5 rounded-full overflow-hidden">
+        <div className="w-full bg-[var(--color-surface-2)] h-2.5 rounded-full overflow-hidden">
           <div
             className={`h-full transition-all duration-300 ${strength.color}`}
             style={{ width: `${strength.percent}%` }}
@@ -137,9 +137,9 @@ export default function PasswordGenerator() {
       <div className="space-y-4 bg-[var(--color-surface)] p-6 rounded-[12px] border border-[var(--color-line)] shadow-sm">
         <div className="space-y-2">
           <div className="flex items-center justify-between text-sm">
-            <span className="font-bold text-zinc-800">Password Length</span>
-            <span className="font-mono text-base font-black px-3 py-1 bg-zinc-100 rounded-lg border border-[var(--color-line)]">
-              {length} caracteres
+            <span className="font-bold text-[var(--color-ink)]">Password Length</span>
+            <span className="font-mono text-base font-black px-3 py-1 bg-[var(--color-surface-2)] rounded-lg border border-[var(--color-line)]">
+              {length} characters
             </span>
           </div>
           <input

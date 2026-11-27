@@ -140,7 +140,7 @@ export default function ResumeBuilder() {
               type="text"
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
-              className="w-full px-4 py-2.5 rounded-xl border border-zinc-300 text-sm font-semibold"
+              className="w-full px-4 py-2.5 rounded-xl border border-[var(--color-line-strong)] text-sm font-semibold"
             />
           </div>
 
@@ -150,7 +150,7 @@ export default function ResumeBuilder() {
               type="text"
               value={role}
               onChange={(e) => setRole(e.target.value)}
-              className="w-full px-4 py-2.5 rounded-xl border border-zinc-300 text-sm font-semibold"
+              className="w-full px-4 py-2.5 rounded-xl border border-[var(--color-line-strong)] text-sm font-semibold"
             />
           </div>
 
@@ -160,7 +160,7 @@ export default function ResumeBuilder() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2.5 rounded-xl border border-zinc-300 text-sm"
+              className="w-full px-4 py-2.5 rounded-xl border border-[var(--color-line-strong)] text-sm"
             />
           </div>
 
@@ -170,7 +170,7 @@ export default function ResumeBuilder() {
               type="text"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              className="w-full px-4 py-2.5 rounded-xl border border-zinc-300 text-sm"
+              className="w-full px-4 py-2.5 rounded-xl border border-[var(--color-line-strong)] text-sm"
             />
           </div>
         </div>
@@ -181,7 +181,7 @@ export default function ResumeBuilder() {
             rows={3}
             value={summary}
             onChange={(e) => setSummary(e.target.value)}
-            className="w-full p-3 rounded-xl border border-zinc-300 text-sm"
+            className="w-full p-3 rounded-xl border border-[var(--color-line-strong)] text-sm"
           />
         </div>
 
@@ -191,7 +191,7 @@ export default function ResumeBuilder() {
             rows={5}
             value={experience}
             onChange={(e) => setExperience(e.target.value)}
-            className="w-full p-3 rounded-xl border border-zinc-300 text-sm font-mono text-xs"
+            className="w-full p-3 rounded-xl border border-[var(--color-line-strong)] text-sm font-mono text-xs"
           />
         </div>
 
@@ -201,7 +201,7 @@ export default function ResumeBuilder() {
             rows={3}
             value={education}
             onChange={(e) => setEducation(e.target.value)}
-            className="w-full p-3 rounded-xl border border-zinc-300 text-sm font-mono text-xs"
+            className="w-full p-3 rounded-xl border border-[var(--color-line-strong)] text-sm font-mono text-xs"
           />
         </div>
 
@@ -211,7 +211,7 @@ export default function ResumeBuilder() {
             type="text"
             value={skills}
             onChange={(e) => setSkills(e.target.value)}
-            className="w-full px-4 py-2.5 rounded-xl border border-zinc-300 text-sm"
+            className="w-full px-4 py-2.5 rounded-xl border border-[var(--color-line-strong)] text-sm"
           />
         </div>
 

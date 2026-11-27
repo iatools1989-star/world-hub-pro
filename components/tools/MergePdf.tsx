@@ -117,7 +117,7 @@ export default function MergePdf() {
   return (
     <div className="space-y-6">
       {/* Upload Drag & Drop */}
-      <div className="border-2 border-dashed border-zinc-300 hover:border-zinc-500 rounded-[14px] p-8 text-center bg-[var(--color-surface)] transition cursor-pointer shadow-sm">
+      <div className="border-2 border-dashed border-[var(--color-line-strong)] hover:border-zinc-500 rounded-[14px] p-8 text-center bg-[var(--color-surface)] transition cursor-pointer shadow-sm">
         <input
           type="file"
           id="merge-pdf-input"
@@ -144,13 +144,13 @@ export default function MergePdf() {
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold text-[var(--color-ink-muted)] uppercase tracking-wider">
-                Ordem dos Arquivos ({pdfFiles.length} adicionados):
+                File order ({pdfFiles.length} added):
               </span>
               <button
                 onClick={() => setPdfFiles([])}
                 className="text-xs font-bold text-red-600 hover:underline"
               >
-                Clear Todos
+                Clear all
               </button>
             </div>
 
@@ -161,7 +161,7 @@ export default function MergePdf() {
                   className="p-3.5 bg-[var(--color-surface-2)] rounded-[12px] border border-[var(--color-line)] flex items-center justify-between gap-3"
                 >
                   <div className="flex items-center gap-3 min-w-0">
-                    <span className="w-7 h-7 bg-zinc-900 text-white rounded-lg flex items-center justify-center text-xs font-black shrink-0">
+                    <span className="w-7 h-7 bg-[var(--color-btn-bg)] text-[var(--color-btn-fg)] rounded-lg flex items-center justify-center text-xs font-black shrink-0">
                       {index + 1}
                     </span>
                     <div className="truncate">
@@ -174,7 +174,7 @@ export default function MergePdf() {
                     <button
                       onClick={() => moveUp(index)}
                       disabled={index === 0}
-                      className="p-1.5 hover:bg-zinc-200 rounded-lg text-xs disabled:opacity-20"
+                      className="p-1.5 hover:bg-[var(--color-line)] rounded-lg text-xs disabled:opacity-20"
                       title="Move up"
                     >
                       ▲
@@ -182,7 +182,7 @@ export default function MergePdf() {
                     <button
                       onClick={() => moveDown(index)}
                       disabled={index === pdfFiles.length - 1}
-                      className="p-1.5 hover:bg-zinc-200 rounded-lg text-xs disabled:opacity-20"
+                      className="p-1.5 hover:bg-[var(--color-line)] rounded-lg text-xs disabled:opacity-20"
                       title="Move down"
                     >
                       ▼
@@ -219,15 +219,14 @@ export default function MergePdf() {
           {mergedBlobUrl && (
             <div className="p-5 bg-emerald-50 border border-emerald-200 rounded-[12px] flex flex-col sm:flex-row items-center justify-between gap-4 animate-in fade-in">
               <div className="flex items-center gap-2">
-                <span className="text-2xl">🎉</span>
                 <span className="text-xs font-bold text-emerald-900">
-                  Documento combinado com sucesso!
+                  Merged successfully!
                 </span>
               </div>
               <a
                 href={mergedBlobUrl}
                 download={`merged-document-${Date.now()}.pdf`}
-                className="px-6 py-2.5 bg-zinc-900 text-white font-bold rounded-xl text-xs hover:bg-zinc-800 transition shadow"
+                className="px-6 py-2.5 bg-[var(--color-btn-bg)] text-[var(--color-btn-fg)] font-bold rounded-xl text-xs hover:opacity-90 transition shadow"
               >
                 ⬇ Download merged PDF
               </a>

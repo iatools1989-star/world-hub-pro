@@ -190,7 +190,7 @@ export default function ConsentBanner() {
               <div className="mt-4 flex flex-col sm:flex-row sm:items-center gap-2">
                 <button
                   onClick={() => decidir('aceito')}
-                  className="rounded-full bg-[var(--color-ink)] px-5 py-2 text-[12px] sm:text-[13px] font-bold text-[var(--color-brand)] hover:opacity-90 transition"
+                  className="rounded-full bg-[var(--color-btn-bg)] px-5 py-2 text-[12px] sm:text-[13px] font-bold text-[var(--color-btn-brand-fg)] hover:opacity-90 transition"
                 >
                   Accept all
                 </button>

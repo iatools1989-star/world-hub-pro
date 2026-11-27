@@ -99,7 +99,7 @@ export default function AgeCalculator() {
       {stats ? (
         <div className="space-y-6 animate-in fade-in">
           {/* Cartão de Destaque da Idade */}
-          <div className="bg-zinc-900 text-white p-6 sm:p-8 rounded-[14px] shadow-sm text-center space-y-2">
+          <div className="bg-[var(--color-btn-bg)] text-[var(--color-btn-fg)] p-6 sm:p-8 rounded-[14px] shadow-sm text-center space-y-2">
             <span className="text-xs uppercase tracking-widest text-yellow-400 font-bold">
               Exact Age Calculated
             </span>

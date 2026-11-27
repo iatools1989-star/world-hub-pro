@@ -105,7 +105,7 @@ export default function URLShortener() {
           </div>
 
           <div
-            className="p-4 bg-[var(--color-surface-2)] rounded-[12px] border border-[var(--color-line)] font-mono text-xs sm:text-sm text-zinc-800 break-all select-all leading-relaxed"
+            className="p-4 bg-[var(--color-surface-2)] rounded-[12px] border border-[var(--color-line)] font-mono text-xs sm:text-sm text-[var(--color-ink)] break-all select-all leading-relaxed"
             aria-live="polite"
           >
             {cleanedUrl}
@@ -118,16 +118,16 @@ export default function URLShortener() {
               className={`flex-1 py-3 px-5 font-bold rounded-[12px] text-xs transition flex items-center justify-center gap-2 shadow ${
                 copied
                   ? 'bg-emerald-600 text-white'
-                  : 'bg-zinc-900 text-white hover:bg-zinc-800'
+                  : 'bg-[var(--color-btn-bg)] text-[var(--color-btn-fg)] hover:opacity-90'
               }`}
             >
-              {copied ? '✓ Copied to clipboard' : '📋 Copy clean link'}
+              {copied ? '✓ Copied to clipboard' : 'Copy clean link'}
             </button>
             <a
               href={cleanedUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="py-3 px-5 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 font-bold rounded-[12px] text-xs flex items-center justify-center gap-1.5 transition"
+              className="py-3 px-5 bg-[var(--color-surface-2)] hover:bg-[var(--color-line)] text-[var(--color-ink)] font-bold rounded-[12px] text-xs flex items-center justify-center gap-1.5 transition"
             >
               <span>↗</span> Open cleaned URL in a new tab
             </a>
@@ -137,7 +137,7 @@ export default function URLShortener() {
 
       {/* Cartão Explicativo de Privacidade */}
       <div className="bg-[var(--color-surface-2)] border border-[var(--color-line)] rounded-[12px] p-4 text-xs text-[var(--color-ink-muted)] leading-relaxed">
-        <b>💡 Why clean your links?</b> Networks like Facebook, Google and TikTok attach personal identifiers (such as <code className="bg-zinc-200 px-1 rounded">fbclid</code> and <code className="bg-zinc-200 px-1 rounded">gclid</code>) that track who shared the page. Removing them clears that data without breaking the destination.
+        <b>💡 Why clean your links?</b> Networks like Facebook, Google and TikTok attach personal identifiers (such as <code className="bg-[var(--color-line)] px-1 rounded">fbclid</code> and <code className="bg-[var(--color-line)] px-1 rounded">gclid</code>) that track who shared the page. Removing them clears that data without breaking the destination.
       </div>
     </div>
   );

@@ -39,7 +39,7 @@ export default function Footer({ currentLocale }: { currentLocale: string }) {
           {/* Marca */}
           <div>
             <div className="flex items-center gap-2.5">
-              <span className="grid h-8 w-8 place-items-center rounded-[9px] bg-[var(--color-ink)] text-[13px] font-black text-[var(--color-brand)]">
+              <span className="grid h-8 w-8 place-items-center rounded-[9px] bg-[#101012] text-[13px] font-black text-[#f5c518] dark:bg-[#f5c518] dark:text-[#101012]">
                 W
               </span>
               <span className="text-[14.5px] font-extrabold tracking-[-0.02em] text-[var(--color-ink)]">

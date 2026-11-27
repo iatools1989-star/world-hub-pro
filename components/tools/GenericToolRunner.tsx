@@ -15,7 +15,7 @@ export default function GenericToolRunner({ name }: { name: string }) {
 
   return (
     <div className="space-y-4">
-      <div className="border-2 border-dashed border-zinc-300 rounded-[12px] p-8 text-center bg-[var(--color-surface-2)] hover:bg-zinc-100 transition cursor-pointer">
+      <div className="border-2 border-dashed border-[var(--color-line-strong)] rounded-[12px] p-8 text-center bg-[var(--color-surface-2)] hover:bg-[var(--color-surface-2)] transition cursor-pointer">
         <input
           type="file"
           id="toolFileInput"
@@ -24,7 +24,7 @@ export default function GenericToolRunner({ name }: { name: string }) {
         />
         <label htmlFor="toolFileInput" className="cursor-pointer block space-y-2">
           <div className="text-4xl">📁</div>
-          <div className="font-bold text-zinc-800">
+          <div className="font-bold text-[var(--color-ink)]">
             {file ? file.name : `Select file to run ${name}`}
           </div>
           <div className="text-xs text-[var(--color-ink-muted)]">
@@ -36,7 +36,7 @@ export default function GenericToolRunner({ name }: { name: string }) {
       <button
         onClick={handleProcess}
         disabled={!file}
-        className="w-full py-3.5 bg-zinc-900 text-white font-bold rounded-xl hover:bg-zinc-800 transition disabled:opacity-40 text-sm"
+        className="w-full py-3.5 bg-[var(--color-btn-bg)] text-[var(--color-btn-fg)] font-bold rounded-xl hover:opacity-90 transition disabled:opacity-40 text-sm"
       >
         Run {name} Locally
       </button>

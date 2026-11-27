@@ -38,17 +38,17 @@ export default function AdminLogin({ locale }: { locale: string }) {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50 flex items-center justify-center p-6">
+    <div className="min-h-screen bg-[var(--color-surface-2)] flex items-center justify-center p-6">
       <div className="w-full max-w-sm">
         <div className="mb-6 text-center">
-          <div className="text-2xl font-black tracking-tight text-zinc-900">
+          <div className="text-2xl font-black tracking-tight text-[var(--color-ink)]">
             iatools <span className="text-zinc-400 font-semibold text-base">/ admin</span>
           </div>
-          <p className="text-xs text-zinc-500 mt-1">Área restrita. Conteúdo não indexado.</p>
+          <p className="text-xs text-[var(--color-ink-muted)] mt-1">Área restrita. Conteúdo não indexado.</p>
         </div>
 
-        <form onSubmit={entrar} className="bg-white border border-zinc-200 rounded-3xl p-6 shadow-sm">
-          <label className="block text-[11px] font-black uppercase tracking-wider text-zinc-500 mb-1">
+        <form onSubmit={entrar} className="bg-white border border-[var(--color-line)] rounded-3xl p-6 shadow-sm">
+          <label className="block text-[11px] font-black uppercase tracking-wider text-[var(--color-ink-muted)] mb-1">
             E-mail
           </label>
           <input
@@ -57,10 +57,10 @@ export default function AdminLogin({ locale }: { locale: string }) {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full text-sm px-3 py-2.5 border border-zinc-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            className="w-full text-sm px-3 py-2.5 border border-[var(--color-line)] rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400"
           />
 
-          <label className="block text-[11px] font-black uppercase tracking-wider text-zinc-500 mb-1 mt-4">
+          <label className="block text-[11px] font-black uppercase tracking-wider text-[var(--color-ink-muted)] mb-1 mt-4">
             Senha
           </label>
           <input
@@ -69,7 +69,7 @@ export default function AdminLogin({ locale }: { locale: string }) {
             value={senha}
             onChange={(e) => setSenha(e.target.value)}
             required
-            className="w-full text-sm px-3 py-2.5 border border-zinc-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            className="w-full text-sm px-3 py-2.5 border border-[var(--color-line)] rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400"
           />
 
           {erro && (
@@ -81,12 +81,12 @@ export default function AdminLogin({ locale }: { locale: string }) {
           <button
             type="submit"
             disabled={ocupado}
-            className="mt-5 w-full bg-zinc-900 text-white font-bold text-sm py-2.5 rounded-full hover:bg-zinc-800 transition disabled:opacity-50"
+            className="mt-5 w-full bg-[var(--color-btn-bg)] text-[var(--color-btn-fg)] font-bold text-sm py-2.5 rounded-full hover:opacity-90 transition disabled:opacity-50"
           >
             {ocupado ? 'Entrando…' : 'Entrar'}
           </button>
 
-          <p className="mt-4 text-[11px] text-zinc-500 leading-relaxed">
+          <p className="mt-4 text-[11px] text-[var(--color-ink-muted)] leading-relaxed">
             A senha é conferida no servidor contra um hash PBKDF2. Nada de senha ou token
             fica guardado no navegador. Sessão de 12 horas.
           </p>

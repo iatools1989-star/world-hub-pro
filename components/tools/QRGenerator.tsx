@@ -112,7 +112,7 @@ export default function QRGenerator() {
             className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition ${
               activeTab === tab
                 ? 'bg-zinc-900 text-yellow-400 shadow'
-                : 'bg-zinc-100 text-[var(--color-ink-muted)] hover:bg-zinc-200'
+                : 'bg-[var(--color-surface-2)] text-[var(--color-ink-soft)] hover:bg-[var(--color-line)]'
             }`}
           >
             {tab === 'url' && '🔗 Link / URL'}
@@ -134,7 +134,7 @@ export default function QRGenerator() {
               value={rawText}
               onChange={(e) => setRawText(e.target.value)}
               placeholder="https://example.com/my-page"
-              className="w-full px-4 py-3 rounded-xl border border-zinc-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 text-sm"
+              className="w-full px-4 py-3 rounded-xl border border-[var(--color-line-strong)] focus:outline-none focus:ring-2 focus:ring-yellow-400 text-sm"
             />
           </div>
         )}
@@ -150,7 +150,7 @@ export default function QRGenerator() {
                 value={wifiSsid}
                 onChange={(e) => setWifiSsid(e.target.value)}
                 placeholder="e.g. Home_5G"
-                className="w-full px-4 py-2.5 rounded-xl border border-zinc-300 text-sm"
+                className="w-full px-4 py-2.5 rounded-xl border border-[var(--color-line-strong)] text-sm"
               />
             </div>
             <div className="sm:col-span-1">
@@ -162,7 +162,7 @@ export default function QRGenerator() {
                 value={wifiPass}
                 onChange={(e) => setWifiPass(e.target.value)}
                 placeholder="Network password..."
-                className="w-full px-4 py-2.5 rounded-xl border border-zinc-300 text-sm"
+                className="w-full px-4 py-2.5 rounded-xl border border-[var(--color-line-strong)] text-sm"
               />
             </div>
             <div className="sm:col-span-1">
@@ -172,7 +172,7 @@ export default function QRGenerator() {
               <select
                 value={wifiType}
                 onChange={(e) => setWifiType(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl border border-zinc-300 text-sm bg-[var(--color-surface)]"
+                className="w-full px-4 py-2.5 rounded-xl border border-[var(--color-line-strong)] text-sm bg-[var(--color-surface)]"
               >
                 <option value="WPA">WPA / WPA2 / WPA3</option>
                 <option value="WEP">WEP</option>
@@ -192,7 +192,7 @@ export default function QRGenerator() {
               value={rawText}
               onChange={(e) => setRawText(e.target.value)}
               placeholder="Type any text..."
-              className="w-full px-4 py-2.5 rounded-xl border border-zinc-300 text-sm"
+              className="w-full px-4 py-2.5 rounded-xl border border-[var(--color-line-strong)] text-sm"
             />
           </div>
         )}
@@ -243,7 +243,7 @@ export default function QRGenerator() {
             <select
               value={errorLevel}
               onChange={(e) => setErrorLevel(e.target.value as any)}
-              className="w-full px-2 py-1.5 rounded-lg border border-zinc-300 bg-[var(--color-surface)] text-xs"
+              className="w-full px-2 py-1.5 rounded-lg border border-[var(--color-line-strong)] bg-[var(--color-surface)] text-xs"
             >
               <option value="L">Low (7%)</option>
               <option value="M">Medium (15%)</option>
@@ -267,7 +267,7 @@ export default function QRGenerator() {
         <div className="flex flex-wrap gap-3 justify-center">
           <button
             onClick={downloadPNG}
-            className="px-6 py-3 bg-zinc-900 text-white font-bold rounded-full hover:bg-zinc-800 transition text-sm flex items-center gap-2 shadow"
+            className="px-6 py-3 bg-[var(--color-btn-bg)] text-[var(--color-btn-fg)] font-bold rounded-full hover:opacity-90 transition text-sm flex items-center gap-2 shadow"
           >
             <span>⬇</span> Download PNG Image
           </button>

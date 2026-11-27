@@ -203,8 +203,8 @@ export default function AdminEditor() {
       {criando && (
         <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4">
           <div className="w-full max-w-md rounded-2xl bg-white p-5 shadow-xl">
-            <h2 className="text-base font-black text-zinc-900">Nova página</h2>
-            <p className="text-xs text-zinc-500 mt-1 leading-relaxed">
+            <h2 className="text-base font-black text-[var(--color-ink)]">Nova página</h2>
+            <p className="text-xs text-[var(--color-ink-muted)] mt-1 leading-relaxed">
               Escreva o título. O endereço é gerado a partir dele e aparece na hora —
               confira antes de criar, porque mudar depois quebra link.
             </p>
@@ -214,9 +214,9 @@ export default function AdminEditor() {
               onChange={(e) => { setNovoTitulo(e.target.value); setErroCriar(null); }}
               onKeyDown={(e) => { if (e.key === 'Enter') criarPagina(); }}
               placeholder="Ex.: How to pick a transcription tool"
-              className="mt-3 w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+              className="mt-3 w-full rounded-lg border border-[var(--color-line-strong)] px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
             />
-            <p className="mt-2 text-[11px] text-zinc-500 font-mono">
+            <p className="mt-2 text-[11px] text-[var(--color-ink-muted)] font-mono">
               /en/guides/{novoTitulo.trim()
                 ? novoTitulo.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
                     .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 70) || '…'
@@ -230,7 +230,7 @@ export default function AdminEditor() {
             <div className="mt-4 flex justify-end gap-2">
               <button
                 onClick={() => { setCriando(false); setNovoTitulo(''); setErroCriar(null); }}
-                className="rounded-full border border-zinc-300 px-4 py-1.5 text-xs font-bold text-zinc-600 hover:border-zinc-500"
+                className="rounded-full border border-[var(--color-line-strong)] px-4 py-1.5 text-xs font-bold text-[var(--color-ink-soft)] hover:border-zinc-500"
               >
                 Cancelar
               </button>
@@ -239,7 +239,7 @@ export default function AdminEditor() {
                 disabled={enviandoCriar || novoTitulo.trim().length < 3}
                 className={`rounded-full px-4 py-1.5 text-xs font-bold transition ${
                   enviandoCriar || novoTitulo.trim().length < 3
-                    ? 'bg-zinc-200 text-zinc-500 cursor-not-allowed'
+                    ? 'bg-[var(--color-line)] text-[var(--color-ink-muted)] cursor-not-allowed'
                     : 'bg-zinc-900 text-amber-300 hover:bg-zinc-800'
                 }`}
               >
@@ -253,8 +253,8 @@ export default function AdminEditor() {
       {confirmandoApagar && (
         <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4">
           <div className="w-full max-w-md rounded-2xl bg-white p-5 shadow-xl">
-            <h2 className="text-base font-black text-zinc-900">Apagar esta página?</h2>
-            <p className="text-xs text-zinc-500 mt-1 leading-relaxed">
+            <h2 className="text-base font-black text-[var(--color-ink)]">Apagar esta página?</h2>
+            <p className="text-xs text-[var(--color-ink-muted)] mt-1 leading-relaxed">
               O endereço sai do ar e o texto é removido do repositório. O histórico do git
               continua com a versão anterior, então dá para recuperar.
             </p>
@@ -266,7 +266,7 @@ export default function AdminEditor() {
             <div className="mt-4 flex justify-end gap-2">
               <button
                 onClick={() => { setConfirmandoApagar(false); setErroApagar(null); }}
-                className="rounded-full border border-zinc-300 px-4 py-1.5 text-xs font-bold text-zinc-600 hover:border-zinc-500"
+                className="rounded-full border border-[var(--color-line-strong)] px-4 py-1.5 text-xs font-bold text-[var(--color-ink-soft)] hover:border-zinc-500"
               >
                 Cancelar
               </button>
@@ -287,7 +287,7 @@ export default function AdminEditor() {
           value={filtro}
           onChange={(e) => setFiltro(e.target.value)}
           placeholder="Buscar página…"
-          className="w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+          className="w-full rounded-lg border border-[var(--color-line-strong)] px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
         />
         <div className="flex flex-wrap gap-1.5">
           {[['todos', 'Tudo'], ['directory', 'Diretório'], ['tool', 'Ferramentas'], ['guide', 'Artigos']].map(
@@ -298,7 +298,7 @@ export default function AdminEditor() {
                 className={`rounded-full px-3 py-1 text-[11px] font-bold border transition ${
                   tipoAtivo === k
                     ? 'bg-zinc-900 text-amber-300 border-zinc-900'
-                    : 'bg-white text-zinc-600 border-zinc-200 hover:border-zinc-400'
+                    : 'bg-white text-[var(--color-ink-soft)] border-[var(--color-line)] hover:border-zinc-400'
                 }`}
               >
                 {rotulo} <span className="opacity-60">{contagem[k]}</span>
@@ -314,7 +314,7 @@ export default function AdminEditor() {
           + Nova página
         </button>
 
-        {!docs && <p className="text-xs text-zinc-500">Carregando…</p>}
+        {!docs && <p className="text-xs text-[var(--color-ink-muted)]">Carregando…</p>}
 
         <div className="space-y-1 max-h-[calc(100vh-220px)] overflow-y-auto pr-1">
           {visiveis.map((d) => (
@@ -324,11 +324,11 @@ export default function AdminEditor() {
               className={`w-full text-left rounded-lg px-3 py-2 border transition ${
                 aberto === d.id
                   ? 'border-amber-400 bg-amber-50'
-                  : 'border-transparent hover:border-zinc-200 hover:bg-white'
+                  : 'border-transparent hover:border-[var(--color-line)] hover:bg-white'
               }`}
             >
-              <div className="text-[13px] font-bold text-zinc-900 leading-tight">{d.nome}</div>
-              <div className="text-[11px] text-zinc-500 flex gap-2 mt-0.5">
+              <div className="text-[13px] font-bold text-[var(--color-ink)] leading-tight">{d.nome}</div>
+              <div className="text-[11px] text-[var(--color-ink-muted)] flex gap-2 mt-0.5">
                 <span>{ROTULO_TIPO[d.tipo]}</span>
                 <span>·</span>
                 <span>{d.palavras} palavras</span>
@@ -336,7 +336,7 @@ export default function AdminEditor() {
             </button>
           ))}
           {docs && visiveis.length === 0 && (
-            <p className="text-xs text-zinc-500 px-1">Nada encontrado.</p>
+            <p className="text-xs text-[var(--color-ink-muted)] px-1">Nada encontrado.</p>
           )}
         </div>
       </aside>
@@ -357,23 +357,23 @@ export default function AdminEditor() {
         )}
 
         {!aberto && (
-          <div className="rounded-xl border border-dashed border-zinc-300 bg-white p-10 text-center">
-            <p className="text-sm font-bold text-zinc-900">Escolha uma página à esquerda</p>
-            <p className="text-xs text-zinc-500 mt-1">
+          <div className="rounded-xl border border-dashed border-[var(--color-line-strong)] bg-white p-10 text-center">
+            <p className="text-sm font-bold text-[var(--color-ink)]">Escolha uma página à esquerda</p>
+            <p className="text-xs text-[var(--color-ink-muted)] mt-1">
               {docs?.length ?? 0} páginas de conteúdo: {contagem.directory} do diretório,{' '}
               {contagem.tool} de ferramentas e {contagem.guide} artigos.
             </p>
           </div>
         )}
 
-        {carregandoDoc && <p className="text-xs text-zinc-500">Abrindo…</p>}
+        {carregandoDoc && <p className="text-xs text-[var(--color-ink-muted)]">Abrindo…</p>}
 
         {doc && !carregandoDoc && (
           <div className="space-y-4">
             <header className="flex items-start justify-between gap-4 flex-wrap">
               <div>
-                <h1 className="text-lg font-black text-zinc-900">{String(doc.nome ?? doc.titulo)}</h1>
-                <p className="text-xs text-zinc-500">
+                <h1 className="text-lg font-black text-[var(--color-ink)]">{String(doc.nome ?? doc.titulo)}</h1>
+                <p className="text-xs text-[var(--color-ink-muted)]">
                   {ROTULO_TIPO[String(doc.tipo)]} · /{doc.slug} · atualizado em {String(doc.updated)}
                 </p>
               </div>
@@ -381,7 +381,7 @@ export default function AdminEditor() {
                 <a
                   href={`/en/${doc.tipo === 'guide' ? 'guides' : doc.tipo === 'tool' ? 'tools' : 'directory'}/${doc.slug}`}
                   target="_blank"
-                  className="text-xs font-bold text-zinc-600 hover:text-zinc-900"
+                  className="text-xs font-bold text-[var(--color-ink-soft)] hover:text-[var(--color-ink)]"
                 >
                   ver página ↗
                 </a>
@@ -403,7 +403,7 @@ export default function AdminEditor() {
                   }
                   className={`rounded-full px-4 py-1.5 text-xs font-bold transition ${
                     salvando || Object.keys(alterados).length === 0
-                      ? 'bg-zinc-200 text-zinc-500 cursor-not-allowed'
+                      ? 'bg-[var(--color-line)] text-[var(--color-ink-muted)] cursor-not-allowed'
                       : 'bg-zinc-900 text-amber-300 hover:bg-zinc-800'
                   }`}
                 >
@@ -435,7 +435,7 @@ export default function AdminEditor() {
             <Campos doc={doc} alterados={alterados} editar={editar} />
 
             {Object.keys(alterados).length > 0 && (
-              <p className="text-[12px] text-zinc-600">
+              <p className="text-[12px] text-[var(--color-ink-soft)]">
                 {Object.keys(alterados).length} campo(s) alterado(s) nesta sessão.
               </p>
             )}
@@ -503,8 +503,8 @@ function Secao({
   editar: (caminho: string, valor: unknown) => void;
 }) {
   return (
-    <section className="rounded-xl border border-zinc-200 bg-white p-4">
-      <h2 className="text-[11px] font-black uppercase tracking-wider text-zinc-500 mb-2">
+    <section className="rounded-xl border border-[var(--color-line)] bg-white p-4">
+      <h2 className="text-[11px] font-black uppercase tracking-wider text-[var(--color-ink-muted)] mb-2">
         {nomeHumano(nome)}
       </h2>
       <Valor valor={valor} caminho={caminho} alterados={alterados} editar={editar} />
@@ -532,7 +532,7 @@ function Valor({
             value={atual}
             onChange={(e) => editar(caminho, e.target.value)}
             className={`w-full rounded-lg border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 ${
-              mudou ? 'border-amber-400 bg-amber-50/40' : 'border-zinc-300'
+              mudou ? 'border-amber-400 bg-amber-50/40' : 'border-[var(--color-line-strong)]'
             }`}
           />
         ) : (
@@ -541,7 +541,7 @@ function Valor({
             rows={linhas}
             onChange={(e) => editar(caminho, e.target.value)}
             className={`w-full rounded-lg border px-3 py-2 text-sm leading-relaxed focus:outline-none focus:ring-2 focus:ring-amber-400 ${
-              mudou ? 'border-amber-400 bg-amber-50/40' : 'border-zinc-300'
+              mudou ? 'border-amber-400 bg-amber-50/40' : 'border-[var(--color-line-strong)]'
             }`}
           />
         )}
@@ -573,7 +573,7 @@ function Valor({
       <div className="space-y-2">
         {Object.entries(valor as Record<string, unknown>).map(([k, v]) => (
           <div key={k}>
-            <p className="text-[11px] font-bold text-zinc-500 mb-1">{nomeHumano(k)}</p>
+            <p className="text-[11px] font-bold text-[var(--color-ink-muted)] mb-1">{nomeHumano(k)}</p>
             <Valor valor={v} caminho={`${caminho}.${k}`} alterados={alterados} editar={editar} />
           </div>
         ))}

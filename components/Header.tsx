@@ -48,7 +48,7 @@ export default function Header({ currentLocale }: { currentLocale: string }) {
       <div className="mx-auto flex h-[var(--nav-h)] max-w-[1200px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         {/* Marca */}
         <Link href={`/${currentLocale}`} className="group flex shrink-0 items-center gap-2.5" aria-label="World Tools Hub — home">
-          <span className="grid h-8 w-8 place-items-center rounded-[9px] bg-[var(--color-ink)] text-[13px] font-black text-[var(--color-brand)] transition-transform group-hover:-rotate-6">
+          <span className="grid h-8 w-8 place-items-center rounded-[9px] bg-[#101012] text-[13px] font-black text-[#f5c518] dark:bg-[#f5c518] dark:text-[#101012] transition-transform group-hover:-rotate-6">
             W
           </span>
           <span className="flex flex-col leading-none">
